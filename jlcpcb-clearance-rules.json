@@ -1,0 +1,24 @@
+{
+  "revision": "1.0.38",
+  "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
+  "copper": { "outerOz": 1, "innerOz": 0.5, "layers": 4 },
+  "minimumMm": {
+    "traceWidth": 0.1,
+    "traceToTrace": 0.1,
+    "padToTrace": 0.1,
+    "padToPad": 0.15,
+    "viaToTrace": 0.1,
+    "viaToPad": 0.125,
+    "motorPowerToPad": 0.15,
+    "viaDrillToTrace": 0.2,
+    "innerViaDrillToCopper": 0.2,
+    "pthDrillToTrace": 0.28,
+    "innerPthDrillToCopper": 0.3,
+    "npthToCopper": 0.2,
+    "viaDrillToViaDrill": 0.2,
+    "pthDrillToDrill": 0.45,
+    "copperToBoardEdge": 0.2
+  },
+  "note": "Trace spacing is conservative for 1 oz multilayer fabrication. Motor-power-to-pad 0.15 mm and via-to-pad 0.125 mm are board targets above the general 0.10 mm copper spacing. No power-pad clearance exceptions are permitted."
+}
+
