@@ -353,15 +353,45 @@ const rotatedOblongPads = [
   "B21", "C21", "D21", "E21", "F21", "G21", "H21", "J21", "K21", "L21", "M21", "N21",
   "P21", "R21", "T21", "U21", "V21", "W21", "Y21",
 ];
-const ballToPos = (ball: string, isOblong: boolean) => {
+/**
+ * The package is a mixed-pitch BGA: the outer perimeter ring is a fine-pitch
+ * (0.46mm) array, while the interior is a coarser (0.65mm) full-matrix array.
+ * Both arrays are centered on the package, so a ball's position is just its
+ * index within whichever array it belongs to, scaled by that array's pitch.
+ */
+const outerPitch = 0.46;
+const innerPitch = 0.65;
+
+/** Rows that span the full width (i.e. every column is a perimeter ball). */
+const perimeterRowIdents = new Set(["A", "B", "Y", "AA"]);
+/** Columns that form the left/right edges of the perimeter ring. */
+const perimeterColNumbers = new Set([1, 2, 20, 21]);
+
+/** Row identifiers of the interior full-matrix array, top-to-bottom. */
+const innerRowIdents = ["D", "E", "F", "H", "J", "L", "N", "P", "T", "U", "V"];
+/** Column identifiers of the interior full-matrix array, left-to-right. */
+const innerColNumbers = [4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18];
+
+/** Y is negated so that row A sits at the top, matching the datasheet view. */
+const ballToPos = (ball: string) => {
   const rowIdent = ball.replace(/\d+$/, "");
-  const row = rows.indexOf(rowIdent);
   const col = Number(ball.slice(rowIdent.length));
 
-  // How to calculate spacing?
-  // We need to do 
+  // Outer perimeter balls sit on the fine 0.46mm grid.
+  const isPerimeter =
+    perimeterRowIdents.has(rowIdent) || perimeterColNumbers.has(col);
+  if (isPerimeter) {
+    return [
+      (col - 11) * outerPitch,
+      -(rows.indexOf(rowIdent) - 10) * outerPitch,
+    ] as const;
+  }
 
-  return [0, 0];
+  // Interior balls sit on the coarser 0.65mm grid.
+  return [
+    (innerColNumbers.indexOf(col) - 5) * innerPitch,
+    -(innerRowIdents.indexOf(rowIdent) - 5) * innerPitch,
+  ] as const;
 };
 /**
  * The ASM2464PDX is in BGA (Ball Grid Array) form. That is, it is soldered on via
@@ -391,7 +421,7 @@ export const Footprint = () => {
         const rotatedOblong = rotatedOblongPads.includes(ball);
         const isOblong = oblongPads.includes(ball) || rotatedOblong;
         const Pad = isOblong ? OblongPad : CircularPad;
-        const [x, y] = ballToPos(ball, isOblong);
+        const [x, y] = ballToPos(ball);
         return <Pad 
           pcbX={x} 
           pcbY={y} 
@@ -399,6 +429,13 @@ export const Footprint = () => {
           layer="top" 
         />;
       })}
+      <courtyardrect
+        pcbX={0}
+        pcbY={0}
+        width="12mm"
+        height="12mm"
+        strokeWidth={0.1}
+      />
     </footprint>
   );
 };
@@ -429,37 +466,80 @@ const OblongPad = (props: Omit<ComponentProps<"smtpad">, "shape" | "radius">) =>
 
 export default function ASM2464PDX() {
   return (
-    <chip
-      name="USB4/Thunderbolt to PCIe Gen4 x4 Controller"
-      manufacturerPartNumber="ASM2464PDX"
-      footprint={<Footprint/>}
-      noConnect={Object.values(pinMap).filter(name => name.startsWith("NC"))}
-      connections={connections}
-      pinLabels={
-        /** Here's what each pad is called on the schematic. We hide some. */
-        pinLabels
-      }
-      schPinArrangement={{
-        /** Let's rearrange schematic by purpose. */
-        leftSide: {
-          direction: "top-to-bottom",
-          pins: schLeftPins,
-        },
-        rightSide: {
-          direction: "top-to-bottom",
-          pins: schRightPins,
-        },
-        topSide: {
-          direction: "left-to-right",
-          pins: schTopPins,
-        },
-        bottomSide: {
-          direction: "left-to-right",
-          pins: schBottomPins,
+    <>
+      <chip
+        name="ASM2464PDX"
+        footprint={<Footprint/>}
+        noConnect={[
+          ...Object.values(pinMap).filter(name => name.startsWith("NC")),
+          // We're not using I2C or UART.
+          "I2C_CLK_P",
+          "I2C_DATA_P",
+          "UART_RX",
+          "UART_TX",
+        ]}
+        connections={connections}
+        pinLabels={
+          /** Here's what each pad is called on the schematic. We hide some. */
+          pinLabels
         }
-      }}
-      schWidth="5mm"
-      schHeight="8mm"
-    />
+        schPinArrangement={{
+          /** Let's rearrange schematic by purpose. */
+          leftSide: {
+            direction: "top-to-bottom",
+            pins: schLeftPins,
+          },
+          rightSide: {
+            direction: "top-to-bottom",
+            pins: schRightPins,
+          },
+          topSide: {
+            direction: "left-to-right",
+            pins: schTopPins,
+          },
+          bottomSide: {
+            direction: "left-to-right",
+            pins: schBottomPins,
+          }
+        }}
+        schWidth="5mm"
+        schHeight="8mm"
+      />
+      <netlabel 
+        connection="ASM2464PDX.GND" 
+        schX={4}
+        schY={2.5}
+        net="GND" 
+        anchorSide="left"
+      />
+      <netlabel
+        connection="ASM2464PDX.GNDA"
+        schX={4}
+        schY={2.3}
+        net="GNDA"
+        anchorSide="left"
+      />
+      <netlabel
+        connection="ASM2464PDX.VCCH"
+        schX={4}
+        schY={-2.1}
+        net="VCCH"
+        anchorSide="left"
+      />
+      <netlabel
+        connection="ASM2464PDX.VCCL"
+        schX={4}
+        schY={-2.3}
+        net="VCCL"
+        anchorSide="left"
+      />
+      <netlabel
+        connection="ASM2464PDX.VDD"
+        schX={4}
+        schY={-2.5}
+        net="VDD"
+        anchorSide="left"
+      />
+    </>
   );
 }
