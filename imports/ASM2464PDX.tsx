@@ -290,7 +290,17 @@ const pinLabels = Object.fromEntries(
 );
 
 /** Compile nets. */
-const nets = ["GND", "GNDA", "VDD", "VCCH", "VCCL"];
+const nets = [
+  "GND",
+  "GNDA",
+  "VDD",
+  "VCCH",
+  "VCCL",
+  "SPI_CS",
+  "SPI_DO",
+  "SPI_DI",
+  "SPI_CLK",
+];
 const connections = Object.fromEntries(
   Object.keys(pinLabels)
     .filter(pin => nets.includes(pinLabels[pin]))
@@ -507,7 +517,7 @@ export default function ASM2464PDX() {
       />
       <netlabel 
         connection="ASM2464PDX.GND" 
-        schX={4}
+        schX={3}
         schY={2.5}
         net="GND" 
         anchorSide="left"
