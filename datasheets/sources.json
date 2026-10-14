@@ -1,0 +1,276 @@
+{
+  "checked_on": "2026-10-14",
+  "scope": "All component definitions in imports/, including parts not yet placed on the board. Existing PDFs are preserved.",
+  "components": [
+    {
+      "manufacturer_part_number": "ASM2464PDX",
+      "manufacturer": "ASMedia",
+      "component_file": "imports/ASM2464PDX.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "ASM2464PDX"
+      ],
+      "documents": [
+        {
+          "file": "ASM2464PDX.pdf",
+          "source_url": null,
+          "origin": "existing project file",
+          "pages": 24,
+          "sha256": "f98f2ec9f9464f8db2acc952dc7f27dbcc264a8b2c9d0a97d0931af6f40d782c",
+          "notes": "Existing project datasheet; original download source is not recorded."
+        },
+        {
+          "file": "ASM2464PDX_DataSheet_R0_3.pdf",
+          "source_url": null,
+          "origin": "existing project file",
+          "pages": 24,
+          "sha256": "4a09440d6510e29e441e9228214ca18650a3a83e15631530c9b3bb51c430f221",
+          "notes": "Additional ASM2464PDX datasheet present at final inventory. Original download source is not recorded; preserved alongside the original PDF."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "W25Q32JVSSIQ",
+      "manufacturer": "Winbond",
+      "component_file": "imports/W25Q32JVSSIQ.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "SPI"
+      ],
+      "documents": [
+        {
+          "file": "W25Q32JV.pdf",
+          "source_url": null,
+          "origin": "existing project file",
+          "pages": 80,
+          "sha256": "2f35d475259172527c2893965fe6818f19a718a1f322342a9480459c0c64a02a",
+          "notes": "Existing W25Q32JV family datasheet, revision F; explicitly lists W25Q32JVSSIQ."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "TPS62130RGTR",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/TPS62130RGTR.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "VCCL_BUCK",
+        "VDD_BUCK"
+      ],
+      "documents": [
+        {
+          "file": "TPS62130RGTR.pdf",
+          "source_url": "https://www.ti.com/lit/ds/symlink/tps62130.pdf",
+          "origin": "downloaded",
+          "pages": 43,
+          "sha256": "f9b1af285622c0cf1a5991f9641a6e64c5e6d899e52cc0b1632808742019579f",
+          "notes": "TPS6213x family datasheet, revision F; includes TPS62130RGTR ordering and package information."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "TCC0402COG100J500AT",
+      "manufacturer": "CCTC",
+      "component_file": "imports/TCC0402COG100J500AT.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C1"
+      ],
+      "documents": [
+        {
+          "file": "TCC0402COG100J500AT.pdf",
+          "source_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2304140030_CCTC-TCC0402COG100J500AT_C696913.pdf",
+          "origin": "downloaded",
+          "pages": 41,
+          "sha256": "26d828419d0d65dae4239c989076b3e9801f866f4c4cd7e809e908cd5fa078a0",
+          "notes": "Manufacturer general MLCC specification supplied for C696913; covers 0402, C0G, capacitance/tolerance/voltage codes, and package dimensions."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "XXCBCLNANF-25M",
+      "manufacturer": "Taitien",
+      "component_file": "imports/XXCBCLNANF_25M.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "XCLK"
+      ],
+      "documents": [
+        {
+          "file": "XXCBCLNANF-25M.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/896e74927e0f4137b3e96b928183819e.pdf?productCode=C124313",
+          "origin": "downloaded",
+          "pages": 1,
+          "sha256": "981da8f9bd66f8191a4c6d0aecca46aa35a106bf389ba5ed096764d92d4d4cb6",
+          "notes": "Manufacturer XX type 3.2 x 2.5 mm crystal family datasheet, Rev(9)04/2015, supplied for exact part C124313. Exact 25 MHz, 10 pF variant is identified by the supplier listing."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "X3183WV-164B1-46V01",
+      "manufacturer": "XKB Connection",
+      "component_file": "imports/X3183WV_164B1_46V01.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "PCIe"
+      ],
+      "documents": [
+        {
+          "file": "X3183WV-164B1-46V01.pdf",
+          "source_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2305061716_XKB-Connection-X3183WV-164B1-46V01_C5711214.pdf",
+          "origin": "downloaded",
+          "pages": 5,
+          "sha256": "0a4a6eed517339191e01d631feeae952c3ecd7371603517833626f9fa107a802",
+          "notes": "Manufacturer drawing set for the exact connector variant; includes dimensions and specifications."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "39301240",
+      "manufacturer": "Molex",
+      "component_file": "imports/A_39301240.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "ATX"
+      ],
+      "documents": [
+        {
+          "file": "39301240.pdf",
+          "source_url": "https://asset.conrad.com/media10/add/160267/c1/-/en/002448428DS00/scheda-tecnica-2448428-molex-39301240-mini-fit-jr-header-dual-row-right-angle-with-snap-in-plastic-peg-pcb-lock-24-circuits-nylon-66-94v.pdf",
+          "origin": "downloaded",
+          "pages": 2,
+          "sha256": "54a068fb99260b9283cae6076b5e474bb57c32ec162fcd671844cf36ff09abb5",
+          "notes": "Manufacturer part datasheet generated 2021-08-19, hosted by Conrad. Aliases: 0039301240, 39-30-1240, 5569-24A2."
+        },
+        {
+          "file": "39301240-drawing.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/1e04dca00a1184f6430a86b409fb7626.pdf?productCode=C492347",
+          "origin": "downloaded",
+          "pages": 4,
+          "sha256": "136a01651c758f92500c4a9148d995a3f212bdcfcbe8e501736aac7e145695fa",
+          "notes": "Manufacturer sales drawing 55690002-SD, revision A, released 2018-02-22; includes 39-30-1240 in the variant table."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "XL-1608SURC-06",
+      "manufacturer": "Xinglight",
+      "component_file": "imports/XL_1608SURC_06.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "documents": [
+        {
+          "file": "XL-1608SURC-06.pdf",
+          "source_url": "https://www.xinglight.cn/uploadfile/202506/60f2a54fafd0ff3.pdf",
+          "origin": "downloaded",
+          "pages": 14,
+          "sha256": "a45a8428cbf4d5a5ccc883d19fc98c182185ab281a5cfbbb9b7d37f4d8b2fd71",
+          "notes": "Manufacturer technical datasheet for the exact LED. Imported component is not placed in index.circuit.tsx."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-0712K1L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RC0402FR_0712K1L.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R1"
+      ],
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "GT-USB-7087B",
+      "manufacturer": "G-Switch",
+      "component_file": "imports/GT_USB_7087B.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "USBC"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C3019713"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/GSwitch-GT_USB7087B/C3019713",
+      "documents": [
+        {
+          "file": "GT-USB-7087B.pdf",
+          "source_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2401030907_G-Switch-GT-USB-7087B_C3019713.pdf",
+          "origin": "downloaded",
+          "pages": 1,
+          "sha256": "6b585527e9169a85455a3da2e42594bfe7c947dff7a5d7e05ae00274a948fabf",
+          "notes": "Manufacturer drawing revision A0, 2023-02-01. Specifies 24 contacts, data transmission up to 40 Gbps, 5 A VBUS, 24 V rating, 1.35 mm center height and 0.23 mm recessed body. Includes pin assignments and recommended PCB layout. High-speed coupling, ESD protection and shield termination remain incomplete."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1002TCE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0402WGF1002TCE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_SPI_WP",
+        "R_SPI_HOLD",
+        "R_SPI_CS"
+      ],
+      "documents": [
+        {
+          "file": "0402WGF1002TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25744",
+          "origin": "downloaded",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "Manufacturer thick-film chip resistor family datasheet supplied for JLCPCB C25744. The part is a 0402, 10 kOhm, +/-1%, 1/16 W resistor. The component uses the exact EasyEDA footprint imported by tsci from JLCPCB C25744."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05B104KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL05B104KO5NNNC.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_SPI_VCC"
+      ],
+      "documents": [
+        {
+          "file": "CL05B104KO5NNNC.pdf",
+          "source_url": "https://www1.futureelectronics.com/doc/Samsung%20Electro-Mechanics/CL05B104KO5NNNC-SMP.pdf",
+          "origin": "downloaded",
+          "pages": 36,
+          "sha256": "c03bbd6b68fe9ec46c61a789e7b84b3f091e01fdda21afa99e6c793709252462",
+          "notes": "Samsung part-specific specification supplied by Future Electronics. Page 1 specifies 100 nF, +/-10%, X7R, 16 V, 0402 (1005 metric). JLCPCB Basic part C1525; exact EasyEDA footprint imported with tsci. Used as the SPI flash supply decoupling capacitor; ASMedia reference schematic sheet 3 uses 100 nF at C73."
+        }
+      ]
+    }
+  ],
+  "retired_components": [
+    {
+      "manufacturer_part_number": "TYPE-C-31-M-12",
+      "manufacturer": "HRO / Korean Hroparts Elec",
+      "placed_on_board": false,
+      "board_references": [],
+      "documents": [
+        {
+          "file": "TYPE-C-31-M-12.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/9e56b777c022540fcce7c7f67825f55e.pdf?productCode=C165948",
+          "origin": "downloaded",
+          "pages": 1,
+          "sha256": "6ae33d50ac47820114661138dc4e4659f40fdc5d4f485b46685dfec338da1a9e",
+          "notes": "Manufacturer connector drawing with pin assignments, recommended PCB layout, and electrical/mechanical specifications. Imported component is not placed in index.circuit.tsx."
+        }
+      ],
+      "removal_reason": "USB 2.0-only receptacle; replaced by GT-USB-7087B because the high-speed USB4 contacts are absent."
+    }
+  ]
+}

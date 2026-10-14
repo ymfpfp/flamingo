@@ -1,0 +1,18 @@
+{
+  "part": "ASM2464PD",
+  "supplier_part": "C7509569",
+  "source_url": "https://easyeda.com/api/products/C7509569/svgs",
+  "viewer_url": "https://jlcpcb.com/user-center/lcsvg/svg.html?code=C7509569&detail=1",
+  "component_uuid": "41ac95f25903451d89a9c7a8010d57ba",
+  "retrieved_on": "2026-10-14",
+  "source_svg": "ASM2464PD_C7509569.svg",
+  "internal_ball_count": 121,
+  "internal_copper_diameter_mm": 0.18,
+  "measurement": "Each internal pad has c_width=c_height=0.7087 SVG units. SVG physical/viewBox scale is 0.254 mm/unit; diameter is 0.1800098 mm (0.18 mm nominal).",
+  "limitation": "Supplier footprint for related ASM2464PD; not an ASMedia-issued land-pattern specification for ASM2464PDX.",
+  "comparison": {
+    "source_url": "https://github.com/Leaves232/2230-USB4-SSD-Enclosure-Design/blob/main/Fabrication%20Files%20for%20DEMO%20Board%20B2/ASM2464PD%20-%20B2%20Sample.GTL",
+    "internal_copper_diameter_mm": 0.2,
+    "measurement": "Gerber D26 aperture is C,0.00787 inch = 0.199898 mm. All 121 inner centers match the 0.65 mm grid."
+  }
+}

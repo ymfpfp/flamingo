@@ -1,30 +1,32 @@
+/** ATX 24P */
+
 import type { ChipProps } from "@tscircuit/props"
 
 const pinLabels = {
-  pin1: ["pin1"],
-  pin2: ["pin2"],
-  pin3: ["pin3"],
-  pin4: ["pin4"],
-  pin5: ["pin5"],
-  pin6: ["pin6"],
-  pin7: ["pin7"],
-  pin8: ["pin8"],
-  pin9: ["pin9"],
-  pin10: ["pin10"],
-  pin11: ["pin11"],
-  pin12: ["pin12"],
-  pin13: ["pin13"],
-  pin14: ["pin14"],
-  pin15: ["pin15"],
-  pin16: ["pin16"],
-  pin17: ["pin17"],
-  pin18: ["pin18"],
-  pin19: ["pin19"],
-  pin20: ["pin20"],
-  pin21: ["pin21"],
-  pin22: ["pin22"],
-  pin23: ["pin23"],
-  pin24: ["pin24"]
+  pin1: ["3V3_P"],
+  pin2: ["3V3_P"],
+  pin3: ["GND"],
+  pin4: ["5V_P"],
+  pin5: ["GND"],
+  pin6: ["5V_P"],
+  pin7: ["GND"],
+  pin8: ["PWR_OK"],
+  pin9: ["5VSB_P"],
+  pin10: ["12V_P"],
+  pin11: ["12V_P"],
+  pin12: ["3V3_P"],
+  pin13: ["3V3_P"],
+  pin14: ["12V_N"],
+  pin15: ["GND"],
+  pin16: ["PS_ON"],
+  pin17: ["GND"],
+  pin18: ["GND"],
+  pin19: ["GND"],
+  pin20: ["NC"],
+  pin21: ["5V_P"],
+  pin22: ["5V_P"],
+  pin23: ["5V_P"],
+  pin24: ["GND"]
 } as const
 
 export const A_39301240 = (props: ChipProps<typeof pinLabels>) => {

@@ -14,7 +14,7 @@ const pinLabels = {
 
 const pinAttributes = {
   pin4: {requiresGround: true},
-  pin8: {requiresPower: true}
+  pin8: {requiresPower: true, requiresVoltage: "3.3V"}
 } as const
 
 export const W25Q32JVSSIQ = (props: ChipProps<typeof pinLabels>) => {

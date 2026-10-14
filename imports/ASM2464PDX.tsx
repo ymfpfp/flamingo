@@ -1,5 +1,6 @@
 import {sortByAlphabetical} from "lib/utils";
-import {ComponentProps} from "react";
+import type {ComponentProps} from "react";
+import {Fragment} from "react";
 
 const genPinLabels = (
   identStart: string, 
@@ -52,6 +53,7 @@ const pinMap: Record<string, string> = {
   D17: "GND",
   D18: "GND",
   D20: "NC_D20",
+  /** Active-low PCIe reset output; do not tie this output to ground. */
   D21: "PERST3",
 
   E1: "I2C_CLK_P",
@@ -68,6 +70,7 @@ const pinMap: Record<string, string> = {
   E17: "GND",
   E18: "GND",
   E20: "NC_E20",
+  /** Active-low PCIe reset output. */
   E21: "PERST2",
 
   F1: "I2C_DATA_P",
@@ -84,13 +87,16 @@ const pinMap: Record<string, string> = {
   F17: "GND",
   F18: "GND",
   F20: "NC_F20",
+  /** Active-low PCIe reset output. */
   F21: "PERST1",
 
   G1: "VBUS",
   G2: "NC_G2",
   G20: "NC_G20",
+  /** Active-low PCIe reset output. */
   G21: "PERST0",
 
+  /** Active-low reset input; hold low during startup, then release. */
   H1: "RST",
   H2: "NC_H2",
   H4: "GND",
@@ -289,6 +295,31 @@ const pinLabels = Object.fromEntries(
   )
 );
 
+// tscircuit selectors cannot contain '#'; use _N for active-low signals and
+// retain the existing names as aliases for the board's current connections.
+const activeLowSignals = new Set(["SPI_CS", "RST", "PERST0", "PERST1", "PERST2", "PERST3"]);
+const schematicPinLabels = Object.fromEntries(
+  Object.entries(pinLabels).map(([pin, signal]) => [
+    pin,
+    activeLowSignals.has(signal) ? [`${signal}_N`, signal] : signal,
+  ])
+);
+
+const pinAttributes: NonNullable<ComponentProps<"chip">["pinAttributes"]> = {
+  VCCH: {requiresPower: true, requiresVoltage: "3.3V"},
+  VCCA33: {requiresPower: true, requiresVoltage: "3.3V"},
+  VCCL: {requiresPower: true, requiresVoltage: "1.9V"},
+  VDD: {requiresPower: true, requiresVoltage: "1.13V"},
+  GND: {requiresGround: true},
+  GNDA: {requiresGround: true},
+  RST: {isInput: true},
+  PERST0: {isOutput: true},
+  PERST1: {isOutput: true},
+  PERST2: {isOutput: true},
+  PERST3: {isOutput: true},
+  VBUS: {isInput: true},
+};
+
 /** Compile nets. */
 const nets = [
   "GND",
@@ -296,10 +327,6 @@ const nets = [
   "VDD",
   "VCCH",
   "VCCL",
-  "SPI_CS",
-  "SPI_DO",
-  "SPI_DI",
-  "SPI_CLK",
 ];
 const connections = Object.fromEntries(
   Object.keys(pinLabels)
@@ -416,8 +443,12 @@ const ballToPos = (ball: string) => {
  * - Ball pitch (center-to-center distance between adjacent balls): 
  *   0.46 mm for the outer-array pitch, 0.65 mm for the inner-array pitch
  * - Ball diameter: 0.23mm
- * - Use 7x13mil oblong pads for the outer rows. For the inner rows, the pad dimensions
- *   aren't listed, but the reference seems to use 0.18mm.
+ * - Use 7x13mil oblong pads for the outermost row on each edge, with AA1 horizontal.
+ * - The 0.18mm circular lands follow the community footprint linked above and
+ *   match JLCPCB's related ASM2464PD footprint, C7509569 (121 internal pads).
+ *   The supplier SVG and measurements are saved in datasheets/footprints/.
+ *   This is not an ASMedia land-pattern specification for PDX; verify the lands
+ *   and mask/paste settings with the assembly provider before fabrication.
  *
  * Routing is especially complicated with BGA because the balls on the inside are also
  * connected to traces. This is typically solved with fanout routing: put a small copper
@@ -430,15 +461,31 @@ export const Footprint = () => {
       {Object.entries(logicalToPhysical).map(([pin, ball]) => {
         const rotatedOblong = rotatedOblongPads.includes(ball);
         const isOblong = oblongPads.includes(ball) || rotatedOblong;
-        const Pad = isOblong ? OblongPad : CircularPad;
+        const padShape = isOblong ? {
+          shape: "pill" as const,
+          radius: "0.0889mm",
+          width: rotatedOblong ? "0.3302mm" : "0.1778mm",
+          height: rotatedOblong ? "0.1778mm" : "0.3302mm",
+        } : {
+          shape: "circle" as const,
+          radius: "0.09mm",
+        };
         const [x, y] = ballToPos(ball);
-        return <Pad 
+        return <Fragment key={ball}><smtpad
+          name={ball}
           pcbX={x} 
           pcbY={y} 
           portHints={[pin, ball]} 
           layer="top" 
-        />;
+          {...padShape}
+        /></Fragment>;
       })}
+      <fabricationnoterect width="10mm" height="10mm" strokeWidth={0.1}/>
+      {/* A1 is top-left in the PCB top view; p.22's bottom view is mirrored. */}
+      <silkscreenpath
+        strokeWidth={0.15}
+        route={[{x: -5.4, y: 4.9}, {x: -5.4, y: 5.4}, {x: -4.9, y: 5.4}]}
+      />
       <courtyardrect
         pcbX={0}
         pcbY={0}
@@ -450,48 +497,25 @@ export const Footprint = () => {
   );
 };
 
-const CircularPad = (props: Omit<ComponentProps<"smtpad">, "shape" | "radius">) => (
-  <smtpad 
-    {...props}
-    shape="circle"
-    radius={
-      /** Assuming 0.18mm pad, radius is half. */
-      "0.09mm"
-    }
-  />
-);
-
-const OblongPad = (props: Omit<ComponentProps<"smtpad">, "shape" | "radius">) => (
-  <smtpad
-    {...props}
-    shape="pill"
-    radius={
-      /** Radius is half of width. */
-      "0.0889mm"
-    }
-    width="0.1778mm"
-    height="0.3302mm"
-  />
-);
-
 export default function ASM2464PDX() {
   return (
     <>
       <chip
         name="ASM2464PDX"
+        manufacturerPartNumber="ASM2464PDX"
+        datasheetUrl="https://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PDX/ASM2464PDX_DataSheet_R0_3.pdf"
         footprint={<Footprint/>}
+        pinAttributes={pinAttributes}
         noConnect={[
           ...Object.values(pinMap).filter(name => name.startsWith("NC")),
-          // We're not using I2C or UART.
+          // We're not using I2C.
           "I2C_CLK_P",
           "I2C_DATA_P",
-          "UART_RX",
-          "UART_TX",
         ]}
         connections={connections}
         pinLabels={
           /** Here's what each pad is called on the schematic. We hide some. */
-          pinLabels
+          schematicPinLabels
         }
         schPinArrangement={{
           /** Let's rearrange schematic by purpose. */
@@ -512,7 +536,7 @@ export default function ASM2464PDX() {
             pins: schBottomPins,
           }
         }}
-        schWidth="5mm"
+        schWidth="4mm"
         schHeight="8mm"
       />
       <netlabel 
