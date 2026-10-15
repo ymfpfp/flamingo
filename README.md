@@ -24,7 +24,8 @@ All four USB4 differential pairs connect to the bridge through eight AC-coupling
 Each conductor has a separate ESD clamp to ground and a connector-side discharge resistor.
 All six connector shell pads connect directly to `GND`, as in the ASMedia reference schematic.
 The PCB still needs short copper connections and nearby ground vias at the receptacle.
-The status LED has a component definition, but the main circuit does not instantiate it.
+The PSU starts automatically through a removable link on `PS_ON#`.
+A white `PSU OK` LED indicates that the PSU asserts `PWR_OK`.
 The design remains in development, with no established hardware performance results.
 
 ## Components
@@ -41,6 +42,8 @@ The following components are instantiated in the main circuit:
 | X1618WVS-164-9TV30 | 1 | PCIe 4.0 x16 SMT connector, 30 microinch gold, C21263101 | [X1618WVS_164_9TV30.tsx](imports/X1618WVS_164_9TV30.tsx) |
 | 39301240 | 1 | 24-pin ATX power connector | [A_39301240.tsx](imports/A_39301240.tsx) |
 | TPS62130RGTR | 2 | Buck converters named `VCCL_BUCK` and `VDD_BUCK` | [TPS62130RGTR.tsx](imports/TPS62130RGTR.tsx) |
+| SN74AHCT1G14DBVR | 1 | TTL-compatible Schmitt-trigger inverter for the PSU indicator; C55250 | [SN74AHCT1G14DBVR.tsx](imports/SN74AHCT1G14DBVR.tsx) |
+| XL-1608UWC-04 | 1 | White `PSU OK` LED; C965808 | [XL_1608UWC_04.tsx](imports/XL_1608UWC_04.tsx) |
 | GT-USB-7087B | 1 | USB4 40 Gbps, 24-contact USB-C receptacle; JLCPCB C3019713 | [GT_USB_7087B.tsx](imports/GT_USB_7087B.tsx) |
 | GRM033R61E224KE01D | 4 | USB4 TX coupling, 220 nF, 25 V, ±10%, X5R, 0201; C701263 | [GRM033R61E224KE01D.tsx](imports/GRM033R61E224KE01D.tsx) |
 | GRM033R61E334KE15D | 4 | USB4 RX coupling, 330 nF, 25 V, ±10%, X5R, 0201; C723889 | [GRM033R61E334KE15D.tsx](imports/GRM033R61E334KE15D.tsx) |
@@ -65,6 +68,33 @@ Its exact imported footprint includes a cutout for the body, which sits 0.23 mm 
 The connector center height is 1.35 mm.
 USB2, CC, SBU, and VBUS pin mappings passed the schematic review. Protection performance and powered-off VBUS behavior remain unverified.
 Final placement at the board edge and high-speed PCB routing remain incomplete.
+
+### ATX power-on and status
+
+[PsuControl.tsx](components/PsuControl.tsx) contains the PSU indicator on the power sheet.
+The automatic start link sits beside the ATX symbol in [index.circuit.tsx](index.circuit.tsx), with a direct wire to pin 16.
+ATX pin 16, `PS_ON#`, connects to ground through the populated 0 Ω resistor `R_PSU_ON`.
+When AC power is available and its rear switch is on, the dedicated PSU starts automatically.
+Removal of this link releases `PS_ON#` to the internal PSU pull-up.
+USB disconnection does not turn off the PSU.
+
+ATX pin 8, `PWR_OK`, connects to the input of `U_PSU_LED` and a 100 kΩ pull-down resistor.
+The SN74AHCT1G14 uses the main 5 V rail and a local 100 nF bypass capacitor.
+Its maximum positive input threshold is 2.0 V, below the minimum valid 2.4 V ATX high level.
+The input and pull-down draw less than 52 µA at the maximum 5 V signal level, including resistor tolerance.
+The ATX specification guarantees 200 µA of source current.
+
+When `PWR_OK` is high, the inverter output goes low and sinks current through the white LED.
+The LED receives power from the main 5 V rail through a 1 kΩ resistor.
+The nominal LED current is approximately 2 mA.
+The output is a 5 V LED drive signal. It does not connect to bridge logic or reset.
+The `PSU OK` label refers to the main PSU outputs. It does not indicate local regulator readiness or a USB link.
+The board has no standby indicator or manual power switch.
+
+References: [Intel ATX guide, sections 3.3.1 and 3.3.3](datasheets/research/ATX-Power-Supply-Design-Guide.pdf),
+[driver datasheet](datasheets/SN74AHCT1G14.pdf), and [LED datasheet](datasheets/XL-1608UWC-04.pdf).
+The connection and current-budget tests are in [psu-control.test.jsx](tests/psu-control.test.jsx).
+Electrical behavior during supply ramp and actual LED brightness require prototype checks.
 
 ### PCIe connector
 

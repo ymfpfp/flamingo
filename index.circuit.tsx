@@ -1,5 +1,6 @@
 import {Fragment} from "react";
 import {BridgeReset} from "components/BridgeReset";
+import {PsuControl} from "components/PsuControl";
 import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
 import {SlotPower} from "components/SlotPower";
 import {UartHeader} from "components/UartHeader";
@@ -45,6 +46,7 @@ export default function Board() {
       <net name="V5V"/>
       <net name="V5VSB"/>
       <net name="V12V"/>
+      <net name="ATX_PWR_OK"/>
       <net name="SLOT_3V3"/>
       <net name="SLOT_12V"/>
       <net name="ASM_HDDPC" connectsTo={[".ASM2464PDX > .HDDPC"]}/>
@@ -544,8 +546,10 @@ export default function Board() {
         <Usb4Lanes/>
       </schematicsheet>
       <schematicsheet name="power" sheetIndex={2}>
+        <schematicsection name="ATX_START" displayName="ATX Input and Automatic Start"/>
         <A_39301240
           name="ATX"
+          schSectionName="ATX_START"
           schX={-4}
           schY={0}
           noConnect={["pin14", "pin20"]}
@@ -556,6 +560,7 @@ export default function Board() {
             pin13: "net.V3V3",
             pin4: "net.V5V",
             pin6: "net.V5V",
+            pin8: "net.ATX_PWR_OK",
             pin9: "net.V5VSB",
             pin21: "net.V5V",
             pin22: "net.V5V",
@@ -572,8 +577,22 @@ export default function Board() {
             pin24: "net.GND",
           }}
         />
-        <TPS62130RGTR name="VCCL_BUCK" schX={0} schY={0}/>
-        <TPS62130RGTR name="VDD_BUCK" schX={4} schY={0}/>
+        {/* The PSU pulls PS_ON# high internally. This removable link requests
+            automatic start whenever AC is present (Intel ATX section 3.3.3). */}
+        <A_0402WGF0000TCE
+          name="R_PSU_ON"
+          schSectionName="ATX_START"
+          schX={-1.7} schY={-1.6}
+          schOrientation="vertical"
+          connections={{pin2: "net.GND"}}
+        />
+        <trace name="PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1"/>
+        <netlabel net="GND" connection="R_PSU_ON.pin2" schX={-1.7} schY={-2.6} anchorSide="top"/>
+        <schematictext text="0 ohm fitted: automatic power-on" schX={-6.5} schY={-2.2} fontSize={0.2} anchor="left"/>
+        <schematictext text="Remove R_PSU_ON to release PS_ON#" schX={-6.5} schY={-2.6} fontSize={0.2} anchor="left"/>
+        <TPS62130RGTR name="VCCL_BUCK" schX={3} schY={0}/>
+        <TPS62130RGTR name="VDD_BUCK" schX={7} schY={0}/>
+        <PsuControl/>
       </schematicsheet>
     </board>
   );

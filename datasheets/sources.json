@@ -1,5 +1,5 @@
 {
-  "checked_on": "2026-10-14",
+  "checked_on": "2026-10-15",
   "scope": "Local PDFs cover components placed on the board and current design references. Historical entries retain source URLs and hashes without local copies.",
   "components": [
     {
@@ -271,7 +271,8 @@
       "component_file": "imports/CL05B104KO5NNNC.tsx",
       "placed_on_board": true,
       "board_references": [
-        "C_SPI_VCC"
+        "C_SPI_VCC",
+        "C_PSU_LED"
       ],
       "documents": [
         {
@@ -433,7 +434,8 @@
       "board_references": [
         "R_RST",
         "R_SLOT_OFF_3V3",
-        "R_SLOT_OFF_12V"
+        "R_SLOT_OFF_12V",
+        "R_PSU_OK_PD"
       ],
       "documents": [
         {
@@ -617,7 +619,8 @@
       "component_file": "imports/A_0402WGF1001TCE.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R_SLOT_ENABLE_PD"
+        "R_SLOT_ENABLE_PD",
+        "R_PSU_LED"
       ],
       "documents": [
         {
@@ -715,7 +718,8 @@
       ],
       "placed_on_board": true,
       "board_references": [
-        "R_SLOT_ENABLE"
+        "R_SLOT_ENABLE",
+        "R_PSU_ON"
       ],
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
@@ -726,6 +730,54 @@
           "R_SLOT_ENABLE"
         ]
       }
+    },
+    {
+      "manufacturer_part_number": "SN74AHCT1G14DBVR",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/SN74AHCT1G14DBVR.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "U_PSU_LED"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C55250"
+        ]
+      },
+      "documents": [
+        {
+          "file": "SN74AHCT1G14.pdf",
+          "source_url": "https://www.ti.com/lit/ds/symlink/sn74ahct1g14.pdf",
+          "origin": "downloaded",
+          "pages": 25,
+          "sha256": "5657941b4f3173e4d88e75b4cb427010cd636a241487cb8dfe46ccf6a5339505",
+          "notes": "Revision R. 5 V TTL-compatible Schmitt-trigger inverter. Pin 1 NC, 2 A, 3 GND, 4 Y, 5 VCC. Positive threshold <=2.0 V, input leakage <=1 uA, rated sink current 8 mA. Output sinks the LED when ATX PWR_OK is high; it is not a 3.3 V logic output."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "XL-1608UWC-04",
+      "manufacturer": "Xinglight",
+      "component_file": "imports/XL_1608UWC_04.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "LED_PSU_OK"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C965808"
+        ]
+      },
+      "documents": [
+        {
+          "file": "XL-1608UWC-04.pdf",
+          "source_url": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8903/XL-1608UWC-04.pdf",
+          "origin": "downloaded",
+          "pages": 15,
+          "sha256": "d457c7d23a219fe9dae6286137b1f62dfd28a77258f24b5d0212d25a6ecc6a5d",
+          "notes": "Manufacturer white 0603 LED datasheet, hosted by DigiKey. 20 mA maximum continuous forward current; VF 2.6/2.8/3.4 V min/typ/max at 20 mA. Used with a 1 kohm resistor from main 5 V and the AHCT inverter cathode driver. Final brightness requires prototype checks."
+        }
+      ]
     }
   ],
   "retired_components": [
@@ -1381,5 +1433,31 @@
       "scope": "Normal fixed-5 V VBUS with powered bridge; no claim of powered-off or system-level transient qualification.",
       "hardware_change": "None."
     }
+  },
+  "psu_control_review": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "components/PsuControl.tsx",
+    "sheet": "power",
+    "behavior": "Dedicated PSU starts whenever AC is present and its rear switch is on. R_PSU_ON can be removed to release PS_ON#. White PSU OK LED follows PWR_OK. USB presence does not control the PSU.",
+    "reference": {
+      "file": "research/ATX-Power-Supply-Design-Guide.pdf",
+      "source_url": "https://www.intel.com/content/dam/www/public/us/en/documents/design-guides/resellers-power-supply-design-guide-changes.pdf",
+      "origin": "downloaded",
+      "pages": 67,
+      "sha256": "826cee033e0819459aaf28a97640cf37386e4fe64f5fe04959f449101b658066",
+      "notes": "Intel document 336521-002. Sections 3.3.1/3.3.3 and tables 3-9/3-10 define PWR_OK and PS_ON#; table 4-1 maps pins 8/9/16."
+    },
+    "input_load_max_uA": 51.51,
+    "ATX_guaranteed_source_uA": 200,
+    "driver_threshold_high_max_V": 2.0,
+    "ATX_high_min_V": 2.4,
+    "LED_current_nominal_mA": 2.0,
+    "limitations": [
+      "PSU indication only; local converter outputs and link status are not monitored.",
+      "No reset or regulator sequencing changes.",
+      "Supply-ramp behavior and LED brightness require prototype verification.",
+      "PCB routing remains disabled."
+    ],
+    "automatic_start_file": "index.circuit.tsx"
   }
 }
