@@ -1,6 +1,7 @@
 import {Fragment} from "react";
 import {UartHeader} from "components/UartHeader";
 import {Usb4Lanes, usb4Signals} from "components/Usb4Lanes";
+import {A_0402WGF0000TCE} from "imports/A_0402WGF0000TCE";
 import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {A_39301240} from "imports/A_39301240";
 import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
@@ -42,6 +43,9 @@ export default function Board() {
       <net name="V5VSB"/>
       <net name="V12V"/>
       <net name="USB_VBUS" connectsTo={[".ASM2464PDX > .VBUS"]}/>
+      <net name="ASM_PERST0_N" connectsTo={[".ASM2464PDX > .PERST0"]}/>
+      <net name="ASM_REFCLK_P0" connectsTo={[".ASM2464PDX > .REFCLK_P0"]}/>
+      <net name="ASM_REFCLK_N0" connectsTo={[".ASM2464PDX > .REFCLK_N0"]}/>
       {usb4Signals.map(signal => (
         <Fragment key={signal.name}>
           <net
@@ -240,6 +244,44 @@ export default function Board() {
         <netlabel net="V12V" connection="PCIe.V12V" schX={-7.2} schY={5.4} anchorSide="bottom"/>
         <netlabel net="V3V3" connection="PCIe.V3V3" schX={-5.9} schY={5.4} anchorSide="bottom"/>
         <netlabel net="V3V3_AUX" connection="PCIe.V3V3_AUX" schX={-4.4} schY={5.4} anchorSide="bottom"/>
+        {/* ASMedia reference sheet 6, R173: removable series link to slot A11. */}
+        <A_0402WGF0000TCE
+          name="R_PCIE_PERST"
+          schX={-11}
+          schY={2.8}
+          connections={{
+            pin1: "net.ASM_PERST0_N",
+            pin2: ".PCIe > .PERST_N",
+          }}
+        />
+        <netlabel
+          net="ASM_PERST0_N"
+          connection="R_PCIE_PERST.pin1"
+          schX={-13}
+          schY={2.8}
+          anchorSide="right"
+        />
+        {/* One x4 link uses clock pair 0. ASMedia sheet 6: R180 (P), R178 (N). */}
+        {(["P", "N"] as const).map((polarity, index) => (
+          <Fragment key={`PCIE_REFCLK_${polarity}`}>
+            <A_0402WGF0000TCE
+              name={`R_PCIE_REFCLK_${polarity}`}
+              schX={-11}
+              schY={1.6 - index * 1.2}
+              connections={{
+                pin1: `net.ASM_REFCLK_${polarity}0`,
+                pin2: `.PCIe > .REFCLK_${polarity}`,
+              }}
+            />
+            <netlabel
+              net={`ASM_REFCLK_${polarity}0`}
+              connection={`R_PCIE_REFCLK_${polarity}.pin1`}
+              schX={-13}
+              schY={1.6 - index * 1.2}
+              anchorSide="right"
+            />
+          </Fragment>
+        ))}
         {/* Series coupling belongs at each transmitter; the card supplies its own TX capacitors. */}
         {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map((polarity, index) => (
           <Fragment key={`PCIE_TX${lane}_${polarity}`}>

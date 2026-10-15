@@ -511,6 +511,17 @@ export default function ASM2464PDX() {
           // We're not using I2C.
           "I2C_CLK_P",
           "I2C_DATA_P",
+          // One x4 port uses PERST0; the other port reset outputs are unused.
+          "PERST1",
+          "PERST2",
+          "PERST3",
+          // One x4 port uses REFCLK pair 0; the other clock outputs are unused.
+          "REFCLK_P1",
+          "REFCLK_N1",
+          "REFCLK_P2",
+          "REFCLK_N2",
+          "REFCLK_P3",
+          "REFCLK_N3",
         ]}
         connections={connections}
         pinLabels={

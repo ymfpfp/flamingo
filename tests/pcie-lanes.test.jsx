@@ -40,6 +40,38 @@ for (const component of components) {
 }
 const net = port => root(port.source_port_id);
 
+test("PCIe clock pair 0 reaches A13/A14 through separate removable zero-ohm links", () => {
+  const clockNets = new Set();
+  for (const [polarity, ball, contact] of [["P", "AA8", "A13"], ["N", "Y8", "A14"]]) {
+    const name = `R_PCIE_REFCLK_${polarity}`;
+    const resistor = components.find(element => element.name === name);
+    assert.ok(resistor, name);
+    assert.equal(resistor.ftype, "simple_resistor");
+    assert.equal(resistor.resistance, 0);
+    assert.equal(resistor.manufacturer_part_number, "0402WGF0000TCE");
+    const bridge = port("ASM2464PDX", ball);
+    const slot = port("PCIe", contact);
+    const input = net(port(name, "pin1"));
+    const output = net(port(name, "pin2"));
+    assert.notEqual(bridge.do_not_connect, true);
+    assert.notEqual(slot.do_not_connect, true);
+    assert.equal(input, net(bridge), `${name} bridge ball`);
+    assert.equal(output, net(slot), `${name} slot contact`);
+    assert.notEqual(input, output, `${name} must not be bypassed`);
+    clockNets.add(input);
+    clockNets.add(output);
+  }
+  assert.equal(clockNets.size, 4, "Clock P and N must remain separate");
+});
+
+test("the six unused reference-clock outputs are NC and have no traces", () => {
+  for (const ball of ["AA11", "Y11", "AA10", "Y10", "AA7", "Y7"]) {
+    const unused = port("ASM2464PDX", ball);
+    assert.equal(unused.do_not_connect, true, ball);
+    assert.ok(!traces.some(trace => trace.connected_source_port_ids.includes(unused.source_port_id)), ball);
+  }
+});
+
 // Physical contacts from PCIe CEM Table 37 and ASMedia's revision 0.3 pinout.
 // Each row contains slot TX, slot RX, bridge TX balls, and bridge RX balls (P, N).
 const laneContacts = [
