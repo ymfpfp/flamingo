@@ -1,5 +1,7 @@
 import {Fragment} from "react";
 import {BridgeReset} from "components/BridgeReset";
+import {BuckEnable} from "components/BuckEnable";
+import {BuckInputs} from "components/BuckInputs";
 import {PsuControl} from "components/PsuControl";
 import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
 import {SlotPower} from "components/SlotPower";
@@ -13,7 +15,6 @@ import ASM2464PDX from "imports/ASM2464PDX";
 import {GT_USB_7087B} from "imports/GT_USB_7087B";
 import {RC0402FR_0712K1L} from "imports/RC0402FR_0712K1L";
 import {TCC0402COG100J500AT} from "imports/TCC0402COG100J500AT";
-import {TPS62130RGTR} from "imports/TPS62130RGTR";
 import {W25Q32JVSSIQ} from "imports/W25Q32JVSSIQ";
 import {X1618WVS_164_9TV30} from "imports/X1618WVS_164_9TV30";
 import {XXCBCLNANF_25M} from "imports/XXCBCLNANF_25M";
@@ -39,6 +40,8 @@ export default function Board() {
       <net name="VDD"/>
       <net name="VCCH" connectsTo={["net.V3V3"]}/>
       <net name="VCCL"/>
+      <net name="BUCK_EN"/>
+      <net name="VCCH_SENSE"/>
 
       <net name="V3V3"/>
       {/* Standby 3.3 V for the PCIe slot; requires a regulator from V5VSB. */}
@@ -577,6 +580,9 @@ export default function Board() {
             pin24: "net.GND",
           }}
         />
+        {/* Anchor the shared 3.3 V rail explicitly to avoid a dangling auto-label stub. */}
+        <netlabel net="V3V3" connectsTo={["ATX.pin1", "ATX.pin2", "ATX.pin12"]}
+          schX={-6.85} schY={1.4} anchorSide="bottom"/>
         {/* The PSU pulls PS_ON# high internally. This removable link requests
             automatic start whenever AC is present (Intel ATX section 3.3.3). */}
         <A_0402WGF0000TCE
@@ -590,8 +596,8 @@ export default function Board() {
         <netlabel net="GND" connection="R_PSU_ON.pin2" schX={-1.7} schY={-2.6} anchorSide="top"/>
         <schematictext text="0 ohm fitted: automatic power-on" schX={-6.5} schY={-2.2} fontSize={0.2} anchor="left"/>
         <schematictext text="Remove R_PSU_ON to release PS_ON#" schX={-6.5} schY={-2.6} fontSize={0.2} anchor="left"/>
-        <TPS62130RGTR name="VCCL_BUCK" schX={3} schY={0}/>
-        <TPS62130RGTR name="VDD_BUCK" schX={7} schY={0}/>
+        <BuckInputs/>
+        <BuckEnable/>
         <PsuControl/>
       </schematicsheet>
     </board>

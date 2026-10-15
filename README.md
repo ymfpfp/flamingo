@@ -11,7 +11,7 @@ It contains four schematic sheets:
 
 - `chip`: the ASM2464PDX bridge, SPI flash, a UART header, a 25 MHz crystal, and a 10 pF capacitor.
 - `pcie`: the PCIe connector, four active lanes, TX coupling capacitors, and HDDPC power switches.
-- `power`: the 24-pin ATX connector and two TPS62130 buck converters for `VCCL` and `VDD`.
+- `power`: the 24-pin ATX connector and two TPS62903 buck converters for `VCCL` and `VDD`.
 - `usb`: the GT-USB-7087B receptacle, USB4 coupling capacitors, ESD clamps, and discharge resistors.
 
 The board configuration specifies four layers and a thickness of 1.6 mm.
@@ -41,7 +41,15 @@ The following components are instantiated in the main circuit:
 | TCC0402COG100J500AT | 1 | 10 pF capacitor in the crystal circuit | [TCC0402COG100J500AT.tsx](imports/TCC0402COG100J500AT.tsx) |
 | X1618WVS-164-9TV30 | 1 | PCIe 4.0 x16 SMT connector, 30 microinch gold, C21263101 | [X1618WVS_164_9TV30.tsx](imports/X1618WVS_164_9TV30.tsx) |
 | 39301240 | 1 | 24-pin ATX power connector | [A_39301240.tsx](imports/A_39301240.tsx) |
-| TPS62130RGTR | 2 | Buck converters named `VCCL_BUCK` and `VDD_BUCK` | [TPS62130RGTR.tsx](imports/TPS62130RGTR.tsx) |
+| TPS62903RPJR | 2 | 3 A buck converters named `VCCL_BUCK` and `VDD_BUCK`; C2866502 | [TPS62903RPJR.tsx](imports/TPS62903RPJR.tsx) |
+| TPS389001DSET | 1 | VCCH supervisor driving both buck EN pins; C2066907 | [TPS389001DSET.tsx](imports/TPS389001DSET.tsx) |
+| RT0402BRD0716K2L | 1 | Supervisor divider top, 16.2 kΩ, ±0.1%; C852557 | [RT0402BRD0716K2L.tsx](imports/RT0402BRD0716K2L.tsx) |
+| RT0402BRD0710KL | 1 | Supervisor divider bottom, 10 kΩ, ±0.1%; C190095 | [RT0402BRD0710KL.tsx](imports/RT0402BRD0710KL.tsx) |
+| CL21A226MAYNNNE | 2 | Buck output capacitors, 22 µF, 25 V, ±20%, X5R, 0805; C602037 | [CL21A226MAYNNNE.tsx](imports/CL21A226MAYNNNE.tsx) |
+| RT0402BRD0726K1L | 1 | VCCL feedback top resistor, 26.1 kΩ, ±0.1%, 0402; C728557 | [RT0402BRD0726K1L.tsx](imports/RT0402BRD0726K1L.tsx) |
+| RT0402BRD0710K7L | 1 | VDD feedback top resistor, 10.7 kΩ, ±0.1%, 0402; C852482 | [RT0402BRD0710K7L.tsx](imports/RT0402BRD0710K7L.tsx) |
+| RT0402BRD0712K1L | 2 | Feedback bottom resistors, 12.1 kΩ, ±0.1%, 0402; C281773 | [RT0402BRD0712K1L.tsx](imports/RT0402BRD0712K1L.tsx) |
+| RC0402FR-0721KL | 2 | MODE resistors, 21 kΩ, ±1%, 0402; C185441 | [RC0402FR_0721KL.tsx](imports/RC0402FR_0721KL.tsx) |
 | SN74AHCT1G14DBVR | 1 | TTL-compatible Schmitt-trigger inverter for the PSU indicator; C55250 | [SN74AHCT1G14DBVR.tsx](imports/SN74AHCT1G14DBVR.tsx) |
 | XL-1608UWC-04 | 1 | White `PSU OK` LED; C965808 | [XL_1608UWC_04.tsx](imports/XL_1608UWC_04.tsx) |
 | GT-USB-7087B | 1 | USB4 40 Gbps, 24-contact USB-C receptacle; JLCPCB C3019713 | [GT_USB_7087B.tsx](imports/GT_USB_7087B.tsx) |
@@ -286,8 +294,64 @@ This diameter remains a design assumption.
 
 The original project notes do not provide consumption values for the bridge power rails.
 The current source declares `VDD`, `VCCH`, `VCCL`, `V3V3`, `V5V`, and `V12V` nets.
-The buck converters do not yet include connections or supporting components.
-The power budget and converter outputs remain open design questions.
+[BuckInputs.tsx](components/BuckInputs.tsx) contains two TPS62903RPJR converters with inputs on the main ATX `V5V` rail.
+They replace the TPS62130 converters to improve the voltage-error margin.
+Each converter has a 10 µF, 25 V input capacitor and an additional 100 nF, 16 V bypass capacitor.
+Both input capacitors connect from `VIN` to `GND`. They do not connect in series with the supply.
+The former analog-input bypass capacitors now have the names `C_VCCL_HF` and `C_VDD_HF`.
+The TPS62903 has one ground pin and no separate analog input or exposed-pad port.
+Final placement must keep both input capacitors close to `VIN` and `GND`.
+
+Each `MODE` pin connects to ground through a 21 kΩ, ±1% resistor.
+This selects external feedback, 1 MHz forced PWM, and no active output discharge.
+[TPS62903 table 7-1 on page 10](datasheets/TPS62903RPJR.pdf) specifies this setting as option 8.
+Each `SS/TR` pin remains intentionally open for fastest startup, as permitted by pin table 5-1.
+Both `EN` pins connect to the shared `BUCK_EN` net from [BuckEnable.tsx](components/BuckEnable.tsx).
+A TPS389001DSET supervisor monitors `VCCH` through a 16.2 kΩ / 10.0 kΩ divider.
+Both sense resistors are 0402 thin-film parts with ±0.1% tolerance and ±25 ppm/C temperature coefficients.
+The nominal enable threshold is `1.157 V × (1 + 16.2/10) = 3.03134 V` for increasing VCCH.
+The nominal disable threshold is `1.15 V × (1 + 16.2/10) = 3.013 V` for decreasing VCCH.
+The supervisor supply and `MR#` connect to `VCCH`; a 100 nF capacitor bypasses its supply to ground.
+Its open-drain `RESET#` output drives `BUCK_EN`, with a separate 10 kΩ pull-up to `VCCH`.
+Its `CT` pin remains open for the nominal 25 µs release delay.
+The [supervisor datasheet](datasheets/TPS389001DSET.pdf) specifies these connections and thresholds on pages 3, 5, and 13.
+This circuit enables both converters together. It does not control the separate bridge reset net.
+Both buck `PG` pins remain unused. Bridge reset qualification and complete power-up timing still require checking.
+
+Each converter has one SLW5040S2R2MST shielded 2.2 µH inductor between its `SW` pin and its output rail.
+`L_VCCL` supplies `VCCL`; `L_VDD` supplies `VDD`. Each `VOS` pin senses the filtered output at the output capacitor.
+The inductor has a 3.95 A thermal rating and a 6.5 A saturation rating at 30% inductance loss.
+The thermal rating permits a 40 C rise from 20 C ambient. Final temperature and current margins require checking.
+The [inductor datasheet](datasheets/SLW5040S2R2MST.pdf) specifies dimensions on page 2 and electrical ratings on page 9.
+Each output has one CL21A226MAYNNNE capacitor from the filtered rail to `GND`.
+These capacitors are 22 µF, 25 V, X5R, ±20%, in 0805 packages.
+TPS62903 table 8-3 on page 18 specifies 2.2 µH and 22 µF as the standard 1 MHz filter.
+The [Samsung characteristic sheet](datasheets/CL21A226MAYNNNE.pdf) includes typical bias, temperature, frequency, and ripple-current curves.
+These curves do not guarantee minimum operating capacitance. X5R capacitor temperature must remain within -55 to +85 C, including self-heating.
+Final placement must keep each output capacitor close to its inductor output and converter ground.
+
+Each feedback divider connects from the filtered output to ground, with `FB` at the midpoint.
+The TPS62903 uses a nominal 0.6 V feedback reference.
+Equation 10 on page 18 gives `VOUT = 0.6 V × (1 + Rtop/Rbottom)`.
+
+| Rail | Top resistor | Bottom resistor | Nominal output | Bridge limits |
+| --- | ---: | ---: | ---: | ---: |
+| VCCL | 26.1 kΩ | 12.1 kΩ | 1.894215 V | 1.85–1.95 V |
+| VDD | 10.7 kΩ | 12.1 kΩ | 1.130579 V | 1.10–1.16 V |
+
+All four divider resistors have ±0.1% initial tolerance and ±25 ppm/C temperature coefficients.
+Both bottom resistors carry approximately 49.6 µA at nominal regulation, above TI's 2 µA minimum.
+The [Yageo RT datasheet](datasheets/YAGEO-RT-series.pdf) specifies the resistor family.
+The divider branches sit in parallel with the output capacitors and do not carry the bridge load current.
+Final placement must keep each divider near `FB` and ground, away from `SW` and the inductor.
+
+The static component budget includes ±0.9% reference error, resistor tolerance, temperature drift, and maximum 70 nA FB leakage.
+It assumes a conservative 125 C change from the resistors' 25 C reference temperature.
+The calculated ranges are 1.8648–1.9239 V for VCCL and 1.1153–1.1459 V for VDD.
+Both ranges fit the bridge limits, with at least 14 mV left at either limit.
+These calculations do not qualify the complete supply. PCB losses, ripple, and load changes must fit the remaining margins.
+The [source index](datasheets/sources.json) records assumptions and retains the superseded TPS62130 calculations.
+The power budget, effective capacitance, thermal behavior, startup sequencing, and final PCB routing remain open design work.
 
 ### Speed
 

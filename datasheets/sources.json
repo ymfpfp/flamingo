@@ -1,6 +1,6 @@
 {
   "checked_on": "2026-10-15",
-  "scope": "Local PDFs cover components placed on the board and current design references. Historical entries retain source URLs and hashes without local copies.",
+  "scope": "Local PDFs cover placed components, current design references and selected superseded buck parts. Historical entries record source URLs and hashes.",
   "components": [
     {
       "manufacturer_part_number": "ASM2464PDX",
@@ -53,11 +53,8 @@
       "manufacturer_part_number": "TPS62130RGTR",
       "manufacturer": "Texas Instruments",
       "component_file": "imports/TPS62130RGTR.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "VCCL_BUCK",
-        "VDD_BUCK"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "TPS62130RGTR.pdf",
@@ -67,7 +64,8 @@
           "sha256": "f9b1af285622c0cf1a5991f9641a6e64c5e6d899e52cc0b1632808742019579f",
           "notes": "TPS6213x family datasheet, revision F; includes TPS62130RGTR ordering and package information."
         }
-      ]
+      ],
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
     },
     {
       "manufacturer_part_number": "TCC0402COG100J500AT",
@@ -252,7 +250,8 @@
       "board_references": [
         "R_SPI_WP",
         "R_SPI_HOLD",
-        "R_SPI_CS"
+        "R_SPI_CS",
+        "R_BUCK_EN_PU"
       ],
       "documents": [
         {
@@ -272,7 +271,10 @@
       "placed_on_board": true,
       "board_references": [
         "C_SPI_VCC",
-        "C_PSU_LED"
+        "C_PSU_LED",
+        "C_VCCL_HF",
+        "C_VDD_HF",
+        "C_BUCK_EN"
       ],
       "documents": [
         {
@@ -283,7 +285,17 @@
           "sha256": "c03bbd6b68fe9ec46c61a789e7b84b3f091e01fdda21afa99e6c793709252462",
           "notes": "Samsung part-specific specification supplied by Future Electronics. Page 1 specifies 100 nF, +/-10%, X7R, 16 V, 0402 (1005 metric). JLCPCB Basic part C1525; exact EasyEDA footprint imported with tsci. Used as the SPI flash supply decoupling capacitor; ASMedia reference schematic sheet 3 uses 100 nF at C73."
         }
-      ]
+      ],
+      "buck_input_use": {
+        "implementation_file": "../components/BuckInputs.tsx",
+        "sheet": "power",
+        "quantity": 2,
+        "board_references": [
+          "C_VCCL_HF",
+          "C_VDD_HF"
+        ],
+        "notes": "Additional high-frequency bypass from VIN to GND on each TPS62903; retained from the former analog-input bypass capacitors."
+      }
     },
     {
       "manufacturer_part_number": "GRM033R61E224KE01D",
@@ -679,7 +691,9 @@
       "placed_on_board": true,
       "board_references": [
         "C_SLOT_GATE_3V3",
-        "C_SLOT_GATE_12V"
+        "C_SLOT_GATE_12V",
+        "C_VCCL_CIN",
+        "C_VDD_CIN"
       ],
       "documents": [
         {
@@ -700,6 +714,16 @@
           "C_SLOT_GATE_3V3",
           "C_SLOT_GATE_12V"
         ]
+      },
+      "buck_input_use": {
+        "implementation_file": "../components/BuckInputs.tsx",
+        "sheet": "power",
+        "quantity": 2,
+        "board_references": [
+          "C_VCCL_CIN",
+          "C_VDD_CIN"
+        ],
+        "notes": "Input bypass from main ATX V5V to GND. Place at the associated converter supply and ground pins; effective capacitance under DC bias remains to be checked."
       }
     },
     {
@@ -776,6 +800,417 @@
           "pages": 15,
           "sha256": "d457c7d23a219fe9dae6286137b1f62dfd28a77258f24b5d0212d25a6ecc6a5d",
           "notes": "Manufacturer white 0603 LED datasheet, hosted by DigiKey. 20 mA maximum continuous forward current; VF 2.6/2.8/3.4 V min/typ/max at 20 mA. Used with a 1 kohm resistor from main 5 V and the AHCT inverter cathode driver. Final brightness requires prototype checks."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "SLW5040S2R2MST",
+      "manufacturer": "Sunltech Tech",
+      "component_file": "imports/SLW5040S2R2MST.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "L_VCCL",
+        "L_VDD"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C206346"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/SunltechTech-SLW5040S2R2MST/C206346",
+      "documents": [
+        {
+          "file": "SLW5040S2R2MST.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/3b3c132b337466bfe3bc78dcabb85adb.pdf?productCode=C206346",
+          "origin": "downloaded",
+          "pages": 19,
+          "sha256": "9f6c49321358b2bafb117052c06d649851f6159bd5f9eb42c0aebc01918f1343",
+          "notes": "Sunltech SLW-S series Rev.03. Page 2: 5 x 5 x 4 mm maximum height, package dimensions. Page 9: 2.2 uH +/-20%, 17 mOhm DCR +/-30%, 6.5 A Isat at 30% inductance loss, 3.95 A Irms at 40 C rise from 20 C ambient. Ratings and temperature definitions are stated below the electrical tables."
+        }
+      ],
+      "availability_snapshot": {
+        "checked_on": "2026-10-15",
+        "source": "tsci search --jlcpcb C206346 --json",
+        "stock": 261,
+        "notes": "Extended part. Supplier snapshot only; no order placed."
+      },
+      "footprint_notes": "Exact EasyEDA footprint imported with tsci import --jlcpcb --use-exact-footprint C206346. Two non-polarized pads, 4 mm center spacing, approximately 2.124 x 4.220 mm lands."
+    },
+    {
+      "manufacturer_part_number": "CL21A226MAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL21A226MAYNNNE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_VCCL_COUT",
+        "C_VDD_COUT"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C602037"
+        ]
+      },
+      "product_url": "https://product.samsungsem.com/mlcc/CL21A226MAYNNN.do",
+      "availability": {
+        "checked_on": "2026-10-15",
+        "manufacturer_status": "Mass Production",
+        "jlcpcb_stock": 426985,
+        "jlcpcb_class": "Extended"
+      },
+      "documents": [
+        {
+          "file": "CL21A226MAYNNNE.pdf",
+          "source_url": "https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/196/DataSheet_5F00_CL21A226MAYNNN_5F00_20230221.pdf",
+          "origin": "Samsung characteristic sheet hosted by Texas Instruments",
+          "pages": 1,
+          "sha256": "d54c4a0a58d4fa109a9da52afdd2208f5dd66e5266daf636eb8b236eaad5be32",
+          "notes": "Part-family sheet dated 2023-02-21. Specifies 22 uF +/-20%, 25 V, X5R, 0805, -55 to +85 C. Includes typical frequency, temperature, DC-bias, AC-voltage and ripple-current curves. Curves are design references, not guaranteed operating capacitance limits."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C602037",
+        "use": "One shunt output capacitor per TPS62903, after its inductor, from VCCL or VDD to GND."
+      }
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD07137KL",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD07137KL.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C852519"
+        ]
+      },
+      "product_url": "https://www.lcsc.com/product-detail/C852519.html",
+      "specification": {
+        "resistance_ohm": 137000,
+        "initial_tolerance_percent": 0.1,
+        "TCR_ppm_per_C": 25,
+        "package_EIA": "0402"
+      },
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "RT thin-film resistor family specification. RT0402, B tolerance +/-0.1%, D TCR +/-25 ppm/C, 50 V, 1/16 W. Exact part footprints imported from JLCPCB."
+        },
+        {
+          "file": "RT0402BRD07137KL.pdf",
+          "source_url": "https://www.yageogroup.com/component-documentation/download/specsheet/RT0402BRD07137KL",
+          "origin": "downloaded from manufacturer",
+          "pages": 1,
+          "sha256": "ccdc63ba5b5bf8f0163b231474102fd3d586bad039927a8f3ac45476c06b55d9",
+          "notes": "Exact 137 kohm +/-0.1%, +/-25 ppm/C, 0402 part specification generated 2026-10-15."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C852519",
+        "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
+        "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
+      },
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD07100KL",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD07100KL.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C852472"
+        ]
+      },
+      "product_url": "https://www.lcsc.com/product-detail/C852472.html",
+      "specification": {
+        "resistance_ohm": 100000,
+        "initial_tolerance_percent": 0.1,
+        "TCR_ppm_per_C": 25,
+        "package_EIA": "0402"
+      },
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "RT thin-film resistor family specification. RT0402, B tolerance +/-0.1%, D TCR +/-25 ppm/C, 50 V, 1/16 W. Exact part footprints imported from JLCPCB."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C852472",
+        "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
+        "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
+      },
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+    },
+    {
+      "manufacturer_part_number": "ARG02BTC4122",
+      "manufacturer": "Viking",
+      "component_file": "imports/ARG02BTC4122.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C2683018"
+        ]
+      },
+      "product_url": "https://www.lcsc.com/product-detail/C2683018.html",
+      "specification": {
+        "resistance_ohm": 41200,
+        "initial_tolerance_percent": 0.1,
+        "TCR_ppm_per_C": 25,
+        "package_EIA": "0402"
+      },
+      "documents": [
+        {
+          "file": "ARG02BTC4122.pdf",
+          "source_url": "https://www.viking.com.tw/Templates/att/ARG_Series.pdf?lng=en",
+          "origin": "downloaded from manufacturer",
+          "pages": 8,
+          "sha256": "7463713a6562e2690be868092fb59123f9bdb35bc77e440418600983c7b5b238",
+          "notes": "ARG family datasheet REV.A6, 2022-01-26. ARG02 0402, B +/-0.1%, C +/-25 ppm/C, 41.2 kohm, 50 V, 1/16 W."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C2683018",
+        "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
+        "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
+      },
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+    },
+    {
+      "manufacturer_part_number": "TPS62903RPJR",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/TPS62903RPJR.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "VCCL_BUCK",
+        "VDD_BUCK"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C2866502"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS62903RPJR/C2866502",
+      "documents": [
+        {
+          "file": "TPS62903RPJR.pdf",
+          "source_url": "https://www.ti.com/lit/ds/symlink/tps62903.pdf",
+          "origin": "downloaded from manufacturer",
+          "pages": 50,
+          "sha256": "323bfe650fdef2fa2c361f1264391a4e0d75c30772a49ee46f6741370250dcee",
+          "notes": "TPS62903 datasheet revision A, with current package addendum. Pinout page 3; reference accuracy and FB leakage page 6; SmartConfig table 7-1 page 10; divider and LC selection page 18."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C2866502",
+        "checked_on": "2026-10-15"
+      }
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0726K1L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD0726K1L.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VCCL_FBT"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C728557"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/Yageo-RT0402BRD0726K1L/C728557",
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "RT thin-film resistor family specification. RT0402, B tolerance +/-0.1%, D TCR +/-25 ppm/C, 50 V, 1/16 W. Exact part footprints imported from JLCPCB."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C728557",
+        "checked_on": "2026-10-15"
+      },
+      "specification": {
+        "resistance_ohm": 26100,
+        "initial_tolerance_percent": 0.1,
+        "TCR_ppm_per_C": 25,
+        "package_EIA": "0402"
+      }
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0710K7L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD0710K7L.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VDD_FBT"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C852482"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/Yageo-RT0402BRD0710K7L/C852482",
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "RT thin-film resistor family specification. RT0402, B tolerance +/-0.1%, D TCR +/-25 ppm/C, 50 V, 1/16 W. Exact part footprints imported from JLCPCB."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C852482",
+        "checked_on": "2026-10-15"
+      },
+      "specification": {
+        "resistance_ohm": 10700,
+        "initial_tolerance_percent": 0.1,
+        "TCR_ppm_per_C": 25,
+        "package_EIA": "0402"
+      }
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0712K1L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD0712K1L.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VCCL_FBB",
+        "R_VDD_FBB"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C281773"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/Yageo-RT0402BRD0712K1L/C281773",
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "RT thin-film resistor family specification. RT0402, B tolerance +/-0.1%, D TCR +/-25 ppm/C, 50 V, 1/16 W. Exact part footprints imported from JLCPCB."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C281773",
+        "checked_on": "2026-10-15"
+      },
+      "specification": {
+        "resistance_ohm": 12100,
+        "initial_tolerance_percent": 0.1,
+        "TCR_ppm_per_C": 25,
+        "package_EIA": "0402"
+      }
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-0721KL",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RC0402FR_0721KL.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VCCL_MODE",
+        "R_VDD_MODE"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C185441"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/Yageo-RC0402FR-0721KL/C185441",
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series specification. Shared family reference also covers RC0402FR-0721KL, 21 kohm, +/-1%, +/-100 ppm/C, 1/16 W, 50 V."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import --jlcpcb --use-exact-footprint C185441",
+        "checked_on": "2026-10-15"
+      },
+      "specification": {
+        "resistance_ohm": 21000,
+        "initial_tolerance_percent": 1,
+        "TCR_ppm_per_C": 100,
+        "package_EIA": "0402"
+      }
+    },
+    {
+      "manufacturer_part_number": "TPS389001DSET",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/TPS389001DSET.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "U_BUCK_EN"
+      ],
+      "documents": [
+        {
+          "file": "TPS389001DSET.pdf",
+          "source_url": "https://www.ti.com/lit/ds/symlink/tps3890.pdf",
+          "origin": "downloaded",
+          "pages": 27,
+          "sha256": "ee79599730e7606ba9718d9820b411020e3dcd9ff7d44572f8ee63fead15b9d0",
+          "notes": "TPS3890 Rev A. Page 3 pin map and rising 1.157 V adjustable threshold; page 5 accuracy and CT-open timing; page 13 divider equation; DSE package drawing. Exact C2066907 footprint imported."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0716K2L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD0716K2L.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_BUCK_EN_TOP"
+      ],
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "Yageo RT family datasheet. RT0402BRD0716K2L: 16.2 kohm, +/-0.1%, +/-25 ppm/C, 0402, 1/16 W; VCCH supervisor sense divider."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0710KL",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RT0402BRD0710KL.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_BUCK_EN_BOTTOM"
+      ],
+      "documents": [
+        {
+          "file": "YAGEO-RT-series.pdf",
+          "source_url": "https://yageogroup.com/content/datasheet/asset/file/pyu-rt_1-to-0-01_rohs_l",
+          "origin": "downloaded from manufacturer",
+          "pages": 10,
+          "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
+          "notes": "Yageo RT family datasheet. RT0402BRD0710KL: 10 kohm, +/-0.1%, +/-25 ppm/C, 0402, 1/16 W; VCCH supervisor sense divider."
         }
       ]
     }
@@ -1459,5 +1894,271 @@
       "PCB routing remains disabled."
     ],
     "automatic_start_file": "index.circuit.tsx"
+  },
+  "buck_inputs": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "../components/BuckInputs.tsx",
+    "converter": "TPS62903RPJR",
+    "supply": "Main ATX V5V; separate from V5VSB and USB_VBUS.",
+    "source": "TPS62903 pin table 5-1 and input-capacitor section 8.2.2.5.2.",
+    "connections": "VIN to V5V. GND to GND. Both EN pins connect to BUCK_EN from the VCCH supervisor. No separate AVIN, PVIN, AGND, PGND or exposed-pad port exists on this replacement.",
+    "capacitors": "Per converter, 10 uF / 25 V CIN and retained 100 nF / 16 V HF bypass, both from VIN to GND.",
+    "status": "Converter, LC filter, feedback, MODE and shared VCCH-qualified enable fitted. Bridge reset/PG control and complete startup timing remain pending; PCB placement and routing remain preliminary."
+  },
+  "buck_inductors": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "../components/BuckInputs.tsx",
+    "part": "SLW5040S2R2MST",
+    "quantity": 2,
+    "topology": "Single SW pin to inductor pin1. Inductor pin2 connects to its VCCL/VDD output, COUT, divider top and VOS. EN uses the shared VCCH-qualified BUCK_EN net.",
+    "planning_check": {
+      "method": "TPS62903 equations 11 and 12. A 3 A output remains a provisional regulator envelope, not an established bridge load. Calculations use nominal 1 MHz, not a guaranteed minimum frequency.",
+      "input_max_v": 5.25,
+      "inductance_min_h": 1.76e-06,
+      "evaluation_frequency_hz": 1000000.0,
+      "provisional_output_current_a": 3,
+      "rails": [
+        {
+          "rail": "VCCL",
+          "target_output_v": 1.9,
+          "ripple_a_peak_to_peak": 0.68885,
+          "peak_a": 3.3444,
+          "peak_with_20_percent_margin_a": 4.0133,
+          "rms_a": 3.0066
+        },
+        {
+          "rail": "VDD",
+          "target_output_v": 1.13,
+          "ripple_a_peak_to_peak": 0.50385,
+          "peak_a": 3.2519,
+          "peak_with_20_percent_margin_a": 3.9023,
+          "rms_a": 3.0035
+        }
+      ],
+      "limitations": "Inductance reduction with DC bias and temperature, startup/fault peak current, core loss, and board thermal behavior require checking with the final design. The 6.5 A saturation rating uses 30% L drop; the 3.95 A thermal rating is not a 125 C ambient guarantee."
+    },
+    "status": "Retained 2.2 uH inductors with new TPS62903 converters; table 8-3 recommends 2.2 uH / 22 uF for nominal 1 MHz."
+  },
+  "buck_output_capacitors": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "../components/BuckInputs.tsx",
+    "part": "CL21A226MAYNNNE",
+    "quantity": 2,
+    "nominal_capacitance_uF": 22,
+    "rated_voltage_V": 25,
+    "dielectric": "X5R",
+    "tolerance_percent": 20,
+    "package_EIA": "0805",
+    "reference": {
+      "file": "TPS62903RPJR.pdf",
+      "printed_pages": [
+        18,
+        20
+      ],
+      "finding": "Table 8-3 lists 2.2 uH / 22 uF as the standard 1 MHz filter. Effective output capacitance must satisfy the operating limits on page 4."
+    },
+    "topology": "Filtered output after each inductor to GND; VOS senses the same output. EN uses the shared VCCH-qualified BUCK_EN net.",
+    "placement_followup": "Place close to the inductor output and converter GND with short, wide copper.",
+    "selection_status": "Prototype selection supported by nominal TI filter values and Samsung typical low-voltage curves. Guaranteed effective capacitance across bias, temperature, tolerance and aging remains unqualified.",
+    "temperature_range_C": [
+      -55,
+      85
+    ],
+    "limitations": [
+      "The capacitor temperature range includes ripple self-heating.",
+      "Future bridge decoupling changes total output capacitance; check the final LC filter and control-loop stability.",
+      "Startup sequencing, final load requirements, PCB copper loss and transient response remain incomplete. Forced PWM and external feedback are configured."
+    ]
+  },
+  "buck_feedback": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "../components/BuckInputs.tsx",
+    "reference": {
+      "file": "TPS62903RPJR.pdf",
+      "printed_pages": [
+        6,
+        18
+      ],
+      "equation": "VOUT = 0.6 V * (1 + Rtop / Rbottom)",
+      "reference_accuracy_percent": 0.9,
+      "FB_leakage_maximum_nA": 70,
+      "divider_minimum_current_uA": 2
+    },
+    "quantity": 4,
+    "initial_resistor_tolerance_percent": 0.1,
+    "TCR_ppm_per_C": 25,
+    "topology": "Filtered output -> Rtop -> FB -> Rbottom -> GND. Separate control loops; MODE selection enables external feedback. EN uses the shared VCCH-qualified BUCK_EN net.",
+    "rails": [
+      {
+        "rail": "VCCL",
+        "target_V": 1.9,
+        "bridge_operating_interval_V": [
+          1.85,
+          1.95
+        ],
+        "top_ohm": 26100,
+        "bottom_ohm": 12100,
+        "nominal_output_V": 1.894214876033058,
+        "nominal_bottom_current_uA": 49.58677685950413,
+        "static_component_interval_V": [
+          1.8647946965515747,
+          1.9239153386928252
+        ],
+        "remaining_lower_margin_mV": 14.794696551574615,
+        "remaining_upper_margin_mV": 26.084661307174795
+      },
+      {
+        "rail": "VDD",
+        "target_V": 1.13,
+        "bridge_operating_interval_V": [
+          1.1,
+          1.16
+        ],
+        "top_ohm": 10700,
+        "bottom_ohm": 12100,
+        "nominal_output_V": 1.130578512396694,
+        "nominal_bottom_current_uA": 49.58677685950413,
+        "static_component_interval_V": [
+          1.1153311591226762,
+          1.1459407710349896
+        ],
+        "remaining_lower_margin_mV": 15.33115912267613,
+        "remaining_upper_margin_mV": 14.059228965010329
+      }
+    ],
+    "static_budget_assumptions": {
+      "reference_voltage_interval_V": [
+        0.5946,
+        0.6053999999999999
+      ],
+      "initial_resistance_variation_fraction": 0.001,
+      "temperature_change_from_25C_max_C": 125,
+      "resistance_drift_fraction": 0.003125,
+      "FB_leakage_magnitude_A": 7e-08,
+      "method": "Worst-case opposite resistor errors; sum initial tolerance and drift conservatively. Include leakage in either direction using I_FB * Rtop.",
+      "physical_scope": "Resistor reference temperature 25 C, assessed -40 to +150 C; complete board temperature limits are narrower."
+    },
+    "placement_followup": "Keep FB short and away from SW and the inductor. Sense at COUT and return the bottom resistor to quiet GND.",
+    "qualification": "Static component budget fits both bridge intervals and reserves more than 10 mV at either limit. This is not complete hardware qualification.",
+    "remaining_validation": [
+      "PCB supply and ground drops, ripple and load-step excursions must fit the remaining margins.",
+      "Final load current, thermal behavior and startup sequencing remain unverified.",
+      "Check effective capacitance and final total output capacitance after bridge decoupling is added."
+    ]
+  },
+  "superseded_buck_designs": [
+    {
+      "superseded_on": "2026-10-15",
+      "part": "TPS62130RGTR",
+      "reason": "Insufficient worst-case rail margin with the chosen feedback dividers and power-save accuracy.",
+      "feedback": {
+        "checked_on": "2026-10-15",
+        "implementation_file": "../components/BuckInputs.tsx",
+        "reference": {
+          "file": "TPS62130RGTR.pdf",
+          "printed_pages": [
+            3,
+            5,
+            14
+          ],
+          "equation": "VOUT = 0.8 V * (1 + Rtop / Rbottom), DEF low",
+          "divider_minimum_current_uA": 2,
+          "FB_leakage_typical_nA": 1,
+          "FB_leakage_maximum_nA": 100
+        },
+        "quantity": 4,
+        "initial_resistor_tolerance_percent": 0.1,
+        "topology": "Filtered output -> Rtop -> FB -> Rbottom -> GND/AGND. Both DEF pins grounded for nominal voltage; EN remains grounded.",
+        "rails": [
+          {
+            "rail": "VCCL",
+            "target_V": 1.9,
+            "bridge_operating_interval_V": [
+              1.85,
+              1.95
+            ],
+            "top_ohm": 137000,
+            "bottom_ohm": 100000,
+            "nominal_output_V": 1.8960000000000001,
+            "nominal_bottom_current_uA": 8,
+            "nominal_error_percent": -0.21052631578946102,
+            "initial_resistor_only_interval_V": [
+              1.89381018981019,
+              1.8981941941941942
+            ],
+            "conservative_full_temperature_reference_and_100nA_leakage_interval_V": [
+              1.8460079063936063,
+              1.9460753896896896
+            ]
+          },
+          {
+            "rail": "VDD",
+            "target_V": 1.13,
+            "bridge_operating_interval_V": [
+              1.1,
+              1.16
+            ],
+            "top_ohm": 41200,
+            "bottom_ohm": 100000,
+            "nominal_output_V": 1.1296,
+            "nominal_bottom_current_uA": 8,
+            "nominal_error_percent": -0.0353982300884903,
+            "initial_resistor_only_interval_V": [
+              1.1289414585414588,
+              1.1302598598598599
+            ],
+            "conservative_full_temperature_reference_and_100nA_leakage_interval_V": [
+              1.1044963922877125,
+              1.1547286573373372
+            ]
+          }
+        ],
+        "placement_followup": "Keep FB midpoint short and away from SW/inductor. Return bottom resistor to quiet AGND; take output sense at COUT.",
+        "qualification": "Nominal prototype implementation of the accepted approximately 8 uA divider. Not a guaranteed bridge supply across all operating conditions.",
+        "voltage_budget_limitations": [
+          "Initial divider tolerance, internal reference error, FB leakage, resistor TCR, line/load regulation, ripple, routing loss and transients need a final combined budget.",
+          "The conservative full-temperature reference/leakage calculation already exceeds the VCCL operating interval before TCR or dynamic effects. Lower divider resistances or a tighter regulator specification may be needed before enabling.",
+          "Intervals use worst-case leakage magnitude in either direction as a conservative bound, not a claim that leakage necessarily reverses. Reference accuracy uses PWM specification with VIN >= VOUT + 1 V."
+        ]
+      }
+    }
+  ],
+  "buck_configuration": {
+    "checked_on": "2026-10-15",
+    "part": "TPS62903RPJR",
+    "reference": {
+      "file": "TPS62903RPJR.pdf",
+      "printed_page": 10,
+      "table": "7-1",
+      "option": 8
+    },
+    "MODE_resistance_ohm": 21000,
+    "frequency_Hz_nominal": 1000000,
+    "mode": "forced PWM",
+    "feedback": "external divider, nominal VFB 0.6 V",
+    "active_output_discharge": false,
+    "dynamic_mode_change": false,
+    "SS_TR": "Intentionally open for fastest startup, preserving the previously selected behavior; pin table 5-1 permits this.",
+    "EN": "Grounded pending startup control.",
+    "PG": "Not connected yet; open-drain pin available for future sequencing."
+  },
+  "buck_enable": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "../components/BuckEnable.tsx",
+    "supervisor": "TPS389001DSET",
+    "reference": "U_BUCK_EN",
+    "supply_and_manual_reset": "VDD and active-low MR connect to VCCH; 100 nF VDD bypass to GND.",
+    "sense_divider": {
+      "top_ohm": 16200,
+      "bottom_ohm": 10000,
+      "initial_tolerance_percent": 0.1,
+      "temperature_coefficient_ppm_per_c": 25,
+      "rising_sense_threshold_v": 1.157,
+      "nominal_rising_v": 3.03134,
+      "nominal_falling_v": 3.013
+    },
+    "output": "Open-drain RESET# drives BUCK_EN, with a 10 kohm pull-up to VCCH. Both TPS62903 EN pins connect to BUCK_EN. Separate from ASM_RST_N and both PG outputs.",
+    "timing": "CT intentionally open: 25 us nominal release delay. This is not a guaranteed maximum delay or proof of complete board startup timing.",
+    "scope": "Enables both bucks together after VCCH crosses the supervisor rising threshold. Bridge reset/PG qualification and 5 V-to-VCCH timing remain open."
   }
 }
