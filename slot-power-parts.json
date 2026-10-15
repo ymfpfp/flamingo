@@ -1,0 +1,220 @@
+{
+  "created_on": "2026-10-14",
+  "status": "instantiated and wired on the pcie sheet; hardware qualification pending",
+  "reference": "datasheets/ASM2464PDX_TI_R03.pdf, sheet 6 POWER_Control",
+  "scope": "Both discrete high-side switches control the main slot rails. Bridge power, slot ground and 3.3 V AUX remain separate.",
+  "parts": [
+    {
+      "manufacturer_part_number": "AO4407A",
+      "manufacturer": "Alpha & Omega Semiconductor",
+      "jlcpcb_part_number": "C16072",
+      "component_file": "imports/AO4407A.tsx",
+      "export_name": "AO4407A",
+      "quantity": 1,
+      "role": "12 V high-side power MOSFET",
+      "reference_designators": [
+        "Q5"
+      ],
+      "datasheet": "datasheets/AO4407A.pdf",
+      "selection_notes": "P-channel, -30 V VDS, +/-25 V VGS; max RDS(on) 13 milliohm at VGS=-10 V. Selected for the 12 V path only; replaces reference PDS3959. Check thermal and linear-mode startup SOA at the intended slot load. Uses the exact EasyEDA footprint; the matched pill-pad footprint reported a clearance error after packing.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "Q_SLOT_12V"
+      ]
+    },
+    {
+      "manufacturer_part_number": "DMP2008UFG-7",
+      "manufacturer": "Diodes Incorporated",
+      "jlcpcb_part_number": "C461052",
+      "component_file": "imports/DMP2008UFG_7.tsx",
+      "export_name": "DMP2008UFG_7",
+      "quantity": 1,
+      "role": "3.3 V high-side power MOSFET",
+      "reference_designators": [
+        "Q3"
+      ],
+      "datasheet": "datasheets/DMP2008UFG.pdf",
+      "selection_notes": "P-channel, -20 V VDS, +/-8 V VGS; max RDS(on) 9.8 milliohm at VGS=-2.5 V. For the 3.3 V path only. Imported pin5 is the continuous drain land corresponding to manufacturer terminals 5-8.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "Q_SLOT_3V3"
+      ]
+    },
+    {
+      "manufacturer_part_number": "2N7002K-7",
+      "manufacturer": "Diodes Incorporated",
+      "jlcpcb_part_number": "C85047",
+      "component_file": "imports/A_2N7002K_7.tsx",
+      "export_name": "A_2N7002K_7",
+      "quantity": 2,
+      "role": "Small MOSFET gate drivers",
+      "reference_designators": [
+        "Q4",
+        "Q6"
+      ],
+      "datasheet": "datasheets/2N7002K.pdf",
+      "selection_notes": "N-channel, 60 V; gate=1, source=2, drain=3. Reference-family driver; verify sinking current at worst-case HDDPC output voltage during final circuit design.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "Q_SLOT_DRV_3V3",
+        "Q_SLOT_DRV_12V"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF5100TCE",
+      "manufacturer": "UNI-ROYAL",
+      "jlcpcb_part_number": "C25123",
+      "component_file": "imports/A_0402WGF5100TCE.tsx",
+      "export_name": "A_0402WGF5100TCE",
+      "quantity": 2,
+      "role": "Gate-drive series resistors",
+      "reference_designators": [
+        "R175",
+        "R198"
+      ],
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "selection_notes": "510 ohm, 1%, 0402, 1/16 W. Reference nominal value; check pulse loading against chosen gate capacitance before wiring.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "R_SLOT_GATE_3V3",
+        "R_SLOT_GATE_12V"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1003TCE",
+      "manufacturer": "UNI-ROYAL",
+      "jlcpcb_part_number": "C25741",
+      "component_file": "imports/A_0402WGF1003TCE.tsx",
+      "export_name": "A_0402WGF1003TCE",
+      "quantity": 2,
+      "role": "Power-MOSFET gate-to-source pull-ups",
+      "reference_designators": [
+        "R168",
+        "R195"
+      ],
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "selection_notes": "100 kohm, 1%, 0402, 1/16 W. Reuse the import already used for bridge reset.",
+      "reuses_existing_import": true,
+      "optional": false,
+      "board_references": [
+        "R_SLOT_OFF_3V3",
+        "R_SLOT_OFF_12V"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL",
+      "jlcpcb_part_number": "C11702",
+      "component_file": "imports/A_0402WGF1001TCE.tsx",
+      "export_name": "A_0402WGF1001TCE",
+      "quantity": 1,
+      "role": "Shared HDDPC driver-input pull-down",
+      "reference_designators": [
+        "R187"
+      ],
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "selection_notes": "1 kohm, 1%, 0402, 1/16 W; replaces neither output bleeder. Reference optional R186 3 kohm remains omitted.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "R_SLOT_ENABLE_PD"
+      ]
+    },
+    {
+      "manufacturer_part_number": "1206W4F1001T5E",
+      "manufacturer": "UNI-ROYAL",
+      "jlcpcb_part_number": "C52199",
+      "component_file": "imports/A_1206W4F1001T5E.tsx",
+      "export_name": "A_1206W4F1001T5E",
+      "quantity": 2,
+      "role": "Switched-output discharge resistors",
+      "reference_designators": [
+        "R179",
+        "R199"
+      ],
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "selection_notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "R_SLOT_DISCHARGE_3V3",
+        "R_SLOT_DISCHARGE_12V"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL31B106KAHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "jlcpcb_part_number": "C14860",
+      "component_file": "imports/CL31B106KAHNNNE.tsx",
+      "export_name": "CL31B106KAHNNNE",
+      "quantity": 2,
+      "role": "Gate-to-source timing capacitor candidates",
+      "reference_designators": [
+        "C122",
+        "C129"
+      ],
+      "datasheet": "datasheets/CL31B106KAHNNNE.pdf",
+      "selection_notes": "10 uF, 25 V, X7R, +/-10%, 1206. Reference uses nominal 10 uF; capacitance under DC bias and final startup timing/SOA remain to be calculated. Populated at the reference nominal value; startup timing and SOA remain unqualified.",
+      "reuses_existing_import": false,
+      "optional": false,
+      "board_references": [
+        "C_SLOT_GATE_3V3",
+        "C_SLOT_GATE_12V"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF0000TCE",
+      "manufacturer": "UNI-ROYAL",
+      "jlcpcb_part_number": "C17168",
+      "component_file": "imports/A_0402WGF0000TCE.tsx",
+      "export_name": "A_0402WGF0000TCE",
+      "quantity": 1,
+      "role": "Removable HDDPC signal link",
+      "reference_designators": [
+        "R181"
+      ],
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "selection_notes": "0 ohm, 0402. Signal link only; never use this small resistor as a power-rail bypass.",
+      "reuses_existing_import": true,
+      "optional": true,
+      "board_references": [
+        "R_SLOT_ENABLE"
+      ]
+    }
+  ],
+  "excluded_reference_options": [
+    "R186 optional 3 kohm pull-down",
+    "R177 and R193 optional alternate pull-ups",
+    "C123, C127 and C130 optional capacitors",
+    "R169/R170/R192/R194 and D14/D15 bypass paths"
+  ],
+  "remaining_design_work": [
+    "Confirm intended slot load and calculate current, startup timing, MOSFET SOA and thermal margins.",
+    "Verify driver operation at the minimum guaranteed HDDPC high level, including the 1 kohm pull-down load.",
+    "Define local supply capacitance and overcurrent protection.",
+    "Coordinate slot rails with PERST# and preserve separate standby/AUX behavior."
+  ],
+  "implementation": {
+    "file": "components/SlotPower.tsx",
+    "sheet": "pcie",
+    "control_net": "ASM_HDDPC",
+    "switched_output_nets": [
+      "SLOT_3V3",
+      "SLOT_12V"
+    ],
+    "rail_bypasses_populated": false,
+    "schematic_layout": "Matched rail rows with visible wiring. The connector view shows its supplies, control signals and lanes 0-3; the footprint retains every physical contact."
+  },
+  "validation": {
+    "build": "passed; routing disabled",
+    "typecheck": "passed",
+    "connection_tests": "18 passed, 0 failed",
+    "schematic_placement": "passed",
+    "pcb_placement": "No placement DRC errors. Automatic packing retains an existing R_SPI_CS orientation advisory.",
+    "hardware_qualified": false
+  }
+}

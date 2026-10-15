@@ -10,7 +10,7 @@ The main circuit is in [index.circuit.tsx](index.circuit.tsx).
 It contains four schematic sheets:
 
 - `chip`: the ASM2464PDX bridge, SPI flash, a UART header, a 25 MHz crystal, and a 10 pF capacitor.
-- `pcie`: the PCIe connector, four active lanes, and TX coupling capacitors.
+- `pcie`: the PCIe connector, four active lanes, TX coupling capacitors, and HDDPC power switches.
 - `power`: the 24-pin ATX connector and two TPS62130 buck converters for `VCCL` and `VDD`.
 - `usb`: the GT-USB-7087B receptacle, USB4 coupling capacitors, ESD clamps, and discharge resistors.
 
@@ -38,7 +38,7 @@ The following components are instantiated in the main circuit:
 | W25Q32JVSSIQ | 1 | SPI flash connected to the bridge | [W25Q32JVSSIQ.tsx](imports/W25Q32JVSSIQ.tsx) |
 | XXCBCLNANF-25M | 1 | 25 MHz crystal | [XXCBCLNANF_25M.tsx](imports/XXCBCLNANF_25M.tsx) |
 | TCC0402COG100J500AT | 1 | 10 pF capacitor in the crystal circuit | [TCC0402COG100J500AT.tsx](imports/TCC0402COG100J500AT.tsx) |
-| X3183WV-164B1-46V01 | 1 | PCIe x16 connector | [X3183WV_164B1_46V01.tsx](imports/X3183WV_164B1_46V01.tsx) |
+| X1618WVS-164-9TV30 | 1 | PCIe 4.0 x16 SMT connector, 30 microinch gold, C21263101 | [X1618WVS_164_9TV30.tsx](imports/X1618WVS_164_9TV30.tsx) |
 | 39301240 | 1 | 24-pin ATX power connector | [A_39301240.tsx](imports/A_39301240.tsx) |
 | TPS62130RGTR | 2 | Buck converters named `VCCL_BUCK` and `VDD_BUCK` | [TPS62130RGTR.tsx](imports/TPS62130RGTR.tsx) |
 | GT-USB-7087B | 1 | USB4 40 Gbps, 24-contact USB-C receptacle; JLCPCB C3019713 | [GT_USB_7087B.tsx](imports/GT_USB_7087B.tsx) |
@@ -65,6 +65,46 @@ Its exact imported footprint includes a cutout for the body, which sits 0.23 mm 
 The connector center height is 1.35 mm.
 USB2, CC, SBU, and VBUS pin mappings passed the schematic review. Protection performance and powered-off VBUS behavior remain unverified.
 Final placement at the board edge and high-speed PCB routing remain incomplete.
+
+### PCIe connector
+
+The slot uses XKB X1618WVS-164-9TV30 ([JLCPCB C21263101](https://jlcpcb.com/partdetail/XKBConnection-X1618WVS_1649TV30/C21263101)).
+It replaces the X3183WV-164B1-46V01 through-hole connector.
+The [manufacturer drawing](datasheets/X1618WVS-164-9TV30.pdf) identifies PCIe 4.0 and specifies 30 microinch gold contacts.
+The connector has 164 contacts, but only lanes 0 through 3 connect to the bridge.
+
+The footprint uses the C21263100 import geometry, which matches the common V15/V30 drawing.
+It has 0.70 by 2.00 mm SMT lands, a 1.00 mm pitch, and 7.20 mm between the contact rows.
+Two 1.20 mm locating holes sit 73.15 mm apart.
+Two 3.00 by 5.00 mm lands support the mechanical hold-down tabs and have no electrical connection.
+The contact map uses physical A/B identifiers instead of the import's logical pin order.
+The connector height is 11.25 mm maximum.
+Hardware signal integrity and card retention remain unqualified.
+
+### PCIe slot power
+
+[SlotPower.tsx](components/SlotPower.tsx) controls both main slot supplies from the bridge's `HDDPC` output.
+The circuit appears on the `pcie` sheet beside the connector.
+
+| Supply | Input | Switched output | Power MOSFET |
+| --- | --- | --- | --- |
+| Main 3.3 V | `V3V3` | `SLOT_3V3` | DMP2008UFG-7 |
+| Main 12 V | `V12V` | `SLOT_12V` | AO4407A |
+
+HDDPC high enables both switches. HDDPC low disables both switches.
+Each power MOSFET has a separate 2N7002K-7 driver, 510 ohm gate resistor, and 100 kohm gate-to-source pull-up.
+A shared 1 kohm pull-down holds the driver inputs low without an active control signal.
+Each switched output has a 1 kohm discharge resistor rated at 0.25 W.
+The bridge supply, slot ground, and `V3V3_AUX` remain outside these switches.
+The auxiliary supply still needs its regulator from `V5VSB`.
+
+The circuit follows the `POWER_Control` block on sheet 6 of [the ASMedia reference schematic](datasheets/ASM2464PDX_TI_R03.pdf).
+Both switching paths are populated. The circuit omits all power-rail bypass links and diodes.
+The [parts inventory](slot-power-parts.json) records quantities, source documents, and component substitutions.
+
+The 10 uF gate capacitors use the reference's nominal value.
+Startup timing, driver margins, MOSFET safe operating area, and thermal behavior require checks with the intended card load.
+The circuit does not provide current limiting. Reset sequencing and hardware power-cycle behavior remain unqualified.
 
 ### USB4 coupling and protection
 

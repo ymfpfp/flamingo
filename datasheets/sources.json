@@ -110,11 +110,9 @@
     {
       "manufacturer_part_number": "X3183WV-164B1-46V01",
       "manufacturer": "XKB Connection",
-      "component_file": "imports/X3183WV_164B1_46V01.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "PCIe"
-      ],
+      "component_file": null,
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "X3183WV-164B1-46V01.pdf",
@@ -124,7 +122,38 @@
           "sha256": "0a4a6eed517339191e01d631feeae952c3ecd7371603517833626f9fa107a802",
           "notes": "Manufacturer drawing set for the exact connector variant; includes dimensions and specifications."
         }
-      ]
+      ],
+      "former_component_file": "imports/X3183WV_164B1_46V01.tsx",
+      "removal_reason": "Replaced by X1618WVS-164-9TV30 / C21263101 on 2026-10-15."
+    },
+    {
+      "manufacturer_part_number": "X1618WVS-164-9TV30",
+      "manufacturer": "XKB Connection",
+      "component_file": "imports/X1618WVS_164_9TV30.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "PCIe"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C21263101"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/XKBConnection-X1618WVS_1649TV30/C21263101",
+      "documents": [
+        {
+          "file": "X1618WVS-164-9TV30.pdf",
+          "source_url": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8603395703968718848-C21263101.pdf",
+          "origin": "downloaded from JLCPCB listing",
+          "pages": 2,
+          "sha256": "c178ae60da06526e816fc523ef77aebeda07317ba21b8778c7b1be45c776de3e",
+          "notes": "Manufacturer X1618WVS family drawing. Page 1 identifies PCIe 4.0, 11.25 mm maximum height and V30 gold plating at 30 microinch. Page 2 specifies the 164-contact SMT footprint and hold-down lands."
+        }
+      ],
+      "implementation": {
+        "footprint_source": "tsci import C21263100 --jlcpcb --use-exact-footprint --exclude-pin-attributes",
+        "notes": "C21263101 had no importable EasyEDA entry. C21263100 is the V15 plating variant of the same X1618WVS connector. Geometry matches the common manufacturer drawing. Signal pad hints remap by A/B contact IDs to preserve existing circuit aliases. Two mechanical hold-down pads have no signal ports. No old connector CAD model is retained."
+      }
     },
     {
       "manufacturer_part_number": "39301240",
@@ -186,7 +215,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ]
     },
@@ -395,6 +424,308 @@
           "notes": "Manufacturer part-specific sheet generated Oct. 14, 2026. 220 kOhm, +/-1%, 25 V, 0.05 W, 0201. Connector-side discharge paths copy R66-R73 in the ASMedia reference schematic. JLC catalog includes this part but stock was unavailable in the inventory response."
         }
       ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1003TCE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0402WGF1003TCE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_RST",
+        "R_SLOT_OFF_3V3",
+        "R_SLOT_OFF_12V"
+      ],
+      "documents": [
+        {
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+          "origin": "downloaded",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "Manufacturer thick-film resistor family datasheet supplied for C25741; covers the 0402 100 kohm 1% part."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 2,
+        "board_references": [
+          "R_SLOT_OFF_3V3",
+          "R_SLOT_OFF_12V"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "CL05A105KA5NQNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL05A105KA5NQNC.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_RST"
+      ],
+      "documents": [
+        {
+          "file": "CL05A105KA5NQNC.pdf",
+          "source_url": "https://media.digikey.com/pdf/Data%20Sheets/Samsung%20PDFs/CL05A105KA5NQNC.pdf",
+          "origin": "downloaded",
+          "pages": 36,
+          "sha256": "6b2c73874d497f00583d62b2e5075338f845c415328e783547d3f315a7adcbed",
+          "notes": "Exact manufacturer specification: 1 uF, 25 V, +/-10%, X5R, 0402."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "TS-1088-AR02016",
+      "manufacturer": "XUNPU",
+      "component_file": "imports/TS_1088_AR02016.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "SW_RESET"
+      ],
+      "documents": [
+        {
+          "file": "TS-1088-AR02016.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0475ac02febf455ca9ddcfb380b0df0d.pdf?productCode=C720477",
+          "origin": "downloaded",
+          "pages": 1,
+          "sha256": "368d4cc2c26b08cb63e1b67193f671d0860b6d3fb2e6b9f2696ffade401afc30",
+          "notes": "Manufacturer TS-1088 family drawing. Two-terminal normally-open tactile switch; AR02016 specifies 2.0 mm height and 160 gf actuation."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "AO4407A",
+      "manufacturer": "Alpha & Omega Semiconductor",
+      "component_file": "imports/AO4407A.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "Q_SLOT_12V"
+      ],
+      "documents": [
+        {
+          "file": "AO4407A.pdf",
+          "source_url": "https://www.aosmd.com/sites/default/files/res/data_sheets/AO4407A.pdf",
+          "origin": "downloaded",
+          "pages": 5,
+          "sha256": "ef4b3686383ca7264dad41bd466b750785a08c709d886a61d68ad39d21538bf8",
+          "notes": "P-channel, -30 V VDS, +/-25 V VGS; max RDS(on) 13 milliohm at VGS=-10 V. Selected for the 12 V path only; replaces reference PDS3959. Check thermal and linear-mode startup SOA at the intended slot load."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 1,
+        "board_references": [
+          "Q_SLOT_12V"
+        ],
+        "footprint": "Exact EasyEDA C16072 footprint, with all package source and drain terminals preserved."
+      }
+    },
+    {
+      "manufacturer_part_number": "DMP2008UFG-7",
+      "manufacturer": "Diodes Incorporated",
+      "component_file": "imports/DMP2008UFG_7.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "Q_SLOT_3V3"
+      ],
+      "documents": [
+        {
+          "file": "DMP2008UFG.pdf",
+          "source_url": "https://www.diodes.com/datasheet/download/DMP2008UFG.pdf",
+          "origin": "downloaded",
+          "pages": 6,
+          "sha256": "d074e50ddc0c6acbba71c5870c385519c3ec2f24a11f6906ebcf730bc4a6af17",
+          "notes": "P-channel, -20 V VDS, +/-8 V VGS; max RDS(on) 9.8 milliohm at VGS=-2.5 V. For the 3.3 V path only. Imported pin5 is the continuous drain land corresponding to manufacturer terminals 5-8."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 1,
+        "board_references": [
+          "Q_SLOT_3V3"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "2N7002K-7",
+      "manufacturer": "Diodes Incorporated",
+      "component_file": "imports/A_2N7002K_7.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "Q_SLOT_DRV_3V3",
+        "Q_SLOT_DRV_12V"
+      ],
+      "documents": [
+        {
+          "file": "2N7002K.pdf",
+          "source_url": "https://www.diodes.com/datasheet/download/2N7002K.pdf",
+          "origin": "downloaded",
+          "pages": 8,
+          "sha256": "669e5d68d6458e0879d7396416bdcdb3ef9966ea60f054773d4c891d735aa818",
+          "notes": "N-channel, 60 V; gate=1, source=2, drain=3. Reference-family driver; verify sinking current at worst-case HDDPC output voltage during final circuit design."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 2,
+        "board_references": [
+          "Q_SLOT_DRV_3V3",
+          "Q_SLOT_DRV_12V"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "0402WGF5100TCE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0402WGF5100TCE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_SLOT_GATE_3V3",
+        "R_SLOT_GATE_12V"
+      ],
+      "documents": [
+        {
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+          "origin": "existing manufacturer family specification",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "510 ohm, 1%, 0402, 1/16 W. Reference nominal value; check pulse loading against chosen gate capacitance before wiring."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 2,
+        "board_references": [
+          "R_SLOT_GATE_3V3",
+          "R_SLOT_GATE_12V"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "0402WGF1001TCE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0402WGF1001TCE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_SLOT_ENABLE_PD"
+      ],
+      "documents": [
+        {
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+          "origin": "existing manufacturer family specification",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "1 kohm, 1%, 0402, 1/16 W; replaces neither output bleeder. Reference optional R186 3 kohm remains omitted."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 1,
+        "board_references": [
+          "R_SLOT_ENABLE_PD"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "1206W4F1001T5E",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_1206W4F1001T5E.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_SLOT_DISCHARGE_3V3",
+        "R_SLOT_DISCHARGE_12V"
+      ],
+      "documents": [
+        {
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+          "origin": "existing manufacturer family specification",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 2,
+        "board_references": [
+          "R_SLOT_DISCHARGE_3V3",
+          "R_SLOT_DISCHARGE_12V"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "CL31B106KAHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL31B106KAHNNNE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_SLOT_GATE_3V3",
+        "C_SLOT_GATE_12V"
+      ],
+      "documents": [
+        {
+          "file": "CL31B106KAHNNNE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/02336ea48ea44ca18c72517dd3cb7b47.pdf?productCode=C14860",
+          "origin": "downloaded",
+          "pages": 84,
+          "sha256": "96baebe4bd0ce363e87be28b5b003f511f1502e084a6fc4f02333ded56c808f6",
+          "notes": "10 uF, 25 V, X7R, +/-10%, 1206. Reference uses nominal 10 uF; capacitance under DC bias and final startup timing/SOA remain to be calculated. Imported as a candidate, not a validated timing value."
+        }
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 2,
+        "board_references": [
+          "C_SLOT_GATE_3V3",
+          "C_SLOT_GATE_12V"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "0402WGF0000TCE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0402WGF0000TCE.tsx",
+      "documents": [
+        {
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+          "origin": "downloaded",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "0 ohm, 0402. Signal link only; never use this small resistor as a power-rail bypass."
+        }
+      ],
+      "placed_on_board": true,
+      "board_references": [
+        "R_SLOT_ENABLE"
+      ],
+      "slot_power_use": {
+        "inventory_file": "../slot-power-parts.json",
+        "implementation_file": "../components/SlotPower.tsx",
+        "sheet": "pcie",
+        "quantity": 1,
+        "board_references": [
+          "R_SLOT_ENABLE"
+        ]
+      }
     }
   ],
   "retired_components": [
@@ -770,7 +1101,7 @@
       "public_reference_design_checks": [
         {
           "source_url": "https://github.com/canmi21/ASM2464PD/blob/main/PCBA%20Project%20-%20BOM%20Quotation%20for%202230%20USB4%20Enclosure.xlsx",
-          "sheet": "PCBA1-BOM报价明细",
+          "sheet": "PCBA1-BOM\u62a5\u4ef7\u660e\u7ec6",
           "cells": "D17:J17",
           "RX_part": "GRM033R60J334ME90D",
           "finding": "Quote assigns 330 nF, 0201, 6.3 V, +/-20% to C62,C63,C72,C73. Fails voltage and tolerance targets. Public author design, not ASMedia qualification."

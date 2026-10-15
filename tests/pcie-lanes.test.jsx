@@ -64,6 +64,51 @@ test("PCIe clock pair 0 reaches A13/A14 through separate removable zero-ohm link
   assert.equal(clockNets.size, 4, "Clock P and N must remain separate");
 });
 
+test("CLKREQ connects bridge A19 to slot B12 through a link with a bridge-supply pull-up", () => {
+  const link = components.find(element => element.name === "R_PCIE_CLKREQ");
+  const pullup = components.find(element => element.name === "R_PCIE_CLKREQ_PU");
+  assert.ok(link);
+  assert.ok(pullup);
+  assert.equal(link.resistance, 0);
+  assert.equal(pullup.resistance, 10000);
+  const bridge = port("ASM2464PDX", "A19");
+  const slot = port("PCIe", "B12");
+  assert.notEqual(bridge.do_not_connect, true);
+  assert.notEqual(slot.do_not_connect, true);
+  assert.equal(net(port(link.name, "pin1")), net(bridge));
+  assert.equal(net(port(link.name, "pin2")), net(slot));
+  assert.notEqual(net(bridge), net(slot), "The removable link must not be bypassed");
+  assert.equal(net(port(pullup.name, "pin2")), net(slot));
+  assert.equal(net(port(pullup.name, "pin1")), net(port("ASM2464PDX", "D6")), "VCCH supply ball");
+  assert.notEqual(net(port(pullup.name, "pin1")), net(port("PCIe", "A9")), "Use unswitched bridge power");
+  assert.notEqual(net(port(pullup.name, "pin1")), net(port("ASM2464PDX", "D14")), "Do not use the core rail");
+});
+
+test("card presence senses all card lengths through GPIO2 with an unswitched 4.7k pull-up", () => {
+  assert.equal(components.filter(element => element.name === "PCIe").length, 1);
+  const pullup = components.find(element => element.name === "R_PCIE_PRESENT_PU");
+  const link = components.find(element => element.name === "R_PCIE_PRESENT");
+  assert.ok(pullup);
+  assert.ok(link);
+  assert.equal(pullup.resistance, 4700);
+  assert.equal(link.resistance, 0);
+  const sense = net(port(link.name, "pin2"));
+  for (const contact of ["B17", "B31", "B48", "B81"]) {
+    assert.equal(net(port("PCIe", contact)), sense, contact);
+    assert.notEqual(port("PCIe", contact).do_not_connect, true, contact);
+  }
+  assert.equal(net(port(link.name, "pin1")), net(port("ASM2464PDX", "B1")));
+  assert.notEqual(net(port(link.name, "pin1")), sense, "The removable link must not be bypassed");
+  assert.equal(net(port(pullup.name, "pin2")), sense);
+  const supply = net(port(pullup.name, "pin1"));
+  assert.equal(supply, net(port("ASM2464PDX", "D6")), "Pull up to VCCH");
+  assert.notEqual(supply, net(port("PCIe", "A9")), "Do not use switched slot power");
+  const ground = net(port("ASM2464PDX", "D4"));
+  assert.equal(net(port("PCIe", "A1")), ground, "Ground PRSNT1#");
+  assert.notEqual(sense, ground, "The empty slot must not assert presence");
+  assert.notEqual(sense, supply, "The card must be able to pull the sense net low");
+});
+
 test("the six unused reference-clock outputs are NC and have no traces", () => {
   for (const ball of ["AA11", "Y11", "AA10", "Y10", "AA7", "Y7"]) {
     const unused = port("ASM2464PDX", ball);

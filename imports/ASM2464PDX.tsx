@@ -508,6 +508,30 @@ export default function ASM2464PDX() {
         pinAttributes={pinAttributes}
         noConnect={[
           ...Object.values(pinMap).filter(name => name.startsWith("NC")),
+          // Optional NVMe activity LED is not used.
+          "GPIO0",
+          // Built-in USB-C/PD support is used; no external PD interrupt.
+          "GPIO1",
+          // Optional second NVMe activity LED is not used.
+          "GPIO3",
+          // Optional third and fourth NVMe activity LEDs are not used.
+          "GPIO25",
+          "GPIO26",
+          // Optional drive-cloning progress LEDs are not used.
+          "GPIO15",
+          "GPIO16",
+          "GPIO17",
+          "GPIO18",
+          // One x4 port uses GPIO2 for presence; extra port presence inputs are unused.
+          "GPIO19",
+          "GPIO21",
+          "GPIO27",
+          // The extra port power-control output HDDPC1 is not used.
+          "GPIO20",
+          // One x4 port uses GPIO8/CLKREQ0; other clock-request signals are unused.
+          "GPIO14",
+          "GPIO23",
+          "GPIO24",
           // We're not using I2C.
           "I2C_CLK_P",
           "I2C_DATA_P",
