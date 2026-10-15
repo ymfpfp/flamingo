@@ -6,18 +6,27 @@ The design includes a PCIe slot and an ATX power connector.
 
 ## Current design
 
+Documentation refresh: October 15, 2026.
+The status below describes the circuit source. Hardware performance remains unmeasured.
+
 The main circuit is in [index.circuit.tsx](index.circuit.tsx).
 It contains four schematic sheets:
 
-- `chip`: the ASM2464PDX bridge, SPI flash, a UART header, a 25 MHz crystal, and a 10 pF capacitor.
-- `pcie`: the PCIe connector, four active lanes, TX coupling capacitors, and HDDPC power switches.
-- `power`: the 24-pin ATX connector and two TPS62903 buck converters for `VCCL` and `VDD`.
+- `bridge`: the bridge, SPI flash, UART and SPI access, configuration resistors, crystal, and reset circuit.
+- `power`: the ATX connector, PSU indicator, two complete buck circuits, and their shared enable supervisor.
 - `usb`: the GT-USB-7087B receptacle, USB4 coupling capacitors, ESD clamps, and discharge resistors.
+- `pcie`: the x4 link, reference clock, reset, wake, clock request, card presence, and slot power switches.
 
 The board configuration specifies four layers and a thickness of 1.6 mm.
+Automatic packing supplies preliminary component positions. PCB routing is disabled.
 
-The source connects the SPI signals, crystal, and selected ATX power pins.
-The PCIe x4 data lanes connect to the bridge. PCIe control signals and the buck converter circuits remain incomplete.
+The SPI flash uses the 3.3 V `VCCH` supply, separate pull-ups, and a local 100 nF bypass capacitor.
+The controller output connects to flash `DI`. Flash `DO` connects to the controller input.
+The bridge has a 12.1 kΩ REXT resistor, configuration resistors, and an RC reset circuit with a reset button.
+The PCIe x4 data lanes and control signals connect to the bridge.
+Both TPS62903 converters include input capacitors, an inductor, an output capacitor, a feedback divider, and a MODE resistor.
+The supervisor enables both converters after `VCCH` reaches its threshold. Complete startup timing still needs a check.
+
 The USB-C connector has ground, USB2, CC, SBU, and VBUS-sense connections to the bridge.
 USB VBUS remains separate from the ATX supply rails.
 All four USB4 differential pairs connect to the bridge through eight AC-coupling capacitors.
@@ -28,9 +37,36 @@ The PSU starts automatically through a removable link on `PS_ON#`.
 A white `PSU OK` LED indicates that the PSU asserts `PWR_OK`.
 The design remains in development, with no established hardware performance results.
 
+## Remaining work
+
+The order below puts missing supply connections before layout and prototype checks.
+
+1. Connect bridge `VCCA33` to its 3.3 V supply and add the bridge decoupling network.
+   The current source leaves `VCCA33` unconnected and does not include local bypass capacitors for the bridge supply pins.
+2. Add the `V3V3_AUX` regulator from `V5VSB` for the PCIe slot.
+   The net and slot connection exist, but no regulator supplies this rail.
+3. Check startup, shutdown, and brownout timing for the bridge rails, reset, and slot power.
+   The reset RC does not monitor rail readiness. Both buck `PG` outputs remain unused.
+4. Complete the power budget and checks for ripple, transients, capacitor bias, inductor margins, and temperature.
+   Check slot-switch inrush and safe operating area with the intended card load.
+   The slot switches do not provide current limiting.
+5. Check USB VBUS sensing with the bridge unpowered.
+   Decide whether USB2, CC, SBU, and VBUS need additional external protection for the intended product.
+   Preserve the accepted X5R prototype selection until electrical or thermal results require a change.
+6. Establish the bridge firmware image and configuration, including the intended x4 mode and hot-plug behavior.
+   Check boot straps and SPI bus isolation before external programming.
+   The programming supply connects directly to the board supply.
+7. Complete test access, board outline, connector positions, card support, mounting, and cooling provisions.
+8. Complete BGA escape, power distribution, controlled-impedance routing, length matching, and short protection-device ground returns.
+   Check the bridge footprint assumptions before fabrication.
+9. Complete schematic, netlist, placement, and routing checks before fabrication exports.
+   Check prototype supply timing, USB attachment, PCIe enumeration, throughput, and temperature on hardware.
+   Check stock and assembly availability before an order.
+
 ## Components
 
-The following components are instantiated in the main circuit:
+The following table lists the main components in the board and its circuit blocks.
+Support-part groups follow the table. These lists do not replace a manufacturing bill of materials.
 
 | Component | Quantity | Role | Definition |
 | --- | ---: | --- | --- |
@@ -50,6 +86,13 @@ The following components are instantiated in the main circuit:
 | RT0402BRD0710K7L | 1 | VDD feedback top resistor, 10.7 kΩ, ±0.1%, 0402; C852482 | [RT0402BRD0710K7L.tsx](imports/RT0402BRD0710K7L.tsx) |
 | RT0402BRD0712K1L | 2 | Feedback bottom resistors, 12.1 kΩ, ±0.1%, 0402; C281773 | [RT0402BRD0712K1L.tsx](imports/RT0402BRD0712K1L.tsx) |
 | RC0402FR-0721KL | 2 | MODE resistors, 21 kΩ, ±1%, 0402; C185441 | [RC0402FR_0721KL.tsx](imports/RC0402FR_0721KL.tsx) |
+| SLW5040S2R2MST | 2 | Buck inductors, 2.2 µH | [SLW5040S2R2MST.tsx](imports/SLW5040S2R2MST.tsx) |
+| CL31B106KAHNNNE | 4 | Two 10 µF buck input capacitors and two 10 µF slot-switch gate capacitors | [CL31B106KAHNNNE.tsx](imports/CL31B106KAHNNNE.tsx) |
+| DMP2008UFG-7 | 1 | Main 3.3 V slot power switch | [DMP2008UFG_7.tsx](imports/DMP2008UFG_7.tsx) |
+| AO4407A | 1 | Main 12 V slot power switch | [AO4407A.tsx](imports/AO4407A.tsx) |
+| 2N7002K-7 | 2 | Slot power-switch gate drivers | [A_2N7002K_7.tsx](imports/A_2N7002K_7.tsx) |
+| CL05A105KA5NQNC | 1 | Bridge reset capacitor, 1 µF | [CL05A105KA5NQNC.tsx](imports/CL05A105KA5NQNC.tsx) |
+| TS-1088-AR02016 | 1 | Bridge reset button | [TS_1088_AR02016.tsx](imports/TS_1088_AR02016.tsx) |
 | SN74AHCT1G14DBVR | 1 | TTL-compatible Schmitt-trigger inverter for the PSU indicator; C55250 | [SN74AHCT1G14DBVR.tsx](imports/SN74AHCT1G14DBVR.tsx) |
 | XL-1608UWC-04 | 1 | White `PSU OK` LED; C965808 | [XL_1608UWC_04.tsx](imports/XL_1608UWC_04.tsx) |
 | GT-USB-7087B | 1 | USB4 40 Gbps, 24-contact USB-C receptacle; JLCPCB C3019713 | [GT_USB_7087B.tsx](imports/GT_USB_7087B.tsx) |
@@ -58,7 +101,18 @@ The following components are instantiated in the main circuit:
 | ESD150B1W0201E6327XTSA1 | 8 | Infineon reference ESD clamp, single-channel bidirectional, 0201; C3709987 | [ESD150B1W0201E6327XTSA1.tsx](imports/ESD150B1W0201E6327XTSA1.tsx) |
 | RC0201FR-07220KL | 8 | USB4 discharge resistor, 220 kΩ, ±1%, 25 V, 0201; C142020 | [RC0201FR_07220KL.tsx](imports/RC0201FR_07220KL.tsx) |
 
-The repository also contains these component definitions:
+Additional support parts in the source include:
+
+- Eight PCIe TX capacitors, each 220 nF, 10 V, in 0402 packages.
+- Flash `CS`, `WP/IO2`, and `IO3` pull-ups, plus a local 100 nF bypass capacitor.
+- A 4.7 kΩ `UART_TX` pull-up for the memory-repair strap and a 4.7 kΩ `TEST_EN` pull-down.
+- A 100 kΩ reset pull-up, PCIe control links, and clock-request and card-presence pull-ups.
+- Local bypass capacitors for the buck inputs, supervisor, and PSU indicator.
+- Slot-switch gate resistors, pull-ups, discharge resistors, and a removable control link.
+- A populated 0 Ω ATX start link and the PSU indicator resistors.
+
+The UART and SPI connectors provide unpopulated access footprints and use `doNotPlace`.
+The repository also retains this unused component definition:
 
 | Component | Intended role | Definition |
 | --- | --- | --- |
@@ -76,6 +130,22 @@ Its exact imported footprint includes a cutout for the body, which sits 0.23 mm 
 The connector center height is 1.35 mm.
 USB2, CC, SBU, and VBUS pin mappings passed the schematic review. Protection performance and powered-off VBUS behavior remain unverified.
 Final placement at the board edge and high-speed PCB routing remain incomplete.
+
+### Bridge reset and programming access
+
+[BridgeReset.tsx](components/BridgeReset.tsx) connects a 100 kΩ pull-up and a 1 µF capacitor to `ASM_RST_N`.
+The normally-open button connects reset to ground. This RC circuit follows the reference but does not monitor supply readiness.
+The buck enable supervisor has a separate output and does not drive bridge reset.
+
+[UartHeader.tsx](components/UartHeader.tsx) provides a custom three-pin, 2.54 mm access footprint: `GND`, `TX`, and `RX`.
+The signal names use the board perspective. Adapter RX connects to board TX, and adapter TX connects to board RX.
+The footprint label identifies 3.3 V UART levels.
+
+[SpiProgrammingHeader.tsx](components/SpiProgrammingHeader.tsx) provides a custom six-pin, 2.54 mm footprint.
+Its pin order is `GND`, `V3V3`, `CS_N`, `CLK`, `MOSI`, and `MISO`.
+The flash supply connects to `VCCH`. MOSI connects to flash `DI`, and MISO connects to flash `DO`.
+The header shares the bus with the bridge and has no supply or bus isolation.
+Firmware selection, programmer power, and bus contention still need checks.
 
 ### ATX power-on and status
 
@@ -118,6 +188,13 @@ Two 3.00 by 5.00 mm lands support the mechanical hold-down tabs and have no elec
 The contact map uses physical A/B identifiers instead of the import's logical pin order.
 The connector height is 11.25 mm maximum.
 Hardware signal integrity and card retention remain unqualified.
+
+The x4 link uses eight 220 nF TX capacitors. The card supplies its own transmitter coupling capacitors.
+The slot `PERST#`, reference clock pair 0, and `CLKREQ#` connect through separate 0 Ω links.
+`CLKREQ#` has a 10 kΩ pull-up to `VCCH`. `WAKE#` connects to bridge GPIO22.
+`PRSNT1#` connects to ground. The slot presence contacts share a sense net with a 4.7 kΩ pull-up to `VCCH`.
+A 0 Ω link connects that sense net to bridge GPIO2.
+Firmware behavior, startup timing, and hardware hot-plug operation still need checks.
 
 ### PCIe slot power
 
@@ -194,7 +271,8 @@ The VBUS input is explicitly 5 V tolerant, but the present connection omits the 
 Reference sheet 3 shows R57/R60 (4.7 kΩ/10 kΩ), C68 (1 µF), and an unpopulated R59 link to the bridge.
 It also shows connector VBUS capacitors. The review did not establish that the divider and filter are mandatory for integrated fixed-5 V operation.
 The working prototype retains the direct connection. This reference difference alone does not block work on the remaining schematic.
-Powered-off VBUS tolerance remains a power-design follow-up. The examined datasheet does not explicitly establish tolerance when VCCH is absent.
+Powered-off VBUS tolerance remains a power-design follow-up.
+When VCCH is absent, the examined datasheet does not explicitly establish VBUS tolerance.
 A divider alone does not establish powered-off tolerance or provide overvoltage protection.
 
 The source contains eight Infineon TVS clamps on the high-speed conductors only.
@@ -202,8 +280,9 @@ USB2, CC, SBU, and VBUS have no external TVS components in the current source.
 Reference sheet 3 also omits separate clamps on those signals, so their absence alone does not establish a functional wiring error.
 System ESD and VBUS-short protection for these exposed signals remain unqualified.
 
-All 10 existing circuit tests and the TypeScript check passed. These checks do not establish hardware attach, negotiation, or ESD performance.
-No circuit components changed during this review.
+The October 14 review recorded 10 passing circuit tests and a passing TypeScript check.
+The current check results appear in [Development](#development).
+These checks do not establish hardware attach, negotiation, or ESD performance.
 
 ### USB4 capacitor selection
 
@@ -248,7 +327,8 @@ The RX candidate spans 313.5–346.5 nF at its specified test conditions before 
 X7R does not eliminate these effects, as [Murata explains](https://www.murata.com/en-eu/support/faqs/capacitor/ceramiccapacitor/char/0005).
 The candidate specifications do not establish 40 Gbps channel performance.
 ASMedia-approved capacitor part numbers or clarification can resolve the conflict between the available parts and the 0201/X7R recommendation.
-Neither larger X7R alternative is instantiated. The Samsung TX listing reports two pieces, insufficient for one board. The Yageo RX listing reports 7,522 pieces.
+Neither larger X7R alternative is instantiated.
+The October 14 research recorded two Samsung TX pieces and 7,522 Yageo RX pieces. These counts are historical.
 The user accepted the working X5R selection for the first prototype. Electrical and thermal qualification remain incomplete.
 The [source index](datasheets/sources.json) records the research requirements, candidate specifications, and document hashes.
 
@@ -276,6 +356,22 @@ The scripts in [package.json](package.json) provide these commands:
 | `bun run typecheck` | Run `tsc --noEmit` |
 | `bun run snapshot` | Run `tsci snapshot` |
 | `bun run snapshot:update` | Update snapshots with `tsci snapshot --update` |
+
+Run the circuit tests:
+
+```sh
+bun test ./tests
+```
+
+Run the TypeScript check:
+
+```sh
+bun run typecheck
+```
+
+On October 15, 2026, all 31 tests across seven files passed. The TypeScript check also passed.
+The tests cover the bridge pin map and footprint, buck circuits, USB4 lanes, PCIe connections, PSU control, and slot switches.
+These results do not establish complete schematic connectivity, final PCB placement, routed signal integrity, or hardware performance.
 
 ## Design notes and open questions
 
@@ -311,7 +407,8 @@ A TPS389001DSET supervisor monitors `VCCH` through a 16.2 kΩ / 10.0 kΩ divider
 Both sense resistors are 0402 thin-film parts with ±0.1% tolerance and ±25 ppm/C temperature coefficients.
 The nominal enable threshold is `1.157 V × (1 + 16.2/10) = 3.03134 V` for increasing VCCH.
 The nominal disable threshold is `1.15 V × (1 + 16.2/10) = 3.013 V` for decreasing VCCH.
-The supervisor supply and `MR#` connect to `VCCH`; a 100 nF capacitor bypasses its supply to ground.
+The supervisor supply and `MR#` connect to `VCCH`.
+A 100 nF capacitor bypasses its supply to ground.
 Its open-drain `RESET#` output drives `BUCK_EN`, with a separate 10 kΩ pull-up to `VCCH`.
 Its `CT` pin remains open for the nominal 25 µs release delay.
 The [supervisor datasheet](datasheets/TPS389001DSET.pdf) specifies these connections and thresholds on pages 3, 5, and 13.
@@ -319,7 +416,8 @@ This circuit enables both converters together. It does not control the separate 
 Both buck `PG` pins remain unused. Bridge reset qualification and complete power-up timing still require checking.
 
 Each converter has one SLW5040S2R2MST shielded 2.2 µH inductor between its `SW` pin and its output rail.
-`L_VCCL` supplies `VCCL`; `L_VDD` supplies `VDD`. Each `VOS` pin senses the filtered output at the output capacitor.
+`L_VCCL` supplies `VCCL`. `L_VDD` supplies `VDD`.
+Each `VOS` pin senses the filtered output at the output capacitor.
 The inductor has a 3.95 A thermal rating and a 6.5 A saturation rating at 30% inductance loss.
 The thermal rating permits a 40 C rise from 20 C ambient. Final temperature and current margins require checking.
 The [inductor datasheet](datasheets/SLW5040S2R2MST.pdf) specifies dimensions on page 2 and electrical ratings on page 9.
@@ -364,8 +462,12 @@ The physical x16 connector does not establish the number of active PCIe lanes.
 | Path | Contents |
 | --- | --- |
 | [index.circuit.tsx](index.circuit.tsx) | Main board and schematic sheets |
+| [components/](components/) | Buck supplies, enable supervisor, bridge reset, programming access, USB4 lanes, PSU status, and slot switches |
 | [imports/](imports/) | Component definitions, pin labels, and footprints |
 | [datasheets/](datasheets/) | Component datasheets and reference documents |
+| [datasheets/sources.json](datasheets/sources.json) | Datasheet sources, part mappings, selection notes, and hashes |
+| [slot-power-parts.json](slot-power-parts.json) | Slot-switch parts and reference substitutions |
+| [tests/](tests/) | Circuit connection, component, and footprint tests |
 | [lib/utils.ts](lib/utils.ts) | Helper for signal and pin ordering |
 | [schematic/config.ts](schematic/config.ts) | Schematic sheet configuration |
 | [tscircuit.config.json](tscircuit.config.json) | tscircuit configuration |
