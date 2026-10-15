@@ -1,6 +1,6 @@
 {
   "checked_on": "2026-10-14",
-  "scope": "All component definitions in imports/, including parts not yet placed on the board. Existing PDFs are preserved.",
+  "scope": "Local PDFs cover components placed on the board and current design references. Historical entries retain source URLs and hashes without local copies.",
   "components": [
     {
       "manufacturer_part_number": "ASM2464PDX",
@@ -12,12 +12,13 @@
       ],
       "documents": [
         {
-          "file": "ASM2464PDX.pdf",
           "source_url": null,
           "origin": "existing project file",
           "pages": 24,
           "sha256": "f98f2ec9f9464f8db2acc952dc7f27dbcc264a8b2c9d0a97d0931af6f40d782c",
-          "notes": "Existing project datasheet; original download source is not recorded."
+          "notes": "Superseded project datasheet; removed in favor of ASM2464PDX_DataSheet_R0_3.pdf. Original download source is not recorded.",
+          "former_local_filename": "ASM2464PDX.pdf",
+          "retained_locally": false
         },
         {
           "file": "ASM2464PDX_DataSheet_R0_3.pdf",
@@ -25,7 +26,7 @@
           "origin": "existing project file",
           "pages": 24,
           "sha256": "4a09440d6510e29e441e9228214ca18650a3a83e15631530c9b3bb51c430f221",
-          "notes": "Additional ASM2464PDX datasheet present at final inventory. Original download source is not recorded; preserved alongside the original PDF."
+          "notes": "Current project ASM2464PDX datasheet, revision 0.3. Original download source is not recorded."
         }
       ]
     },
@@ -160,12 +161,13 @@
       "board_references": [],
       "documents": [
         {
-          "file": "XL-1608SURC-06.pdf",
           "source_url": "https://www.xinglight.cn/uploadfile/202506/60f2a54fafd0ff3.pdf",
           "origin": "downloaded",
           "pages": 14,
           "sha256": "a45a8428cbf4d5a5ccc883d19fc98c182185ab281a5cfbbb9b7d37f4d8b2fd71",
-          "notes": "Manufacturer technical datasheet for the exact LED. Imported component is not placed in index.circuit.tsx."
+          "notes": "Manufacturer technical datasheet for the exact LED. Imported component is not placed in index.circuit.tsx.",
+          "former_local_filename": "XL-1608SURC-06.pdf",
+          "retained_locally": false
         }
       ]
     },
@@ -184,7 +186,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ]
     },
@@ -209,7 +211,7 @@
           "origin": "downloaded",
           "pages": 1,
           "sha256": "6b585527e9169a85455a3da2e42594bfe7c947dff7a5d7e05ae00274a948fabf",
-          "notes": "Manufacturer drawing revision A0, 2023-02-01. Specifies 24 contacts, data transmission up to 40 Gbps, 5 A VBUS, 24 V rating, 1.35 mm center height and 0.23 mm recessed body. Includes pin assignments and recommended PCB layout. High-speed coupling, ESD protection and shield termination remain incomplete."
+          "notes": "Manufacturer drawing revision A0, 2023-02-01. Specifies 24 contacts, data transmission up to 40 Gbps, 5 A VBUS, 24 V rating, 1.35 mm center height and 0.23 mm recessed body. Includes pin assignments and recommended PCB layout. High-speed pairs now connect to the bridge through coupling capacitors with individual PHY-side ESD clamps. All six shell pads connect directly to GND, matching ASMedia reference CON1. PCB routing and local ground vias remain incomplete."
         }
       ]
     },
@@ -252,6 +254,147 @@
           "notes": "Samsung part-specific specification supplied by Future Electronics. Page 1 specifies 100 nF, +/-10%, X7R, 16 V, 0402 (1005 metric). JLCPCB Basic part C1525; exact EasyEDA footprint imported with tsci. Used as the SPI flash supply decoupling capacitor; ASMedia reference schematic sheet 3 uses 100 nF at C73."
         }
       ]
+    },
+    {
+      "manufacturer_part_number": "GRM033R61E224KE01D",
+      "manufacturer": "Murata",
+      "component_file": "imports/GRM033R61E224KE01D.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_USB_TX1_P",
+        "C_USB_TX1_N",
+        "C_USB_TX2_P",
+        "C_USB_TX2_N"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C701263"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C701263",
+      "documents": [
+        {
+          "file": "GRM033R61E224KE01D.pdf",
+          "source_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2304140030_Murata-Electronics-GRM033R61E224KE01D_C701263.pdf",
+          "origin": "downloaded",
+          "pages": 154,
+          "sha256": "62cc745736d86fc82d34c64b0bc6f83ec3031351c5c77eb6c72b375abda79689",
+          "notes": "Manufacturer MLCC family catalog supplied for C701263. PDF page 53 lists GRM033R61E224KE01# as 220 nF, 25 V, +/-10%, X5R, 0201. Packaging suffix D comes from the supplier listing and imported part. Used on all four USB4 TX conductors. This catalog is not a part-specific approval sheet."
+        }
+      ],
+      "selection_status": "Working X5R selection; electrical and thermal qualification pending.",
+      "catalog_stock_snapshot": {
+        "checked_on": "2026-10-14",
+        "stock": 254994,
+        "source": "tsci search --jlcpcb --json C701263",
+        "notes": "Catalog snapshot, not an order or a guarantee of assembly availability."
+      }
+    },
+    {
+      "manufacturer_part_number": "GRM033R61E334KE15D",
+      "manufacturer": "Murata",
+      "component_file": "imports/GRM033R61E334KE15D.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_USB_RX1_P",
+        "C_USB_RX1_N",
+        "C_USB_RX2_P",
+        "C_USB_RX2_N"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C723889"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C723889",
+      "documents": [
+        {
+          "file": "GRM033R61E334KE15D.pdf",
+          "source_url": "https://atta.szlcsc.com/upload/public/pdf/source/20201110/C723889_19681A2E100860EFE3D472AF09B35084.pdf",
+          "origin": "downloaded",
+          "pages": 30,
+          "sha256": "597a28600dd8a4eb525dab6d36fb73928ac0919f2c9fe1dbdff6e7150985004f",
+          "notes": "Manufacturer part-specific reference sheet GRM033R61E334KE15-01, dated Dec. 20, 2018. Page 1 specifies 330 nF, 25 V, +/-10%, X5R, 0201. Used on all four USB4 RX conductors. Nominal reference value selection; effective capacitance including tolerance, temperature, DC bias and aging still requires qualification. Page 1 includes a temperature exception: -33% to +15% capacitance change from -55 C to -15 C."
+        }
+      ],
+      "selection_status": "Working X5R selection; electrical and thermal qualification pending.",
+      "catalog_stock_snapshot": {
+        "checked_on": "2026-10-14",
+        "stock": 14775,
+        "source": "tsci search --jlcpcb --json C723889",
+        "notes": "Catalog snapshot, not an order or a guarantee of assembly availability."
+      }
+    },
+    {
+      "manufacturer_part_number": "ESD150B1W0201E6327XTSA1",
+      "manufacturer": "Infineon Technologies",
+      "component_file": "imports/ESD150B1W0201E6327XTSA1.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "D_USB_TX1_P",
+        "D_USB_TX1_N",
+        "D_USB_TX2_P",
+        "D_USB_TX2_N",
+        "D_USB_RX1_P",
+        "D_USB_RX1_N",
+        "D_USB_RX2_P",
+        "D_USB_RX2_N"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C3709987"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C3709987",
+      "documents": [
+        {
+          "file": "ESD150-B1-W0201.pdf",
+          "source_url": "https://jlcpcb.com/partdetail/C3709987",
+          "manufacturer_url": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-esd150-b1-w0201-datasheet-en.pdf",
+          "origin": "downloaded",
+          "pages": 13,
+          "sha256": "bf588d1a2b27d63dacb7522da4ad72e5b0bd7a165ead5ad78cbcb776b1742157",
+          "notes": "Manufacturer datasheet v2.1, September 27, 2022, downloaded from the JLCPCB listing document mirror. The manufacturer URL currently serves v2.3. Exact ASMedia reference part. Single-channel bidirectional clamp; +/-3.3 V working; typical TLP clamping 5.4 V at 16 A. Capacitance 0.24 pF typical at 1 MHz, 0.15 pF typical at 10 GHz. One device per conductor on the bridge side of its coupling capacitor, shunted to GND."
+        }
+      ],
+      "availability_snapshot": {
+        "checked_on": "2026-10-14",
+        "stock": 1235,
+        "source": "tsci search --jlcpcb C3709987 --json and JLCPCB product listing",
+        "notes": "Extended part; Standard PCB assembly only. Catalog snapshot, not an order or a guarantee of assembly availability."
+      }
+    },
+    {
+      "manufacturer_part_number": "RC0201FR-07220KL",
+      "manufacturer": "Yageo",
+      "component_file": "imports/RC0201FR_07220KL.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_USB_TX1_P",
+        "R_USB_TX1_N",
+        "R_USB_TX2_P",
+        "R_USB_TX2_N",
+        "R_USB_RX1_P",
+        "R_USB_RX1_N",
+        "R_USB_RX2_P",
+        "R_USB_RX2_N"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C142020"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C142020",
+      "documents": [
+        {
+          "file": "RC0201FR-07220KL.pdf",
+          "source_url": "https://www.yageogroup.com/download/specsheet/RC0201FR-07220KL",
+          "origin": "downloaded",
+          "pages": 1,
+          "sha256": "3752b70fa02df0b73e9b70b501d52486d8ff5536cdce90a0b8b3acf4d9cd83ca",
+          "notes": "Manufacturer part-specific sheet generated Oct. 14, 2026. 220 kOhm, +/-1%, 25 V, 0.05 W, 0201. Connector-side discharge paths copy R66-R73 in the ASMedia reference schematic. JLC catalog includes this part but stock was unavailable in the inventory response."
+        }
+      ]
     }
   ],
   "retired_components": [
@@ -262,15 +405,650 @@
       "board_references": [],
       "documents": [
         {
-          "file": "TYPE-C-31-M-12.pdf",
           "source_url": "https://datasheet.lcsc.com/datasheet/pdf/9e56b777c022540fcce7c7f67825f55e.pdf?productCode=C165948",
           "origin": "downloaded",
           "pages": 1,
           "sha256": "6ae33d50ac47820114661138dc4e4659f40fdc5d4f485b46685dfec338da1a9e",
-          "notes": "Manufacturer connector drawing with pin assignments, recommended PCB layout, and electrical/mechanical specifications. Imported component is not placed in index.circuit.tsx."
+          "notes": "Manufacturer connector drawing with pin assignments, recommended PCB layout, and electrical/mechanical specifications. Imported component is not placed in index.circuit.tsx.",
+          "former_local_filename": "TYPE-C-31-M-12.pdf",
+          "retained_locally": false
         }
       ],
       "removal_reason": "USB 2.0-only receptacle; replaced by GT-USB-7087B because the high-speed USB4 contacts are absent."
+    },
+    {
+      "manufacturer_part_number": "TPD1E0B04DPLR",
+      "manufacturer": "Texas Instruments",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C913830"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C913830",
+      "documents": [
+        {
+          "source_url": "https://www.ti.com/lit/ds/symlink/tpd1e0b04.pdf",
+          "origin": "downloaded",
+          "pages": 28,
+          "sha256": "d988a81023e1db46816e3d972d9fd5d47ba1e347a577749e4a4a99c3fb716a8d",
+          "notes": "Historical manufacturer datasheet revision C, June 2025. TI clamp replaced by Infineon ESD150-B1-W0201 on all eight USB4 conductors; source URL and hash retained for provenance.",
+          "former_local_filename": "TPD1E0B04DPLR.pdf",
+          "retained_locally": false
+        }
+      ],
+      "removal_reason": "Replaced by the exact ASMedia reference part, Infineon ESD150-B1-W0201 (C3709987). Typical TLP clamping at 16 A is 5.4 V for Infineon versus 19 V for the TI part."
     }
-  ]
+  ],
+  "usb4_capacitor_research": {
+    "checked_on": "2026-10-14",
+    "status": "User accepted existing Murata X5R EIA 0201 capacitors for the first prototype on 2026-10-14. RX GRM033R61E334KE15D / C723889 remains selected at 330 nF, 25 V, +/-10%. USB4 capacitance and channel compliance remain unverified. No screening or circuit substitution.",
+    "requirements": {
+      "layout_guideline": {
+        "TX": "220 nF, X7R, EIA 0201",
+        "RX": "330 nF, X7R, EIA 0201"
+      },
+      "reference_schematic_sheet_3": {
+        "TX_voltage": "10 V",
+        "RX_voltage": "25 V"
+      },
+      "tolerance_notes": "ASMedia documents examined do not state capacitor tolerance. +/-5% is an RX selection target to improve margin over +/-10%, not an ASMedia requirement. Temperature, DC bias, aging, ESD stress and channel loss still require qualification.",
+      "usb_if_2019_design_presentation_page_49": {
+        "connector_facing_TX": "135-265 nF, 25 V",
+        "connector_facing_RX": "300-363 nF, 25 V",
+        "package": "Consider 0201 for lower parasitics and better return loss than 0402."
+      },
+      "usb4_normative_reference": {
+        "file": "USB4-Specification-2.0-November-2025.pdf",
+        "PDF_page": 93,
+        "printed_page": 49,
+        "section": "3.1.2.2",
+        "connector_facing_RX_capacitance_nF": [
+          300,
+          363
+        ],
+        "connector_facing_RX_discharge_resistance_kohm": [
+          200,
+          242
+        ],
+        "note": "Verified directly in the November 2025 normative specification, not only the 2019 presentation."
+      },
+      "RX_selection_priority": {
+        "checked_on": "2026-10-14",
+        "user_preference": "Retain EIA 0201 and >=25 V. User accepts the existing +/-10% Murata RX part for the first prototype, including the initial lower-limit margin concern.",
+        "engineering_selection_target": "Earlier +/-5% target is superseded for this prototype. Selected part is GRM033R61E334KE15D, 330 nF, 25 V, +/-10%, X5R, EIA 0201.",
+        "assessment": "Accepted prototype choice. Its 297-363 nF initial interval does not guarantee the USB4 300-363 nF requirement. Temperature, DC bias and aging add uncertainty. No production qualification is implied.",
+        "package_EIA_required": "0201",
+        "cold_temperature_priority": "Secondary; user accepts a weaker limit.",
+        "screening_evaluation_authorized": false
+      }
+    },
+    "reference_documents": [
+      {
+        "file": "ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf",
+        "source_url": null,
+        "origin": "Existing local download",
+        "pages": 8,
+        "sha256": "d76d8f918b1977e8f4b4475e4bca7381ec6a7c44192335eec0470291cf0d88e4",
+        "notes": "ASMedia ASM2464PD/PDX PCB Guideline (Mid loss), revision 1.0, July 3, 2023. PDF page 3 specifies 220 nF TX and 330 nF RX, both 0201/X7R. Original download URL is not recorded."
+      },
+      {
+        "source_url": "https://www.yageogroup.com/download/specsheet/CC0603JRX7R8BB334",
+        "origin": "Manufacturer specification",
+        "pages": 4,
+        "sha256": "222a760618552f1860a236e8d74a5ba92ffa411e809720c19e3b840c0ca79f8c",
+        "notes": "Candidate only, not instantiated. Manufacturer sheet confirms 330 nF, +/-5%, 25 V, X7R, EIA 0603 (1608 metric). This package differs from the ASMedia 0201 recommendation.",
+        "former_local_filename": "CC0603JRX7R8BB334.pdf",
+        "retained_locally": false
+      },
+      {
+        "source_url": "https://www.usb.org/sites/default/files/D2T2-2%20-%20USB4%20Cable%20and%20System.pdf",
+        "origin": "Primary technical reference",
+        "pages": 53,
+        "sha256": "2f751d7e388caa6584dde3c67705283df29d18450ddf242d13e240645d42c279",
+        "notes": "USB-IF design presentation, November 20, 2019. PDF page 49 compares 0201 and 0402 capacitor footprints and recommends considering 0201 for lower parasitics and better return loss. The example does not establish performance for this board. Connector-facing TX capacitors: 135-265 nF, 25 V; RX: 300-363 nF, 25 V.",
+        "former_local_filename": "USB4-Cable-Electricals-and-System-Design-USB-IF-2019.pdf",
+        "retained_locally": false
+      },
+      {
+        "source_url": "https://www.yageogroup.com/content/datasheet/asset/file/UPY-GPHC_X7R_6_3V-TO-250V",
+        "origin": "Primary technical reference",
+        "pages": 29,
+        "sha256": "3aa10c5d01fbea28f638f1e4bca56a14b9b3342f593d68641830b1cbdb3720e6",
+        "notes": "Yageo X7R catalog, revision 27, March 6, 2026. PDF page 4 lists EIA 0201 at 25 V up to 10 nF; no 220 nF or 330 nF 0201 entries. EIA 0402 includes 220 nF at 25 V, but no 330 nF. This establishes a limitation of this manufacturer catalog, not proof of global unavailability.",
+        "former_local_filename": "Yageo-X7R-6.3V-to-250V-Rev27-2026.pdf",
+        "retained_locally": false
+      },
+      {
+        "file": "USB4-Specification-2.0-November-2025.pdf",
+        "source_url": "https://www.usb.org/sites/default/files/USB4%20Specification%20November%202025.zip",
+        "origin": "Primary technical reference",
+        "pages": 839,
+        "sha256": "d2c27a35f5436559ba7e52448b873553434218544b2b8f160667bfd036ec024b",
+        "notes": "USB4 Specification 2.0, November 2025, CLEAN PDF extracted unchanged from the official bundle. PDF page 93 (printed page 49), section 3.1.2.2 requires connector-facing RX capacitance 300-363 nF and discharge resistance 200-242 kohm for Gen 2/Gen 3. TX capacitance is 135-265 nF."
+      },
+      {
+        "source_url": "https://product.samsungsem.com/resources/cn/file/support/software_library/Samsung_MLCC_Simple_s2p_List_V1.pdf",
+        "origin": "Primary technical reference",
+        "pages": 141,
+        "sha256": "c20ad762f1d312734d38088d4f704a35bb2e14465a9ef3aa2c5c7b55f351d9b9",
+        "notes": "Manufacturer model list, downloaded October 14, 2026. PDF page 8 lists 330 nF EIA 0201 X5R at 25 V and 35 V, all +/-10%. This model list is not necessarily a complete product catalog.",
+        "former_local_filename": "Samsung-MLCC-Simple-S2P-Model-List-2026.pdf",
+        "retained_locally": false
+      },
+      {
+        "source_url": "https://data.venkel.com/documents/c-series?force=1",
+        "origin": "Primary technical reference",
+        "pages": 32,
+        "sha256": "dba544ff51f0c164893790a82702c1ae541aeaa20001e4bb2f2e62d2c304730d",
+        "notes": "General Purpose Ceramic Capacitors C Series, revision 05/2026-A. PDF page 3 restricts X5R tolerance to K/M (+/-10% or +/-20%). Generic front-page tighter tolerance codes do not establish an X5R +/-5% option.",
+        "former_local_filename": "Venkel-C-Series-Rev05-2026-A.pdf",
+        "retained_locally": false
+      },
+      {
+        "source_url": "https://www.vishay.com/docs/28538/vjw1bcultrasmall.pdf",
+        "origin": "Primary technical reference",
+        "pages": 6,
+        "sha256": "105eba19bf2df2cee13253b384116fde68a4c76c8336c69107e0ee39685c781a",
+        "notes": "VJ W1BC Ultra Small Series 0201, revision May 24, 2024. PDF page 3 selection chart has no 330 nF row. The 25 V X5R 100 nF entry excludes +/-5% tolerance. Generic page 1 tolerance options do not establish the target part.",
+        "former_local_filename": "Vishay-VJ-W1BC-0201-Rev2024.pdf",
+        "retained_locally": false
+      },
+      {
+        "source_url": "https://product.samsungsem.com/mlcc/CL03A334KA3NRN.do",
+        "origin": "Primary technical reference",
+        "pages": 39,
+        "sha256": "f56af982f84630256bcf4f6c5ecd9d84f4dcbd39bae3fe046c76d5eba0287b4f",
+        "notes": "Manufacturer reference specification issued December 29, 2025. PDF page 1: 330 nF, 25 V, +/-10%, X5R, EIA 0201. PDF page 2: +/-15% temperature change from -55 to +85 C, with no cold-temperature exception stated. Downloaded through POST /part/download.do with masterKey=CL03A334KA3NRN&type=specsheet. Stronger stated cold-temperature limit than the saved Murata reference sheet, not a guarantee of 300-363 nF or USB4 channel performance.",
+        "former_local_filename": "CL03A334KA3NRNC.pdf",
+        "retained_locally": false
+      },
+      {
+        "source_url": "https://product.samsungsem.com/mlcc/CL03A334KL3NRN.do",
+        "origin": "Primary technical reference",
+        "pages": 39,
+        "sha256": "907676378813df306ee1a39d4e811788302aeb72730a5d24687fba2a7388583d",
+        "notes": "Manufacturer reference specification issued June 28, 2024. PDF page 1: 330 nF, 35 V, +/-10%, X5R, EIA 0201. PDF page 2: +/-15% temperature change from -55 to +85 C. Downloaded through POST /part/download.do with masterKey=CL03A334KL3NRN&type=specsheet. No JLCPCB listing verified; higher voltage alone does not establish better DC-bias or channel performance.",
+        "former_local_filename": "CL03A334KL3NRNC.pdf",
+        "retained_locally": false
+      }
+    ],
+    "candidates": [
+      {
+        "manufacturer_part_number": "CL05B224KA5VPNC",
+        "manufacturer": "Samsung Electro-Mechanics",
+        "role": "TX candidate",
+        "capacitance_nF": 220,
+        "voltage_V": 25,
+        "tolerance_percent": 10,
+        "dielectric": "X7R",
+        "package_EIA": "0402",
+        "jlcpcb": "C2976455",
+        "manufacturer_url": "https://product.samsungsem.com/mlcc/CL05B224KA5VPN.do",
+        "catalog_url": "https://jlcpcb.com/partdetail/3382919-CL05B224KA5VPNC/C2976455",
+        "placed_on_board": false,
+        "notes": "Package differs from 0201. Exact JLC search on October 14, 2026 reported two pieces, insufficient for four TX capacitors on one board. Stock can change.",
+        "catalog_stock_snapshot": 2
+      },
+      {
+        "manufacturer_part_number": "CC0603JRX7R8BB334",
+        "manufacturer": "Yageo",
+        "role": "RX candidate",
+        "capacitance_nF": 330,
+        "voltage_V": 25,
+        "tolerance_percent": 5,
+        "dielectric": "X7R",
+        "package_EIA": "0603",
+        "jlcpcb": "C519579",
+        "manufacturer_url": "https://www.yageogroup.com/download/specsheet/CC0603JRX7R8BB334",
+        "catalog_url": "https://www.lcsc.com/product-detail/C519579.html",
+        "placed_on_board": false,
+        "notes": "Initial tolerance interval 313.5-346.5 nF at specified test conditions; not guaranteed over temperature, DC bias or aging. Package differs from 0201. Exact JLC search on October 14, 2026 reported 7522 pieces. Stock can change.",
+        "catalog_stock_snapshot": 7522
+      }
+    ],
+    "manufacturer_characteristics_reference": "https://www.murata.com/en-eu/support/faqs/capacitor/ceramiccapacitor/char/0005",
+    "next_step": "Continue schematic completion, starting with the power supplies and bridge decoupling. Retain the selected prototype capacitors. Before production, evaluate effective capacitance and USB4 channel operation across intended temperature, bias, aging and cable conditions.",
+    "catalog_search_snapshot": {
+      "checked_on": "2026-10-14",
+      "source": "https://jlcsearch.tscircuit.com/capacitors/list.json",
+      "scope": "Catalog mirror; discovery evidence, not guaranteed complete JLCPCB coverage or assembly availability.",
+      "TX_220nF_0201": {
+        "entries": 61,
+        "X7R_entries": 0
+      },
+      "RX_330nF_0201": {
+        "entries": 6,
+        "X7R_entries": 0
+      },
+      "RX_330nF_0402": {
+        "entries": 31,
+        "X7R_entries": 3,
+        "X7R_max_voltage_V": 16
+      }
+    },
+    "working_X5R_selection": [
+      {
+        "role": "TX",
+        "manufacturer": "Murata",
+        "manufacturer_part_number": "GRM033R61E224KE01D",
+        "jlcpcb": "C701263",
+        "capacitance_nF": 220,
+        "voltage_V": 25,
+        "tolerance_percent": 10,
+        "dielectric": "X5R",
+        "package_EIA": "0201",
+        "placed_on_board": true,
+        "quantity_per_board": 4,
+        "catalog_stock_snapshot": 254994,
+        "checked_on": "2026-10-14",
+        "stock_source": "tsci search --jlcpcb --json C701263"
+      },
+      {
+        "role": "RX",
+        "manufacturer": "Murata",
+        "manufacturer_part_number": "GRM033R61E334KE15D",
+        "jlcpcb": "C723889",
+        "capacitance_nF": 330,
+        "voltage_V": 25,
+        "tolerance_percent": 10,
+        "dielectric": "X5R",
+        "package_EIA": "0201",
+        "placed_on_board": true,
+        "quantity_per_board": 4,
+        "catalog_stock_snapshot": 14775,
+        "checked_on": "2026-10-14",
+        "stock_source": "tsci search --jlcpcb --json C723889"
+      }
+    ],
+    "X5R_alternative_assessment": {
+      "checked_on": "2026-10-14",
+      "RX_alternative": {
+        "manufacturer": "Samsung Electro-Mechanics",
+        "manufacturer_part_number": "CL03A334KA3NRNC",
+        "manufacturer_url": "https://product.samsungsem.com/mlcc/CL03A334KA3NRN.do",
+        "jlcpcb": "C2980695",
+        "capacitance_nF": 330,
+        "voltage_V": 25,
+        "tolerance_percent": 10,
+        "dielectric": "X5R",
+        "package_EIA": "0201",
+        "catalog_stock_snapshot": 248,
+        "placed_on_board": false,
+        "assessment": "New part-specific evidence: Samsung reference sheet page 2 specifies +/-15% temperature change across -55 to +85 C, without the saved Murata sheet's -33% cold exception. This improves the stated cold-temperature limit only. Initial tolerance remains +/-10%, so 300-363 nF and USB4 channel performance remain unqualified. No substitution.",
+        "stock_source": "tsci search --jlcpcb --json C2980695; exact MPN query returned no results, but catalog-number query confirmed MPN and 248 pieces.",
+        "former_local_filename": "CL03A334KA3NRNC.pdf",
+        "retained_locally": false
+      },
+      "tighter_tolerance_search": "No exact 0201, 25 V, 330 nF X5R +/-5% alternative verified in the checked catalog and distributor searches. Keyword searches returned near matches and do not establish global unavailability.",
+      "RX_limitation": "330 nF +/-10% spans 297-363 nF at specified measurement conditions, before temperature, DC bias and aging. It does not guarantee the USB-IF 300-363 nF RX interval.",
+      "TX_part_specific_reference_url": "https://www.mouser.com/datasheet/2/281/1/GRM033R61E224KE01_01A-1981873.pdf"
+    },
+    "RX_tolerance_followup": {
+      "checked_on": "2026-10-14",
+      "objective": "Improve RX capacitance margin within 300-363 nF while retaining 0201 and at least 25 V if possible.",
+      "result": "No better 0201 replacement verified. Smallest tighter-tolerance catalog candidate verified is EIA 0603 Yageo CC0603JRX7R8BB334. No circuit substitution.",
+      "catalog_snapshot": {
+        "source": "https://jlcsearch.tscircuit.com/capacitors/list.json",
+        "330nF_0201_entries": 6,
+        "330nF_0402_entries": 31,
+        "330nF_0603_entries": 60,
+        "330nF_03015_entries": 0,
+        "340nF_0201_entries": 0,
+        "360nF_0201_entries": 0,
+        "notes": "Catalog discovery snapshot, not proof of global unavailability. The unfiltered 330 nF query returned 100 rows and can be truncated; package-filtered queries support the size comparison."
+      },
+      "tolerance_calculation": {
+        "interval_nF": [
+          300,
+          363
+        ],
+        "nominal_min_for_10_percent_nF": 333.3333333333333,
+        "nominal_max_for_10_percent_nF": 330.0,
+        "conclusion": "No nominal value with symmetric +/-10% initial tolerance guarantees this interval.",
+        "maximum_symmetric_tolerance_percent": 9.502262443438914
+      },
+      "candidate": {
+        "manufacturer_part_number": "CC0603JRX7R8BB334",
+        "jlcpcb": "C519579",
+        "manufacturer_url": "https://www.yageogroup.com/download/specsheet/CC0603JRX7R8BB334",
+        "package_EIA": "0603",
+        "capacitance_nF": 330,
+        "tolerance_percent": 5,
+        "voltage_V": 25,
+        "dielectric": "X7R",
+        "initial_interval_nF": [
+          313.5,
+          346.5
+        ],
+        "catalog_stock_snapshot": 7522,
+        "stock_source": "tsci search --jlcpcb --json C519579",
+        "placed_on_board": false,
+        "limitation": "Better initial tolerance does not establish better overall USB4 channel performance. Larger pads depart from ASMedia layout guidance. Effective capacitance over temperature, DC bias and aging remains unqualified."
+      }
+    },
+    "RX_deeper_search": {
+      "checked_on": "2026-10-14",
+      "result": "No verified off-the-shelf 0201 >=25 V part whose initial tolerance guarantees 300-363 nF. A stronger stated cold-temperature limit was verified for Samsung CL03A334KA3NRNC, JLCPCB C2980695. No circuit change.",
+      "scope_limitation": "The checked catalogs, model lists and search results do not prove global unavailability. A generic tolerance code or a syntactically plausible MPN does not establish a purchasable part.",
+      "additional_manufacturer_checks": [
+        {
+          "manufacturer": "Samsung Electro-Mechanics",
+          "page": 8,
+          "finding": "330 nF EIA 0201 X5R entries at 25 V and 35 V all have +/-10% tolerance. Part-specific sheets confirm both voltage variants. The 35 V part has no verified JLCPCB listing.",
+          "former_local_filename": "Samsung-MLCC-Simple-S2P-Model-List-2026.pdf",
+          "retained_locally": false
+        },
+        {
+          "manufacturer": "Venkel",
+          "page": 3,
+          "finding": "X5R tolerances are K/M only; no +/-5% X5R option established.",
+          "former_local_filename": "Venkel-C-Series-Rev05-2026-A.pdf",
+          "retained_locally": false
+        },
+        {
+          "manufacturer": "Vishay",
+          "page": 3,
+          "finding": "No 330 nF selection row; 25 V X5R 100 nF excludes +/-5%. No target established.",
+          "former_local_filename": "Vishay-VJ-W1BC-0201-Rev2024.pdf",
+          "retained_locally": false
+        },
+        {
+          "manufacturer": "NIC Components",
+          "source_url": "https://www.niccomp.com/wp-content/uploads/catalog/nmc5.pdf",
+          "page": 1,
+          "finding": "June 12, 2026 NMC X5R catalog specifies +/-10% or +/-20% only. Web PDF inspected; direct local download returned HTTP 403. Table percentages on page 2 describe dissipation factor, not capacitance tolerance."
+        },
+        {
+          "manufacturer": "SRT Microceramique",
+          "source_url": "https://www.srt-microceramique.com/phototheque/photos/pdf/SRT%20catalogue%200226.pdf",
+          "page": 28,
+          "finding": "Class II X7R range table limits EIA 0201 at 25 V to 10 nF. No target established."
+        }
+      ],
+      "public_reference_design_checks": [
+        {
+          "source_url": "https://github.com/canmi21/ASM2464PD/blob/main/PCBA%20Project%20-%20BOM%20Quotation%20for%202230%20USB4%20Enclosure.xlsx",
+          "sheet": "PCBA1-BOM报价明细",
+          "cells": "D17:J17",
+          "RX_part": "GRM033R60J334ME90D",
+          "finding": "Quote assigns 330 nF, 0201, 6.3 V, +/-20% to C62,C63,C72,C73. Fails voltage and tolerance targets. Public author design, not ASMedia qualification."
+        },
+        {
+          "source_url": "https://github.com/openchips/JITx-ASM2464PDX_design/blob/main/documentation/JLCPCB/ASM2464PD%20USB4%20to%20PCIe%20M.2.xlsx",
+          "sheet": "ASM2464PD USB4 to PCIe M.2",
+          "cells": "B15:J15",
+          "RX_part": "GRM033R60J334ME90D",
+          "finding": "BOM assigns 330 nF, 0201, 6.3 V to C32-C35. It does not resolve the >=25 V target. Public work-in-progress design, not ASMedia qualification."
+        }
+      ],
+      "misleading_near_match": {
+        "source_url": "https://www.nxp.com/docs/en/data-sheet/PTN38007.pdf",
+        "page": 37,
+        "finding": "Device-specific table lists RX 297-363 nF. This does not override the USB4 specification 300-363 nF requirement."
+      },
+      "manufacturer_inquiry_draft_not_sent": [
+        "Request an exact qualified EIA 0201 (0.6 x 0.3 mm) 330 nF >=25 V part number for the ASM2464PDX connector-facing RX path.",
+        "Request clarification of the 0201/X7R guideline and an approved X5R substitute, including any qualified +/-10% part or tolerance exception.",
+        "Request effective-capacitance limits and conditions covering initial tolerance, temperature, actual lane DC offset, AC amplitude and aging.",
+        "Request S-parameters or an evaluated footprint, relevant USB4 compliance evidence, ordering code, and availability through JLCPCB or a supported consigned-parts process."
+      ]
+    },
+    "RX_focused_orderable_part_search": {
+      "checked_on": "2026-10-14",
+      "status": "No qualifying orderable replacement verified. No circuit change.",
+      "catalog_sweep": {
+        "file": "research/usb4-rx-0201-nominal-sweep-2026-10-14.json",
+        "sha256": "3c318fa755a9e074e1ad8e96d5d5eddd479ec4fd214945d21583b21935d890ab",
+        "successful_queries": 64,
+        "failed_queries": 0,
+        "empty_queries": 63,
+        "nonempty_nominal_values_nF": [
+          330
+        ],
+        "total_entries": 6,
+        "entries_with_initial_tolerance_at_most_5_percent": 0,
+        "qualifying_replacement_verified": false,
+        "scope": "Every integer-nF nominal from 300 to 363 nF, package 0201, unofficial JLC search mirror. Includes nonstandard values. Fractional-nF values and catalog entries missing from the mirror are not excluded by this result. All 64 requests succeeded; no query reached the 100-row limit."
+      },
+      "initial_tolerance_search_window": {
+        "USB4_interval_nF": [
+          300,
+          363
+        ],
+        "nominal_interval_for_5_percent_nF": [
+          315.7894736842105,
+          345.7142857142857
+        ],
+        "320nF_5_percent_interval_nF": [
+          304,
+          336
+        ],
+        "note": "A different nominal value is acceptable for investigation if its full initial tolerance interval fits. Temperature, bias and aging require a separate assessment. No 320 nF candidate was found."
+      },
+      "additional_primary_sources": [
+        {
+          "manufacturer": "KEMET / Yageo Group",
+          "source_url": "https://www.yageogroup.com/content/datasheet/asset/file/KEM_C1006_X5R_SMD",
+          "download_sha256": "9847c2d168995a12120b7d3c0c9b94a0f85d4ca669bc47618949ca87ec103b76",
+          "document_revision": "C1006_X5R (2026-09-07)",
+          "pages_checked": [
+            1,
+            5
+          ],
+          "finding": "X5R ordering table specifies K/M tolerances only. Selection chart has no 330 nF EIA 0201 entry and no 25 V EIA 0201 column."
+        },
+        {
+          "manufacturer": "Cal-Chip",
+          "source_url": "https://calchip.com/wp-content/uploads/2026/01/GMC-Series-1.pdf",
+          "download_sha256": "68f4b9cacf75781d0b15954d844162f5277c11bfe77562dc90fd759fec0b9955",
+          "pages_checked": [
+            14
+          ],
+          "finding": "Current GMC X5R selection chart lists EIA 0201 330 nF at 4/6.3/10 V, with no 16/25/35/50 V 330 nF entry. No qualifying >=25 V part established."
+        },
+        {
+          "manufacturer": "Knowles Precision Devices",
+          "source_url": "https://www.knowlescapacitors.com/getmedia/092ca658-af19-46bf-82db-149c2edc538a/KNO_MLCC_Catalog_1-24_R11_sm.pdf",
+          "download_sha256": "1cced80e55ad7e7fe3dd1eec3b6eb292235ec2a0d2ee4d8c13f3fb457f837598",
+          "pages_checked": [
+            78,
+            80,
+            81
+          ],
+          "finding": "Medical-grade screened catalog does not establish a matching part. Page 80: 0201 X7R has no >=25 V column or 330 nF entry. Page 81: 0201 X5R has no 330 nF entry and offers +/-10% or +/-20% only. Reliability screening does not imply a tighter capacitance grade."
+        },
+        {
+          "manufacturer": "Fujian Torch",
+          "source_url": "https://www.torchcapacitor.com/smd-multilayer-ceramic-chip-capacitor-0201",
+          "finding": "0201 product page ordering table restricts X7R/X5R to K/M (+/-10% or +/-20%). Generic C0G +/-5% code does not apply to those dielectrics."
+        }
+      ],
+      "screening_route": {
+        "status": "Set aside after the user clarified that they want a standard component, not a screening project. Earlier evaluation is historical only.",
+        "possible_base_parts": [
+          "GRM033R61E334KE15D / C723889",
+          "CL03A334KA3NRNC / C2980695"
+        ],
+        "limitations": "The standard manufacturer rating stays +/-10%. No process yield, measurement uncertainty, selected lot, provider, MOQ, cost, or JLC handling agreement has been verified. Initial sorting alone does not guarantee post-reflow or operating capacitance.",
+        "evaluation_file": "../docs/usb4-rx-capacitor-screening.txt"
+      },
+      "supplier_inquiry_file": "../docs/usb4-rx-capacitor-inquiry.txt"
+    },
+    "RX_screening_evaluation": {
+      "checked_on": "2026-10-14",
+      "evaluation_authorized": true,
+      "physical_measurements_performed": false,
+      "production_process_qualified": false,
+      "document": "../docs/usb4-rx-capacitor-screening.txt",
+      "document_sha256": "e136748d375b76158c437322e3c090b10167a2cc07e85ccef3c357858847d331",
+      "base_part": {
+        "manufacturer_part_number": "GRM033R61E334KE15D",
+        "jlcpcb": "C723889",
+        "package_EIA": "0201",
+        "rated_voltage_V": 25,
+        "nominal_capacitance_nF": 330,
+        "manufacturer_tolerance_percent": 10,
+        "quantity_per_board": 4,
+        "circuit_substitution": false
+      },
+      "target_initial_interval_nF": [
+        313.5,
+        346.5
+      ],
+      "uncertainty_example": {
+        "actual_C_bound": "[0.99 * measured_C, 1.01 * measured_C]",
+        "validated": false,
+        "required_exact_measured_interval_nF": [
+          316.6666666666667,
+          343.0693069306931
+        ],
+        "conservative_measured_interval_nF": [
+          317,
+          343
+        ],
+        "calculated_actual_interval_nF": [
+          313.83,
+          346.43
+        ],
+        "optional_upper_band_measured_interval_nF": [
+          334,
+          343
+        ],
+        "optional_upper_band_calculated_actual_interval_nF": [
+          330.66,
+          346.43
+        ],
+        "note": "Example engineering bound, not a measured instrument specification. Optional upper band trades yield for loss margin; no yield known."
+      },
+      "initial_measurement": {
+        "frequency_Hz": 1000,
+        "AC_voltage_Vrms": 1,
+        "added_DC_bias_V": 0,
+        "temperature": "Controlled room temperature near 25 C; record actual value.",
+        "conditioning": "Murata reference initial-test preparation: 150 +0/-10 C for 1 h, followed by 24 +/-2 h at room temperature. Exact handling/conditioning requires agreement with the manufacturer or screening laboratory."
+      },
+      "remaining_variation_budget": {
+        "lower_screen_edge_nF": 313.5,
+        "additional_loss_to_300nF_percent": 4.30622009569378,
+        "upper_screen_edge_nF": 346.5,
+        "additional_increase_to_363nF_percent": 4.761904761904767,
+        "screened_plus_full_15_percent_temperature_interval_nF": [
+          266.47499999999997,
+          398.47499999999997
+        ],
+        "note": "Shows why initial +/-5% screening alone does not guarantee the operating USB4 interval. Actual combined effects require qualification."
+      },
+      "assembly_route": {
+        "method_under_evaluation": "External screening and segregated consignment to JLCPCB. No source or process has been confirmed.",
+        "screening_service_by_JLCPCB_confirmed": false,
+        "mixing_with_unscreened_stock_allowed_in_project": false,
+        "supplier_messages_sent": false,
+        "inquiry_draft": "../docs/usb4-rx-capacitor-inquiry.txt"
+      },
+      "sources": [
+        {
+          "url": "https://www.murata.com/en-eu/support/faqs/capacitor/ceramiccapacitor/char/0013",
+          "finding": "High-dielectric MLCC capacitance decreases with aging. Heating during soldering can restore capacitance and restart aging."
+        },
+        {
+          "file": "GRM033R61E334KE15D.pdf",
+          "pages": [
+            1,
+            2,
+            3,
+            13
+          ],
+          "finding": "Part rating, test voltage/frequency, specified thermal preparation, and measurement cautions. Soldering-heat change allowances do not guarantee retention of a selected +/-5% band."
+        },
+        {
+          "url": "https://jlcpcb.com/help/article/consignment-part-terms-conditions",
+          "finding": "Consignment is supported, but electrical quality/function testing is outside the published consignment terms. Same-part stock channel restrictions and attrition apply; exact 0201 handling and screened-lot segregation require confirmation."
+        },
+        {
+          "url": "https://jlcpcb.com/help/article/how-to-consign-parts-to-jlcpcb",
+          "finding": "Published consignment process exists. This does not establish a quoted or approved screened-0201 process for this project."
+        }
+      ],
+      "current_route_selected": false,
+      "status": "Historical proposal; user rejected pursuing screening as the solution."
+    },
+    "reference_design_followup": {
+      "checked_on": "2026-10-14",
+      "source_url": "https://suddendocs.samtec.com/notesandwhitepapers/picmg_com-hpc_cdg_rc2.0d.pdf",
+      "revision": "RC2.0d, December 7, 2021",
+      "PDF_page": 79,
+      "finding": "Figure 39 USB4 output coupling example shows 330 nF, 25 V, X5R, +/-10%, EIA 0201, internal code J96611-001. The same figure has a note that the actual capacitor value awaits SI recommendation. No manufacturer ordering code or ASM2464PDX-specific qualification established. This does not override the normative 300-363 nF range or establish a qualifying replacement.",
+      "newer_revision_check": "Official PICMG Rev 2.2 February 16, 2024 includes the 330 nF +/-10% schematic in its USB 3.2 section (PDF page 75); it must not be cited as a detailed USB4 implementation."
+    },
+    "prototype_decision": {
+      "accepted_on": "2026-10-14",
+      "status": "User accepted retaining the existing capacitors for the first prototype.",
+      "RX_manufacturer_part_number": "GRM033R61E334KE15D",
+      "RX_jlcpcb_part_number": "C723889",
+      "TX_manufacturer_part_number": "GRM033R61E224KE01D",
+      "TX_jlcpcb_part_number": "C701263",
+      "screening_required": false,
+      "circuit_change_required": false,
+      "qualification_status": "Unverified; prototype acceptance does not establish compliance."
+    }
+  },
+  "usb_interface_review": {
+    "checked_on": "2026-10-14",
+    "scope": "USB2, CC, SBU, VBUS, integrated attach/orientation and fixed-5 V sink support; current TVS details.",
+    "references": [
+      {
+        "file": "ASM2464PDX_TI_R03.pdf",
+        "sheet": 3
+      },
+      {
+        "file": "ASM2464PDX_DataSheet_R0_3.pdf",
+        "PDF_pages": [
+          8,
+          9,
+          13
+        ]
+      },
+      {
+        "file": "ESD150-B1-W0201.pdf",
+        "PDF_pages": [
+          1,
+          3,
+          5
+        ]
+      }
+    ],
+    "netlist_result": {
+      "contact_to_ball_checks_passed": 12,
+      "distinct_functional_signal_nets": 7,
+      "connector_grounds_and_shells_passed": true,
+      "VBUS_isolated_from_ATX_rails": true,
+      "VBUS_connected_components": [
+        "ASM2464PDX",
+        "USBC"
+      ]
+    },
+    "integrated_functions": "Datasheet documents built-in 5.1 kohm Rd on each CC pin, orientation detection and BMC PHY for fixed-5 V UFP/sink operation. No duplicate external Rd or separate controller needed for those documented functions.",
+    "VBUS_followup": "G1 is explicitly 5 V tolerant. No mandatory divider/filter requirement was established for integrated fixed-5 V UFP/sink operation. Retain the existing direct connection as the working prototype circuit; the selectable reference network alone is not a blocker to other schematic work. The examined datasheet does not explicitly establish powered-off VBUS tolerance; assess VBUS present with ATX/VCCH absent during power design. A divider alone does not resolve powered-off tolerance or provide overvoltage protection.",
+    "TVS_coverage": {
+      "high_speed_conductors": 8,
+      "part": "ESD150B1W0201E6327XTSA1",
+      "jlcpcb": "C3709987",
+      "placement": "One per conductor to ground on bridge side of AC coupling capacitor.",
+      "other_USB_signals": "No external TVS on USB2, CC, SBU or VBUS. Reference sheet 3 also omits separate clamps there; absence alone does not establish functional wiring error. System protection remains unqualified."
+    },
+    "validation": {
+      "existing_circuit_tests": "10 pass, 0 fail",
+      "typecheck": "pass",
+      "additional_checks": "Compiled-netlist mapping, isolation and shell-ground checks passed.",
+      "hardware_validation": "Not performed. Firmware configuration, powered-off attach, negotiation and protection performance remain unverified."
+    },
+    "circuit_changes": "None; verification only.",
+    "VBUS_recommendation": {
+      "status": "Engineering recommendation; no additional divider/filter justified by the evidence reviewed.",
+      "scope": "Normal fixed-5 V VBUS with powered bridge; no claim of powered-off or system-level transient qualification.",
+      "hardware_change": "None."
+    }
+  }
 }

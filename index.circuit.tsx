@@ -1,5 +1,6 @@
 import {Fragment} from "react";
 import {UartHeader} from "components/UartHeader";
+import {Usb4Lanes, usb4Signals} from "components/Usb4Lanes";
 import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {A_39301240} from "imports/A_39301240";
 import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
@@ -41,7 +42,14 @@ export default function Board() {
       <net name="V5VSB"/>
       <net name="V12V"/>
       <net name="USB_VBUS" connectsTo={[".ASM2464PDX > .VBUS"]}/>
-      <net name="USB_SHIELD"/>
+      {usb4Signals.map(signal => (
+        <Fragment key={signal.name}>
+          <net
+            name={`ASM_${signal.bridgePin}`}
+            connectsTo={[`.ASM2464PDX > .${signal.bridgePin}`]}
+          />
+        </Fragment>
+      ))}
       {/* Named nets carry PCIe lanes between the bridge and connector sheets. */}
       {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).flatMap(polarity => (
         ["TX", "RX"].map(direction => (
@@ -264,6 +272,20 @@ export default function Board() {
             />
           </Fragment>
         )))}
+        <schematictext
+          text="220 nF / 10 V matches the ASMedia reference schematic."
+          schX={-3.5}
+          schY={-1}
+          fontSize={0.18}
+          anchor="left"
+        />
+        <schematictext
+          text="ASM2464PDX_TI_R03, sheet 6: C124, C125, C126, C128."
+          schX={-3.5}
+          schY={-1.35}
+          fontSize={0.18}
+          anchor="left"
+        />
       </schematicsheet>
       <schematicsheet name="usb" sheetIndex={3}>
         <schematicsection name="USB" displayName="USB4 Receptacle"/>
@@ -282,17 +304,18 @@ export default function Board() {
             A6: ".ASM2464PDX > .UDP", B6: ".ASM2464PDX > .UDP",
             A7: ".ASM2464PDX > .UDM", B7: ".ASM2464PDX > .UDM",
             A8: ".ASM2464PDX > .SBU1", B8: ".ASM2464PDX > .SBU2",
-            // Add AC coupling and ESD protection before connecting these lanes to the bridge.
+            // These nets connect through Usb4Lanes to the corresponding bridge pins.
             A2: "net.USB_TX1_P", A3: "net.USB_TX1_N",
             B2: "net.USB_TX2_P", B3: "net.USB_TX2_N",
             B11: "net.USB_RX1_P", B10: "net.USB_RX1_N",
             A11: "net.USB_RX2_P", A10: "net.USB_RX2_N",
-            // Shield termination to circuit ground remains a separate design decision.
-            pin3: "net.USB_SHIELD", pin4: "net.USB_SHIELD",
-            pin2: "net.USB_SHIELD", pin1: "net.USB_SHIELD",
-            EP1_FRONT: "net.USB_SHIELD", EP2_FRONT: "net.USB_SHIELD",
+            // Bond all shell contacts directly to GND, as in ASMedia reference CON1.
+            pin3: "net.GND", pin4: "net.GND",
+            pin2: "net.GND", pin1: "net.GND",
+            EP1_FRONT: "net.GND", EP2_FRONT: "net.GND",
           }}
         />
+        <Usb4Lanes/>
       </schematicsheet>
       <schematicsheet name="power" sheetIndex={2}>
         <A_39301240
