@@ -8,6 +8,7 @@
         "@tscircuit/math-utils": "^0.0.38",
       },
       "devDependencies": {
+        "@tscircuit/checks": "0.0.247",
         "@types/react": "^19.3.0",
         "tscircuit": "^0.0.2823",
         "typescript": "^5.0.0",

@@ -1,6 +1,8 @@
 {
   "revision": "1.0.38",
   "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
+  "reviewedOn": "2026-10-15",
+  "process": { "surfaceFinish": "ENIG", "assembly": "standard" },
   "copper": { "outerOz": 1, "innerOz": 0.5, "layers": 4 },
   "minimumMm": {
     "traceWidth": 0.1,
@@ -17,7 +19,17 @@
     "npthToCopper": 0.2,
     "viaDrillToViaDrill": 0.2,
     "pthDrillToDrill": 0.45,
-    "copperToBoardEdge": 0.2
+    "copperToBoardEdge": 0.2,
+    "viaHoleDiameter": 0.15,
+    "viaPadDiameter": 0.25,
+    "circularBgaPadDiameter": 0.2
+  },
+  "bgaComponentNames": ["ASM2464PDX"],
+  "bgaFanoutReferenceMm": {
+    "traceWidth": 0.0762,
+    "padToTrace": 0.09,
+    "status": "reference_only",
+    "note": "Published local BGA limits. The board keeps conservative routing rules until an explicit fanout region and process review permit an exception."
   },
   "note": "Trace spacing is conservative for 1 oz multilayer fabrication. Motor-power-to-pad 0.15 mm and via-to-pad 0.125 mm are board targets above the general 0.10 mm copper spacing. No power-pad clearance exceptions are permitted."
 }

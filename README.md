@@ -38,11 +38,39 @@ bun install --frozen-lockfile
 | `bun run build` | Build the circuit and generate previews |
 | `bun test ./tests` | Run the circuit tests |
 | `bun run typecheck` | Run the TypeScript check |
+| `bun run check:drc` | Build fresh PCB geometry and run the local JLCPCB checks |
+| `bun run check:drc:routed` | Add routing connectivity checks |
 | `bun run snapshot` | Run the snapshot checks |
 | `bun run snapshot:update` | Update the snapshots |
 
 The tests cover bridge pins and footprints, ground connectivity, buck circuits, USB4, VBUS sensing, PCIe, and slot power.
 Passing tests do not establish complete PCB connectivity, signal integrity, or hardware operation.
+
+### JLCPCB design rules
+
+[jlcpcb-clearance-rules.json](jlcpcb-clearance-rules.json) records the project rules and their source.
+The rules assume four copper layers, 1 oz outer copper, ENIG, and Standard PCBA.
+The board uses conservative 0.10 mm trace width and spacing targets.
+JLCPCB lists 0.09 mm multilayer trace width and spacing, with local 3 mil traces in BGA fan-outs.
+Those local limits remain reference values. They do not enable a routing exception.
+See the [JLCPCB capabilities](https://jlcpcb.com/capabilities/pcb-capabilities).
+
+The local checks cover circular bridge pads, trace widths, via dimensions, placement, and copper clearances.
+Existing traces receive clearance checks even before routing is complete.
+The routed command also checks missing connections.
+Each command writes `dist/jlcpcb-drc.json` and exits with code 1 for detected errors.
+To inspect an existing Circuit JSON file, run `bun run check:drc path/to/circuit.json`.
+
+The current bridge has 196 circular pads with a 0.18 mm diameter.
+These pads fail the 0.20 mm minimum in the general JLCPCB capabilities table.
+The 77 oblong pads receive a separate process-review warning.
+That warning requires JLCPCB acceptance of the exact copper, mask, and stencil geometry.
+The local checks do not establish assembly reliability or resolve the separate four-layer BGA process limits.
+
+The report keeps fabrication readiness separate from a geometry result.
+An unrouted board cannot establish fabrication readiness.
+The checks do not cover solder-mask registration, stencil apertures, impedance, current capacity, or every drill-to-copper rule.
+Before fabrication, run the Gerber shorts check and obtain the JLCPCB DFM review.
 
 ## Main components
 
@@ -64,7 +92,7 @@ Passing tests do not establish complete PCB connectivity, signal integrity, or h
 The following inventories record detailed part selections and reference substitutions:
 
 - [Bridge decoupling parts](bridge-decoupling-parts.json): 44 capacitors and the VCCA33 supply link.
-- [Slot power parts](slot-power-parts.json): MOSFETs, gate networks, and discharge resistors.
+- [Slot power parts](slot-power-parts.json): MOSFETs, gate networks, discharge resistors, and slot decoupling.
 - [Datasheet source index](datasheets/sources.json): document sources, hashes, selection notes, and earlier research.
 
 These inventories and the table above do not replace a manufacturing bill of materials.
@@ -98,6 +126,20 @@ The white `PSU OK` LED indicates ATX `PWR_OK`, not local regulator readiness or 
 [SlotPower.tsx](components/SlotPower.tsx) switches the slot 3.3 V and 12 V supplies from bridge `HDDPC`.
 HDDPC high enables both supplies. HDDPC low disables both supplies.
 The switches include gate RC networks and output discharge resistors, but no current limiting.
+[SlotDecoupling.tsx](components/SlotDecoupling.tsx) connects the following capacitors from each switched output to `GND`:
+
+| Slot rail | Bulk capacitor | Ceramic capacitors |
+| --- | --- | --- |
+| `SLOT_12V` | Nichicon PCR1E471MCL1GS, 470 µF, 25 V, ±20%, polymer | Two Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
+| `SLOT_3V3` | Chemi-Con APXJ6R3ARA561MF80G, 560 µF, 6.3 V, ±20%, polymer | One Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
+
+The nominal capacitances and quantities match ASMedia reference sheet 6.
+Bulk positive terminals connect to the slot rails, and negative terminals connect to `GND`.
+The Nichicon part uses its exact supplier footprint. The Chemi-Con part uses the manufacturer F80 land dimensions.
+Final placement belongs beside the slot power contacts, with short rail connections and nearby ground vias.
+The local banks alone draw approximately 0.564 A at 12 V and 0.185 A at 3.3 V during a linear 10 ms ramp.
+This example excludes card capacitance and load current. The actual rise time, MOSFET safe operating area, and discharge timing still need checks.
+
 PCIe `V3V3_AUX` is intentionally unconnected. Standby wake is not supported, and no auxiliary regulator is fitted.
 
 ## USB4 and PCIe

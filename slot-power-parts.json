@@ -2,7 +2,7 @@
   "created_on": "2026-10-14",
   "status": "instantiated and wired on the pcie sheet; hardware qualification pending",
   "reference": "datasheets/ASM2464PDX_TI_R03.pdf, sheet 6 POWER_Control",
-  "scope": "Both discrete high-side switches control the main slot rails. Bridge power, slot ground and 3.3 V AUX remain separate.",
+  "scope": "Both main-rail high-side switches and their output-to-GND slot decoupling banks. Bridge power, slot ground and optional AUX remain outside the switches.",
   "parts": [
     {
       "manufacturer_part_number": "AO4407A",
@@ -184,6 +184,100 @@
       "board_references": [
         "R_SLOT_ENABLE"
       ]
+    },
+    {
+      "manufacturer_part_number": "PCR1E471MCL1GS",
+      "manufacturer": "Nichicon",
+      "jlcpcb_part_number": "C2161727",
+      "component_file": "imports/PCR1E471MCL1GS.tsx",
+      "export_name": "PCR1E471MCL1GS",
+      "quantity": 1,
+      "role": "Switched 12 V slot bulk capacitor",
+      "board_references": [
+        "C134"
+      ],
+      "reference_designators": [
+        "CE1"
+      ],
+      "datasheet": "datasheets/PCR1E471MCL1GS.pdf",
+      "capacitance_uF": 470,
+      "rated_voltage_V": 25,
+      "tolerance_percent": 20,
+      "dielectric": "conductive polymer aluminum",
+      "polarized": true,
+      "positive_pin": "pin1",
+      "negative_pin": "pin2",
+      "ESR_max_milliohm": 15,
+      "ESR_conditions": "20 C, 100kHz",
+      "ripple_current_A": 4.1,
+      "ripple_conditions": "125 C, 100kHz",
+      "body_diameter_mm": 10,
+      "body_height_mm": 12.7,
+      "footprint_source": "tsci import C2161727 --jlcpcb --use-exact-footprint",
+      "product_url": "https://www.nichicon.com/en-us/part/pcr1e471mcl1gs/769/",
+      "selection_notes": "Matches reference capacitance with 25 V rating instead of 16 V. Exact imported footprint: pin1 positive at x=-4.200017mm, pin2 negative at x=+4.200017mm. Supplier body/model import does not establish assembly stock."
+    },
+    {
+      "manufacturer_part_number": "APXJ6R3ARA561MF80G",
+      "manufacturer": "Nippon Chemi-Con",
+      "jlcpcb_part_number": "C2157846",
+      "component_file": "imports/APXJ6R3ARA561MF80G.tsx",
+      "export_name": "APXJ6R3ARA561MF80G",
+      "quantity": 1,
+      "role": "Switched 3.3 V slot bulk capacitor",
+      "board_references": [
+        "C135"
+      ],
+      "reference_designators": [
+        "CE2"
+      ],
+      "datasheet": "datasheets/APXJ6R3ARA561MF80G.pdf",
+      "land_pattern_document": "datasheets/Chemi-Con-NPCAP-SMD-lands.pdf",
+      "capacitance_uF": 560,
+      "rated_voltage_V": 6.3,
+      "tolerance_percent": 20,
+      "dielectric": "conductive polymer aluminum",
+      "polarized": true,
+      "positive_pin": "pin1",
+      "negative_pin": "pin2",
+      "ESR_max_milliohm": 8,
+      "ESR_conditions": "20 C, 100-300kHz",
+      "ripple_current_A": 5,
+      "ripple_conditions": "105 C, 100kHz",
+      "body_diameter_mm": 6.3,
+      "body_height_mm": 7.7,
+      "footprint_source": "Manufacturer F80 recommended lands: two 3.5x1.6mm pads at x=+/-2.7mm; gap=1.9mm. Positive pin1 on left with + marking.",
+      "product_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXJ6R3ARA561MF80G",
+      "selection_notes": "Matches the reference 560uF/6.3V rating. Supplier catalog part C2157846 exists, but tsci could not find its EasyEDA library entry; the footprint uses the manufacturer land dimensions instead. No 3D model is attached. Supplier stock is not established."
+    },
+    {
+      "manufacturer_part_number": "CL10B104KB8NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "jlcpcb_part_number": "C1591",
+      "component_file": "imports/CL10B104KB8NNNC.tsx",
+      "export_name": "CL10B104KB8NNNC",
+      "quantity": 3,
+      "role": "Slot supply high-frequency bypass capacitors",
+      "board_references": [
+        "C132",
+        "C133",
+        "C131"
+      ],
+      "reference_designators": [
+        "C132",
+        "C133",
+        "C131"
+      ],
+      "datasheet": "datasheets/CL10B104KB8NNNC.pdf",
+      "capacitance_uF": 0.1,
+      "rated_voltage_V": 50,
+      "tolerance_percent": 10,
+      "dielectric": "X7R",
+      "polarized": false,
+      "package_eia": "0603",
+      "footprint_source": "tsci import C1591 --jlcpcb --use-exact-footprint",
+      "product_url": "https://product.samsungsem.com/mlcc/CL10B104KB8NNN.do",
+      "selection_notes": "Matches reference quantities and 100nF nominal capacitance. 50 V rating provides headroom above both rails. Effective capacitance, loop inductance and assembly availability remain to be checked."
     }
   ],
   "excluded_reference_options": [
@@ -195,7 +289,7 @@
   "remaining_design_work": [
     "Confirm intended slot load and calculate current, startup timing, MOSFET SOA and thermal margins.",
     "Verify driver operation at the minimum guaranteed HDDPC high level, including the 1 kohm pull-down load.",
-    "Define local supply capacitance and overcurrent protection.",
+    "Check current limiting and inrush with the local slot capacitors plus the card input capacitance.",
     "Coordinate slot rails with PERST# and preserve separate standby/AUX behavior."
   ],
   "implementation": {
@@ -216,5 +310,43 @@
     "schematic_placement": "passed",
     "pcb_placement": "No placement DRC errors. Automatic packing retains an existing R_SPI_CS orientation advisory.",
     "hardware_qualified": false
+  },
+  "updated_on": "2026-10-15",
+  "slot_decoupling": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "components/SlotDecoupling.tsx",
+    "reference": "datasheets/ASM2464PDX_TI_R03.pdf, sheet 6, CE1/C132/C133 and CE2/C131",
+    "status": "Selected and connected to switched outputs; placement and hardware qualification pending.",
+    "banks": [
+      {
+        "rail": "SLOT_12V",
+        "bulk_uF": 470,
+        "ceramic_count": 2,
+        "ceramic_each_nF": 100,
+        "nominal_total_uF": 470.2,
+        "nominal_charge_mC": 5.642399999999999,
+        "nominal_stored_energy_mJ": 33.8544,
+        "example_capacitive_current_for_10ms_linear_ramp_A": 0.56424,
+        "existing_1k_bleeder_time_constant_s": 0.4702
+      },
+      {
+        "rail": "SLOT_3V3",
+        "bulk_uF": 560,
+        "ceramic_count": 1,
+        "ceramic_each_nF": 100,
+        "nominal_total_uF": 560.1,
+        "nominal_charge_mC": 1.84833,
+        "nominal_stored_energy_mJ": 3.0497444999999996,
+        "example_capacitive_current_for_10ms_linear_ramp_A": 0.184833,
+        "existing_1k_bleeder_time_constant_s": 0.5601
+      }
+    ],
+    "qualification_notes": [
+      "Bulk capacitor positive terminal is pin1 on the switched slot rail; pin2 returns to PSU GND.",
+      "Place bulk and high-frequency capacitors beside the slot power contacts with short wide rail connections and nearby GND vias. Final PCB positions are not assigned.",
+      "Inrush figures describe added local capacitance only. Include card capacitors, load current, PSU/cable impedance, MOSFET SOA and actual gate-controlled rise time before qualification.",
+      "Do not infer slot-output rise time from a simple gate resistor times capacitor calculation.",
+      "ESR and ripple specifications apply at the documented frequencies and temperatures; they are not complete slot transient qualification."
+    ]
   }
 }

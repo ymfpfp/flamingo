@@ -1,4 +1,5 @@
 import {Fragment} from "react";
+import {jlcpcbBoardRules} from "lib/jlcpcb-rules";
 import {BridgeReset} from "components/BridgeReset";
 import {BridgeVcca33Decoupling} from "components/BridgeVcca33Decoupling";
 import {BridgeVcchDecoupling} from "components/BridgeVcchDecoupling";
@@ -9,6 +10,7 @@ import {BuckInputs} from "components/BuckInputs";
 import {PsuControl} from "components/PsuControl";
 import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
 import {SlotPower} from "components/SlotPower";
+import {SlotDecoupling} from "components/SlotDecoupling";
 import {UartHeader} from "components/UartHeader";
 import {Usb4Lanes, usb4Signals} from "components/Usb4Lanes";
 import {UsbVbusSense} from "components/UsbVbusSense";
@@ -31,6 +33,7 @@ const unusedPcieLanes = ([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const)
 export default function Board() {
   return (
     <board
+      {...jlcpcbBoardRules}
       pcbPack
       pcbPackGap="7mm"
       anchorAlignment="bottom_left"
@@ -292,7 +295,7 @@ export default function Board() {
         <BridgeVcclDecoupling/>
         <BridgeVddDecoupling/>
       </schematicsheet>
-      <schematicsheet name="pcie" displayName="PCIe x4" sheetIndex={5}>
+      <schematicsheet name="pcie" displayName="PCIe x4" sheetIndex={5} sheetSize="ANSI_B">
         <schematicsection name="PCIE_LINK"/>
         <schematictext text="1. PCIe x4 connection" schX={-11.6} schY={7.4} fontSize={0.3} anchor="left"/>
         <X1618WVS_164_9TV30
@@ -527,6 +530,7 @@ export default function Board() {
         {/* Frame the switch block and include its local subcircuit in the page bounds. */}
         <schematicrect schX={8.7} schY={-2.7} width={14.4} height={18.2} strokeWidth={0.02} color="#bbbbbb"/>
         <SlotPower/>
+        <SlotDecoupling/>
       </schematicsheet>
       <schematicsheet name="usb" sheetIndex={4}>
         <schematicsection name="USB" displayName="USB4 Receptacle"/>

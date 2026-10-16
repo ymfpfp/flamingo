@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
+import {Children} from "react";
+import {APXJ6R3ARA561MF80GFootprint} from "../imports/APXJ6R3ARA561MF80G";
 import Board from "../index.circuit";
 import bridgePinMap from "./fixtures/asm2464pdx-pin-map.json";
 
@@ -60,6 +62,48 @@ test("all bridge ground balls connect to every ATX COM pin", () => {
   }
   assert.ok(!json.some(element => element.type === "source_net" && element.name === "GDNA"),
     "the misspelled ground net must not remain");
+});
+
+test("slot bulk and ceramic capacitors bypass only the switched rails to PSU ground", () => {
+  const banks = [
+    {rail: "12V", contact: "A2", input: "pin10", capacitance: 470e-6, voltage: 25,
+      mpn: "PCR1E471MCL1GS", bulk: "C134", ceramics: ["C132", "C133"]},
+    {rail: "3V3", contact: "A9", input: "pin1", capacitance: 560e-6, voltage: 6.3,
+      mpn: "APXJ6R3ARA561MF80G", bulk: "C135", ceramics: ["C131"]},
+  ];
+  for (const {rail, contact, input, capacitance, voltage, mpn, bulk, ceramics} of banks) {
+    const output = net("PCIe", contact);
+    assert.notEqual(output, net("ATX", input), `${rail}: capacitor bank must be after the switch`);
+    assert.equal(component(bulk).manufacturer_part_number, mpn);
+    assert.ok(Math.abs(component(bulk).capacitance - capacitance) < 1e-12);
+    assert.equal(component(bulk).max_voltage_rating, voltage);
+    assert.equal(net(bulk, "pin1"), output, `${bulk}: positive terminal goes to slot supply`);
+    assert.equal(net(bulk, "pin2"), ground, `${bulk}: negative terminal goes to PSU COM`);
+    for (const name of ceramics) {
+      assert.equal(component(name).manufacturer_part_number, "CL10B104KB8NNNC");
+      assert.ok(Math.abs(component(name).capacitance - 100e-9) < 1e-15);
+      assert.equal(component(name).max_voltage_rating, 50);
+      assert.equal(net(name, "pin1"), output);
+      assert.equal(net(name, "pin2"), ground);
+    }
+  }
+  assert.equal(components.filter(c => ["C134", "C135", "C131", "C132", "C133"].includes(c.name)).length, 5);
+});
+
+test("Chemi-Con F80 footprint follows the manufacturer's land dimensions and polarity", () => {
+  const pads = Children.toArray(APXJ6R3ARA561MF80GFootprint().props.children)
+    .filter(element => element.type === "smtpad").map(element => element.props);
+  assert.equal(pads.length, 2);
+  assert.equal(pads[0].pcbX, -2.7);
+  assert.equal(pads[1].pcbX, 2.7);
+  assert.equal(pads[0].portHints[0], "pin1");
+  assert.equal(pads[1].portHints[0], "pin2");
+  for (const pad of pads) {
+    assert.equal(pad.width, 3.5);
+    assert.equal(pad.height, 1.6);
+    assert.equal(pad.pcbY, 0);
+  }
+  assert.ok(Math.abs((pads[1].pcbX - pads[0].pcbX) - pads[0].width - 1.9) < 1e-12);
 });
 
 test("both slot supplies pass through correctly oriented P-channel FETs with no direct bypass", () => {

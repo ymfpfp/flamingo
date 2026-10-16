@@ -1418,6 +1418,97 @@
           }
         }
       ]
+    },
+    {
+      "manufacturer_part_number": "PCR1E471MCL1GS",
+      "manufacturer": "Nichicon",
+      "component_file": "imports/PCR1E471MCL1GS.tsx",
+      "board_references": [
+        "C134"
+      ],
+      "product_url": "https://www.nichicon.com/en-us/part/pcr1e471mcl1gs/769/",
+      "placed_on_board": true,
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C2161727"
+        ]
+      },
+      "inventory_file": "../slot-power-parts.json",
+      "selection_status": "Selected for slot decoupling; inrush and final PCB placement remain unqualified.",
+      "documents": [
+        {
+          "file": "PCR1E471MCL1GS.pdf",
+          "source_url": "https://www.nichicon.com/getmedia/51030c7a-8ec4-4fdb-b99e-cb0da44e1bf9/e-pcr6-26-29.pdf",
+          "origin": "manufacturer document",
+          "pages": 2,
+          "sha256": "98c4b35e8e008c797a68942e8b09c2a4dce6aa472c112ba58d371e259483bcee",
+          "notes": "Nichicon PCR family datasheet; includes PCR1E471MCL1GS, 470uF, 25V, 15 milliohm ESR and 4.1A rated high-frequency ripple."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "APXJ6R3ARA561MF80G",
+      "manufacturer": "Nippon Chemi-Con",
+      "component_file": "imports/APXJ6R3ARA561MF80G.tsx",
+      "board_references": [
+        "C135"
+      ],
+      "product_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXJ6R3ARA561MF80G",
+      "placed_on_board": true,
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C2157846"
+        ]
+      },
+      "inventory_file": "../slot-power-parts.json",
+      "selection_status": "Selected for slot decoupling; inrush and final PCB placement remain unqualified.",
+      "documents": [
+        {
+          "file": "APXJ6R3ARA561MF80G.pdf",
+          "source_url": "https://www.chemi-con.co.jp/products/relatedfiles/capacitor/catalog/PXJRA-e.PDF",
+          "origin": "manufacturer document",
+          "pages": 3,
+          "sha256": "0c1ee703ad2fe478e527d592128120333088d10146d832930db354cf4e301d6a",
+          "notes": "Chemi-Con PXJ family datasheet; includes exact 560uF/6.3V F80 part, 8 milliohm ESR and 5A ripple at 105 C, 100kHz."
+        },
+        {
+          "file": "Chemi-Con-NPCAP-SMD-lands.pdf",
+          "source_url": "https://www.chemi-con.co.jp/products/relatedfiles/capacitor/catalog/al-soldernpcap-e.pdf",
+          "origin": "manufacturer document",
+          "pages": 1,
+          "sha256": "d71683fc00f0cde034f73e31fd7628d54b829093c44dfb3557530bb6a622946c",
+          "notes": "Manufacturer soldering and recommended land-pattern sheet. F80: a=1.9mm gap, b=3.5mm pad length, c=1.6mm pad width."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL10B104KB8NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL10B104KB8NNNC.tsx",
+      "board_references": [
+        "C132",
+        "C133",
+        "C131"
+      ],
+      "product_url": "https://product.samsungsem.com/mlcc/CL10B104KB8NNN.do",
+      "placed_on_board": true,
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C1591"
+        ]
+      },
+      "inventory_file": "../slot-power-parts.json",
+      "selection_status": "Selected for slot decoupling; inrush and final PCB placement remain unqualified.",
+      "documents": [
+        {
+          "file": "CL10B104KB8NNNC.pdf",
+          "source_url": "https://media.digikey.com/pdf/Data%20Sheets/Samsung%20PDFs/CL10B104KB8NNNC_Spec.pdf",
+          "origin": "manufacturer document",
+          "pages": 36,
+          "sha256": "8bd9b54d6064901bec00676b23d3a40e11d35edb33b6bb4d1f31c5dbdfd96572",
+          "notes": "Samsung part-specific reference specification, hosted by DigiKey: 100nF, 50V, +/-10%, X7R, EIA 0603."
+        }
+      ]
     }
   ],
   "retired_components": [
@@ -2463,5 +2554,13 @@
       }
     ],
     "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata."
+  },
+  "slot_decoupling": {
+    "checked_on": "2026-10-15",
+    "inventory_file": "../slot-power-parts.json",
+    "implementation_file": "../components/SlotDecoupling.tsx",
+    "capacitor_quantity": 5,
+    "reference": "ASM2464PDX_TI_R03.pdf, sheet 6",
+    "status": "Added switched-output bulk and ceramic banks. Footprints and polarity checked against manufacturer documents; hardware qualification pending."
   }
 }
