@@ -1,0 +1,29 @@
+diff --git a/dist/index.js b/dist/index.js
+index 6dceb7364a47db4af0a416cda8580e0c928217c9..7add2255d128472c25e11351fd95214cd670b37b 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -105296,6 +105296,15 @@ var InlineNetLabelSolver = class _InlineNetLabelSolver extends BaseSolver10 {
+       x: (start.x + end.x) / 2,
+       y: (start.y + end.y) / 2
+     };
++    // Keep terminal text 0.1 mm from its pin, even when the minimum
++    // stub length leaves additional wire beyond a short label.
++    const labelCenter = {
++      ...anchorPoint,
++      [axis]: start[axis] + Math.sign(end[axis] - start[axis]) * Math.min(
++        (width + 0.2) / 2,
++        Math.abs(end[axis] - start[axis]) / 2
++      )
++    };
+     const sides = axis === "x" ? ["y+", "y-"] : ["x-", "x+"];
+     for (const side of sides) {
+       for (const offset of this.getInlineOffsets(
+@@ -105307,7 +105316,7 @@ var InlineNetLabelSolver = class _InlineNetLabelSolver extends BaseSolver10 {
+         obstacles?.traces ?? this.traces,
+         ignoredTraceIds
+       )) {
+-        const center = side === "y+" ? { x: anchorPoint.x, y: anchorPoint.y + offset } : side === "y-" ? { x: anchorPoint.x, y: anchorPoint.y - offset } : side === "x-" ? { x: anchorPoint.x - offset, y: anchorPoint.y } : { x: anchorPoint.x + offset, y: anchorPoint.y };
++        const center = side === "y+" ? { x: labelCenter.x, y: anchorPoint.y + offset } : side === "y-" ? { x: labelCenter.x, y: anchorPoint.y - offset } : side === "x-" ? { x: anchorPoint.x - offset, y: labelCenter.y } : { x: anchorPoint.x + offset, y: labelCenter.y };
+         const halfAlong = width / 2;
+         const halfAcross = height / 2;
+         const bounds = axis === "x" ? {

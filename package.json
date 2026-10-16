@@ -28,5 +28,8 @@
   },
   "dependencies": {
     "@tscircuit/math-utils": "^0.0.38"
+  },
+  "patchedDependencies": {
+    "@tscircuit/core@0.0.2128": "patches/@tscircuit%2Fcore@0.0.2128.patch"
   }
 }

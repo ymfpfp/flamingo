@@ -498,11 +498,12 @@ export const Footprint = () => {
   );
 };
 
-export default function ASM2464PDX() {
+export default function ASM2464PDX({schSectionName}: {schSectionName?: string} = {}) {
   return (
     <>
       <chip
         name="ASM2464PDX"
+        schSectionName={schSectionName}
         manufacturerPartNumber="ASM2464PDX"
         datasheetUrl="https://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PDX/ASM2464PDX_DataSheet_R0_3.pdf"
         footprint={<Footprint/>}
@@ -575,47 +576,58 @@ export default function ASM2464PDX() {
         schWidth="4mm"
         schHeight="8mm"
       />
-      <netlabel 
-        connection="ASM2464PDX.GND" 
-        schX={3}
-        schY={2.5}
-        net="GND" 
-        anchorSide="left"
+      {/* Extend the shorter SPI/UART label stubs to the shared top edge.
+          These short green segments are schematic graphics; net connectivity
+          remains on the inline labels and their generated traces. */}
+      {[-0.645, 0.155, 0.355].map((x) => (
+        <Fragment key={`top-label-extension-${x}`}>
+          <schematicline x1={x} y1={7.56} x2={x} y2={7.64}
+            strokeWidth={0.02} color="rgb(0, 150, 0)"/>
+        </Fragment>
+      ))}
+      {/* Align the right-side label stubs with USB_VBUS_SENSE (1.4 mm).
+          REXT remains a routed connection; unused pins keep their NC marks. */}
+      {([
+        ["CC1", 4.9, 0.84], ["CC2", 4.7, 0.84],
+        ["GND", 4.5, 0.6], ["GNDA", 4.3, 0.6],
+        ["PERST0", 4.1, 1.24],
+        ["REFCLK_N0", 3.3, 1.32], ["REFCLK_P0", 2.5, 1.32],
+        ["RST", 1.5, 1],
+        ["SBU1", 1.3, 0.92], ["SBU2", 1.1, 0.92],
+        ["TEST_EN", 0.9, 1.16],
+        ["UDM", 0.7, 0.84], ["UDP", 0.5, 0.84],
+        ["VCCA33", 0.1, 0.76], ["VCCH", -0.1, 0.6],
+        ["VCCL", -0.3, 0.6], ["VDD", -0.5, 0.6],
+        ["XI", -0.7, 0.76], ["XO", -0.9, 0.76],
+      ] as const).map(([pin, y, length]) => (
+        <Fragment key={`right-label-extension-${pin}`}>
+          <schematicline x1={2.055 + length} y1={y} x2={3.455} y2={y}
+            strokeWidth={0.02} color="rgb(0, 150, 0)"/>
+        </Fragment>
+      ))}
+      <netlabel inline
+        connection="ASM2464PDX.GND"
+        net="GND"
       />
-      <netlabel
+      <netlabel inline
         connection="ASM2464PDX.GNDA"
-        schX={4}
-        schY={2.3}
         net="GNDA"
-        anchorSide="left"
       />
-      <netlabel
+      <netlabel inline
         connection="ASM2464PDX.VCCA33"
-        schX={4}
-        schY={-1.9}
         net="VCCA33"
-        anchorSide="left"
       />
-      <netlabel
+      <netlabel inline
         connection="ASM2464PDX.VCCH"
-        schX={4}
-        schY={-2.1}
         net="VCCH"
-        anchorSide="left"
       />
-      <netlabel
+      <netlabel inline
         connection="ASM2464PDX.VCCL"
-        schX={4}
-        schY={-2.3}
         net="VCCL"
-        anchorSide="left"
       />
-      <netlabel
+      <netlabel inline
         connection="ASM2464PDX.VDD"
-        schX={4}
-        schY={-2.5}
         net="VDD"
-        anchorSide="left"
       />
     </>
   );

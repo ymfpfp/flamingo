@@ -3,12 +3,12 @@ import type { ChipProps } from "@tscircuit/props"
 
 const pinLabels = {
   pin1: ["N_CS"],
-  pin2: ["DO_IO1"],
-  pin3: ["WP__IO2"],
+  pin2: ["MISO"],
+  pin3: ["WP"],
   pin4: ["GND"],
-  pin5: ["DI_IO0"],
+  pin5: ["MOSI"],
   pin6: ["CLK"],
-  pin7: ["HOLD__or_RESET__IO3"],
+  pin7: ["HOLD"],
   pin8: ["VCC"]
 } as const
 

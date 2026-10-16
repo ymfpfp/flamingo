@@ -29,15 +29,13 @@ export function BridgeVcchDecoupling() {
           connections={{pin1: "net.VCCH", pin2: "net.GND"}}
         />
       ))}
-      <netlabel
+      <netlabel inline
         net="VCCH"
         connectsTo={capacitors.map(({ref}) => `C_VCCH_${ref}.pin1`)}
-        schX={-1.2} schY={0.9} anchorSide="right"
       />
-      <netlabel
+      <netlabel inline
         net="GND"
         connectsTo={capacitors.map(({ref}) => `C_VCCH_${ref}.pin2`)}
-        schX={-1.2} schY={-0.9} anchorSide="right"
       />
       <schematictext
         text="ASMedia sheet 3: 4 x 2.2uF + 2 x 10uF + 4 x 220nF = 29.68uF."

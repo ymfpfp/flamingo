@@ -167,13 +167,16 @@ The x16 connector provides four connected lanes. Firmware behavior, hot-plug ope
 | Access | Pin order | Notes |
 | --- | --- | --- |
 | UART | GND, TX, RX | 3.3 V logic, board perspective, custom 2.54 mm footprint |
-| SPI | GND, V3V3, CS_N, CLK, MOSI, MISO | Programmer perspective, custom 2.54 mm footprint |
+| SPI | RST_N, GND, V3V3, CS_N, CLK, MOSI, MISO | Programmer perspective, custom 1x7 footprint, 2.54 mm pitch |
 
 Both access connectors use `doNotPlace` and provide unpopulated footprints.
 UART adapter RX connects to board TX, and adapter TX connects to board RX.
 SPI MOSI connects to flash DI, and MISO connects to flash DO.
-The SPI header shares the bridge bus and connects directly to board 3.3 V.
-Programmer power and bus isolation need checks before external programming.
+The SPI header shares the bridge bus without a bus switch.
+The adjacent RST_N and GND holes provide jumper access to hold the bridge in reset.
+The V3V3 pin connects directly to the board supply.
+For external programming, power the board normally and leave the programmer power output disconnected.
+Bridge SPI output release during reset remains unverified and requires a hardware check before external programming.
 
 ## Remaining work
 

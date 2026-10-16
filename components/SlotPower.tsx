@@ -10,7 +10,7 @@ import {A_1206W4F1001T5E} from "imports/A_1206W4F1001T5E";
 import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
 
 const rails = [
-  {suffix: "3V3", input: "V3V3", output: "SLOT_3V3", y: 4},
+  {suffix: "3V3", input: "VCCH", output: "SLOT_3V3", y: 4},
   {suffix: "12V", input: "V12V", output: "SLOT_12V", y: -4},
 ] as const;
 
@@ -54,9 +54,9 @@ export function SlotPower() {
     <subcircuit
       name="SLOT_POWER" schX={3.2} schY={0}
       schTraceAutoLabelEnabled={false} schMaxTraceDistance={12}
-      exposedNets={["V3V3", "V12V", "SLOT_3V3", "SLOT_12V", "ASM_HDDPC", "GND"]}
+      exposedNets={["VCCH", "V12V", "SLOT_3V3", "SLOT_12V", "ASM_HDDPC", "GND"]}
     >
-      {["V3V3", "V12V", "SLOT_3V3", "SLOT_12V", "ASM_HDDPC", "GND"].map(name => (
+      {["VCCH", "V12V", "SLOT_3V3", "SLOT_12V", "ASM_HDDPC", "GND"].map(name => (
         <Fragment key={name}><net name={name}/></Fragment>
       ))}
       <net name="SLOT_POWER_ENABLE"/>
@@ -74,8 +74,8 @@ export function SlotPower() {
         schOrientation="vertical"
       />
       <trace from=".R_SLOT_ENABLE > .pin2" to=".R_SLOT_ENABLE_PD > .pin1"/>
-      <netlabel net="GND" connection="R_SLOT_ENABLE_PD.pin2" schX={-0.2} schY={-6.5} anchorSide="top"/>
-      <netlabel net="ASM_HDDPC" connection="R_SLOT_ENABLE.pin1" schX={-1.8} schY={-3.9} anchorSide="right"/>
+      <netlabel inline net="GND" connection="R_SLOT_ENABLE_PD.pin2"/>
+      <netlabel inline net="ASM_HDDPC" connection="R_SLOT_ENABLE.pin1"/>
       <schematictext text="HDDPC high: both rails ON" schX={1} schY={-2.9} fontSize={0.23} anchor="left"/>
       <schematictext text="HDDPC low: both rails OFF" schX={1} schY={-3.3} fontSize={0.23} anchor="left"/>
       {rails.map(({suffix, input, output, y}) => {
@@ -117,10 +117,10 @@ export function SlotPower() {
             <trace from={`.${series} > .pin1`} to={`.${driver} > .D`}/>
             <trace from={`.${power} > .pin5`} to={`.${discharge} > .pin1`}/>
             <trace from=".R_SLOT_ENABLE > .pin2" to={`.${driver} > .G`}/>
-            <netlabel net={input} connection={`${power}.pin1`} schX={1.8} schY={y + 0.2} anchorSide="right"/>
-            <netlabel net={output} connection={`${power}.pin5`} schX={11} schY={y + 0.2} anchorSide="left"/>
-            <netlabel net="GND" connection={`${driver}.S`} schX={1.2} schY={y - 5.1} anchorSide="top"/>
-            <netlabel net="GND" connection={`${discharge}.pin2`} schX={9.8} schY={y - 3} anchorSide="top"/>
+            <netlabel inline net={input} connection={`${power}.pin1`}/>
+            <netlabel inline net={output} connection={`${power}.pin5`}/>
+            <netlabel inline net="GND" connection={`${driver}.S`}/>
+            <netlabel inline net="GND" connection={`${discharge}.pin2`}/>
             <schematictext text="Gate driver" schX={1.2} schY={y - 5.6} fontSize={0.2} anchor="center"/>
           </Fragment>
         );

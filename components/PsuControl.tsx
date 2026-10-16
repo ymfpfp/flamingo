@@ -27,9 +27,9 @@ export function PsuControl() {
         noConnect={["NC"]}
         connections={{A: "net.ATX_PWR_OK", VCC: "net.V5V", GND: "net.GND"}}
       />
-      <netlabel net="ATX_PWR_OK" connection="U_PSU_LED.A" schX={-1.5} schY={0} anchorSide="right"/>
-      <netlabel net="V5V" connection="U_PSU_LED.VCC" schX={0} schY={1.5} anchorSide="bottom"/>
-      <netlabel net="GND" connection="U_PSU_LED.GND" schX={0} schY={-1.5} anchorSide="top"/>
+      <netlabel inline net="ATX_PWR_OK" connection="U_PSU_LED.A"/>
+      <netlabel inline net="V5V" connection="U_PSU_LED.VCC"/>
+      <netlabel inline net="GND" connection="U_PSU_LED.GND"/>
       <A_0402WGF1003TCE
         name="R_PSU_OK_PD"
         schSectionName="PSU_CONTROL"
@@ -37,8 +37,8 @@ export function PsuControl() {
         schOrientation="vertical"
         connections={{pin1: "net.ATX_PWR_OK", pin2: "net.GND"}}
       />
-      <netlabel net="ATX_PWR_OK" connection="R_PSU_OK_PD.pin1" schX={-2.5} schY={-1.5} anchorSide="bottom"/>
-      <netlabel net="GND" connection="R_PSU_OK_PD.pin2" schX={-2.5} schY={-3.5} anchorSide="top"/>
+      <netlabel inline net="ATX_PWR_OK" connection="R_PSU_OK_PD.pin1"/>
+      <netlabel inline net="GND" connection="R_PSU_OK_PD.pin2"/>
       <CL05B104KO5NNNC
         name="C_PSU_LED"
         schSectionName="PSU_CONTROL"
@@ -46,8 +46,8 @@ export function PsuControl() {
         schOrientation="vertical"
         connections={{pin1: "net.V5V", pin2: "net.GND"}}
       />
-      <netlabel net="V5V" connection="C_PSU_LED.pin1" schX={2.5} schY={-1.5} anchorSide="bottom"/>
-      <netlabel net="GND" connection="C_PSU_LED.pin2" schX={2.5} schY={-3.5} anchorSide="top"/>
+      <netlabel inline net="V5V" connection="C_PSU_LED.pin1"/>
+      <netlabel inline net="GND" connection="C_PSU_LED.pin2"/>
       <A_0402WGF1001TCE
         name="R_PSU_LED"
         schSectionName="PSU_CONTROL"
@@ -55,7 +55,7 @@ export function PsuControl() {
         schOrientation="vertical"
         connections={{pin1: "net.V5V"}}
       />
-      <netlabel net="V5V" connection="R_PSU_LED.pin1" schX={5} schY={3.5} anchorSide="bottom"/>
+      <netlabel inline net="V5V" connection="R_PSU_LED.pin1"/>
       <XL_1608UWC_04
         name="LED_PSU_OK"
         color="white"
@@ -77,8 +77,8 @@ export function PsuControl() {
       </XL_1608UWC_04>
       <trace from=".R_PSU_LED > .pin2" to=".LED_PSU_OK > .anode"/>
       <trace from=".LED_PSU_OK > .cathode" to=".U_PSU_LED > .Y"/>
-      <schematictext text="PWR_OK high: driver sinks LED current" schX={-1.5} schY={-4.5} fontSize={0.2} anchor="left"/>
-      <schematictext text="White LED = PSU main rails good; not USB link or bridge readiness" schX={-6.5} schY={-5} fontSize={0.18} anchor="left"/>
+      <schematictext text="PWR_OK high: driver sinks LED current" schX={-1.5} schY={-3.8} fontSize={0.2} anchor="left"/>
+      <schematictext text="White LED = PSU main rails good; not USB link or bridge readiness" schX={-6.5} schY={-4.3} fontSize={0.18} anchor="left"/>
     </group>
   );
 }

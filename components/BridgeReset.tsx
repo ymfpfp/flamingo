@@ -5,8 +5,8 @@ import {TS_1088_AR02016} from "imports/TS_1088_AR02016";
 /** ASMedia reference sheet 3: R30, C52 and normally-open SW2. */
 export function BridgeReset() {
   return (
-    <group name="BRIDGE_RESET" schX={17} schY={-5}>
-      <schematicsection name="BRIDGE_RESET" displayName="Bridge Reset"/>
+    <group name="BRIDGE_RESET" schX={13} schY={-6}>
+      <schematicsection name="BRIDGE_RESET" displayName="5. Bridge Reset"/>
       <A_0402WGF1003TCE
         name="R_RST"
         tolerance="1%"
@@ -33,10 +33,10 @@ export function BridgeReset() {
         schRotation={-90}
         connections={{pin1: "net.ASM_RST_N", pin2: "net.GND"}}
       />
-      <netlabel net="VCCH" connection="R_RST.pin1" schX={0} schY={3} anchorSide="bottom"/>
-      <netlabel net="ASM_RST_N" connection="R_RST.pin2" schX={-1.5} schY={0} anchorSide="right"/>
-      <netlabel net="GND" connection="C_RST.pin2" schX={0} schY={-2} anchorSide="top"/>
-      <netlabel net="GND" connection="SW_RESET.pin2" schX={3} schY={-2} anchorSide="top"/>
+      <netlabel inline net="VCCH" connection="R_RST.pin1"/>
+      <netlabel inline net="ASM_RST_N" connection="R_RST.pin2"/>
+      <netlabel inline net="GND" connection="C_RST.pin2"/>
+      <netlabel inline net="GND" connection="SW_RESET.pin2"/>
       {/* RC delay does not monitor rail readiness; verify it with regulator sequencing. */}
       <schematictext
         text="100k + 1uF: ASMedia R30/C52. Press RESET to hold RST# low."

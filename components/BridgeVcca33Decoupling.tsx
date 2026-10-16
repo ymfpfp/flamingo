@@ -34,18 +34,15 @@ export function BridgeVcca33Decoupling() {
           connections={{pin1: "net.VCCA33", pin2: "net.GND"}}
         />
       ))}
-      <netlabel
+      <netlabel inline
         net="VCCH" connection="R_VCCA33_4.pin1"
-        schX={0} schY={1.5} anchorSide="bottom"
       />
-      <netlabel
+      <netlabel inline
         net="VCCA33"
         connectsTo={["R_VCCA33_4.pin2", "C_VCCA33_7.pin1", "C_VCCA33_8.pin1"]}
-        schX={4.1} schY={0.9} anchorSide="bottom"
       />
-      <netlabel
+      <netlabel inline
         net="GND" connectsTo={["C_VCCA33_7.pin2", "C_VCCA33_8.pin2"]}
-        schX={2.2} schY={-0.9} anchorSide="top"
       />
       <schematictext
         text="22uF / 25V + 220nF / 16V = 22.22uF."

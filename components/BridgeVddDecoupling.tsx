@@ -34,15 +34,13 @@ export function BridgeVddDecoupling() {
               connections={{pin1: "net.VDD", pin2: "net.GND"}}
             />
           ))}
-          <netlabel
+          <netlabel inline
             net="VDD"
             connectsTo={row.map(({ref}) => `C_VDD_${ref}.pin1`)}
-            schX={-1.2} schY={0.6} anchorSide="right"
           />
-          <netlabel
+          <netlabel inline
             net="GND"
             connectsTo={row.map(({ref}) => `C_VDD_${ref}.pin2`)}
-            schX={-1.2} schY={-0.6} anchorSide="right"
           />
         </group>
       ))}

@@ -46,13 +46,12 @@ export default function Board() {
       <net name="GND"/>
       <net name="GNDA" connectsTo={["net.GND"]}/>
       <net name="VDD"/>
-      <net name="VCCH" connectsTo={["net.V3V3"]}/>
+      <net name="VCCH"/>
       <net name="VCCA33"/>
       <net name="VCCL"/>
       <net name="BUCK_EN"/>
       <net name="VCCH_SENSE"/>
 
-      <net name="V3V3"/>
       <net name="V5V"/>
       <net name="V5VSB"/>
       <net name="V12V"/>
@@ -90,39 +89,68 @@ export default function Board() {
         ))
       )))}
 
-      <schematicsheet name="bridge" sheetIndex={1}>
-        <group schX={5} schY={0}>
-          <ASM2464PDX/>
+      {[
+        ["ASM_UART_TX", "UART_TX"], ["ASM_UART_RX", "UART_RX"],
+        ["ASM_SPI_CS_N", "SPI_CS"], ["ASM_SPI_CLK", "SPI_CLK"],
+        ["ASM_SPI_MOSI", "SPI_DO"], ["ASM_SPI_MISO", "SPI_DI"],
+        ["ASM_XI", "XI"], ["ASM_XO", "XO"],
+      ].map(([name, pin]) => (
+        <Fragment key={name}>
+          <net name={name} connectsTo={[`.ASM2464PDX > .${pin}`]}/>
+        </Fragment>
+      ))}
+
+      {[
+        {net: "ASM_CC1", pin: "CC1", contacts: ["A5"]},
+        {net: "ASM_CC2", pin: "CC2", contacts: ["B5"]},
+        {net: "ASM_SBU1", pin: "SBU1", contacts: ["A8"]},
+        {net: "ASM_SBU2", pin: "SBU2", contacts: ["B8"]},
+        {net: "USB_D_P", pin: "UDP", contacts: ["A6", "B6"]},
+        {net: "USB_D_N", pin: "UDM", contacts: ["A7", "B7"]},
+      ].map(({net, pin, contacts}) => (
+        <Fragment key={net}>
+          <netlabel inline net={net} connectsTo={[
+            `.ASM2464PDX > .${pin}`,
+            ...contacts.map(contact => `.USBC > .${contact}`),
+          ]}/>
+        </Fragment>
+      ))}
+      <netlabel inline net="ASM_TEST_EN" connectsTo={[".ASM2464PDX > .TEST_EN", ".R_TEST_EN > .pin1"]}/>
+      <netlabel inline net="USB_VBUS_SENSE" connection=".ASM2464PDX > .VBUS"/>
+
+      <schematicsheet name="bridge" sheetIndex={1} sheetSize="ANSI_B">
+        <schematicsection name="BRIDGE_CHIP" displayName="1. Chip"/>
+        <schematicsection name="BRIDGE_UART" displayName="2. UART"/>
+        <schematicsection name="BRIDGE_SPI" displayName="3. SPI"/>
+        <schematicsection name="BRIDGE_OSCILLATOR" displayName="4. Crystal Oscillator"/>
+        <group schX={-12} schY={0}>
+          <ASM2464PDX schSectionName="BRIDGE_CHIP"/>
           <UartHeader
             name="UART"
-            schX={-5}
-            schY={3}
+            schSectionName="BRIDGE_UART"
+            schX={13}
+            schY={4}
             connections={{
               GND: "net.GND",
-              TX: ".ASM2464PDX > .UART_TX",
-              RX: ".ASM2464PDX > .UART_RX",
+              TX: "net.ASM_UART_TX",
+              RX: "net.ASM_UART_RX",
             }}
           />
           {/* UART_TX is sampled as MEMREPAIR at startup (ASMedia section 5.1).
               Bias it high through a resistor so UART can still drive it low. */}
           <resistor
             name="R_UART_TX"
+            schSectionName="BRIDGE_UART"
             resistance="4.7k"
             footprint="0402"
             manufacturerPartNumber="0402WGF4701TCE"
             supplierPartNumbers={{jlcpcb: ["C25900"]}}
-            schX={-5}
-            schY={5}
-            schOrientation="vertical"
-            connections={{pin1: "net.VCCH", pin2: ".ASM2464PDX > .UART_TX"}}
-          />
-          <netlabel
-            net="V3V3"
-            connection="R_UART_TX.pin1"
-            schX={-5}
+            schX={10}
             schY={6}
-            anchorSide="bottom"
+            schOrientation="vertical"
+            connections={{pin1: "net.VCCH", pin2: "net.ASM_UART_TX"}}
           />
+          <netlabel inline net="VCCH" connection="R_UART_TX.pin1"/>
           {[
             "UART_TX is sampled at power-on.",
             "High enables internal memory repair (MEMREPAIR).",
@@ -130,48 +158,44 @@ export default function Board() {
             "ASMedia datasheet, section 5.1.",
           ].map((text, index) => (
             <Fragment key={text}>
-              <schematictext
-                text={text}
-                schX={-6.5}
-                schY={5.5 - index * 0.32}
-                fontSize={0.18}
-                anchor="right"
-              />
+              <schematictext text={text} schX={9} schY={2.5 - index * 0.32}
+                fontSize={0.18} anchor="left"/>
             </Fragment>
           ))}
           <RC0402FR_0712K1L
-            name="R1"
+            name="R_RST_N"
+            schSectionName="BRIDGE_CHIP"
             schX={6}
-            schY={-0.7}
+            schY={-2.3}
             schRotation={-90}
-            connections={{
-              pin1: ".ASM2464PDX > .REXT",
-              pin2: "net.GND",
-            }}
+            connections={{pin1: ".ASM2464PDX > .REXT", pin2: "net.GND"}}
           />
           {/* Match the reference design: hold TEST_EN low during normal operation. */}
           <resistor
             name="R_TEST_EN"
+            schSectionName="BRIDGE_CHIP"
             resistance="4.7k"
             footprint="0402"
             manufacturerPartNumber="0402WGF4701TCE"
             supplierPartNumbers={{jlcpcb: ["C25900"]}}
-            schX={8}
-            schY={1}
+            schX={6}
+            schY={0.6}
             schOrientation="vertical"
             connections={{pin1: ".ASM2464PDX > .TEST_EN", pin2: "net.GND"}}
           />
           <W25Q32JVSSIQ
-            name="SPI"
-            schY={8}
+            name="W25Q32JVSSIQ"
+            schSectionName="BRIDGE_SPI"
+            schX={24}
+            schY={4}
             schPinArrangement={{
               leftSide: {direction: "top-to-bottom", pins: [3, 1, 2, 4]},
               rightSide: {direction: "top-to-bottom", pins: [8, 7, 6, 5]},
             }}
             connections={{
               N_CS: ".ASM2464PDX > .SPI_CS",
-              DO_IO1: ".ASM2464PDX > .SPI_DI",
-              DI_IO0: ".ASM2464PDX > .SPI_DO",
+              MISO: ".ASM2464PDX > .SPI_DI",
+              MOSI: ".ASM2464PDX > .SPI_DO",
               CLK: ".ASM2464PDX > .SPI_CLK",
               GND: "net.GND",
               // The flash and bridge SPI I/O use 3.3 V, not the 1.13 V core rail.
@@ -181,27 +205,24 @@ export default function Board() {
           {/* Standard SPI: bias WP/IO2 and unused IO3 high through separate pull-ups. */}
           <A_0402WGF1002TCE
             name="R_SPI_WP"
-            schX={-2.6}
-            schY={9.4}
+            schSectionName="BRIDGE_SPI"
+            schX={20}
+            schY={6.5}
             schOrientation="vertical"
-            connections={{pin1: "net.VCCH", pin2: ".SPI > .WP__IO2"}}
+            connections={{pin1: "net.VCCH", pin2: ".W25Q32JVSSIQ > .WP"}}
           />
-          <netlabel
-            net="V3V3"
-            connection="R_SPI_WP.pin1"
-            schX={-2.6}
-            schY={10.3}
-            anchorSide="bottom"
-          />
+          <netlabel inline net="VCCH" connection="R_SPI_WP.pin1"/>
+          <netlabel inline net="W25Q32JVSSIQ_WP" connectsTo={["R_SPI_WP.pin2", "W25Q32JVSSIQ.WP"]}/>
           {/* Winbond recommends an IO3 pull-up for non-Quad use:
               https://winbond.com/hq/support/faq/technical/?__locale=en
               We choose 10k to match CS; the FAQ specifies 10k explicitly only for CS. */}
           <A_0402WGF1002TCE
             name="R_SPI_HOLD"
-            schX={5}
-            schY={8}
+            schSectionName="BRIDGE_SPI"
+            schX={28}
+            schY={4}
             schOrientation="vertical"
-            connections={{pin1: "net.VCCH", pin2: ".SPI > .HOLD__or_RESET__IO3"}}
+            connections={{pin1: "net.VCCH", pin2: ".W25Q32JVSSIQ > .HOLD"}}
           />
           {[
             "Pin 7 is unused IO3 in this standard SPI design.",
@@ -211,81 +232,77 @@ export default function Board() {
             "W25Q32JV pp. 9, 16; Winbond technical FAQ.",
           ].map((text, index) => (
             <Fragment key={`hold-note-${index}`}>
-              <schematictext
-                text={text}
-                schX={6.5}
-                schY={6.6 - index * 0.32}
-                fontSize={0.18}
-                anchor="left"
-              />
+              <schematictext text={text} schX={20} schY={2 - index * 0.32}
+                fontSize={0.18} anchor="left"/>
             </Fragment>
           ))}
           <A_0402WGF1002TCE
             name="R_SPI_CS"
-            schX={-4}
-            schY={11}
+            schSectionName="BRIDGE_SPI"
+            schX={23}
+            schY={6.5}
             schOrientation="vertical"
-            connections={{pin1: "net.VCCH", pin2: ".SPI > .N_CS"}}
+            connections={{pin1: "net.VCCH", pin2: ".W25Q32JVSSIQ > .N_CS"}}
           />
-          <netlabel
-            net="V3V3"
-            connection="R_SPI_CS.pin1"
-            schX={-4}
-            schY={11.9}
-            anchorSide="bottom"
-          />
+          <netlabel inline net="VCCH" connection="R_SPI_CS.pin1"/>
+          <netlabel inline net="ASM_SPI_CS_N" connectsTo={["R_SPI_CS.pin2", "W25Q32JVSSIQ.N_CS"]}/>
           {/* C73 on ASMedia's reference schematic, sheet 3, is also 100nF. */}
           <CL05B104KO5NNNC
             name="C_SPI_VCC"
-            schX={4}
-            schY={11}
+            schSectionName="BRIDGE_SPI"
+            schX={27}
+            schY={6.5}
             schOrientation="vertical"
             connections={{pin1: "net.VCCH", pin2: "net.GND"}}
           />
-          <group schX={4} schY={-5}>
+          <netlabel inline net="VCCH" connection="C_SPI_VCC.pin1"/>
+          <netlabel inline net="GND" connection="C_SPI_VCC.pin2"/>
+          <group schX={12} schY={-6}>
             <XXCBCLNANF_25M
               name="XCLK"
+              schSectionName="BRIDGE_OSCILLATOR"
+              schX={0}
+              schY={0}
               loadCapacitance="10pF"
               connections={{
-                pin1: ".ASM2464PDX > .XI",
+                pin1: "net.ASM_XI",
                 pin2: "net.GND",
-                pin3: ".ASM2464PDX > .XO",
+                pin3: "net.ASM_XO",
                 pin4: "net.GND",
               }}
             />
-            <TCC0402COG100J500AT name="C1" schOrientation="vertical" connections={{pin1: ".ASM2464PDX > .XI", pin2: ".ASM2464PDX > .XO"}}/>
+            <TCC0402COG100J500AT name="C1" schSectionName="BRIDGE_OSCILLATOR"
+              schX={3} schY={0} schOrientation="vertical"
+              connections={{pin1: "net.ASM_XI", pin2: "net.ASM_XO"}}/>
+            <netlabel inline net="ASM_XI" connection="C1.pin1"/>
+            <netlabel inline net="ASM_XO" connection="C1.pin2"/>
           </group>
         </group>
         <BridgeReset/>
-        <schematicsection name="SPI_PROGRAMMING" displayName="SPI Programming"/>
         <SpiProgrammingHeader
           name="SPI_PROG"
-          schSectionName="SPI_PROGRAMMING"
-          schX={18}
-          schY={11}
+          schSectionName="BRIDGE_SPI"
+          schX={22}
+          schY={4}
           connections={{
+            RST_N: "net.ASM_RST_N",
             GND: "net.GND",
             V3V3: "net.VCCH",
-            CS_N: ".SPI > .N_CS",
-            CLK: ".SPI > .CLK",
-            MOSI: ".SPI > .DI_IO0",
-            MISO: ".SPI > .DO_IO1",
+            CS_N: ".W25Q32JVSSIQ > .N_CS",
+            CLK: ".W25Q32JVSSIQ > .CLK",
+            MOSI: ".W25Q32JVSSIQ > .MOSI",
+            MISO: ".W25Q32JVSSIQ > .MISO",
           }}
         />
         {[
-          "SPI programming access: custom 1x6 pinout, 2.54mm pitch.",
-          "MOSI goes to flash DI; MISO comes from flash DO.",
-          "3V3 connects directly to the board supply.",
-          "Shared with ASM2464PDX; bus isolation must be verified.",
+          "SPI programming access: custom 1x7 pinout, 2.54mm pitch.",
+          "Jumper RST_N to adjacent GND to hold the bridge in reset.",
+          "Power the board normally. Leave programmer 3V3 disconnected.",
+          "Shared SPI bus: SPI output release during reset remains unverified.",
         ].map((text, index) => (
           <Fragment key={`spi-programming-note-${index}`}>
-            <schematictext
-              text={text}
-              schX={20}
-              schY={11.5 - index * 0.32}
-              fontSize={0.18}
-              anchor="left"
-            />
+            <schematictext text={text} schX={19} schY={2 - index * 0.32}
+              fontSize={0.18} anchor="left"/>
           </Fragment>
         ))}
       </schematicsheet>
@@ -339,22 +356,22 @@ export default function Board() {
             RX3_N: "net.ASM_PRXN3",
           }}
         />
-        <netlabel net="SLOT_12V" connection="PCIe.V12V" schX={-6.2} schY={6.4} anchorSide="bottom"/>
-        <netlabel net="SLOT_3V3" connection="PCIe.V3V3" schX={-4.9} schY={6.4} anchorSide="bottom"/>
+        <netlabel inline net="SLOT_12V" connection="PCIe.V12V"/>
+        <netlabel inline net="SLOT_3V3" connection="PCIe.V3V3"/>
         <schematictext text="Control links" schX={-11.8} schY={1} fontSize={0.24} anchor="left"/>
         <schematictext text="Transmit coupling" schX={-5.5} schY={1} fontSize={0.24} anchor="left"/>
         {[
-          {pin: "PERST_N", resistor: "R_PCIE_PERST", pinY: 4.8, linkY: 0.2},
-          {pin: "REFCLK_P", resistor: "R_PCIE_REFCLK_P", pinY: 4.6, linkY: -0.6},
-          {pin: "REFCLK_N", resistor: "R_PCIE_REFCLK_N", pinY: 4.4, linkY: -1.4},
-          {pin: "CLKREQ_N", resistor: "R_PCIE_CLKREQ", pinY: 4.2, linkY: -2.2},
-        ].map(({pin, resistor, pinY, linkY}) => (
+          {pin: "PERST_N", resistor: "R_PCIE_PERST"},
+          {pin: "REFCLK_P", resistor: "R_PCIE_REFCLK_P"},
+          {pin: "REFCLK_N", resistor: "R_PCIE_REFCLK_N"},
+          {pin: "CLKREQ_N", resistor: "R_PCIE_CLKREQ"},
+        ].map(({pin, resistor}) => (
           <Fragment key={`compact-${pin}`}>
-            <netlabel net={`PCIe_${pin}`} connection={`PCIe.${pin}`} schX={-7.6} schY={pinY} anchorSide="right"/>
-            <netlabel net={`PCIe_${pin}`} connection={`${resistor}.pin2`} schX={-7.8} schY={linkY} anchorSide="left"/>
+            <netlabel inline net={`PCIe_${pin}`} connection={`PCIe.${pin}`}/>
+            <netlabel inline net={`PCIe_${pin}`} connection={`${resistor}.pin2`}/>
           </Fragment>
         ))}
-        <netlabel net="PCIe_CLKREQ_N" connection="R_PCIE_CLKREQ_PU.pin2" schX={-8.2} schY={-4.8} anchorSide="left"/>
+        <netlabel inline net="PCIe_CLKREQ_N" connection="R_PCIE_CLKREQ_PU.pin2"/>
         {/* ASMedia reference sheet 6, R173: removable series link to slot A11. */}
         <A_0402WGF0000TCE
           schSectionName="PCIE_LINK"
@@ -366,12 +383,9 @@ export default function Board() {
             pin2: ".PCIe > .PERST_N",
           }}
         />
-        <netlabel
+        <netlabel inline
           net="ASM_PERST0_N"
           connection="R_PCIE_PERST.pin1"
-          schX={-10.2}
-          schY={0.2}
-          anchorSide="right"
         />
         {/* One x4 link uses clock pair 0. ASMedia sheet 6: R180 (P), R178 (N). */}
         {(["P", "N"] as const).map((polarity, index) => (
@@ -386,12 +400,9 @@ export default function Board() {
                 pin2: `.PCIe > .REFCLK_${polarity}`,
               }}
             />
-            <netlabel
+            <netlabel inline
               net={`ASM_REFCLK_${polarity}0`}
               connection={`R_PCIE_REFCLK_${polarity}.pin1`}
-              schX={-10.2}
-              schY={-0.6 - index * 0.8}
-              anchorSide="right"
             />
           </Fragment>
         ))}
@@ -406,12 +417,9 @@ export default function Board() {
             pin2: ".PCIe > .CLKREQ_N",
           }}
         />
-        <netlabel
+        <netlabel inline
           net="ASM_CLKREQ_N"
           connection="R_PCIE_CLKREQ.pin1"
-          schX={-10.2}
-          schY={-2.2}
-          anchorSide="right"
         />
         <A_0402WGF1002TCE
           schSectionName="PCIE_LINK"
@@ -424,36 +432,27 @@ export default function Board() {
             pin2: ".PCIe > .CLKREQ_N",
           }}
         />
-        <netlabel
+        <netlabel inline
           net="VCCH"
           connection="R_PCIE_CLKREQ_PU.pin1"
-          schX={-9.2}
-          schY={-3.1}
-          anchorSide="bottom"
         />
-        <netlabel
+        <netlabel inline
           net="ASM_WAKE_N"
           connection="PCIe.WAKE_N"
-          schX={-7.6}
-          schY={4}
-          anchorSide="right"
         />
         {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map((polarity, index) => (
           <Fragment key={`PCIE_RX${lane}_${polarity}`}>
-            <netlabel
+            <netlabel inline
               net={`ASM_PRX${polarity}${lane}`}
               connection={`PCIe.RX${lane}_${polarity}`}
-              schX={-7.6}
-              schY={3.8 - lane * 0.4 - index * 0.2}
-              anchorSide="right"
             />
           </Fragment>
         )))}
         {/* Series coupling belongs at each transmitter; the card supplies its own TX capacitors. */}
         {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map((polarity, index) => (
           <Fragment key={`PCIE_TX${lane}_${polarity}`}>
-            <netlabel net={`PCIe_TX${lane}_${polarity}`} connection={`PCIe.TX${lane}_${polarity}`} schX={-2.6} schY={4.8 - lane * 0.4 - index * 0.2} anchorSide="left"/>
-            <netlabel net={`PCIe_TX${lane}_${polarity}`} connection={`C_TX${lane}_${polarity}.pin2`} schX={-4.9} schY={0.2 - lane * 1.4 - index * 0.7} anchorSide="right"/>
+            <netlabel inline net={`PCIe_TX${lane}_${polarity}`} connection={`PCIe.TX${lane}_${polarity}`}/>
+            <netlabel inline net={`PCIe_TX${lane}_${polarity}`} connection={`C_TX${lane}_${polarity}.pin2`}/>
             <capacitor
               schSectionName="PCIE_LINK"
               name={`C_TX${lane}_${polarity}`}
@@ -461,45 +460,42 @@ export default function Board() {
               maxVoltageRating="10V"
               footprint="0402"
               schOrientation="neg_left"
-              // Separate the P/N columns and leave room for both names and values.
+              // Stagger the P/N columns to leave room for inline labels and values.
               schX={polarity === "P" ? -3.8 : -2.2}
-              schY={0.2 - lane * 1.4 - index * 0.7}
+              schY={-0.4 - lane * 1.4 - index * 0.7}
               pcbRotation={lane < 2 ? 0 : 90}
               connections={{
                 pin2: `.PCIe > .TX${lane}_${polarity}`,
               }}
             />
-            <netlabel
+            <netlabel inline
               net={`ASM_PTX${polarity}${lane}`}
               connection={`C_TX${lane}_${polarity}.pin1`}
-              schX={-1.2}
-              schY={0.2 - lane * 1.4 - index * 0.7}
-              anchorSide="left"
             />
           </Fragment>
         )))}
         <schematictext
           text="Only lanes 0–3 are used. Lanes 4–15 are unconnected."
           schX={-5.5}
-          schY={-5.8}
+          schY={-6.4}
           fontSize={0.18}
           anchor="left"
         />
         <schematictext
           text="TX capacitors: 220nF / 10V, per ASMedia reference sheet 6."
           schX={-5.5}
-          schY={-6.15}
+          schY={-6.75}
           fontSize={0.18}
           anchor="left"
         />
         <schematicsection name="PCIE_PRESENCE" displayName="Card Presence"/>
-        <netlabel net="GND" connection="PCIe.PRSNT1_N" schX={0.2} schY={3.2} anchorSide="top"/>
-        {(["X1", "X4", "X8", "X16"] as const).map((size, index) => (
+        <netlabel inline net="GND" connection="PCIe.PRSNT1_N"/>
+        {(["X1", "X4", "X8", "X16"] as const).map(size => (
           <Fragment key={`PCIE_PRESENT_${size}`}>
-            <netlabel net="PCIE_PRESENT_N" connection={`PCIe.PRSNT2_${size}_N`} schX={-2.6} schY={3 - index * 0.2} anchorSide="left"/>
+            <netlabel inline net="PCIE_PRESENT_N" connection={`PCIe.PRSNT2_${size}_N`}/>
           </Fragment>
         ))}
-        <schematictext text="PCIe card presence (A1 / B17, B31, B48, B81)" schX={-10} schY={-7.3} fontSize={0.22} anchor="left"/>
+        <schematictext text="PCIe card presence (A1 / B17, B31, B48, B81)" schX={-10} schY={-8.3} fontSize={0.22} anchor="left"/>
         {/* ASMedia sheet 6 uses 4.7k pull-ups (R183/R196) and removable sense links. */}
         <resistor
           name="R_PCIE_PRESENT_PU"
@@ -511,22 +507,22 @@ export default function Board() {
           manufacturerPartNumber="0402WGF4701TCE"
           supplierPartNumbers={{jlcpcb: ["C25900"]}}
           schX={-3}
-          schY={-8.1}
+          schY={-9.1}
           schOrientation="vertical"
           connections={{pin1: "net.VCCH", pin2: "net.PCIE_PRESENT_N"}}
         />
-        <netlabel net="VCCH" connection="R_PCIE_PRESENT_PU.pin1" schX={-3} schY={-7.1} anchorSide="bottom"/>
-        <netlabel net="PCIE_PRESENT_N" connection="R_PCIE_PRESENT_PU.pin2" schX={-3} schY={-10} anchorSide="top"/>
+        <netlabel inline net="VCCH" connection="R_PCIE_PRESENT_PU.pin1"/>
+        <netlabel inline net="PCIE_PRESENT_N" connection="R_PCIE_PRESENT_PU.pin2"/>
         <A_0402WGF0000TCE
           name="R_PCIE_PRESENT"
           schSectionName="PCIE_PRESENCE"
           schX={-1}
-          schY={-9.1}
+          schY={-10.1}
           connections={{pin1: "net.ASM_PRESENT_N", pin2: "net.PCIE_PRESENT_N"}}
         />
-        <netlabel net="ASM_PRESENT_N" connection="R_PCIE_PRESENT.pin1" schX={-1.6} schY={-10.5} anchorSide="top"/>
-        <netlabel net="PCIE_PRESENT_N" connection="R_PCIE_PRESENT.pin2" schX={1} schY={-9.1} anchorSide="left"/>
-        <schematictext text="Empty = high; inserted card grounds the sense net. Pull-up uses unswitched VCCH." schX={-10} schY={-11.6} fontSize={0.18} anchor="left"/>
+        <netlabel inline net="ASM_PRESENT_N" connection="R_PCIE_PRESENT.pin1"/>
+        <netlabel inline net="PCIE_PRESENT_N" connection="R_PCIE_PRESENT.pin2"/>
+        <schematictext text="Empty = high; inserted card grounds the sense net. Pull-up uses unswitched VCCH." schX={-10} schY={-12.6} fontSize={0.18} anchor="left"/>
         {/* Frame the switch block and include its local subcircuit in the page bounds. */}
         <schematicrect schX={8.7} schY={-2.7} width={14.4} height={18.2} strokeWidth={0.02} color="#bbbbbb"/>
         <SlotPower/>
@@ -572,10 +568,10 @@ export default function Board() {
           schY={0}
           noConnect={["pin14", "pin20"]}
           connections={{
-            pin1: "net.V3V3",
-            pin2: "net.V3V3",
-            pin12: "net.V3V3",
-            pin13: "net.V3V3",
+            pin1: "net.VCCH",
+            pin2: "net.VCCH",
+            pin12: "net.VCCH",
+            pin13: "net.VCCH",
             pin4: "net.V5V",
             pin6: "net.V5V",
             pin8: "net.ATX_PWR_OK",
@@ -596,8 +592,7 @@ export default function Board() {
           }}
         />
         {/* Anchor the shared 3.3 V rail explicitly to avoid a dangling auto-label stub. */}
-        <netlabel net="V3V3" connectsTo={["ATX.pin1", "ATX.pin2", "ATX.pin12"]}
-          schX={-6.85} schY={1.4} anchorSide="bottom"/>
+        <netlabel inline net="VCCH" connectsTo={["ATX.pin1", "ATX.pin2", "ATX.pin12"]}/>
         {/* The PSU pulls PS_ON# high internally. This removable link requests
             automatic start whenever AC is present (Intel ATX section 3.3.3). */}
         <A_0402WGF0000TCE
@@ -608,7 +603,7 @@ export default function Board() {
           connections={{pin2: "net.GND"}}
         />
         <trace name="PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1"/>
-        <netlabel net="GND" connection="R_PSU_ON.pin2" schX={-1.7} schY={-2.6} anchorSide="top"/>
+        <netlabel inline net="GND" connection="R_PSU_ON.pin2"/>
         <schematictext text="0 ohm fitted: automatic power-on" schX={-6.5} schY={-2.2} fontSize={0.2} anchor="left"/>
         <schematictext text="Remove R_PSU_ON to release PS_ON#" schX={-6.5} schY={-2.6} fontSize={0.2} anchor="left"/>
         <BuckInputs/>

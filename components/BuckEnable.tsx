@@ -41,27 +41,25 @@ export function BuckEnable() {
         pcbX={-2.8} pcbY={-1.3} pcbRotation={270}
         connections={{pin1: "net.VCCH_SENSE", pin2: "net.GND"}}/>
       <trace from=".R_BUCK_EN_TOP > .pin2" to=".R_BUCK_EN_BOTTOM > .pin1"/>
-      <netlabel net="VCCH_SENSE" connectsTo={["R_BUCK_EN_TOP.pin2", "R_BUCK_EN_BOTTOM.pin1"]}
-        schX={-3.5} schY={0} anchorSide="right"/>
-      <netlabel net="VCCH" connection="R_BUCK_EN_TOP.pin1" schX={-3.5} schY={2} anchorSide="bottom"/>
-      <netlabel net="GND" connection="R_BUCK_EN_BOTTOM.pin2" schX={-3.5} schY={-1.65} anchorSide="top"/>
-      <netlabel net="VCCH_SENSE" connection="U_BUCK_EN.SENSE" schX={-1.5} schY={0.1} anchorSide="right"/>
-      <netlabel net="VCCH" connection="U_BUCK_EN.N_MR" schX={-1.5} schY={-0.1} anchorSide="right"/>
-      <netlabel net="VCCH" connection="U_BUCK_EN.VDD" schX={0} schY={1.4} anchorSide="bottom"/>
-      <netlabel net="GND" connection="U_BUCK_EN.GND" schX={0} schY={-1.4} anchorSide="top"/>
+      <netlabel inline net="VCCH_SENSE" connectsTo={["R_BUCK_EN_TOP.pin2", "R_BUCK_EN_BOTTOM.pin1"]}/>
+      <netlabel inline net="VCCH" connection="R_BUCK_EN_TOP.pin1"/>
+      <netlabel inline net="GND" connection="R_BUCK_EN_BOTTOM.pin2"/>
+      <netlabel inline net="VCCH_SENSE" connection="U_BUCK_EN.SENSE"/>
+      <netlabel inline net="VCCH" connection="U_BUCK_EN.N_MR"/>
+      <netlabel inline net="VCCH" connection="U_BUCK_EN.VDD"/>
+      <netlabel inline net="GND" connection="U_BUCK_EN.GND"/>
       <A_0402WGF1002TCE name="R_BUCK_EN_PU" schSectionName="BUCK_ENABLE"
         schX={3} schY={1.1} schOrientation="vertical"
         pcbX={2.8} pcbY={0.5} pcbRotation={180}
         connections={{pin1: "net.VCCH", pin2: "net.BUCK_EN"}}/>
-      <netlabel net="VCCH" connection="R_BUCK_EN_PU.pin1" schX={3} schY={2} anchorSide="bottom"/>
-      <netlabel net="BUCK_EN" connectsTo={["R_BUCK_EN_PU.pin2", "U_BUCK_EN.N_RESET"]}
-        schX={3} schY={0.1} anchorSide="left"/>
+      <netlabel inline net="VCCH" connection="R_BUCK_EN_PU.pin1"/>
+      <netlabel inline net="BUCK_EN" connectsTo={["R_BUCK_EN_PU.pin2", "U_BUCK_EN.N_RESET"]}/>
       <CL05B104KO5NNNC name="C_BUCK_EN" schSectionName="BUCK_ENABLE"
         schX={-6.5} schY={0.6} schOrientation="vertical"
         pcbX={0.5} pcbY={-2} pcbRotation={180}
         connections={{pin1: "net.VCCH", pin2: "net.GND"}}/>
-      <netlabel net="VCCH" connection="C_BUCK_EN.pin1" schX={-6.5} schY={1.6} anchorSide="bottom"/>
-      <netlabel net="GND" connection="C_BUCK_EN.pin2" schX={-6.5} schY={-0.4} anchorSide="top"/>
+      <netlabel inline net="VCCH" connection="C_BUCK_EN.pin1"/>
+      <netlabel inline net="GND" connection="C_BUCK_EN.pin2"/>
       <schematictext text="VCCH rising: 3.031V nominal enables both bucks; divider resistors +/-0.1%."
         schX={-7} schY={-2.2} fontSize={0.18} anchor="left"/>
       <schematictext text="CT open: 25us nominal release delay. Bridge reset/PG control remains separate."

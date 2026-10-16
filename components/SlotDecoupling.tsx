@@ -20,20 +20,16 @@ export function SlotDecoupling() {
           <Bulk name={bulkName} schSectionName="SLOT_DECOUPLING"
             schX={0} schY={0} schOrientation="vertical"
             connections={{pin1: `net.SLOT_${rail}`, pin2: "net.GND"}}/>
-          <netlabel net={`SLOT_${rail}`} connection={`${bulkName}.pin1`}
-            schX={0} schY={1} anchorSide="bottom"/>
-          <netlabel net="GND" connection={`${bulkName}.pin2`}
-            schX={0} schY={-1} anchorSide="top"/>
+          <netlabel inline net={`SLOT_${rail}`} connection={`${bulkName}.pin1`}/>
+          <netlabel inline net="GND" connection={`${bulkName}.pin2`}/>
           {ceramics.map((name, index) => (
             <Fragment key={name}>
               <CL10B104KB8NNNC name={name}
                 schSectionName="SLOT_DECOUPLING"
                 schX={1.9 + index * 1.9} schY={0} schOrientation="vertical"
                 connections={{pin1: `net.SLOT_${rail}`, pin2: "net.GND"}}/>
-              <netlabel net={`SLOT_${rail}`} connection={`${name}.pin1`}
-                schX={1.9 + index * 1.9} schY={1} anchorSide="bottom"/>
-              <netlabel net="GND" connection={`${name}.pin2`}
-                schX={1.9 + index * 1.9} schY={-1} anchorSide="top"/>
+              <netlabel inline net={`SLOT_${rail}`} connection={`${name}.pin1`}/>
+              <netlabel inline net="GND" connection={`${name}.pin2`}/>
             </Fragment>
           ))}
         </group>

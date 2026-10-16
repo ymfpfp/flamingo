@@ -36,16 +36,11 @@ export function UsbVbusSense() {
       />
       <trace name="VBUS_DIVIDER" from=".R_VBUS_TOP > .pin2" to=".R_VBUS_BOTTOM > .pin1"/>
       <trace name="VBUS_FILTER" from=".R_VBUS_TOP > .pin2" to=".C_VBUS_SENSE > .pin1"/>
-      <netlabel net="USB_VBUS" connection="R_VBUS_TOP.pin1"
-        schX={0} schY={2.1} anchorSide="bottom"/>
-      <netlabel net="USB_VBUS_SENSE" connectsTo={["R_VBUS_TOP.pin2", "R_VBUS_BOTTOM.pin1"]}
-        schX={0} schY={0} anchorSide="right"/>
-      <netlabel net="USB_VBUS_SENSE" connection="C_VBUS_SENSE.pin1"
-        schX={3} schY={0.1} anchorSide="left"/>
-      <netlabel net="GND" connection="R_VBUS_BOTTOM.pin2"
-        schX={0} schY={-2.1} anchorSide="top"/>
-      <netlabel net="GND" connection="C_VBUS_SENSE.pin2"
-        schX={3} schY={-2.1} anchorSide="top"/>
+      <netlabel inline net="USB_VBUS" connection="R_VBUS_TOP.pin1"/>
+      <netlabel inline net="USB_VBUS_SENSE" connectsTo={["R_VBUS_TOP.pin2", "R_VBUS_BOTTOM.pin1"]}/>
+      <netlabel inline net="USB_VBUS_SENSE" connection="C_VBUS_SENSE.pin1"/>
+      <netlabel inline net="GND" connection="R_VBUS_BOTTOM.pin2"/>
+      <netlabel inline net="GND" connection="C_VBUS_SENSE.pin2"/>
       <schematictext text="ASMedia R57/R60/C68: 4.7k / 10k + 1uF."
         schX={-1.5} schY={-3} fontSize={0.18} anchor="left"/>
       <schematictext text="5V cable input gives 3.40V nominal; RC = 3.20ms."
