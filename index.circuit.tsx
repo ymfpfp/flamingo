@@ -1,5 +1,9 @@
 import {Fragment} from "react";
 import {BridgeReset} from "components/BridgeReset";
+import {BridgeVcca33Decoupling} from "components/BridgeVcca33Decoupling";
+import {BridgeVcchDecoupling} from "components/BridgeVcchDecoupling";
+import {BridgeVcclDecoupling} from "components/BridgeVcclDecoupling";
+import {BridgeVddDecoupling} from "components/BridgeVddDecoupling";
 import {BuckEnable} from "components/BuckEnable";
 import {BuckInputs} from "components/BuckInputs";
 import {PsuControl} from "components/PsuControl";
@@ -7,6 +11,7 @@ import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
 import {SlotPower} from "components/SlotPower";
 import {UartHeader} from "components/UartHeader";
 import {Usb4Lanes, usb4Signals} from "components/Usb4Lanes";
+import {UsbVbusSense} from "components/UsbVbusSense";
 import {A_0402WGF0000TCE} from "imports/A_0402WGF0000TCE";
 import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {A_39301240} from "imports/A_39301240";
@@ -36,16 +41,15 @@ export default function Board() {
       schLayout={{ layoutMode: "none" }}
     >
       <net name="GND"/>
-      <net name="GDNA"/>
+      <net name="GNDA" connectsTo={["net.GND"]}/>
       <net name="VDD"/>
       <net name="VCCH" connectsTo={["net.V3V3"]}/>
+      <net name="VCCA33"/>
       <net name="VCCL"/>
       <net name="BUCK_EN"/>
       <net name="VCCH_SENSE"/>
 
       <net name="V3V3"/>
-      {/* Standby 3.3 V for the PCIe slot; requires a regulator from V5VSB. */}
-      <net name="V3V3_AUX"/>
       <net name="V5V"/>
       <net name="V5VSB"/>
       <net name="V12V"/>
@@ -53,7 +57,8 @@ export default function Board() {
       <net name="SLOT_3V3"/>
       <net name="SLOT_12V"/>
       <net name="ASM_HDDPC" connectsTo={[".ASM2464PDX > .HDDPC"]}/>
-      <net name="USB_VBUS" connectsTo={[".ASM2464PDX > .VBUS"]}/>
+      <net name="USB_VBUS"/>
+      <net name="USB_VBUS_SENSE" connectsTo={[".ASM2464PDX > .VBUS"]}/>
       <net name="ASM_PERST0_N" connectsTo={[".ASM2464PDX > .PERST0"]}/>
       <net name="ASM_RST_N" connectsTo={[".ASM2464PDX > .RST"]}/>
       <net name="ASM_REFCLK_P0" connectsTo={[".ASM2464PDX > .REFCLK_P0"]}/>
@@ -281,7 +286,13 @@ export default function Board() {
           </Fragment>
         ))}
       </schematicsheet>
-      <schematicsheet name="pcie" displayName="PCIe x4" sheetIndex={4}>
+      <schematicsheet name="bridge_decoupling" displayName="Bridge Decoupling" sheetIndex={2}>
+        <BridgeVcchDecoupling/>
+        <BridgeVcca33Decoupling/>
+        <BridgeVcclDecoupling/>
+        <BridgeVddDecoupling/>
+      </schematicsheet>
+      <schematicsheet name="pcie" displayName="PCIe x4" sheetIndex={5}>
         <schematicsection name="PCIE_LINK"/>
         <schematictext text="1. PCIe x4 connection" schX={-11.6} schY={7.4} fontSize={0.3} anchor="left"/>
         <X1618WVS_164_9TV30
@@ -303,12 +314,12 @@ export default function Board() {
             topSide: {direction: "left-to-right", pins: ["V12V", "V3V3", "V3V3_AUX"]},
             bottomSide: {direction: "left-to-right", pins: ["GND"]},
           }}
-          noConnect={unusedPcieLanes}
+          // B10 is NC because this design does not support standby wake.
+          noConnect={[...unusedPcieLanes, "V3V3_AUX"]}
           connections={{
             GND: "net.GND",
             V12V: "net.SLOT_12V",
             V3V3: "net.SLOT_3V3",
-            V3V3_AUX: "net.V3V3_AUX",
             WAKE_N: "net.ASM_WAKE_N",
             PRSNT1_N: "net.GND",
             PRSNT2_X1_N: "net.PCIE_PRESENT_N",
@@ -327,7 +338,6 @@ export default function Board() {
         />
         <netlabel net="SLOT_12V" connection="PCIe.V12V" schX={-6.2} schY={6.4} anchorSide="bottom"/>
         <netlabel net="SLOT_3V3" connection="PCIe.V3V3" schX={-4.9} schY={6.4} anchorSide="bottom"/>
-        <netlabel net="V3V3_AUX" connection="PCIe.V3V3_AUX" schX={-3.4} schY={6.4} anchorSide="bottom"/>
         <schematictext text="Control links" schX={-11.8} schY={1} fontSize={0.24} anchor="left"/>
         <schematictext text="Transmit coupling" schX={-5.5} schY={1} fontSize={0.24} anchor="left"/>
         {[
@@ -518,7 +528,7 @@ export default function Board() {
         <schematicrect schX={8.7} schY={-2.7} width={14.4} height={18.2} strokeWidth={0.02} color="#bbbbbb"/>
         <SlotPower/>
       </schematicsheet>
-      <schematicsheet name="usb" sheetIndex={3}>
+      <schematicsheet name="usb" sheetIndex={4}>
         <schematicsection name="USB" displayName="USB4 Receptacle"/>
         <GT_USB_7087B
           name="USBC"
@@ -547,8 +557,9 @@ export default function Board() {
           }}
         />
         <Usb4Lanes/>
+        <UsbVbusSense/>
       </schematicsheet>
-      <schematicsheet name="power" sheetIndex={2}>
+      <schematicsheet name="power" sheetIndex={3}>
         <schematicsection name="ATX_START" displayName="ATX Input and Automatic Start"/>
         <A_39301240
           name="ATX"

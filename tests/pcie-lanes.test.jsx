@@ -157,11 +157,12 @@ test("every bridge transmit conductor has one series capacitor and remains isola
   assert.equal(signalNets.size, 24, "Lane conductors must remain separate");
 });
 
-test("only the 48 unused lane contacts are NC; presence contacts remain available", () => {
+test("the 48 unused lane contacts and B10 are NC; presence contacts remain available", () => {
   const connector = components.find(element => element.name === "PCIe");
   const connectorPorts = ports.filter(element => element.source_component_id === connector.source_component_id);
   assert.equal(connectorPorts.length, 164);
-  assert.equal(connectorPorts.filter(element => element.do_not_connect).length, 48);
+  assert.equal(connectorPorts.filter(element => element.do_not_connect).length, 49);
+  assert.equal(port("PCIe", "B10").do_not_connect, true);
   for (let lane = 4; lane < 16; lane++) {
     for (const direction of ["TX", "RX"]) {
       for (const polarity of ["P", "N"]) {

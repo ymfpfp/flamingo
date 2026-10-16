@@ -99,3 +99,29 @@ test("each connector-side conductor has a 220k discharge resistor and remains is
     assert.notEqual(net(port(resistor.name, "pin1")), vbus);
   }
 });
+
+test("VBUS reaches G1 only through the reference divider and filter", () => {
+  const cable = net(port("USBC", "A4"));
+  const sense = net(port("ASM2464PDX", "G1"));
+  const ground = net(port("USBC", "A1"));
+  const component = name => components.find(element => element.name === name);
+  assert.equal(component("R_VBUS_TOP").resistance, 4700);
+  assert.equal(component("R_VBUS_BOTTOM").resistance, 10000);
+  assert.ok(Math.abs(component("C_VBUS_SENSE").capacitance - 1e-6) < 1e-15);
+  assert.notEqual(cable, sense, "raw cable VBUS must not bypass the divider");
+  assert.notEqual(sense, ground);
+  assert.notEqual(cable, ground);
+  for (const contact of ["A4", "A9", "B4", "B9"]) {
+    assert.equal(net(port("USBC", contact)), cable);
+  }
+  assert.equal(net(port("R_VBUS_TOP", "pin1")), cable);
+  assert.equal(net(port("R_VBUS_TOP", "pin2")), sense);
+  assert.equal(net(port("R_VBUS_BOTTOM", "pin1")), sense);
+  assert.equal(net(port("R_VBUS_BOTTOM", "pin2")), ground);
+  assert.equal(net(port("C_VBUS_SENSE", "pin1")), sense);
+  assert.equal(net(port("C_VBUS_SENSE", "pin2")), ground);
+  for (const [name, pin] of [["ATX", "pin1"], ["ATX", "pin4"], ["ATX", "pin9"], ["ATX", "pin10"]]) {
+    assert.notEqual(cable, net(port(name, pin)), `USB VBUS must remain separate from ${name}.${pin}`);
+    assert.notEqual(sense, net(port(name, pin)), `USB sense must remain separate from ${name}.${pin}`);
+  }
+});

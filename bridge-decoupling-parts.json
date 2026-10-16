@@ -1,0 +1,209 @@
+{
+  "checked_on": "2026-10-15",
+  "status": "MPNs and catalog footprints selected and instantiated; final PCB placement and electrical qualification pending",
+  "scope": "44 bridge decoupling capacitors and the VCCA33 0-ohm link added from ASMedia sheet 3; excludes pre-existing regulator output capacitors and other component blocks",
+  "reference": "datasheets/ASM2464PDX_TI_R03.pdf, sheet 3",
+  "capacitor_quantity": 44,
+  "jumper_quantity": 1,
+  "parts": [
+    {
+      "manufacturer_part_number": "CL05A225KO5NQNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "jlcpcb_part_number": "C170151",
+      "quantity": 26,
+      "board_references": [
+        "C_VCCH_3",
+        "C_VCCH_11",
+        "C_VCCH_16",
+        "C_VCCH_19",
+        "C_VCCL_2",
+        "C_VCCL_10",
+        "C_VCCL_17",
+        "C_VCCL_25",
+        "C_VCCL_29",
+        "C_VCCL_33",
+        "C_VCCL_37",
+        "C_VCCL_41",
+        "C_VCCL_43",
+        "C_VCCL_45",
+        "C_VCCL_46",
+        "C_VDD_1",
+        "C_VDD_9",
+        "C_VDD_15",
+        "C_VDD_22",
+        "C_VDD_24",
+        "C_VDD_28",
+        "C_VDD_32",
+        "C_VDD_36",
+        "C_VDD_40",
+        "C_VDD_42",
+        "C_VDD_44"
+      ],
+      "capacitance": "2.2uF",
+      "rated_voltage_V": 16,
+      "tolerance_percent": 10,
+      "dielectric": "X5R",
+      "package_eia": "0402",
+      "package_metric": "1005",
+      "body_nominal_mm": {
+        "length": 1.0,
+        "width": 0.5,
+        "height": 0.5
+      },
+      "component_file": "imports/CL05A225KO5NQNC.tsx",
+      "datasheet": "datasheets/CL05A225KO5NQNC.pdf",
+      "product_url": "https://product.samsungsem.com/mlcc/CL05A225KO5NQN.do",
+      "footprint": {
+        "source": "tsci import C170151 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 0.8402,
+        "pad_width_mm": 0.5,
+        "pad_height_mm": 0.54,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "reuses_existing_import": false
+    },
+    {
+      "manufacturer_part_number": "CL21A106KAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "jlcpcb_part_number": "C15850",
+      "quantity": 8,
+      "board_references": [
+        "C_VCCH_6",
+        "C_VCCH_14",
+        "C_VCCL_5",
+        "C_VCCL_13",
+        "C_VCCL_20",
+        "C_VDD_4",
+        "C_VDD_12",
+        "C_VDD_18"
+      ],
+      "capacitance": "10uF",
+      "rated_voltage_V": 25,
+      "tolerance_percent": 10,
+      "dielectric": "X5R",
+      "package_eia": "0805",
+      "package_metric": "2012",
+      "body_nominal_mm": {
+        "length": 2.0,
+        "width": 1.25,
+        "height": 1.25
+      },
+      "component_file": "imports/CL21A106KAYNNNE.tsx",
+      "datasheet": "datasheets/CL21A106KAYNNNE.pdf",
+      "product_url": "https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do",
+      "footprint": {
+        "source": "tsci import C15850 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 2.0,
+        "pad_width_mm": 1.41,
+        "pad_height_mm": 1.35,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "reuses_existing_import": false
+    },
+    {
+      "manufacturer_part_number": "CL05B224KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "jlcpcb_part_number": "C16772",
+      "quantity": 9,
+      "board_references": [
+        "C_VCCH_23",
+        "C_VCCH_27",
+        "C_VCCH_31",
+        "C_VCCH_35",
+        "C_VDD_26",
+        "C_VDD_30",
+        "C_VDD_34",
+        "C_VDD_39",
+        "C_VCCA33_8"
+      ],
+      "capacitance": "220nF",
+      "rated_voltage_V": 16,
+      "tolerance_percent": 10,
+      "dielectric": "X7R",
+      "package_eia": "0402",
+      "package_metric": "1005",
+      "body_nominal_mm": {
+        "length": 1.0,
+        "width": 0.5,
+        "height": 0.5
+      },
+      "component_file": "imports/CL05B224KO5NNNC.tsx",
+      "datasheet": "datasheets/CL05B224KO5NNNC.pdf",
+      "product_url": "https://product.samsungsem.com/mlcc/CL05B224KO5NNN.do",
+      "footprint": {
+        "source": "tsci import C16772 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 0.8402,
+        "pad_width_mm": 0.5,
+        "pad_height_mm": 0.54,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "reuses_existing_import": false
+    },
+    {
+      "manufacturer_part_number": "CL21A226MAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "jlcpcb_part_number": "C602037",
+      "quantity": 1,
+      "board_references": [
+        "C_VCCA33_7"
+      ],
+      "capacitance": "22uF",
+      "rated_voltage_V": 25,
+      "tolerance_percent": 20,
+      "dielectric": "X5R",
+      "package_eia": "0805",
+      "package_metric": "2012",
+      "body_nominal_mm": {
+        "length": 2.0,
+        "width": 1.25,
+        "height": 1.25
+      },
+      "component_file": "imports/CL21A226MAYNNNE.tsx",
+      "datasheet": "datasheets/CL21A226MAYNNNE.pdf",
+      "product_url": "https://product.samsungsem.com/mlcc/CL21A226MAYNNN.do",
+      "footprint": {
+        "source": "tsci import C602037 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 2.0,
+        "pad_width_mm": 1.4100048,
+        "pad_height_mm": 1.35001,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "reuses_existing_import": true
+    },
+    {
+      "manufacturer_part_number": "0402WGF0000TCE",
+      "manufacturer": "UNI-ROYAL",
+      "jlcpcb_part_number": "C17168",
+      "quantity": 1,
+      "board_references": [
+        "R_VCCA33_4"
+      ],
+      "resistance_ohm": 0,
+      "package_eia": "0402",
+      "package_metric": "1005",
+      "component_file": "imports/A_0402WGF0000TCE.tsx",
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "rated_jumper_current_A": 1,
+      "maximum_jumper_resistance_ohm": 0.05,
+      "footprint": {
+        "source": "Existing imported C17168 footprint",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 0.8656,
+        "pad_width_mm": 0.5657,
+        "pad_height_mm": 0.54
+      },
+      "reuses_existing_import": true,
+      "selection_notes": "Reference R4 analog supply link only. ASMedia leaves supply current TBD; check current, voltage drop, and turn-on pulse margin with the final power budget. The 2A overload rating is not a continuous rating."
+    }
+  ],
+  "notes": [
+    "Reference capacitances, quantities and electrical connections are preserved. Selected voltage ratings exceed reference minimums.",
+    "0402 means EIA 0402 / metric 1005; 0805 means EIA 0805 / metric 2012.",
+    "Catalog land geometry and two-pad pin mapping were imported with tsci; board placement remains provisional.",
+    "Nominal capacitance is not guaranteed operating capacitance. Tolerance, DC bias, temperature, aging, PCB parasitics and TPS62903 output-bank compatibility still need qualification."
+  ]
+}

@@ -1,0 +1,862 @@
+{
+  "checked_on": "2026-10-15",
+  "status": "Typical manufacturer data, not guaranteed limits. Samples use linear interpolation; no qualification of the complete power network is implied.",
+  "curves": [
+    {
+      "part_family": "CL05A225KO5NQN",
+      "source_url": "https://product.samsungsem.com/mlcc/CL05A225KO5NQN.do",
+      "source": "Manufacturer page datasheetData, DCBias chart; retrieved 2026-10-15",
+      "measurement_frequency_Hz": 1000,
+      "measurement_signal_Vrms": 1.0,
+      "temperature_C": 25.0,
+      "estimated_samples": [
+        {
+          "voltage_V": 1.13,
+          "typical_capacitance_change_percent": -11.49
+        },
+        {
+          "voltage_V": 1.9,
+          "typical_capacitance_change_percent": -28.022
+        },
+        {
+          "voltage_V": 3.3,
+          "typical_capacitance_change_percent": -53.162
+        }
+      ],
+      "points": [
+        {
+          "voltage_V": 0.0,
+          "capacitance_change_percent": 0.0
+        },
+        {
+          "voltage_V": 0.05,
+          "capacitance_change_percent": -0.20071727546592427
+        },
+        {
+          "voltage_V": 0.1,
+          "capacitance_change_percent": -0.3699473736989399
+        },
+        {
+          "voltage_V": 0.15000000000000002,
+          "capacitance_change_percent": -0.5211847992274363
+        },
+        {
+          "voltage_V": 0.2,
+          "capacitance_change_percent": -0.6679240565798028
+        },
+        {
+          "voltage_V": 0.25,
+          "capacitance_change_percent": -0.8236596502844289
+        },
+        {
+          "voltage_V": 0.3,
+          "capacitance_change_percent": -1.001886084869704
+        },
+        {
+          "voltage_V": 0.35,
+          "capacitance_change_percent": -1.2160978648640177
+        },
+        {
+          "voltage_V": 0.39999999999999997,
+          "capacitance_change_percent": -1.4797894947957593
+        },
+        {
+          "voltage_V": 0.44999999999999996,
+          "capacitance_change_percent": -1.806455479193318
+        },
+        {
+          "voltage_V": 0.5,
+          "capacitance_change_percent": -2.2095903225850844
+        },
+        {
+          "voltage_V": 0.5477500000000001,
+          "capacitance_change_percent": -2.6334031399947597
+        },
+        {
+          "voltage_V": 0.592,
+          "capacitance_change_percent": -3.032904694331999
+        },
+        {
+          "voltage_V": 0.6342500000000001,
+          "capacitance_change_percent": -3.437791961954116
+        },
+        {
+          "voltage_V": 0.6759999999999999,
+          "capacitance_change_percent": -3.8777619192184263
+        },
+        {
+          "voltage_V": 0.71875,
+          "capacitance_change_percent": -4.382511542482245
+        },
+        {
+          "voltage_V": 0.764,
+          "capacitance_change_percent": -4.981737808102886
+        },
+        {
+          "voltage_V": 0.81325,
+          "capacitance_change_percent": -5.705137692437664
+        },
+        {
+          "voltage_V": 0.868,
+          "capacitance_change_percent": -6.5824081718438965
+        },
+        {
+          "voltage_V": 0.92975,
+          "capacitance_change_percent": -7.643246222678895
+        },
+        {
+          "voltage_V": 1.0,
+          "capacitance_change_percent": -8.917348821299981
+        },
+        {
+          "voltage_V": 1.079075,
+          "capacitance_change_percent": -10.445737352035747
+        },
+        {
+          "voltage_V": 1.1655999999999997,
+          "capacitance_change_percent": -12.220404608475976
+        },
+        {
+          "voltage_V": 1.2585250000000001,
+          "capacitance_change_percent": -14.197504680869768
+        },
+        {
+          "voltage_V": 1.3568,
+          "capacitance_change_percent": -16.333191659466205
+        },
+        {
+          "voltage_V": 1.4593749999999999,
+          "capacitance_change_percent": -18.58361963451439
+        },
+        {
+          "voltage_V": 1.5652,
+          "capacitance_change_percent": -20.904942696263404
+        },
+        {
+          "voltage_V": 1.673225,
+          "capacitance_change_percent": -23.25331493496235
+        },
+        {
+          "voltage_V": 1.7824000000000002,
+          "capacitance_change_percent": -25.584890440860313
+        },
+        {
+          "voltage_V": 1.8916749999999996,
+          "capacitance_change_percent": -27.855823304206393
+        },
+        {
+          "voltage_V": 2.0,
+          "capacitance_change_percent": -30.022267615249675
+        },
+        {
+          "voltage_V": 2.110275,
+          "capacitance_change_percent": -32.166824440253144
+        },
+        {
+          "voltage_V": 2.2252,
+          "capacitance_change_percent": -34.38085309280829
+        },
+        {
+          "voltage_V": 2.343425,
+          "capacitance_change_percent": -36.63364503415695
+        },
+        {
+          "voltage_V": 2.4636,
+          "capacitance_change_percent": -38.894491725540995
+        },
+        {
+          "voltage_V": 2.5843749999999996,
+          "capacitance_change_percent": -41.132684628202256
+        },
+        {
+          "voltage_V": 2.7044,
+          "capacitance_change_percent": -43.317515203382584
+        },
+        {
+          "voltage_V": 2.8223249999999998,
+          "capacitance_change_percent": -45.41827491232383
+        },
+        {
+          "voltage_V": 2.9368,
+          "capacitance_change_percent": -47.404255216267856
+        },
+        {
+          "voltage_V": 3.046475,
+          "capacitance_change_percent": -49.24474757645649
+        },
+        {
+          "voltage_V": 3.15,
+          "capacitance_change_percent": -50.9090434541316
+        },
+        {
+          "voltage_V": 3.2464749999999998,
+          "capacitance_change_percent": -52.384671253896144
+        },
+        {
+          "voltage_V": 3.3367999999999998,
+          "capacitance_change_percent": -53.69654820368618
+        },
+        {
+          "voltage_V": 3.4223250000000003,
+          "capacitance_change_percent": -54.87004899974312
+        },
+        {
+          "voltage_V": 3.5044,
+          "capacitance_change_percent": -55.93054833830841
+        },
+        {
+          "voltage_V": 3.5843749999999996,
+          "capacitance_change_percent": -56.903420915623464
+        },
+        {
+          "voltage_V": 3.6636,
+          "capacitance_change_percent": -57.81404142792972
+        },
+        {
+          "voltage_V": 3.743425,
+          "capacitance_change_percent": -58.68778457146862
+        },
+        {
+          "voltage_V": 3.8251999999999997,
+          "capacitance_change_percent": -59.550025042481565
+        },
+        {
+          "voltage_V": 3.9102749999999995,
+          "capacitance_change_percent": -60.42613753721001
+        },
+        {
+          "voltage_V": 4.0,
+          "capacitance_change_percent": -61.34149675189536
+        },
+        {
+          "voltage_V": 4.092575,
+          "capacitance_change_percent": -62.27145038964893
+        },
+        {
+          "voltage_V": 4.1856,
+          "capacitance_change_percent": -63.17598823017104
+        },
+        {
+          "voltage_V": 4.279525,
+          "capacitance_change_percent": -64.05744808458674
+        },
+        {
+          "voltage_V": 4.3748000000000005,
+          "capacitance_change_percent": -64.91816776402098
+        },
+        {
+          "voltage_V": 4.471875000000001,
+          "capacitance_change_percent": -65.76048507959884
+        },
+        {
+          "voltage_V": 4.571199999999999,
+          "capacitance_change_percent": -66.58673784244529
+        },
+        {
+          "voltage_V": 4.6732249999999995,
+          "capacitance_change_percent": -67.39926386368539
+        },
+        {
+          "voltage_V": 4.7784,
+          "capacitance_change_percent": -68.2004009544441
+        },
+        {
+          "voltage_V": 4.887174999999999,
+          "capacitance_change_percent": -68.9924869258465
+        },
+        {
+          "voltage_V": 5.0,
+          "capacitance_change_percent": -69.77785958901758
+        },
+        {
+          "voltage_V": 5.11605,
+          "capacitance_change_percent": -70.5550379758312
+        },
+        {
+          "voltage_V": 5.2344,
+          "capacitance_change_percent": -71.32077492949504
+        },
+        {
+          "voltage_V": 5.3553500000000005,
+          "capacitance_change_percent": -72.07475897813488
+        },
+        {
+          "voltage_V": 5.4792,
+          "capacitance_change_percent": -72.81667864987644
+        },
+        {
+          "voltage_V": 5.606249999999999,
+          "capacitance_change_percent": -73.54622247284547
+        },
+        {
+          "voltage_V": 5.7368,
+          "capacitance_change_percent": -74.2630789751677
+        },
+        {
+          "voltage_V": 5.871149999999999,
+          "capacitance_change_percent": -74.9669366849689
+        },
+        {
+          "voltage_V": 6.009600000000001,
+          "capacitance_change_percent": -75.65748413037477
+        },
+        {
+          "voltage_V": 6.15245,
+          "capacitance_change_percent": -76.3344098395111
+        },
+        {
+          "voltage_V": 6.3,
+          "capacitance_change_percent": -76.99740234050357
+        },
+        {
+          "voltage_V": 6.452450000000001,
+          "capacitance_change_percent": -77.6482510855634
+        },
+        {
+          "voltage_V": 6.6095999999999995,
+          "capacitance_change_percent": -78.28827322267752
+        },
+        {
+          "voltage_V": 6.77115,
+          "capacitance_change_percent": -78.91644882363525
+        },
+        {
+          "voltage_V": 6.936800000000001,
+          "capacitance_change_percent": -79.531757960226
+        },
+        {
+          "voltage_V": 7.106249999999999,
+          "capacitance_change_percent": -80.1331807042391
+        },
+        {
+          "voltage_V": 7.279199999999999,
+          "capacitance_change_percent": -80.71969712746389
+        },
+        {
+          "voltage_V": 7.455349999999999,
+          "capacitance_change_percent": -81.29028730168977
+        },
+        {
+          "voltage_V": 7.634399999999999,
+          "capacitance_change_percent": -81.84393129870611
+        },
+        {
+          "voltage_V": 7.816049999999999,
+          "capacitance_change_percent": -82.37960919030225
+        },
+        {
+          "voltage_V": 8.0,
+          "capacitance_change_percent": -82.89630104826756
+        },
+        {
+          "voltage_V": 8.16985,
+          "capacitance_change_percent": -83.38129919377769
+        },
+        {
+          "voltage_V": 8.316799999999999,
+          "capacitance_change_percent": -83.82860150859314
+        },
+        {
+          "voltage_V": 8.45195,
+          "capacitance_change_percent": -84.24724640538051
+        },
+        {
+          "voltage_V": 8.5864,
+          "capacitance_change_percent": -84.64627229680629
+        },
+        {
+          "voltage_V": 8.73125,
+          "capacitance_change_percent": -85.03471759553715
+        },
+        {
+          "voltage_V": 8.897599999999999,
+          "capacitance_change_percent": -85.42162071423961
+        },
+        {
+          "voltage_V": 9.096549999999999,
+          "capacitance_change_percent": -85.81602006558026
+        },
+        {
+          "voltage_V": 9.339200000000002,
+          "capacitance_change_percent": -86.2269540622257
+        },
+        {
+          "voltage_V": 9.63665,
+          "capacitance_change_percent": -86.66346111684248
+        },
+        {
+          "voltage_V": 10.0,
+          "capacitance_change_percent": -87.1345796420972
+        },
+        {
+          "voltage_V": 10.437999999999999,
+          "capacitance_change_percent": -87.63886245592151
+        },
+        {
+          "voltage_V": 10.944,
+          "capacitance_change_percent": -88.16613239958623
+        },
+        {
+          "voltage_V": 11.505999999999998,
+          "capacitance_change_percent": -88.71233292076657
+        },
+        {
+          "voltage_V": 12.112,
+          "capacitance_change_percent": -89.27340746713774
+        },
+        {
+          "voltage_V": 12.75,
+          "capacitance_change_percent": -89.84529948637498
+        },
+        {
+          "voltage_V": 13.408,
+          "capacitance_change_percent": -90.42395242615352
+        },
+        {
+          "voltage_V": 14.074,
+          "capacitance_change_percent": -91.00530973414855
+        },
+        {
+          "voltage_V": 14.735999999999999,
+          "capacitance_change_percent": -91.58531485803535
+        },
+        {
+          "voltage_V": 15.382,
+          "capacitance_change_percent": -92.15991124548908
+        },
+        {
+          "voltage_V": 16.0,
+          "capacitance_change_percent": -92.72504234418507
+        }
+      ]
+    },
+    {
+      "part_family": "CL05B224KO5NNN",
+      "source_url": "https://product.samsungsem.com/mlcc/CL05B224KO5NNN.do",
+      "source": "Manufacturer page datasheetData, DCBias chart; retrieved 2026-10-15",
+      "measurement_frequency_Hz": 1000,
+      "measurement_signal_Vrms": 1.0,
+      "temperature_C": 25.0,
+      "estimated_samples": [
+        {
+          "voltage_V": 1.13,
+          "typical_capacitance_change_percent": 0.48
+        },
+        {
+          "voltage_V": 1.9,
+          "typical_capacitance_change_percent": -0.604
+        },
+        {
+          "voltage_V": 3.3,
+          "typical_capacitance_change_percent": -5.851
+        }
+      ],
+      "points": [
+        {
+          "voltage_V": 0.0,
+          "capacitance_change_percent": 0.0
+        },
+        {
+          "voltage_V": 0.05,
+          "capacitance_change_percent": 0.033352744697576556
+        },
+        {
+          "voltage_V": 0.1,
+          "capacitance_change_percent": 0.06721212600193556
+        },
+        {
+          "voltage_V": 0.15000000000000002,
+          "capacitance_change_percent": 0.10136101393874165
+        },
+        {
+          "voltage_V": 0.2,
+          "capacitance_change_percent": 0.13558227853365953
+        },
+        {
+          "voltage_V": 0.25,
+          "capacitance_change_percent": 0.16965878981235383
+        },
+        {
+          "voltage_V": 0.3,
+          "capacitance_change_percent": 0.20337341780048926
+        },
+        {
+          "voltage_V": 0.35,
+          "capacitance_change_percent": 0.23650903252373048
+        },
+        {
+          "voltage_V": 0.39999999999999997,
+          "capacitance_change_percent": 0.2688485040077422
+        },
+        {
+          "voltage_V": 0.44999999999999996,
+          "capacitance_change_percent": 0.300174702278189
+        },
+        {
+          "voltage_V": 0.5,
+          "capacitance_change_percent": 0.33027049736073555
+        },
+        {
+          "voltage_V": 0.5477500000000001,
+          "capacitance_change_percent": 0.3665775823700325
+        },
+        {
+          "voltage_V": 0.592,
+          "capacitance_change_percent": 0.41345540308390016
+        },
+        {
+          "voltage_V": 0.6342500000000001,
+          "capacitance_change_percent": 0.4660634585227577
+        },
+        {
+          "voltage_V": 0.6759999999999999,
+          "capacitance_change_percent": 0.5195612477070244
+        },
+        {
+          "voltage_V": 0.71875,
+          "capacitance_change_percent": 0.5691082696571196
+        },
+        {
+          "voltage_V": 0.764,
+          "capacitance_change_percent": 0.6098640233934624
+        },
+        {
+          "voltage_V": 0.81325,
+          "capacitance_change_percent": 0.6369880079364718
+        },
+        {
+          "voltage_V": 0.868,
+          "capacitance_change_percent": 0.6456397223065675
+        },
+        {
+          "voltage_V": 0.92975,
+          "capacitance_change_percent": 0.6309786655241688
+        },
+        {
+          "voltage_V": 1.0,
+          "capacitance_change_percent": 0.588164336609694
+        },
+        {
+          "voltage_V": 1.0797499999999998,
+          "capacitance_change_percent": 0.5237630454766664
+        },
+        {
+          "voltage_V": 1.168,
+          "capacitance_change_percent": 0.4464425208706818
+        },
+        {
+          "voltage_V": 1.26325,
+          "capacitance_change_percent": 0.35451439006027013
+        },
+        {
+          "voltage_V": 1.364,
+          "capacitance_change_percent": 0.2462902803139615
+        },
+        {
+          "voltage_V": 1.46875,
+          "capacitance_change_percent": 0.12008181890028596
+        },
+        {
+          "voltage_V": 1.5759999999999998,
+          "capacitance_change_percent": -0.025799366912226583
+        },
+        {
+          "voltage_V": 1.6842499999999998,
+          "capacitance_change_percent": -0.19304164985504613
+        },
+        {
+          "voltage_V": 1.792,
+          "capacitance_change_percent": -0.3833334026596426
+        },
+        {
+          "voltage_V": 1.8977499999999996,
+          "capacitance_change_percent": -0.5983629980574859
+        },
+        {
+          "voltage_V": 2.0,
+          "capacitance_change_percent": -0.8398188087800471
+        },
+        {
+          "voltage_V": 2.1,
+          "capacitance_change_percent": -1.1115049769351493
+        },
+        {
+          "voltage_V": 2.2,
+          "capacitance_change_percent": -1.4137840097500596
+        },
+        {
+          "voltage_V": 2.3,
+          "capacitance_change_percent": -1.7431818276354127
+        },
+        {
+          "voltage_V": 2.4,
+          "capacitance_change_percent": -2.0962243510018412
+        },
+        {
+          "voltage_V": 2.5,
+          "capacitance_change_percent": -2.4694375002599784
+        },
+        {
+          "voltage_V": 2.6,
+          "capacitance_change_percent": -2.85934719582046
+        },
+        {
+          "voltage_V": 2.7,
+          "capacitance_change_percent": -3.2624793580939175
+        },
+        {
+          "voltage_V": 2.8,
+          "capacitance_change_percent": -3.6753599074909857
+        },
+        {
+          "voltage_V": 2.9,
+          "capacitance_change_percent": -4.094514764422298
+        },
+        {
+          "voltage_V": 3.0,
+          "capacitance_change_percent": -4.516469849298487
+        },
+        {
+          "voltage_V": 3.1,
+          "capacitance_change_percent": -4.946845583983961
+        },
+        {
+          "voltage_V": 3.2,
+          "capacitance_change_percent": -5.392367174273842
+        },
+        {
+          "voltage_V": 3.3,
+          "capacitance_change_percent": -5.851217716474841
+        },
+        {
+          "voltage_V": 3.4,
+          "capacitance_change_percent": -6.321580306893671
+        },
+        {
+          "voltage_V": 3.5,
+          "capacitance_change_percent": -6.801638041837038
+        },
+        {
+          "voltage_V": 3.6,
+          "capacitance_change_percent": -7.289574017611657
+        },
+        {
+          "voltage_V": 3.7,
+          "capacitance_change_percent": -7.783571330524235
+        },
+        {
+          "voltage_V": 3.8,
+          "capacitance_change_percent": -8.281813076881487
+        },
+        {
+          "voltage_V": 3.9,
+          "capacitance_change_percent": -8.782482352990117
+        },
+        {
+          "voltage_V": 4.0,
+          "capacitance_change_percent": -9.283762255156844
+        },
+        {
+          "voltage_V": 4.098649999999999,
+          "capacitance_change_percent": -9.781134025764436
+        },
+        {
+          "voltage_V": 4.1952,
+          "capacitance_change_percent": -10.273971440337101
+        },
+        {
+          "voltage_V": 4.2905500000000005,
+          "capacitance_change_percent": -10.766296394893711
+        },
+        {
+          "voltage_V": 4.3856,
+          "capacitance_change_percent": -11.262130785453133
+        },
+        {
+          "voltage_V": 4.48125,
+          "capacitance_change_percent": -11.765496508034236
+        },
+        {
+          "voltage_V": 4.578399999999999,
+          "capacitance_change_percent": -12.280415458655884
+        },
+        {
+          "voltage_V": 4.67795,
+          "capacitance_change_percent": -12.81090953333695
+        },
+        {
+          "voltage_V": 4.780799999999999,
+          "capacitance_change_percent": -13.361000628096297
+        },
+        {
+          "voltage_V": 4.88785,
+          "capacitance_change_percent": -13.934710638952797
+        },
+        {
+          "voltage_V": 5.0,
+          "capacitance_change_percent": -14.536061461925314
+        },
+        {
+          "voltage_V": 5.11605,
+          "capacitance_change_percent": -15.1602864285447
+        },
+        {
+          "voltage_V": 5.2344,
+          "capacitance_change_percent": -15.800566534530748
+        },
+        {
+          "voltage_V": 5.3553500000000005,
+          "capacitance_change_percent": -16.457845172185742
+        },
+        {
+          "voltage_V": 5.4792,
+          "capacitance_change_percent": -17.133065733811968
+        },
+        {
+          "voltage_V": 5.606249999999999,
+          "capacitance_change_percent": -17.827171611711712
+        },
+        {
+          "voltage_V": 5.7368,
+          "capacitance_change_percent": -18.541106198187258
+        },
+        {
+          "voltage_V": 5.871149999999999,
+          "capacitance_change_percent": -19.27581288554089
+        },
+        {
+          "voltage_V": 6.009600000000001,
+          "capacitance_change_percent": -20.0322350660749
+        },
+        {
+          "voltage_V": 6.15245,
+          "capacitance_change_percent": -20.811316132091555
+        },
+        {
+          "voltage_V": 6.3,
+          "capacitance_change_percent": -21.613999475893163
+        },
+        {
+          "voltage_V": 6.452450000000001,
+          "capacitance_change_percent": -22.44479615987754
+        },
+        {
+          "voltage_V": 6.6095999999999995,
+          "capacitance_change_percent": -23.305233997063336
+        },
+        {
+          "voltage_V": 6.77115,
+          "capacitance_change_percent": -24.19178150568406
+        },
+        {
+          "voltage_V": 6.936800000000001,
+          "capacitance_change_percent": -25.10090720397323
+        },
+        {
+          "voltage_V": 7.106249999999999,
+          "capacitance_change_percent": -26.029079610164345
+        },
+        {
+          "voltage_V": 7.279199999999999,
+          "capacitance_change_percent": -26.97276724249092
+        },
+        {
+          "voltage_V": 7.455349999999999,
+          "capacitance_change_percent": -27.928438619186473
+        },
+        {
+          "voltage_V": 7.634399999999999,
+          "capacitance_change_percent": -28.8925622584845
+        },
+        {
+          "voltage_V": 7.816049999999999,
+          "capacitance_change_percent": -29.86160667861852
+        },
+        {
+          "voltage_V": 8.0,
+          "capacitance_change_percent": -30.83204039782205
+        },
+        {
+          "voltage_V": 8.16985,
+          "capacitance_change_percent": -31.754625866752082
+        },
+        {
+          "voltage_V": 8.316799999999999,
+          "capacitance_change_percent": -32.605671168716654
+        },
+        {
+          "voltage_V": 8.45195,
+          "capacitance_change_percent": -33.419963270925805
+        },
+        {
+          "voltage_V": 8.5864,
+          "capacitance_change_percent": -34.232289140589586
+        },
+        {
+          "voltage_V": 8.73125,
+          "capacitance_change_percent": -35.07743574491804
+        },
+        {
+          "voltage_V": 8.897599999999999,
+          "capacitance_change_percent": -35.990190051121225
+        },
+        {
+          "voltage_V": 9.096549999999999,
+          "capacitance_change_percent": -37.005339026409175
+        },
+        {
+          "voltage_V": 9.339200000000002,
+          "capacitance_change_percent": -38.15766963799194
+        },
+        {
+          "voltage_V": 9.63665,
+          "capacitance_change_percent": -39.48196885307955
+        },
+        {
+          "voltage_V": 10.0,
+          "capacitance_change_percent": -41.01302363888208
+        },
+        {
+          "voltage_V": 10.4245,
+          "capacitance_change_percent": -42.80753632351535
+        },
+        {
+          "voltage_V": 10.896,
+          "capacitance_change_percent": -44.86093282697404
+        },
+        {
+          "voltage_V": 11.411499999999998,
+          "capacitance_change_percent": -47.11608550428645
+        },
+        {
+          "voltage_V": 11.968,
+          "capacitance_change_percent": -49.5158667104809
+        },
+        {
+          "voltage_V": 12.5625,
+          "capacitance_change_percent": -52.00314880058568
+        },
+        {
+          "voltage_V": 13.192,
+          "capacitance_change_percent": -54.52080412962909
+        },
+        {
+          "voltage_V": 13.8535,
+          "capacitance_change_percent": -57.01170505263946
+        },
+        {
+          "voltage_V": 14.543999999999999,
+          "capacitance_change_percent": -59.41872392464508
+        },
+        {
+          "voltage_V": 15.2605,
+          "capacitance_change_percent": -61.68473310067426
+        },
+        {
+          "voltage_V": 16.0,
+          "capacitance_change_percent": -63.75260493575532
+        }
+      ]
+    }
+  ]
+}

@@ -326,6 +326,7 @@ const nets = [
   "GNDA",
   "VDD",
   "VCCH",
+  "VCCA33",
   "VCCL",
 ];
 const connections = Object.fromEntries(
@@ -586,6 +587,13 @@ export default function ASM2464PDX() {
         schX={4}
         schY={2.3}
         net="GNDA"
+        anchorSide="left"
+      />
+      <netlabel
+        connection="ASM2464PDX.VCCA33"
+        schX={4}
+        schY={-1.9}
+        net="VCCA33"
         anchorSide="left"
       />
       <netlabel

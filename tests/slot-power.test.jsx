@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
 import Board from "../index.circuit";
+import bridgePinMap from "./fixtures/asm2464pdx-pin-map.json";
 
 const circuit = new Circuit();
 circuit.pcbDisabled = true;
@@ -47,6 +48,19 @@ const rails = [
   {suffix: "3V3", atx: "pin1", contacts: ["A9", "A10", "B8"], drains: [5], mpn: "DMP2008UFG-7"},
   {suffix: "12V", atx: "pin10", contacts: ["A2", "A3", "B1", "B2", "B3"], drains: [5, 6, 7, 8], mpn: "AO4407A"},
 ];
+
+test("all bridge ground balls connect to every ATX COM pin", () => {
+  for (const pin of [3, 5, 7, 15, 17, 18, 19, 24]) {
+    assert.equal(net("ATX", `pin${pin}`), ground, `ATX COM pin ${pin}`);
+  }
+  for (const [ball, signal] of Object.entries(bridgePinMap.balls)) {
+    if (signal === "GND" || signal === "GNDA") {
+      assert.equal(net("ASM2464PDX", ball), ground, `${ball} (${signal}) must reach PSU COM`);
+    }
+  }
+  assert.ok(!json.some(element => element.type === "source_net" && element.name === "GDNA"),
+    "the misspelled ground net must not remain");
+});
 
 test("both slot supplies pass through correctly oriented P-channel FETs with no direct bypass", () => {
   const allPowerNets = new Set([ground]);
@@ -112,11 +126,14 @@ test("each gate has a source-referenced RC network and its own driver series res
   assert.equal(gates.size, 2, "the 12 V and 3.3 V power gates must not be tied together");
 });
 
-test("bridge power, slot AUX and ground remain independent of the switched main outputs", () => {
+test("bridge power and ground bypass the slot switches while B10 remains unconnected", () => {
   const outputs = rails.map(({contacts}) => net("PCIe", contacts[0]));
   assert.equal(net("ASM2464PDX", "D6"), net("ATX", "pin1"), "VCCH stays on upstream 3.3 V");
   assert.equal(net("PCIe", "A4"), ground);
   assert.ok(!outputs.includes(net("ASM2464PDX", "D6")));
-  assert.ok(!outputs.includes(net("PCIe", "B10")), "3.3 V AUX is not a switched main rail");
-  assert.notEqual(net("PCIe", "B10"), ground);
+  const auxiliaryPort = port("PCIe", "B10");
+  assert.ok(!json.some(element => element.type === "source_trace"
+    && element.connected_source_port_ids.includes(auxiliaryPort)), "B10 must have no electrical connections");
+  assert.ok(!json.some(element => element.type === "source_net"
+    && element.name === "V3V3_AUX"), "no unused auxiliary supply net remains");
 });

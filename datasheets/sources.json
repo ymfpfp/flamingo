@@ -1,6 +1,6 @@
 {
   "checked_on": "2026-10-15",
-  "scope": "Local PDFs cover placed components, current design references and selected superseded buck parts. Historical entries record source URLs and hashes.",
+  "scope": "Local PDFs cover current board components and design references. Historical entries preserve source URLs and hashes for removed documents.",
   "components": [
     {
       "manufacturer_part_number": "ASM2464PDX",
@@ -57,15 +57,17 @@
       "board_references": [],
       "documents": [
         {
-          "file": "TPS62130RGTR.pdf",
           "source_url": "https://www.ti.com/lit/ds/symlink/tps62130.pdf",
           "origin": "downloaded",
           "pages": 43,
           "sha256": "f9b1af285622c0cf1a5991f9641a6e64c5e6d899e52cc0b1632808742019579f",
-          "notes": "TPS6213x family datasheet, revision F; includes TPS62130RGTR ordering and package information."
+          "notes": "TPS6213x family datasheet, revision F; includes TPS62130RGTR ordering and package information.",
+          "former_local_filename": "TPS62130RGTR.pdf",
+          "retained_locally": false,
+          "removal_reason": "Superseded by TPS62903RPJR in the current board."
         }
       ],
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
     },
     {
       "manufacturer_part_number": "TCC0402COG100J500AT",
@@ -113,12 +115,14 @@
       "board_references": [],
       "documents": [
         {
-          "file": "X3183WV-164B1-46V01.pdf",
           "source_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2305061716_XKB-Connection-X3183WV-164B1-46V01_C5711214.pdf",
           "origin": "downloaded",
           "pages": 5,
           "sha256": "0a4a6eed517339191e01d631feeae952c3ecd7371603517833626f9fa107a802",
-          "notes": "Manufacturer drawing set for the exact connector variant; includes dimensions and specifications."
+          "notes": "Manufacturer drawing set for the exact connector variant; includes dimensions and specifications.",
+          "former_local_filename": "X3183WV-164B1-46V01.pdf",
+          "retained_locally": false,
+          "removal_reason": "Connector replaced by X1618WVS-164-9TV30 in the current board."
         }
       ],
       "former_component_file": "imports/X3183WV_164B1_46V01.tsx",
@@ -251,16 +255,20 @@
         "R_SPI_WP",
         "R_SPI_HOLD",
         "R_SPI_CS",
-        "R_BUCK_EN_PU"
+        "R_BUCK_EN_PU",
+        "R_VBUS_BOTTOM"
       ],
       "documents": [
         {
-          "file": "0402WGF1002TCE.pdf",
+          "file": "0402WGF1003TCE.pdf",
           "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25744",
           "origin": "downloaded",
           "pages": 9,
           "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
-          "notes": "Manufacturer thick-film chip resistor family datasheet supplied for JLCPCB C25744. The part is a 0402, 10 kOhm, +/-1%, 1/16 W resistor. The component uses the exact EasyEDA footprint imported by tsci from JLCPCB C25744."
+          "notes": "Manufacturer thick-film chip resistor family datasheet supplied for JLCPCB C25744. The part is a 0402, 10 kOhm, +/-1%, 1/16 W resistor. The component uses the exact EasyEDA footprint imported by tsci from JLCPCB C25744.",
+          "former_local_filename": "0402WGF1002TCE.pdf",
+          "retained_locally": true,
+          "local_copy_note": "The two downloads are byte-identical. The local file is shared with the other resistor-family entries."
         }
       ]
     },
@@ -476,7 +484,8 @@
       "component_file": "imports/CL05A105KA5NQNC.tsx",
       "placed_on_board": true,
       "board_references": [
-        "C_RST"
+        "C_RST",
+        "C_VBUS_SENSE"
       ],
       "documents": [
         {
@@ -737,13 +746,14 @@
           "origin": "downloaded",
           "pages": 9,
           "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
-          "notes": "0 ohm, 0402. Signal link only; never use this small resistor as a power-rail bypass."
+          "notes": "UNI-ROYAL family specification covers the 0-ohm EIA 0402 jumper: <50 milliohm, 1A rated jumper current, 2A overload. Used for signal/control links and the reference VCCA33 analog supply link; not for the PCIe main power paths. Analog supply current and startup pulse margin still require verification."
         }
       ],
       "placed_on_board": true,
       "board_references": [
         "R_SLOT_ENABLE",
-        "R_PSU_ON"
+        "R_PSU_ON",
+        "R_VCCA33_4"
       ],
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
@@ -753,6 +763,32 @@
         "board_references": [
           "R_SLOT_ENABLE"
         ]
+      },
+      "bridge_decoupling_inventory": "../bridge-decoupling-parts.json",
+      "bridge_analog_supply_link": {
+        "manufacturer_part_number": "0402WGF0000TCE",
+        "manufacturer": "UNI-ROYAL",
+        "jlcpcb_part_number": "C17168",
+        "quantity": 1,
+        "board_references": [
+          "R_VCCA33_4"
+        ],
+        "resistance_ohm": 0,
+        "package_eia": "0402",
+        "package_metric": "1005",
+        "component_file": "imports/A_0402WGF0000TCE.tsx",
+        "datasheet": "datasheets/0402WGF1003TCE.pdf",
+        "rated_jumper_current_A": 1,
+        "maximum_jumper_resistance_ohm": 0.05,
+        "footprint": {
+          "source": "Existing imported C17168 footprint",
+          "pad_count": 2,
+          "pad_center_spacing_mm": 0.8656,
+          "pad_width_mm": 0.5657,
+          "pad_height_mm": 0.54
+        },
+        "reuses_existing_import": true,
+        "selection_notes": "Reference R4 analog supply link only. ASMedia leaves supply current TBD; check current, voltage drop, and turn-on pulse margin with the final power budget. The 2A overload rating is not a continuous rating."
       }
     },
     {
@@ -843,7 +879,8 @@
       "placed_on_board": true,
       "board_references": [
         "C_VCCL_COUT",
-        "C_VDD_COUT"
+        "C_VDD_COUT",
+        "C_VCCA33_7"
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -869,8 +906,9 @@
       ],
       "implementation": {
         "footprint_source": "tsci import --jlcpcb --use-exact-footprint C602037",
-        "use": "One shunt output capacitor per TPS62903, after its inductor, from VCCL or VDD to GND."
-      }
+        "use": "One output capacitor per TPS62903, plus C_VCCA33_7 from the analog supply to GND."
+      },
+      "bridge_decoupling_inventory": "../bridge-decoupling-parts.json"
     },
     {
       "manufacturer_part_number": "RT0402BRD07137KL",
@@ -900,12 +938,14 @@
           "notes": "RT thin-film resistor family specification. RT0402, B tolerance +/-0.1%, D TCR +/-25 ppm/C, 50 V, 1/16 W. Exact part footprints imported from JLCPCB."
         },
         {
-          "file": "RT0402BRD07137KL.pdf",
           "source_url": "https://www.yageogroup.com/component-documentation/download/specsheet/RT0402BRD07137KL",
           "origin": "downloaded from manufacturer",
           "pages": 1,
           "sha256": "ccdc63ba5b5bf8f0163b231474102fd3d586bad039927a8f3ac45476c06b55d9",
-          "notes": "Exact 137 kohm +/-0.1%, +/-25 ppm/C, 0402 part specification generated 2026-10-15."
+          "notes": "Exact 137 kohm +/-0.1%, +/-25 ppm/C, 0402 part specification generated 2026-10-15.",
+          "former_local_filename": "RT0402BRD07137KL.pdf",
+          "retained_locally": false,
+          "removal_reason": "Feedback resistor from the superseded TPS62130 design. Current RT resistors retain YAGEO-RT-series.pdf."
         }
       ],
       "implementation": {
@@ -913,7 +953,7 @@
         "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
         "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
       },
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
     },
     {
       "manufacturer_part_number": "RT0402BRD07100KL",
@@ -948,7 +988,7 @@
         "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
         "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
       },
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
     },
     {
       "manufacturer_part_number": "ARG02BTC4122",
@@ -970,12 +1010,14 @@
       },
       "documents": [
         {
-          "file": "ARG02BTC4122.pdf",
           "source_url": "https://www.viking.com.tw/Templates/att/ARG_Series.pdf?lng=en",
           "origin": "downloaded from manufacturer",
           "pages": 8,
           "sha256": "7463713a6562e2690be868092fb59123f9bdb35bc77e440418600983c7b5b238",
-          "notes": "ARG family datasheet REV.A6, 2022-01-26. ARG02 0402, B +/-0.1%, C +/-25 ppm/C, 41.2 kohm, 50 V, 1/16 W."
+          "notes": "ARG family datasheet REV.A6, 2022-01-26. ARG02 0402, B +/-0.1%, C +/-25 ppm/C, 41.2 kohm, 50 V, 1/16 W.",
+          "former_local_filename": "ARG02BTC4122.pdf",
+          "retained_locally": false,
+          "removal_reason": "Feedback resistor from the superseded TPS62130 design."
         }
       ],
       "implementation": {
@@ -983,7 +1025,7 @@
         "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
         "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
       },
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Files remain as historical references."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
     },
     {
       "manufacturer_part_number": "TPS62903RPJR",
@@ -1211,6 +1253,169 @@
           "pages": 10,
           "sha256": "00a9148c2958122200e8a93292e389392a795adcfe40562d6ca4f690d1e5d7d1",
           "notes": "Yageo RT family datasheet. RT0402BRD0710KL: 10 kohm, +/-0.1%, +/-25 ppm/C, 0402, 1/16 W; VCCH supervisor sense divider."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05A225KO5NQNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL05A225KO5NQNC.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_VCCH_3",
+        "C_VCCH_11",
+        "C_VCCH_16",
+        "C_VCCH_19",
+        "C_VCCL_2",
+        "C_VCCL_10",
+        "C_VCCL_17",
+        "C_VCCL_25",
+        "C_VCCL_29",
+        "C_VCCL_33",
+        "C_VCCL_37",
+        "C_VCCL_41",
+        "C_VCCL_43",
+        "C_VCCL_45",
+        "C_VCCL_46",
+        "C_VDD_1",
+        "C_VDD_9",
+        "C_VDD_15",
+        "C_VDD_22",
+        "C_VDD_24",
+        "C_VDD_28",
+        "C_VDD_32",
+        "C_VDD_36",
+        "C_VDD_40",
+        "C_VDD_42",
+        "C_VDD_44"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C170151"
+        ]
+      },
+      "product_url": "https://product.samsungsem.com/mlcc/CL05A225KO5NQN.do",
+      "selection_status": "Selected for bridge decoupling; electrical and layout qualification pending.",
+      "inventory_file": "../bridge-decoupling-parts.json",
+      "footprint_notes": {
+        "source": "tsci import C170151 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 0.8402,
+        "pad_width_mm": 0.5,
+        "pad_height_mm": 0.54,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "documents": [
+        {
+          "file": "CL05A225KO5NQNC.pdf",
+          "source_url": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2799/CL05A225KO5NQNC_Spec.pdf",
+          "origin": "Samsung part-specific reference specification hosted by DigiKey",
+          "pages": 36,
+          "sha256": "f5723f1c07452f47557559cc6fa529835ef540713ad5867b11233668cfcf660e",
+          "notes": "Specifies 2.2uF, 16V, +/-10%, X5R, EIA 0402; first page gives dimensions. Manufacturer DC-bias data retained separately in research/bridge-decoupling-dc-bias-2026-10-15.json."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL21A106KAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL21A106KAYNNNE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_VCCH_6",
+        "C_VCCH_14",
+        "C_VCCL_5",
+        "C_VCCL_13",
+        "C_VCCL_20",
+        "C_VDD_4",
+        "C_VDD_12",
+        "C_VDD_18"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C15850"
+        ]
+      },
+      "product_url": "https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do",
+      "selection_status": "Selected for bridge decoupling; electrical and layout qualification pending.",
+      "inventory_file": "../bridge-decoupling-parts.json",
+      "footprint_notes": {
+        "source": "tsci import C15850 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 2.0,
+        "pad_width_mm": 1.41,
+        "pad_height_mm": 1.35,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "documents": [
+        {
+          "file": "CL21A106KAYNNNE.pdf",
+          "source_url": "https://product.samsungsem.com/part/download.do",
+          "origin": "Samsung direct download, POST form",
+          "pages": 38,
+          "sha256": "f0fc85a253cc95f38950a4406c88834f52c4b7697226692cafbb98fbb7c5727a",
+          "notes": "Part-specific Samsung reference specification. Specifies 10uF, 25V, +/-10%, X5R, EIA 0805; first page gives dimensions.",
+          "request_method": "POST",
+          "request_form": {
+            "masterKey": "CL21A106KAYNNN",
+            "type": "specsheet"
+          }
+        },
+        {
+          "file": "CL21A106KAYNNNE-characteristics.pdf",
+          "source_url": "https://media.digikey.com/pdf/Data%20Sheets/Samsung%20PDFs/CL21A106KAYNNNE_Char.pdf",
+          "origin": "Samsung characteristic sheet hosted by DigiKey",
+          "pages": 1,
+          "sha256": "8a03285c8b7134980b9d12c67fe0ac6567633109c859dd37628c462b41e4f80f",
+          "notes": "Part-specific typical frequency, temperature, DC-bias, AC-voltage and ripple-current curves; not guaranteed operating capacitance limits."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05B224KO5NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "component_file": "imports/CL05B224KO5NNNC.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_VCCH_23",
+        "C_VCCH_27",
+        "C_VCCH_31",
+        "C_VCCH_35",
+        "C_VDD_26",
+        "C_VDD_30",
+        "C_VDD_34",
+        "C_VDD_39",
+        "C_VCCA33_8"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C16772"
+        ]
+      },
+      "product_url": "https://product.samsungsem.com/mlcc/CL05B224KO5NNN.do",
+      "selection_status": "Selected for bridge decoupling; electrical and layout qualification pending.",
+      "inventory_file": "../bridge-decoupling-parts.json",
+      "footprint_notes": {
+        "source": "tsci import C16772 --jlcpcb",
+        "pad_count": 2,
+        "pad_center_spacing_mm": 0.8402,
+        "pad_width_mm": 0.5,
+        "pad_height_mm": 0.54,
+        "notes": "Non-polarized; pad 1 is connected to the supply and pad 2 to GND in these banks."
+      },
+      "documents": [
+        {
+          "file": "CL05B224KO5NNNC.pdf",
+          "source_url": "https://product.samsungsem.com/part/download.do",
+          "origin": "Samsung direct download, POST form",
+          "pages": 38,
+          "sha256": "42d7e3147385ae545024367edbe633c9f744cdcc2b2e02c3e3b692580e567d10",
+          "notes": "Part-specific Samsung reference specification. Specifies 220nF, 16V, +/-10%, X7R, EIA 0402; first page gives dimensions.",
+          "request_method": "POST",
+          "request_form": {
+            "masterKey": "CL05B224KO5NNN",
+            "type": "specsheet"
+          }
         }
       ]
     }
@@ -1814,7 +2019,7 @@
   },
   "usb_interface_review": {
     "checked_on": "2026-10-14",
-    "scope": "USB2, CC, SBU, VBUS, integrated attach/orientation and fixed-5 V sink support; current TVS details.",
+    "scope": "Historical October 14 review before the VBUS divider/filter change; see usb_vbus_sense for the current implementation.",
     "references": [
       {
         "file": "ASM2464PDX_TI_R03.pdf",
@@ -2055,7 +2260,6 @@
         "checked_on": "2026-10-15",
         "implementation_file": "../components/BuckInputs.tsx",
         "reference": {
-          "file": "TPS62130RGTR.pdf",
           "printed_pages": [
             3,
             5,
@@ -2064,7 +2268,10 @@
           "equation": "VOUT = 0.8 V * (1 + Rtop / Rbottom), DEF low",
           "divider_minimum_current_uA": 2,
           "FB_leakage_typical_nA": 1,
-          "FB_leakage_maximum_nA": 100
+          "FB_leakage_maximum_nA": 100,
+          "former_local_filename": "TPS62130RGTR.pdf",
+          "retained_locally": false,
+          "removal_reason": "Superseded by TPS62903RPJR in the current board."
         },
         "quantity": 4,
         "initial_resistor_tolerance_percent": 0.1,
@@ -2160,5 +2367,101 @@
     "output": "Open-drain RESET# drives BUCK_EN, with a 10 kohm pull-up to VCCH. Both TPS62903 EN pins connect to BUCK_EN. Separate from ASM_RST_N and both PG outputs.",
     "timing": "CT intentionally open: 25 us nominal release delay. This is not a guaranteed maximum delay or proof of complete board startup timing.",
     "scope": "Enables both bucks together after VCCH crosses the supervisor rising threshold. Bridge reset/PG qualification and 5 V-to-VCCH timing remain open."
+  },
+  "usb_vbus_sense": {
+    "checked_on": "2026-10-15",
+    "implementation_file": "components/UsbVbusSense.tsx",
+    "reference": {
+      "file": "ASM2464PDX_TI_R03.pdf",
+      "sheet": 3,
+      "components": [
+        "R57",
+        "R60",
+        "C68"
+      ]
+    },
+    "input_net": "USB_VBUS",
+    "sense_net": "USB_VBUS_SENSE",
+    "bridge_input": "ASM2464PDX.G1 (VBUS)",
+    "components": [
+      {
+        "reference": "R_VBUS_TOP",
+        "resistance_ohms": 4700,
+        "tolerance_percent": 1,
+        "manufacturer_part_number": "0402WGF4701TCE",
+        "jlcpcb": "C25900"
+      },
+      {
+        "reference": "R_VBUS_BOTTOM",
+        "resistance_ohms": 10000,
+        "tolerance_percent": 1,
+        "manufacturer_part_number": "0402WGF1002TCE",
+        "jlcpcb": "C25744"
+      },
+      {
+        "reference": "C_VBUS_SENSE",
+        "capacitance_uF": 1,
+        "voltage_rating_V": 25,
+        "manufacturer_part_number": "CL05A105KA5NQNC",
+        "jlcpcb": "C52923"
+      }
+    ],
+    "output_at_5V_unloaded_V": 3.401360544217687,
+    "time_constant_nominal_ms": 3.1972789115646263,
+    "reference_link": "Reference R59 is a selectable 0 ohm link; this implementation directly connects the filtered node to the bridge input.",
+    "protection_decision": "No additional USB2 ESD protection for this prototype, per user decision.",
+    "limitations": [
+      "Divider/filter does not establish powered-off tolerance or sustained overvoltage protection.",
+      "Nominal calculations exclude input loading, resistor tolerance and capacitor bias, tolerance and temperature effects.",
+      "Connector-side VBUS bulk capacitors are outside this change."
+    ],
+    "validation": {
+      "tests": "32 circuit tests passed; regression checks verify divider topology, 1 uF shunt filter and isolation from ATX rails.",
+      "typecheck": "passed",
+      "source": "0 errors, 0 warnings",
+      "netlist": "0 errors, 0 warnings",
+      "schematic_placement": "passed",
+      "pcb_placement": "0 errors, 0 warnings",
+      "full_build": "Generated schematic SVG and PCB PNG; exit 1 due to two pad-clearance errors inside the unchanged U_PSU_LED footprint.",
+      "hardware": "Not performed."
+    }
+  },
+  "bridge_decoupling_parts": {
+    "checked_on": "2026-10-15",
+    "inventory_file": "../bridge-decoupling-parts.json",
+    "capacitor_quantity": 44,
+    "jumper_quantity": 1,
+    "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending"
+  },
+  "document_cleanup": {
+    "checked_on": "2026-10-15",
+    "removed_documents": [
+      {
+        "former_local_filename": "TPS62130RGTR.pdf",
+        "sha256": "f9b1af285622c0cf1a5991f9641a6e64c5e6d899e52cc0b1632808742019579f",
+        "reason": "Superseded by TPS62903RPJR in the current board."
+      },
+      {
+        "former_local_filename": "ARG02BTC4122.pdf",
+        "sha256": "7463713a6562e2690be868092fb59123f9bdb35bc77e440418600983c7b5b238",
+        "reason": "Feedback resistor from the superseded TPS62130 design."
+      },
+      {
+        "former_local_filename": "RT0402BRD07137KL.pdf",
+        "sha256": "ccdc63ba5b5bf8f0163b231474102fd3d586bad039927a8f3ac45476c06b55d9",
+        "reason": "Feedback resistor from the superseded TPS62130 design. Current RT resistors retain YAGEO-RT-series.pdf."
+      },
+      {
+        "former_local_filename": "X3183WV-164B1-46V01.pdf",
+        "sha256": "0a4a6eed517339191e01d631feeae952c3ecd7371603517833626f9fa107a802",
+        "reason": "Connector replaced by X1618WVS-164-9TV30 in the current board."
+      },
+      {
+        "former_local_filename": "0402WGF1002TCE.pdf",
+        "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+        "reason": "Byte-identical duplicate of 0402WGF1003TCE.pdf."
+      }
+    ],
+    "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata."
   }
 }
