@@ -7,8 +7,7 @@ import {CL21A226MAYNNNE} from "imports/CL21A226MAYNNNE";
 // Selected MPNs and catalog footprints; final PCB placement remains pending.
 export function BridgeVcca33Decoupling() {
   return (
-    <group name="VCCA33_DECOUPLING" schX={18.5}>
-      <schematicsection name="VCCA33_DECOUPLING"/>
+    <group name="VCCA33_DECOUPLING" schX={19.5}>
       <schematictext text="VCCA33 Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
       <schematictext
         text="ASMedia sheet 3: R4, C7, C8."

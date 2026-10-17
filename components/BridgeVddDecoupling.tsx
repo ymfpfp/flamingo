@@ -19,7 +19,6 @@ const rows = [capacitors.slice(0, 9), capacitors.slice(9)];
 export function BridgeVddDecoupling() {
   return (
     <group name="VDD_DECOUPLING" schY={-13}>
-      <schematicsection name="VDD_DECOUPLING"/>
       <schematictext text="VDD Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
       {rows.map((row, rowIndex) => (
         <group key={rowIndex} schY={-rowIndex * 1.5}>
@@ -51,10 +50,6 @@ export function BridgeVddDecoupling() {
       <schematictext
         text="Keep C_VDD_COUT (22uF) at the buck: combined nominal total = 77.08uF."
         schX={-1.5} schY={-3.5} fontSize={0.18} anchor="left"
-      />
-      <schematictext
-        text="Reference capacitor numbers retained. PCB placement and regulator compatibility pending."
-        schX={-1.5} schY={-4} fontSize={0.18} anchor="left"
       />
     </group>
   );

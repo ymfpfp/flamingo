@@ -1,6 +1,6 @@
 import type { ResistorProps } from "@tscircuit/props"
 
-export const A_1206W4F1001T5E = (props: Omit<ResistorProps, "resistance">) => {
+export const RC1206FR_071KL = (props: Omit<ResistorProps, "resistance">) => {
   const { name = "R1", ...restProps } = props
 
   return (
@@ -11,10 +11,12 @@ export const A_1206W4F1001T5E = (props: Omit<ResistorProps, "resistance">) => {
       pinAttributes={{pin1: {isPassive: true}, pin2: {isPassive: true}}}
       supplierPartNumbers={{
   "jlcpcb": [
-    "C52199"
+    "C131398"
   ]
 }}
-      manufacturerPartNumber="1206W4F1001T5E"
+      manufacturerPartNumber="RC1206FR-071KL"
+      datasheetUrl="https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8755572545817063424-C131398.pdf"
+      // Retain the original lands and package model for this stock substitution.
       footprint="smdpads2_p2.9576mm_pw1.2075mm_ph1.701mm_cyw4.6651mm_cyh2.201mm"
       cadModel={{
         objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C52199.obj?uuid=da5f078ee43c429f91838a456f48f0a8",

@@ -183,7 +183,7 @@ test("each gate has a source-referenced RC network and its own driver series res
     assert.equal(net(capacitor, "pin2"), gate);
     assert.ok(![input, output, ground].includes(gate));
     const bleeder = `R_SLOT_DISCHARGE_${suffix}`;
-    assert.equal(component(bleeder).manufacturer_part_number, "1206W4F1001T5E");
+    assert.equal(component(bleeder).manufacturer_part_number, "RC1206FR-071KL");
     assert.equal(component(bleeder).resistance, 1000);
     assert.equal(net(bleeder, "pin1"), output);
     assert.equal(net(bleeder, "pin2"), ground);

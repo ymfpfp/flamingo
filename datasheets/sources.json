@@ -415,9 +415,9 @@
       }
     },
     {
-      "manufacturer_part_number": "RC0201FR-07220KL",
-      "manufacturer": "Yageo",
-      "component_file": "imports/RC0201FR_07220KL.tsx",
+      "manufacturer_part_number": "0201WMF2203TEE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0201WMF2203TEE.tsx",
       "placed_on_board": true,
       "board_references": [
         "R_USB_TX1_P",
@@ -431,20 +431,43 @@
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
-          "C142020"
+          "C473458"
         ]
       },
-      "product_url": "https://jlcpcb.com/partdetail/C142020",
+      "product_url": "https://jlcpcb.com/partdetail/C473458",
       "documents": [
         {
-          "file": "RC0201FR-07220KL.pdf",
-          "source_url": "https://www.yageogroup.com/download/specsheet/RC0201FR-07220KL",
-          "origin": "downloaded",
-          "pages": 1,
-          "sha256": "3752b70fa02df0b73e9b70b501d52486d8ff5536cdce90a0b8b3acf4d9cd83ca",
-          "notes": "Manufacturer part-specific sheet generated Oct. 14, 2026. 220 kOhm, +/-1%, 25 V, 0.05 W, 0201. Connector-side discharge paths copy R66-R73 in the ASMedia reference schematic. JLC catalog includes this part but stock was unavailable in the inventory response."
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8590907568187523072-C473458.pdf",
+          "origin": "manufacturer datasheet",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "Stock replacement verified on 2026-10-16. Existing footprint and package model retained. Shared manufacturer family specification. Duplicate local PDF removed."
         }
-      ]
+      ],
+      "previous_selection": {
+        "manufacturer_part_number": "RC0201FR-07220KL",
+        "jlcpcb_part_number": "C142020",
+        "documents": [
+          {
+            "source_url": "https://www.yageogroup.com/download/specsheet/RC0201FR-07220KL",
+            "origin": "downloaded",
+            "pages": 1,
+            "sha256": "3752b70fa02df0b73e9b70b501d52486d8ff5536cdce90a0b8b3acf4d9cd83ca",
+            "notes": "Manufacturer part-specific sheet generated Oct. 14, 2026. 220 kOhm, +/-1%, 25 V, 0.05 W, 0201. Connector-side discharge paths copy R66-R73 in the ASMedia reference schematic. JLC catalog includes this part but stock was unavailable in the inventory response.",
+            "former_local_filename": "RC0201FR-07220KL.pdf",
+            "retained_locally": false
+          }
+        ]
+      },
+      "implementation": {
+        "stock_substitution": {
+          "checked_on": "2026-10-16",
+          "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
+          "footprint": "Original C142020 lands retained without geometry changes."
+        },
+        "package_model_note": "Existing package model retained as a generic body."
+      }
     },
     {
       "manufacturer_part_number": "0402WGF1003TCE",
@@ -664,9 +687,9 @@
       }
     },
     {
-      "manufacturer_part_number": "1206W4F1001T5E",
-      "manufacturer": "UNI-ROYAL",
-      "component_file": "imports/A_1206W4F1001T5E.tsx",
+      "manufacturer_part_number": "RC1206FR-071KL",
+      "manufacturer": "YAGEO",
+      "component_file": "imports/RC1206FR_071KL.tsx",
       "placed_on_board": true,
       "board_references": [
         "R_SLOT_DISCHARGE_3V3",
@@ -674,12 +697,12 @@
       ],
       "documents": [
         {
-          "file": "0402WGF1003TCE.pdf",
-          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
-          "origin": "existing manufacturer family specification",
-          "pages": 9,
-          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
-          "notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout."
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8755572545817063424-C131398.pdf",
+          "origin": "manufacturer datasheet",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Stock replacement verified on 2026-10-16. Existing footprint and package model retained. Shared manufacturer family specification. Duplicate local PDF removed."
         }
       ],
       "slot_power_use": {
@@ -691,6 +714,34 @@
           "R_SLOT_DISCHARGE_3V3",
           "R_SLOT_DISCHARGE_12V"
         ]
+      },
+      "previous_selection": {
+        "manufacturer_part_number": "1206W4F1001T5E",
+        "jlcpcb_part_number": "C52199",
+        "documents": [
+          {
+            "file": "0402WGF1003TCE.pdf",
+            "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+            "origin": "existing manufacturer family specification",
+            "pages": 9,
+            "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+            "notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout."
+          }
+        ]
+      },
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C131398"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C131398",
+      "implementation": {
+        "stock_substitution": {
+          "checked_on": "2026-10-16",
+          "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
+          "footprint": "Original C52199 lands retained without geometry changes."
+        },
+        "package_model_note": "Existing package model retained as a generic body."
       }
     },
     {
@@ -1154,9 +1205,9 @@
       }
     },
     {
-      "manufacturer_part_number": "RC0402FR-0721KL",
-      "manufacturer": "Yageo",
-      "component_file": "imports/RC0402FR_0721KL.tsx",
+      "manufacturer_part_number": "0402 \u00b11% 21K",
+      "manufacturer": "VO",
+      "component_file": "imports/VO_0402_1pct_21K.tsx",
       "placed_on_board": true,
       "board_references": [
         "R_VCCL_MODE",
@@ -1164,35 +1215,55 @@
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
-          "C185441"
+          "C2906409"
         ]
       },
-      "product_url": "https://jlcpcb.com/partdetail/Yageo-RC0402FR-0721KL/C185441",
+      "product_url": "https://jlcpcb.com/partdetail/C2906409",
       "documents": [
         {
-          "file": "RC0402FR-0712K1L.pdf",
-          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
-          "origin": "downloaded",
-          "pages": 11,
-          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series specification. Shared family reference also covers RC0402FR-0721KL, 21 kohm, +/-1%, +/-100 ppm/C, 1/16 W, 50 V."
+          "file": "VO-0402-1pct-21K.pdf",
+          "source_url": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8590201846947622912-C2906409.pdf",
+          "origin": "manufacturer datasheet",
+          "pages": 14,
+          "sha256": "fb6ac211ca2f1c23ed05ac6306ba61202b2f9bfdc414213604803a76f50693d9",
+          "notes": "Stock replacement verified on 2026-10-16. Existing footprint and package model retained."
         }
       ],
       "implementation": {
         "footprint_source": "tsci import --jlcpcb --use-exact-footprint C185441",
-        "checked_on": "2026-10-15"
+        "checked_on": "2026-10-15",
+        "stock_substitution": {
+          "checked_on": "2026-10-16",
+          "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
+          "footprint": "Original C185441 lands retained without geometry changes."
+        },
+        "package_model_note": "Existing package model retained as a generic body."
       },
       "specification": {
         "resistance_ohm": 21000,
         "initial_tolerance_percent": 1,
         "TCR_ppm_per_C": 100,
         "package_EIA": "0402"
+      },
+      "previous_selection": {
+        "manufacturer_part_number": "RC0402FR-0721KL",
+        "jlcpcb_part_number": "C185441",
+        "documents": [
+          {
+            "file": "RC0402FR-0712K1L.pdf",
+            "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+            "origin": "downloaded",
+            "pages": 11,
+            "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+            "notes": "Manufacturer RC_L series specification. Shared family reference also covers RC0402FR-0721KL, 21 kohm, +/-1%, +/-100 ppm/C, 1/16 W, 50 V."
+          }
+        ]
       }
     },
     {
-      "manufacturer_part_number": "TPS389001DSET",
+      "manufacturer_part_number": "TPS389001DSER",
       "manufacturer": "Texas Instruments",
-      "component_file": "imports/TPS389001DSET.tsx",
+      "component_file": "imports/TPS389001DSER.tsx",
       "placed_on_board": true,
       "board_references": [
         "U_BUCK_EN"
@@ -1201,12 +1272,40 @@
         {
           "file": "TPS389001DSET.pdf",
           "source_url": "https://www.ti.com/lit/ds/symlink/tps3890.pdf",
-          "origin": "downloaded",
+          "origin": "manufacturer datasheet",
           "pages": 27,
           "sha256": "ee79599730e7606ba9718d9820b411020e3dcd9ff7d44572f8ee63fead15b9d0",
-          "notes": "TPS3890 Rev A. Page 3 pin map and rising 1.157 V adjustable threshold; page 5 accuracy and CT-open timing; page 13 divider equation; DSE package drawing. Exact C2066907 footprint imported."
+          "notes": "Stock replacement verified on 2026-10-16. Existing footprint and package model retained."
         }
-      ]
+      ],
+      "previous_selection": {
+        "manufacturer_part_number": "TPS389001DSET",
+        "jlcpcb_part_number": "C2066907",
+        "documents": [
+          {
+            "file": "TPS389001DSET.pdf",
+            "source_url": "https://www.ti.com/lit/ds/symlink/tps3890.pdf",
+            "origin": "downloaded",
+            "pages": 27,
+            "sha256": "ee79599730e7606ba9718d9820b411020e3dcd9ff7d44572f8ee63fead15b9d0",
+            "notes": "TPS3890 Rev A. Page 3 pin map and rising 1.157 V adjustable threshold; page 5 accuracy and CT-open timing; page 13 divider equation; DSE package drawing. Exact C2066907 footprint imported."
+          }
+        ]
+      },
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C1509297"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/C1509297",
+      "implementation": {
+        "stock_substitution": {
+          "checked_on": "2026-10-16",
+          "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
+          "footprint": "Original C2066907 lands retained without geometry changes."
+        },
+        "package_model_note": "Existing package model retained as a generic body."
+      }
     },
     {
       "manufacturer_part_number": "RT0402BRD0716K2L",
@@ -2480,7 +2579,7 @@
   "buck_enable": {
     "checked_on": "2026-10-15",
     "implementation_file": "../components/BuckEnable.tsx",
-    "supervisor": "TPS389001DSET",
+    "supervisor": "TPS389001DSER",
     "reference": "U_BUCK_EN",
     "supply_and_manual_reset": "VDD and active-low MR connect to VCCH; 100 nF VDD bypass to GND.",
     "sense_divider": {
@@ -2562,7 +2661,7 @@
     "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending"
   },
   "document_cleanup": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-16",
     "removed_documents": [
       {
         "former_local_filename": "TPS62130RGTR.pdf",
@@ -2588,6 +2687,26 @@
         "former_local_filename": "0402WGF1002TCE.pdf",
         "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
         "reason": "Byte-identical duplicate of 0402WGF1003TCE.pdf."
+      },
+      {
+        "former_local_filename": "0201WMF2203TEE.pdf",
+        "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+        "reason": "Byte-identical duplicate of 0402WGF1003TCE.pdf.",
+        "retained_locally": false,
+        "shared_datasheet": "0402WGF1003TCE.pdf"
+      },
+      {
+        "former_local_filename": "RC1206FR-071KL.pdf",
+        "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+        "reason": "Byte-identical duplicate of RC0402FR-0712K1L.pdf.",
+        "retained_locally": false,
+        "shared_datasheet": "RC0402FR-0712K1L.pdf"
+      },
+      {
+        "former_local_filename": "RC0201FR-07220KL.pdf",
+        "sha256": "3752b70fa02df0b73e9b70b501d52486d8ff5536cdce90a0b8b3acf4d9cd83ca",
+        "reason": "The current board uses UNI-ROYAL 0201WMF2203TEE instead of RC0201FR-07220KL.",
+        "retained_locally": false
       }
     ],
     "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata."
@@ -2599,5 +2718,11 @@
     "capacitor_quantity": 5,
     "reference": "ASM2464PDX_TI_R03.pdf, sheet 6",
     "status": "Added switched-output bulk and ceramic banks. Footprints and polarity checked against manufacturer documents; hardware qualification pending."
+  },
+  "stock_substitutions": {
+    "checked_on": "2026-10-16",
+    "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
+    "applied_count": 4,
+    "C135": "Original APXJ6R3ARA561MF80G retained."
   }
 }

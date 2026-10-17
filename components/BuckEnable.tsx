@@ -2,15 +2,17 @@ import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
 import {RT0402BRD0710KL} from "imports/RT0402BRD0710KL";
 import {RT0402BRD0716K2L} from "imports/RT0402BRD0716K2L";
-import {TPS389001DSET} from "imports/TPS389001DSET";
+import {TPS389001DSER} from "imports/TPS389001DSER";
+import type {ChipProps} from "@tscircuit/props";
 
 /** Shared buck enable; independent of the bridge's reset net and buck PG pins. */
-export function BuckEnable() {
+export function BuckEnable({spiceModel}: {spiceModel?: ChipProps["spiceModel"]} = {}) {
   return (
     <group name="BUCK_ENABLE" schX={16} schY={0}>
       <schematicsection name="BUCK_ENABLE" displayName="VCCH Monitor and Buck Enable"/>
-      <TPS389001DSET
+      <TPS389001DSER
         name="U_BUCK_EN"
+        spiceModel={spiceModel}
         schSectionName="BUCK_ENABLE"
         schX={0} schY={0}
         pcbX={0} pcbY={0}

@@ -4,7 +4,7 @@ import {CL21A226MAYNNNE} from "imports/CL21A226MAYNNNE";
 import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
 import {SLW5040S2R2MST} from "imports/SLW5040S2R2MST";
 import {TPS62903RPJR} from "imports/TPS62903RPJR";
-import {RC0402FR_0721KL} from "imports/RC0402FR_0721KL";
+import {VO_0402_1pct_21K} from "imports/VO_0402_1pct_21K";
 import {RT0402BRD0710K7L} from "imports/RT0402BRD0710K7L";
 import {RT0402BRD0712K1L} from "imports/RT0402BRD0712K1L";
 import {RT0402BRD0726K1L} from "imports/RT0402BRD0726K1L";
@@ -81,7 +81,7 @@ export function BuckInputs() {
             <netlabel inline net="GND" connection={`R_${rail}_FBB.pin2`}/>
             {/* Table 7-1, option 8: 21k selects external FB, 1 MHz,
                 forced PWM and no active output discharge. */}
-            <RC0402FR_0721KL name={`R_${rail}_MODE`} schSectionName={section}
+            <VO_0402_1pct_21K name={`R_${rail}_MODE`} schSectionName={section}
               schX={-2.8} schY={-1.6} schOrientation="vertical"
               connections={{pin2: "net.GND"}}/>
             <netlabel inline net="GND" connection={`R_${rail}_MODE.pin2`}/>

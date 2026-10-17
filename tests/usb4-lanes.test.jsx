@@ -92,7 +92,7 @@ test("each connector-side conductor has a 220k discharge resistor and remains is
   for (const [name, connectorContact] of contacts) {
     const resistor = components.find(component => component.name === `R_USB_${name}`);
     assert.equal(resistor.resistance, 220000);
-    assert.deepEqual(resistor.supplier_part_numbers.jlcpcb, ["C142020"]);
+    assert.deepEqual(resistor.supplier_part_numbers.jlcpcb, ["C473458"]);
     assert.equal(net(port(resistor.name, "pin1")), net(port("USBC", connectorContact)));
     assert.equal(net(port(resistor.name, "pin2")), ground);
     assert.notEqual(net(port(resistor.name, "pin1")), ground);

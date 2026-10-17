@@ -1,19 +1,21 @@
 import type { ResistorProps } from "@tscircuit/props"
 
-export const RC0201FR_07220KL = (props: Omit<ResistorProps, "resistance">) => {
+export const A_0201WMF2203TEE = (props: Omit<ResistorProps, "resistance">) => {
   const { name = "R1", ...restProps } = props
 
   return (
     <resistor
       name={name}
       resistance="220kohm"
+      tolerance="1%"
       supplierPartNumbers={{
   "jlcpcb": [
-    "C142020"
+    "C473458"
   ]
 }}
-      manufacturerPartNumber="RC0201FR-07220KL"
-      datasheetUrl="https://www.yageogroup.com/download/specsheet/RC0201FR-07220KL"
+      manufacturerPartNumber="0201WMF2203TEE"
+      datasheetUrl="https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8590907568187523072-C473458.pdf"
+      // Retain the original lands and package model for this stock substitution.
       footprint={<footprint>
         <smtpad portHints={["pin2"]} pcbX="0.241554mm" pcbY="0mm" width="0.3031236mm" height="0.3240024mm" shape="rect" />
 <smtpad portHints={["pin1"]} pcbX="-0.241554mm" pcbY="0mm" width="0.3031236mm" height="0.3240024mm" shape="rect" />

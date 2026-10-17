@@ -9,7 +9,9 @@
       },
       "devDependencies": {
         "@tscircuit/checks": "0.0.247",
+        "@tscircuit/ngspice-spice-engine": "0.0.20",
         "@types/react": "^19.3.0",
+        "spicets": "0.0.4",
         "tscircuit": "^0.0.2823",
         "typescript": "^5.0.0",
       },

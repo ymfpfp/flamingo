@@ -1,0 +1,32 @@
+{
+  "source": "datasheets/ASM2464PDX_DataSheet_R0_3.pdf",
+  "operating_ranges_section": "6.2",
+  "rails": {
+    "VCCH": {"nominal": 3.3, "min": 3.0, "max": 3.6},
+    "VCCL": {"nominal": 1.9, "min": 1.85, "max": 1.95},
+    "VDD": {"nominal": 1.13, "min": 1.10, "max": 1.16}
+  },
+  "reset_section": "6.3.7",
+  "reset": {"guaranteed_low_v": 0.8, "guaranteed_high_v": 2.0, "rising_threshold_min_v": 1.58, "rising_threshold_max_v": 1.86},
+  "startup_section": "7, Figure 4 and timing table; crossings use 90% of nominal voltage",
+  "input_order": "Figure 4 shows 5V or VBUS before VCCH. This harness selects main ATX 5V as that source. The timing table does not give an explicit minimum for t5V2VCCH.",
+  "timing": [
+    {"id": "t5V2VCCH", "from": "V5V", "to": "VCCH", "max_ms": 6},
+    {"id": "tVCCH2VCCL", "from": "VCCH", "to": "VCCL", "min_ms": 0, "max_ms": 10},
+    {"id": "tVCCH2VDD", "from": "VCCH", "to": "VDD", "max_ms": 90},
+    {"id": "tRST", "from": "VCCH", "to": "ASM_RST_N", "min_ms": 0}
+  ],
+  "engineering_goals": {
+    "reset_release_after_valid_rails": "All three bridge rails are in their operating ranges at the earliest possible reset release, then remain valid until reset reaches its guaranteed-high voltage. This is a conservative project goal, not an explicit tRST requirement in the ASMedia table.",
+    "reset_during_rail_fault": "After initial operation, reset reaches its guaranteed-low voltage within 1 ms of a bridge rail leaving its operating range. The 1 ms allowance is a review target, not an ASMedia specification.",
+    "fault_response_allowance_ms": 1
+  },
+  "unverified": [
+    "Actual TPS62903 output waveforms, loads, stability, ripple and shutdown behavior",
+    "Supervisor tolerance, startup, glitch rejection and low-supply behavior",
+    "Bridge input clamps, power-on-reset internals, firmware and supply current",
+    "Reset button behavior, component tolerances and effective reset capacitance",
+    "25 MHz clock, PCIe clock and PCIe reset timing",
+    "Slot power, card load, MOSFET SOA and temperature"
+  ]
+}

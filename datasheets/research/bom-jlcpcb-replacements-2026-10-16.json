@@ -1,0 +1,281 @@
+{
+  "checked_on": "2026-10-16",
+  "timezone": "America/Los_Angeles",
+  "observed_at_utc": "2026-10-17T04:37:34.470603+00:00",
+  "board_quantity": 2,
+  "scope": "Four stock replacements applied. Existing footprints retained. Original C135 retained.",
+  "stock_source": "Live JLCPCB product pages. Available Order Qty used for two-board comparison.",
+  "quantity_basis": "Installed quantity before assembly attrition.",
+  "summary": {
+    "verified_stocked_replacements": 4,
+    "unresolved": 1
+  },
+  "replacements": [
+    {
+      "original_mpn": "1206W4F1001T5E",
+      "original_jlcpcb": "C52199",
+      "replacement_mpn": "RC1206FR-071KL",
+      "replacement_manufacturer": "YAGEO",
+      "replacement_jlcpcb": "C131398",
+      "quantity_for_two_boards": 4,
+      "stock": 2804668,
+      "available_order_quantity": 2769372,
+      "minimum": 1,
+      "specs": {
+        "resistance_ohm": 1000,
+        "tolerance_percent": 1,
+        "power_W": 0.25,
+        "working_voltage_V": 200,
+        "TCR_ppm_per_C": 100,
+        "temperature_C": [
+          -55,
+          155
+        ],
+        "package_EIA": "1206"
+      },
+      "footprint_check": {
+        "status": "Compatible with existing two-terminal 1206 lands; preserve the current footprint.",
+        "existing_pad_center_pitch_mm": 2.9576,
+        "existing_pad_size_mm": [
+          1.2075,
+          1.701
+        ],
+        "replacement_nominal_body_mm": [
+          3.1,
+          1.6,
+          0.55
+        ],
+        "replacement_bottom_terminal_length_mm": 0.45,
+        "source": "Manufacturer datasheet page 4 (dimensions), page 6 (electrical ratings)"
+      },
+      "datasheet": "datasheets/RC0402FR-0712K1L.pdf",
+      "source_url": "https://jlcpcb.com/partdetail/C131398",
+      "result": "stocked_compatible_replacement"
+    },
+    {
+      "original_mpn": "RC0402FR-0721KL",
+      "original_jlcpcb": "C185441",
+      "replacement_mpn": "0402 ±1% 21K",
+      "replacement_manufacturer": "VO (Vico Technologies)",
+      "replacement_jlcpcb": "C2906409",
+      "quantity_for_two_boards": 4,
+      "stock": 1285,
+      "available_order_quantity": 1285,
+      "minimum": 1,
+      "specs": {
+        "resistance_ohm": 21000,
+        "tolerance_percent": 1,
+        "power_W": 0.0625,
+        "working_voltage_V": 50,
+        "TCR_ppm_per_C": 100,
+        "temperature_C": [
+          -55,
+          155
+        ],
+        "package_EIA": "0402"
+      },
+      "footprint_check": {
+        "status": "Compatible with existing two-terminal 0402 lands; preserve the current footprint.",
+        "existing_pad_center_pitch_mm": 0.865632,
+        "existing_pad_size_mm": [
+          0.565658,
+          0.540004
+        ],
+        "replacement_nominal_body_mm": [
+          1.0,
+          0.5,
+          0.3
+        ],
+        "replacement_bottom_terminal_length_mm": 0.25,
+        "source": "Manufacturer datasheet PDF page 4 (printed page 3), ratings on PDF pages 2-3"
+      },
+      "datasheet": "datasheets/VO-0402-1pct-21K.pdf",
+      "note": "LCSC flags this VO catalog item NRND; the JLCPCB page currently allows immediate purchase with minimum 1. Adequate for the two prototypes, less desirable for a long-term production BOM.",
+      "source_url": "https://jlcpcb.com/partdetail/C2906409",
+      "result": "stocked_compatible_replacement"
+    },
+    {
+      "original_mpn": "RC0201FR-07220KL",
+      "original_jlcpcb": "C142020",
+      "replacement_mpn": "0201WMF2203TEE",
+      "replacement_manufacturer": "UNI-ROYAL",
+      "replacement_jlcpcb": "C473458",
+      "quantity_for_two_boards": 16,
+      "stock": 103237,
+      "available_order_quantity": 102533,
+      "minimum": 1,
+      "specs": {
+        "resistance_ohm": 220000,
+        "tolerance_percent": 1,
+        "power_W": 0.05,
+        "working_voltage_V": 25,
+        "TCR_ppm_per_C": 200,
+        "temperature_C": [
+          -55,
+          125
+        ],
+        "package_EIA": "0201"
+      },
+      "footprint_check": {
+        "status": "Same nominal body and terminal dimensions as YAGEO 0201; preserve the existing two-terminal footprint.",
+        "existing_pad_center_pitch_mm": 0.483108,
+        "existing_pad_size_mm": [
+          0.3031236,
+          0.3240024
+        ],
+        "replacement_nominal_body_mm": [
+          0.6,
+          0.3,
+          0.23
+        ],
+        "replacement_bottom_terminal_length_mm": 0.15,
+        "source": "Manufacturer datasheet page 4 dimensions, page 5 electrical ratings"
+      },
+      "datasheet": "datasheets/0402WGF1003TCE.pdf",
+      "note": "Standard PCBA only. Use the conservative manufacturer datasheet 0201 temperature ceiling of 125 C; JLCPCB catalog says 155 C. This still matches the original YAGEO 0201 rating.",
+      "source_url": "https://jlcpcb.com/partdetail/C473458",
+      "result": "stocked_compatible_replacement"
+    },
+    {
+      "original_mpn": "TPS389001DSET",
+      "original_jlcpcb": "C2066907",
+      "replacement_mpn": "TPS389001DSER",
+      "replacement_manufacturer": "Texas Instruments",
+      "replacement_jlcpcb": "C1509297",
+      "quantity_for_two_boards": 2,
+      "stock": 284,
+      "available_order_quantity": 258,
+      "minimum": 1,
+      "specs": {
+        "device": "TPS389001 adjustable supervisor",
+        "sense_threshold_V": 1.15,
+        "output": "active-low open-drain reset",
+        "package": "WSON-6 DSE, 1.5 x 1.5 mm",
+        "temperature_C": [
+          -40,
+          125
+        ]
+      },
+      "footprint_check": {
+        "status": "Identical device, pin mapping and DSE0006A package. R versus T changes reel quantity only (3000 versus 250). Retain the exact current footprint, divider, CT-open setting and schematic connections.",
+        "pin_map": {
+          "1": "SENSE",
+          "2": "GND",
+          "3": "N_MR",
+          "4": "VDD",
+          "5": "CT",
+          "6": "N_RESET"
+        },
+        "source": "TI datasheet package option addendum and DSE0006A outline"
+      },
+      "datasheet": "datasheets/TPS389001DSET.pdf",
+      "manufacturer_datasheet_url": "https://www.ti.com/lit/ds/symlink/tps3890.pdf",
+      "source_url": "https://jlcpcb.com/partdetail/C1509297",
+      "result": "stocked_compatible_replacement"
+    }
+  ],
+  "unresolved": [
+    {
+      "designator": "C135",
+      "original_mpn": "APXJ6R3ARA561MF80G",
+      "original_jlcpcb": "C2157846",
+      "quantity_for_two_boards": 2,
+      "result": "no_verified_stocked_replacement_meeting_all_requirements_found",
+      "required": {
+        "capacitance_uF": 560,
+        "tolerance_percent": 20,
+        "rated_voltage_V_min": 6.3,
+        "ESR_milliohm_max": 8,
+        "ripple_current_A_min_at_105C_100kHz": 5,
+        "endurance_hours_min_at_105C": 15000,
+        "package": "SMD, 6.3 mm diameter x 7.7 mm nominal height, 6.6 x 6.6 mm base",
+        "footprint": "Existing Chemi-Con F80, two 3.5 x 1.6 mm pads at x = +/-2.7 mm"
+      },
+      "manufacturer_source_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXJ6R3ARA561MF80G",
+      "live_catalog_search": {
+        "source_url": "https://jlcpcb.com/parts/2nd/Capacitors/Polymer_Aluminum_Capacitors_3196",
+        "filters": [
+          "In Stock",
+          "Lifetime 15000hrs@105C",
+          "Capacitance 560uF"
+        ],
+        "result_count": 4,
+        "results": [
+          {
+            "mpn": "APXG160ARA561MJ80G",
+            "jlcpcb": "C709499",
+            "stock": 208,
+            "reason_rejected": "Larger 10 mm diameter body, ESR 20 milliohm, ripple 3.8 A."
+          },
+          {
+            "mpn": "APXG160ARA561MHA0G",
+            "jlcpcb": "C2161782",
+            "stock": 118,
+            "reason_rejected": "Larger 8 mm diameter and 10.3 mm height, ESR 18 milliohm, ripple 3.9 A."
+          },
+          {
+            "mpn": "APXT6R3ARA561MF80G",
+            "jlcpcb": "C20232576",
+            "stock": 280,
+            "available_order_quantity": 279,
+            "reason_rejected": "Same F80 package family and endurance, but ESR 22 milliohm and ripple 2.85 A do not meet original 8 milliohm / 5 A."
+          },
+          {
+            "mpn": "APXJ6R3ARA561MF80G",
+            "jlcpcb": "C2157846",
+            "stock": 0,
+            "reason_rejected": "Original part is still zero stock despite inclusion in the category In Stock result set."
+          }
+        ]
+      },
+      "additional_live_candidates": [
+        {
+          "mpn": "6R3AVEA561M0608",
+          "jlcpcb": "C479649",
+          "stock": 0,
+          "reason_rejected": "Zero stock; listed lifetime 2000h at 105C."
+        },
+        {
+          "mpn": "6R3AV5K561M0608C",
+          "jlcpcb": "C2919886",
+          "stock": 0,
+          "reason_rejected": "Zero stock; previously researched lifetime 5000h at 105C."
+        },
+        {
+          "mpn": "HV0J567M0607PZ",
+          "jlcpcb": "C5246506",
+          "stock": 2095,
+          "available_order_quantity": 1940,
+          "reason_rejected": "Only 2000h endurance; no proof of 8 milliohm / 5 A ratings."
+        }
+      ],
+      "recommendation": "Keep original C135 pending sourcing. No reduced-performance substitute approved under the requested same-spec constraint.",
+      "limitations": "Not an exhaustive catalog export. Category records can omit or misclassify attributes; checked results and individual candidate pages support no verified match found, not proof that no match can exist."
+    }
+  ],
+  "implementation": {
+    "status": "applied",
+    "checked_on": "2026-10-16",
+    "geometry": "Existing footprint and CAD model definitions retained.",
+    "C135": "Unchanged",
+    "validation": {
+      "typecheck": "pass",
+      "regression_tests": {
+        "passed": 29,
+        "failed": 0,
+        "files": [
+          "slot-power",
+          "buck-inputs",
+          "usb4-lanes",
+          "power-reset-simulation"
+        ]
+      },
+      "netlist": "pass: 0 errors, 0 warnings",
+      "schematic_placement": "pass",
+      "pcb_placement": "pass: 0 errors, 0 warnings",
+      "build": "pass",
+      "rendered_bom": "13 placed components use the four replacement part numbers. C135 retains C2157846.",
+      "footprint_comparison": "All four footprint and CAD model definitions match their pre-change source exactly."
+    }
+  }
+}

@@ -1,0 +1,775 @@
+{
+  "checked_on_local": "2026-10-16",
+  "timezone": "America/Los_Angeles",
+  "observed_at_utc": "2026-10-17T04:29:29.737236+00:00",
+  "board_quantity": 2,
+  "source": "Live JLCPCB product pages read in browser",
+  "bom_source": "Current index.circuit.tsx rendered with schematic/PCB disabled; generic PCIe TX capacitor candidates taken from existing dist/index/circuit.json",
+  "excluded": [
+    "ASM2464PDX bridge chip",
+    "UART and SPI_PROG unpopulated access headers (doNotPlace)"
+  ],
+  "quantity_basis": "Nominal installed quantities. Assembly attrition and any order-specific requirements are not included.",
+  "summary": {
+    "shortage": 3,
+    "sufficient_available_order_quantity": 38,
+    "ordering_caveat": 2
+  },
+  "parts": [
+    {
+      "jlcpcb_part_number": "C2157846",
+      "manufacturer_part_number": "APXJ6R3ARA561MF80G",
+      "references": [
+        "C135"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 0,
+      "available_order_quantity": null,
+      "displayed_minimum": 38,
+      "status": "shortage",
+      "source_url": "https://jlcpcb.com/partdetail/C2157846",
+      "pcba_type": "Economic and Standard",
+      "note": "Zero stock. Pre-order only; minimum 38."
+    },
+    {
+      "jlcpcb_part_number": "C454276",
+      "manufacturer_part_number": "25SVPK470M",
+      "references": [
+        "C134"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 706,
+      "available_order_quantity": 699,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C454276",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C25900",
+      "manufacturer_part_number": "0402WGF4701TCE",
+      "references": [
+        "R_UART_TX",
+        "R_TEST_EN",
+        "R_PCIE_PRESENT_PU",
+        "R_VBUS_TOP"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 15573360,
+      "available_order_quantity": 13742032,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C25900",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C132157",
+      "manufacturer_part_number": "RC0402FR-0712K1L",
+      "references": [
+        "R_RST_N"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 18504,
+      "available_order_quantity": 11475,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C132157",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C179173",
+      "manufacturer_part_number": "W25Q32JVSSIQ",
+      "references": [
+        "W25Q32JVSSIQ"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 12415,
+      "available_order_quantity": 11229,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C179173",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C25744",
+      "manufacturer_part_number": "0402WGF1002TCE",
+      "references": [
+        "R_SPI_WP",
+        "R_SPI_HOLD",
+        "R_SPI_CS",
+        "R_PCIE_CLKREQ_PU",
+        "R_VBUS_BOTTOM",
+        "R_BUCK_EN_PU"
+      ],
+      "quantity_per_board": 6,
+      "quantity_for_two_boards": 12,
+      "stock": 20570332,
+      "available_order_quantity": 15459684,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C25744",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C1525",
+      "manufacturer_part_number": "CL05B104KO5NNNC",
+      "references": [
+        "C_SPI_VCC",
+        "C_VCCL_HF",
+        "C_VDD_HF",
+        "C_BUCK_EN",
+        "C_PSU_LED"
+      ],
+      "quantity_per_board": 5,
+      "quantity_for_two_boards": 10,
+      "stock": 24907707,
+      "available_order_quantity": 17205983,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C1525",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C124313",
+      "manufacturer_part_number": "XXCBCLNANF-25M",
+      "references": [
+        "XCLK"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 247,
+      "available_order_quantity": 122,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C124313",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C696913",
+      "manufacturer_part_number": "TCC0402COG100J500AT",
+      "references": [
+        "C1"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1315126,
+      "available_order_quantity": 1305911,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C696913",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C25741",
+      "manufacturer_part_number": "0402WGF1003TCE",
+      "references": [
+        "R_RST",
+        "R_SLOT_OFF_3V3",
+        "R_SLOT_OFF_12V",
+        "R_PSU_OK_PD"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 9361846,
+      "available_order_quantity": 7685518,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C25741",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C52923",
+      "manufacturer_part_number": "CL05A105KA5NQNC",
+      "references": [
+        "C_RST",
+        "C_VBUS_SENSE"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 9152062,
+      "available_order_quantity": 6972902,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C52923",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C720477",
+      "manufacturer_part_number": "TS-1088-AR02016",
+      "references": [
+        "SW_RESET"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 630334,
+      "available_order_quantity": 564691,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C720477",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C170151",
+      "manufacturer_part_number": "CL05A225KO5NQNC",
+      "references": [
+        "C_VCCH_3",
+        "C_VCCH_11",
+        "C_VCCH_16",
+        "C_VCCH_19",
+        "C_VCCL_2",
+        "C_VCCL_10",
+        "C_VCCL_17",
+        "C_VCCL_25",
+        "C_VCCL_29",
+        "C_VCCL_33",
+        "C_VCCL_37",
+        "C_VCCL_41",
+        "C_VCCL_43",
+        "C_VCCL_45",
+        "C_VCCL_46",
+        "C_VDD_1",
+        "C_VDD_9",
+        "C_VDD_15",
+        "C_VDD_22",
+        "C_VDD_24",
+        "C_VDD_28",
+        "C_VDD_32",
+        "C_VDD_36",
+        "C_VDD_40",
+        "C_VDD_42",
+        "C_VDD_44"
+      ],
+      "quantity_per_board": 26,
+      "quantity_for_two_boards": 52,
+      "stock": 791781,
+      "available_order_quantity": 711486,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C170151",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C15850",
+      "manufacturer_part_number": "CL21A106KAYNNNE",
+      "references": [
+        "C_VCCH_6",
+        "C_VCCH_14",
+        "C_VCCL_5",
+        "C_VCCL_13",
+        "C_VCCL_20",
+        "C_VDD_4",
+        "C_VDD_12",
+        "C_VDD_18"
+      ],
+      "quantity_per_board": 8,
+      "quantity_for_two_boards": 16,
+      "stock": 6571451,
+      "available_order_quantity": 5734890,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C15850",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C16772",
+      "manufacturer_part_number": "CL05B224KO5NNNC",
+      "references": [
+        "C_VCCH_23",
+        "C_VCCH_27",
+        "C_VCCH_31",
+        "C_VCCH_35",
+        "C_VCCA33_8",
+        "C_VDD_26",
+        "C_VDD_30",
+        "C_VDD_34",
+        "C_VDD_39",
+        "C_TX0_P",
+        "C_TX0_N",
+        "C_TX1_P",
+        "C_TX1_N",
+        "C_TX2_P",
+        "C_TX2_N",
+        "C_TX3_P",
+        "C_TX3_N"
+      ],
+      "quantity_per_board": 17,
+      "quantity_for_two_boards": 34,
+      "stock": 1494527,
+      "available_order_quantity": 1346239,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C16772",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C17168",
+      "manufacturer_part_number": "0402WGF0000TCE",
+      "references": [
+        "R_VCCA33_4",
+        "R_PCIE_PERST",
+        "R_PCIE_REFCLK_P",
+        "R_PCIE_REFCLK_N",
+        "R_PCIE_CLKREQ",
+        "R_PCIE_PRESENT",
+        "R_PSU_ON"
+      ],
+      "quantity_per_board": 7,
+      "quantity_for_two_boards": 14,
+      "stock": 8749804,
+      "available_order_quantity": 6686914,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C17168",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C602037",
+      "manufacturer_part_number": "CL21A226MAYNNNE",
+      "references": [
+        "C_VCCA33_7",
+        "C_VCCL_COUT",
+        "C_VDD_COUT"
+      ],
+      "quantity_per_board": 3,
+      "quantity_for_two_boards": 6,
+      "stock": 308870,
+      "available_order_quantity": 209440,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C602037",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C21263101",
+      "manufacturer_part_number": "X1618WVS-164-9TV30",
+      "references": [
+        "PCIe"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 13,
+      "available_order_quantity": 13,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C21263101",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C461052",
+      "manufacturer_part_number": "DMP2008UFG-7",
+      "references": [
+        "Q_SLOT_3V3"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 210,
+      "available_order_quantity": 188,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C461052",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C85047",
+      "manufacturer_part_number": "2N7002K-7",
+      "references": [
+        "Q_SLOT_DRV_3V3",
+        "Q_SLOT_DRV_12V"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 881382,
+      "available_order_quantity": 878866,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C85047",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C25123",
+      "manufacturer_part_number": "0402WGF5100TCE",
+      "references": [
+        "R_SLOT_GATE_3V3",
+        "R_SLOT_GATE_12V"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 1643481,
+      "available_order_quantity": 1319171,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C25123",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C14860",
+      "manufacturer_part_number": "CL31B106KAHNNNE",
+      "references": [
+        "C_SLOT_GATE_3V3",
+        "C_SLOT_GATE_12V",
+        "C_VCCL_CIN",
+        "C_VDD_CIN"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 958505,
+      "available_order_quantity": 928745,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C14860",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C52199",
+      "manufacturer_part_number": "1206W4F1001T5E",
+      "references": [
+        "R_SLOT_DISCHARGE_3V3",
+        "R_SLOT_DISCHARGE_12V"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 0,
+      "available_order_quantity": null,
+      "displayed_minimum": 3112,
+      "status": "shortage",
+      "source_url": "https://jlcpcb.com/partdetail/C52199",
+      "pcba_type": "Economic and Standard",
+      "note": "Zero stock. Page offers Consign Part / Request a Quote and states unavailable for purchase but can still be used in assembly. Minimum shown 3112."
+    },
+    {
+      "jlcpcb_part_number": "C16072",
+      "manufacturer_part_number": "AO4407A",
+      "references": [
+        "Q_SLOT_12V"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 14221,
+      "available_order_quantity": 13937,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C16072",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C11702",
+      "manufacturer_part_number": "0402WGF1001TCE",
+      "references": [
+        "R_HDDPC_PD",
+        "R_PSU_LED"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 13906451,
+      "available_order_quantity": 10825303,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C11702",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C1591",
+      "manufacturer_part_number": "CL10B104KB8NNNC",
+      "references": [
+        "C132",
+        "C133",
+        "C131"
+      ],
+      "quantity_per_board": 3,
+      "quantity_for_two_boards": 6,
+      "stock": 2085809,
+      "available_order_quantity": 1126920,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C1591",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C3019713",
+      "manufacturer_part_number": "GT-USB-7087B",
+      "references": [
+        "USBC"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1127,
+      "available_order_quantity": 1127,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C3019713",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C701263",
+      "manufacturer_part_number": "GRM033R61E224KE01D",
+      "references": [
+        "C_USB_TX1_P",
+        "C_USB_TX1_N",
+        "C_USB_TX2_P",
+        "C_USB_TX2_N"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 245204,
+      "available_order_quantity": 234498,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C701263",
+      "pcba_type": "Standard Only"
+    },
+    {
+      "jlcpcb_part_number": "C3709987",
+      "manufacturer_part_number": "ESD150B1W0201E6327XTSA1",
+      "references": [
+        "D_USB_TX1_P",
+        "D_USB_TX1_N",
+        "D_USB_TX2_P",
+        "D_USB_TX2_N",
+        "D_USB_RX1_P",
+        "D_USB_RX1_N",
+        "D_USB_RX2_P",
+        "D_USB_RX2_N"
+      ],
+      "quantity_per_board": 8,
+      "quantity_for_two_boards": 16,
+      "stock": 1235,
+      "available_order_quantity": 1212,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C3709987",
+      "pcba_type": "Standard Only"
+    },
+    {
+      "jlcpcb_part_number": "C142020",
+      "manufacturer_part_number": "RC0201FR-07220KL",
+      "references": [
+        "R_USB_TX1_P",
+        "R_USB_TX1_N",
+        "R_USB_TX2_P",
+        "R_USB_TX2_N",
+        "R_USB_RX1_P",
+        "R_USB_RX1_N",
+        "R_USB_RX2_P",
+        "R_USB_RX2_N"
+      ],
+      "quantity_per_board": 8,
+      "quantity_for_two_boards": 16,
+      "stock": 8372,
+      "available_order_quantity": null,
+      "displayed_minimum": 9023,
+      "status": "ordering_caveat",
+      "source_url": "https://jlcpcb.com/partdetail/C142020",
+      "pcba_type": "Standard Only",
+      "note": "8372 in stock covers 16 required numerically, but page only offers Pre-order with minimum 9023 and no Available Order Qty. Immediate procurement/assembly availability requires JLCPCB confirmation."
+    },
+    {
+      "jlcpcb_part_number": "C723889",
+      "manufacturer_part_number": "GRM033R61E334KE15D",
+      "references": [
+        "C_USB_RX1_P",
+        "C_USB_RX1_N",
+        "C_USB_RX2_P",
+        "C_USB_RX2_N"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 12439,
+      "available_order_quantity": 12265,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C723889",
+      "pcba_type": "Standard Only"
+    },
+    {
+      "jlcpcb_part_number": "C492347",
+      "manufacturer_part_number": "39301240",
+      "references": [
+        "ATX"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 2200,
+      "available_order_quantity": 2146,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C492347",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C2866502",
+      "manufacturer_part_number": "TPS62903RPJR",
+      "references": [
+        "VCCL_BUCK",
+        "VDD_BUCK"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 1968,
+      "available_order_quantity": 1959,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C2866502",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C206346",
+      "manufacturer_part_number": "SLW5040S2R2MST",
+      "references": [
+        "L_VCCL",
+        "L_VDD"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 261,
+      "available_order_quantity": 232,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C206346",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C728557",
+      "manufacturer_part_number": "RT0402BRD0726K1L",
+      "references": [
+        "R_VCCL_FBT"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 9128,
+      "available_order_quantity": 8961,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C728557",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C281773",
+      "manufacturer_part_number": "RT0402BRD0712K1L",
+      "references": [
+        "R_VCCL_FBB",
+        "R_VDD_FBB"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 18424,
+      "available_order_quantity": 15843,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C281773",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C185441",
+      "manufacturer_part_number": "RC0402FR-0721KL",
+      "references": [
+        "R_VCCL_MODE",
+        "R_VDD_MODE"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 17,
+      "available_order_quantity": null,
+      "displayed_minimum": 3923,
+      "status": "ordering_caveat",
+      "source_url": "https://jlcpcb.com/partdetail/C185441",
+      "pcba_type": "Economic and Standard",
+      "note": "17 in stock covers 4 required numerically, but page only offers Pre-order with minimum 3923 and no Available Order Qty. Immediate procurement/assembly availability requires JLCPCB confirmation."
+    },
+    {
+      "jlcpcb_part_number": "C852482",
+      "manufacturer_part_number": "RT0402BRD0710K7L",
+      "references": [
+        "R_VDD_FBT"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 12915,
+      "available_order_quantity": 12441,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C852482",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C2066907",
+      "manufacturer_part_number": "TPS389001DSET",
+      "references": [
+        "U_BUCK_EN"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1,
+      "available_order_quantity": null,
+      "displayed_minimum": 7,
+      "status": "shortage",
+      "source_url": "https://jlcpcb.com/partdetail/C2066907",
+      "pcba_type": "Economic and Standard",
+      "note": "Only 1 in stock against 2 required. Pre-order minimum 7."
+    },
+    {
+      "jlcpcb_part_number": "C852557",
+      "manufacturer_part_number": "RT0402BRD0716K2L",
+      "references": [
+        "R_BUCK_EN_TOP"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 2003,
+      "available_order_quantity": 1459,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C852557",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C190095",
+      "manufacturer_part_number": "RT0402BRD0710KL",
+      "references": [
+        "R_BUCK_EN_BOTTOM"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 648066,
+      "available_order_quantity": 233502,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C190095",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C55250",
+      "manufacturer_part_number": "SN74AHCT1G14DBVR",
+      "references": [
+        "U_PSU_LED"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 21202,
+      "available_order_quantity": 21085,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C55250",
+      "pcba_type": "Economic and Standard"
+    },
+    {
+      "jlcpcb_part_number": "C965808",
+      "manufacturer_part_number": "XL-1608UWC-04",
+      "references": [
+        "LED_PSU_OK"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 378343,
+      "available_order_quantity": 353588,
+      "displayed_minimum": 1,
+      "status": "sufficient_available_order_quantity",
+      "source_url": "https://jlcpcb.com/partdetail/C965808",
+      "pcba_type": "Economic and Standard"
+    }
+  ]
+}

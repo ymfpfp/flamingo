@@ -307,6 +307,13 @@ export default function Board() {
         ))}
       </schematicsheet>
       <schematicsheet name="bridge_decoupling" displayName="Bridge Decoupling" sheetIndex={2}>
+        {/* Align the rail sections explicitly, including the VCCA33 column. */}
+        <schematicline x1={-1.5} y1={-3.5} x2={24.85} y2={-3.5}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={-1.5} y1={-10} x2={24.85} y2={-10}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={17.6} y1={3.2} x2={17.6} y2={-3.5}
+          strokeWidth={0.02} color="#000000" isDashed/>
         <BridgeVcchDecoupling/>
         <BridgeVcca33Decoupling/>
         <BridgeVcclDecoupling/>
@@ -600,8 +607,6 @@ export default function Board() {
         />
         <trace name="PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1"/>
         <netlabel inline net="GND" connection="R_PSU_ON.pin2"/>
-        <schematictext text="0 ohm fitted: automatic power-on" schX={-6.5} schY={-2.2} fontSize={0.18} anchor="left"/>
-        <schematictext text="Remove R_PSU_ON to release PS_ON#" schX={-6.5} schY={-2.6} fontSize={0.18} anchor="left"/>
         <BuckInputs/>
         <BuckEnable/>
         <PsuControl/>

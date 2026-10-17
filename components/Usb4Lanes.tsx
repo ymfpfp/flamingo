@@ -1,5 +1,5 @@
 import {Fragment} from "react";
-import {RC0201FR_07220KL} from "imports/RC0201FR_07220KL";
+import {A_0201WMF2203TEE} from "imports/A_0201WMF2203TEE";
 import {GRM033R61E334KE15D} from "imports/GRM033R61E334KE15D";
 import {GRM033R61E224KE01D} from "imports/GRM033R61E224KE01D";
 import {ESD150B1W0201E6327XTSA1} from "imports/ESD150B1W0201E6327XTSA1";
@@ -53,7 +53,7 @@ export function Usb4Lanes() {
               connections={{pin1: bridgeNet, pin2: "net.GND"}}
             />
             {/* Connector-side discharge paths match R66-R73 in the ASMedia reference. */}
-            <RC0201FR_07220KL
+            <A_0201WMF2203TEE
               name={`R_USB_${signal.name}`}
               schSectionName="USB4_LANES"
               schX={5}

@@ -125,19 +125,19 @@
       ]
     },
     {
-      "manufacturer_part_number": "1206W4F1001T5E",
-      "manufacturer": "UNI-ROYAL",
-      "jlcpcb_part_number": "C52199",
-      "component_file": "imports/A_1206W4F1001T5E.tsx",
-      "export_name": "A_1206W4F1001T5E",
+      "manufacturer_part_number": "RC1206FR-071KL",
+      "manufacturer": "YAGEO",
+      "jlcpcb_part_number": "C131398",
+      "component_file": "imports/RC1206FR_071KL.tsx",
+      "export_name": "RC1206FR_071KL",
       "quantity": 2,
       "role": "Switched-output discharge resistors",
       "reference_designators": [
         "R179",
         "R199"
       ],
-      "datasheet": "datasheets/0402WGF1003TCE.pdf",
-      "selection_notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout.",
+      "datasheet": "datasheets/RC0402FR-0712K1L.pdf",
+      "selection_notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout. Stock replacement C131398 retains the original footprint and ratings.",
       "reuses_existing_import": false,
       "optional": false,
       "board_references": [

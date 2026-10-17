@@ -143,7 +143,7 @@ test("21 kohm MODE resistors select external feedback, 1 MHz forced PWM and no a
     const resistor = `R_${rail}_MODE`;
     assert.equal(component(buck).manufacturer_part_number, "TPS62903RPJR");
     assert.equal(component(resistor).resistance, 21000);
-    assert.equal(component(resistor).manufacturer_part_number, "RC0402FR-0721KL");
+    assert.equal(component(resistor).manufacturer_part_number, "0402 ±1% 21K");
     assert.equal(net(buck, "MODE"), net(resistor, "pin1"));
     assert.equal(net(resistor, "pin2"), ground);
     assert.notEqual(net(buck, "MODE"), ground, "MODE must see 21k, not a direct ground strap");
@@ -186,7 +186,7 @@ test("VCCH supervisor controls both buck enables through its open-drain output a
   const vcch = net("ATX", "pin1");
   const enable = net("U_BUCK_EN", "N_RESET");
   const sense = net("U_BUCK_EN", "SENSE");
-  assert.equal(component("U_BUCK_EN").manufacturer_part_number, "TPS389001DSET");
+  assert.equal(component("U_BUCK_EN").manufacturer_part_number, "TPS389001DSER");
   assert.equal(net("U_BUCK_EN", "VDD"), vcch);
   assert.equal(net("U_BUCK_EN", "N_MR"), vcch);
   assert.equal(net("U_BUCK_EN", "GND"), ground);

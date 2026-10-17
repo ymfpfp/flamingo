@@ -1,7 +1,7 @@
 import type { ResistorProps } from "@tscircuit/props"
 
 // 0402, +/-1%, +/-100 ppm/C, 1/16 W; MODE configuration resistor.
-export const RC0402FR_0721KL = (props: Omit<ResistorProps, "resistance">) => {
+export const VO_0402_1pct_21K = (props: Omit<ResistorProps, "resistance">) => {
   const { name = "R1", ...restProps } = props
 
   return (
@@ -12,10 +12,12 @@ export const RC0402FR_0721KL = (props: Omit<ResistorProps, "resistance">) => {
       pinAttributes={{pin1: {isPassive: true}, pin2: {isPassive: true}}}
       supplierPartNumbers={{
   "jlcpcb": [
-    "C185441"
+    "C2906409"
   ]
 }}
-      manufacturerPartNumber="RC0402FR-0721KL"
+      manufacturerPartNumber="0402 ±1% 21K"
+      datasheetUrl="https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8590201846947622912-C2906409.pdf"
+      // Retain the original lands and package model for this stock substitution.
       footprint={<footprint>
         <smtpad portHints={["pin2"]} pcbX="0.432816mm" pcbY="0mm" width="0.565658mm" height="0.540004mm" shape="rect" />
 <smtpad portHints={["pin1"]} pcbX="-0.432816mm" pcbY="0mm" width="0.565658mm" height="0.540004mm" shape="rect" />

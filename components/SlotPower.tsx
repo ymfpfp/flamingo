@@ -5,7 +5,7 @@ import {A_2N7002K_7} from "imports/A_2N7002K_7";
 import {A_0402WGF1001TCE} from "imports/A_0402WGF1001TCE";
 import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
 import {A_0402WGF5100TCE} from "imports/A_0402WGF5100TCE";
-import {A_1206W4F1001T5E} from "imports/A_1206W4F1001T5E";
+import {RC1206FR_071KL} from "imports/RC1206FR_071KL";
 import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
 
 const rails = [
@@ -96,7 +96,7 @@ export function SlotPower() {
             <A_0402WGF1003TCE name={off} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>
             {/* Reference nominal value; verify startup current and MOSFET SOA with the card load. */}
             <CL31B106KAHNNNE name={cap} schSectionName={section} schX={6} schY={y - 1.4} schOrientation="vertical"/>
-            <A_1206W4F1001T5E name={discharge} schSectionName={section} schX={9.8} schY={y - 1.4} schOrientation="vertical"/>
+            <RC1206FR_071KL name={discharge} schSectionName={section} schX={9.8} schY={y - 1.4} schOrientation="vertical"/>
             <trace from={`.${power} > .pin1`} to={`.${off} > .pin1`}/>
             <trace from={`.${power} > .pin1`} to={`.${cap} > .pin1`}/>
             <trace from={`.${power} > .pin4`} to={`.${off} > .pin2`}/>
@@ -123,8 +123,6 @@ export function SlotPower() {
       />
       <netlabel inline net="ASM_HDDPC" connection="R_HDDPC_PD.pin1"/>
       <netlabel inline net="GND" connection="R_HDDPC_PD.pin2"/>
-      <schematictext text="High: both slot supplies ON" schX={4} schY={-8.6} fontSize={0.18} anchor="left"/>
-      <schematictext text="Low: both slot supplies OFF" schX={4} schY={-9} fontSize={0.18} anchor="left"/>
     </subcircuit>
   );
 }

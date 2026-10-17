@@ -14,18 +14,19 @@ const pinAttributes = {
   pin4: {requiresPower: true}
 } as const
 
-export const TPS389001DSET = (props: ChipProps<typeof pinLabels>) => {
+export const TPS389001DSER = (props: ChipProps<typeof pinLabels>) => {
   return (
     <chip
       pinLabels={pinLabels}
       pinAttributes={pinAttributes}
       supplierPartNumbers={{
   "jlcpcb": [
-    "C2066907"
+    "C1509297"
   ]
 }}
-      manufacturerPartNumber="TPS389001DSET"
+      manufacturerPartNumber="TPS389001DSER"
       datasheetUrl="https://www.ti.com/lit/ds/symlink/tps3890.pdf"
+      // Retain the original lands and package model for this stock substitution.
       footprint={<footprint>
         <smtpad portHints={["pin1"]} pcbX="-0.581025mm" pcbY="0.499999mm" width="0.8400034mm" height="0.2800096mm" shape="rect" />
 <smtpad portHints={["pin2"]} pcbX="-0.636143mm" pcbY="0.000127mm" width="0.7500112mm" height="0.2800096mm" shape="rect" />

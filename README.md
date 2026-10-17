@@ -40,11 +40,26 @@ bun install --frozen-lockfile
 | `bun run typecheck` | Run the TypeScript check |
 | `bun run check:drc` | Build fresh PCB geometry and run the local JLCPCB checks |
 | `bun run check:drc:routed` | Add routing connectivity checks |
+| `bun run sim:setup` | Download and cache the pinned ngspice runtime once |
+| `bun run sim:power-reset` | Run power/reset SPICE scenarios and write reports |
+| `bun run sim:check` | Run the scenarios and fail when electrical findings remain |
 | `bun run snapshot` | Run the snapshot checks |
 | `bun run snapshot:update` | Update the snapshots |
 
 The tests cover bridge pins and footprints, ground connectivity, buck circuits, USB4, VBUS sensing, PCIe, and slot power.
 Passing tests do not establish complete PCB connectivity, signal integrity, or hardware operation.
+The SPICE tests require `bun run sim:setup` before their first run.
+
+### Power/reset simulation
+
+[simulations/power-reset/](simulations/power-reset/README.md) contains ten tscircuit/ngspice scenarios.
+They reuse the production reset RC and supervisor passive network, with an approximate supervisor model.
+Buck outputs are prescribed waveforms because TI's TPS62903 PSpice model is encrypted.
+The simulations do not yet check converter behavior, bridge firmware, clocks, or slot power.
+
+Initial results show that a missing or collapsed VDD rail does not hold the current RC reset low.
+Reports distinguish ASMedia timing limits from conservative project goals for reset behavior.
+The simulation guide records model limitations, commands, and the next checks.
 
 ### JLCPCB design rules
 
@@ -83,7 +98,7 @@ Before fabrication, run the Gerber shorts check and obtain the JLCPCB DFM review
 | PCIe slot | X1618WVS-164-9TV30, x16 SMT connector with lanes 0–3 connected |
 | ATX input | Molex 39301240, 24 pins |
 | Bridge buck supplies | Two TPS62903RPJR converters with SLW5040S2R2MST 2.2 µH inductors |
-| Buck enable supervisor | TPS389001DSET |
+| Buck enable supervisor | TPS389001DSER |
 | Slot power switches | DMP2008UFG-7 for 3.3 V and AO4407A for 12 V, with 2N7002K-7 drivers |
 | USB4 ESD clamps | Eight ESD150B1W0201E6327XTSA1 devices |
 | PSU status indicator | SN74AHCT1G14DBVR and XL-1608UWC-04 white LED |

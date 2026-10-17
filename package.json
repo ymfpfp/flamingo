@@ -14,6 +14,9 @@
     "build": "tsci build",
     "check:drc": "bun scripts/check-jlcpcb.mjs",
     "check:drc:routed": "bun scripts/check-jlcpcb.mjs --require-routed",
+    "sim:setup": "bun scripts/setup-spice.mjs",
+    "sim:power-reset": "bun scripts/simulate-power-reset.jsx",
+    "sim:check": "bun scripts/simulate-power-reset.jsx --check",
     "push": "tsci push",
     "snapshot": "tsci snapshot",
     "snapshot:update": "tsci snapshot --update",
@@ -22,7 +25,9 @@
   },
   "devDependencies": {
     "@tscircuit/checks": "0.0.247",
+    "@tscircuit/ngspice-spice-engine": "0.0.20",
     "@types/react": "^19.3.0",
+    "spicets": "0.0.4",
     "tscircuit": "^0.0.2823",
     "typescript": "^5.0.0"
   },
