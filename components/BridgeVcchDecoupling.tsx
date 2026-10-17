@@ -17,7 +17,7 @@ export function BridgeVcchDecoupling() {
   return (
     <group name="VCCH_DECOUPLING">
       <schematicsection name="VCCH_DECOUPLING"/>
-      <schematictext text="VCCH Decoupling" schX={-1.5} schY={2.6} fontSize={0.3} anchor="left"/>
+      <schematictext text="VCCH Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
       {capacitors.map(({ref, Capacitor}, index) => (
         <Capacitor
           key={ref}
@@ -39,7 +39,7 @@ export function BridgeVcchDecoupling() {
       />
       <schematictext
         text="ASMedia sheet 3: 4 x 2.2uF + 2 x 10uF + 4 x 220nF = 29.68uF."
-        schX={-1.5} schY={2} fontSize={0.2} anchor="left"
+        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
       />
       <schematictext
         text="C_VCCH suffixes match reference capacitor numbers. Parts selected; PCB placement pending."

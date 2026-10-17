@@ -313,21 +313,28 @@ export default function Board() {
         <BridgeVddDecoupling/>
       </schematicsheet>
       <schematicsheet name="pcie" displayName="PCIe x4" sheetIndex={5} sheetSize="ANSI_B">
-        <schematicsection name="PCIE_LINK"/>
-        <schematictext text="1. PCIe x4 connection" schX={-11.6} schY={7.4} fontSize={0.3} anchor="left"/>
+        {/* Keep these dividers fixed when the component columns change width. */}
+        <schematicline x1={-12.3} y1={1.6} x2={1.5} y2={1.6}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={-6.2} y1={1.6} x2={-6.2} y2={-9.2}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={-12.3} y1={-9.2} x2={1.5} y2={-9.2}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={1.5} y1={8.1} x2={1.5} y2={-13.8}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematictext text="0 Ω control links" schX={-11.8} schY={1.4}
+          fontSize={0.18} anchor="top_left"/>
+        <schematictext text="AC-coupling capacitors" schX={-5.8} schY={1.4}
+          fontSize={0.18} anchor="top_left"/>
+        <schematictext text="PCIe x4 connection" schX={-11.6} schY={8.4} fontSize={0.18} anchor="left"/>
         <X1618WVS_164_9TV30
           name="PCIe"
           schSectionName="PCIE_LINK"
           schX={-4.98}
-          schY={3.6}
+          schY={4.6}
           schWidth={3.1}
-          schHeight={4.8}
+          schHeight={3.645}
           // Hide unused contacts in this schematic view; physical pads and NCs remain.
-          schPinStyle={{
-            V12V: {marginLeft: 0.4, marginRight: 0.4},
-            V3V3: {marginLeft: 0.4, marginRight: 0.4},
-            V3V3_AUX: {marginLeft: 0.4, marginRight: 0.4},
-          }}
           schPinArrangement={{
             leftSide: {direction: "top-to-bottom", pins: ["PERST_N", "REFCLK_P", "REFCLK_N", "CLKREQ_N", "WAKE_N", "RX0_P", "RX0_N", "RX1_P", "RX1_N", "RX2_P", "RX2_N", "RX3_P", "RX3_N"]},
             rightSide: {direction: "top-to-bottom", pins: ["TX0_P", "TX0_N", "TX1_P", "TX1_N", "TX2_P", "TX2_N", "TX3_P", "TX3_N", "PRSNT1_N", "PRSNT2_X1_N", "PRSNT2_X4_N", "PRSNT2_X8_N", "PRSNT2_X16_N"]},
@@ -358,8 +365,6 @@ export default function Board() {
         />
         <netlabel inline net="SLOT_12V" connection="PCIe.V12V"/>
         <netlabel inline net="SLOT_3V3" connection="PCIe.V3V3"/>
-        <schematictext text="Control links" schX={-11.8} schY={1} fontSize={0.24} anchor="left"/>
-        <schematictext text="Transmit coupling" schX={-5.5} schY={1} fontSize={0.24} anchor="left"/>
         {[
           {pin: "PERST_N", resistor: "R_PCIE_PERST"},
           {pin: "REFCLK_P", resistor: "R_PCIE_REFCLK_P"},
@@ -367,14 +372,14 @@ export default function Board() {
           {pin: "CLKREQ_N", resistor: "R_PCIE_CLKREQ"},
         ].map(({pin, resistor}) => (
           <Fragment key={`compact-${pin}`}>
-            <netlabel inline net={`PCIe_${pin}`} connection={`PCIe.${pin}`}/>
-            <netlabel inline net={`PCIe_${pin}`} connection={`${resistor}.pin2`}/>
+            <netlabel inline net={`PCIE_${pin}`} connection={`PCIe.${pin}`}/>
+            <netlabel inline net={`PCIE_${pin}`} connection={`${resistor}.pin2`}/>
           </Fragment>
         ))}
-        <netlabel inline net="PCIe_CLKREQ_N" connection="R_PCIE_CLKREQ_PU.pin2"/>
+        <netlabel inline net="PCIE_CLKREQ_N" connection="R_PCIE_CLKREQ_PU.pin2"/>
         {/* ASMedia reference sheet 6, R173: removable series link to slot A11. */}
         <A_0402WGF0000TCE
-          schSectionName="PCIE_LINK"
+          schSectionName="PCIE_CONTROL"
           name="R_PCIE_PERST"
           schX={-9.2}
           schY={0.2}
@@ -391,7 +396,7 @@ export default function Board() {
         {(["P", "N"] as const).map((polarity, index) => (
           <Fragment key={`PCIE_REFCLK_${polarity}`}>
             <A_0402WGF0000TCE
-              schSectionName="PCIE_LINK"
+              schSectionName="PCIE_CONTROL"
               name={`R_PCIE_REFCLK_${polarity}`}
               schX={-9.2}
               schY={-0.6 - index * 0.8}
@@ -408,13 +413,13 @@ export default function Board() {
         ))}
         {/* ASMedia reference sheet 6: R207 series link and R205 10k pull-up. */}
         <A_0402WGF0000TCE
-          schSectionName="PCIE_LINK"
+          schSectionName="PCIE_CONTROL"
           name="R_PCIE_CLKREQ"
           schX={-9.2}
           schY={-2.2}
           connections={{
             pin1: "net.ASM_CLKREQ_N",
-            pin2: ".PCIe > .CLKREQ_N",
+            pin2: "net.PCIE_CLKREQ_N",
           }}
         />
         <netlabel inline
@@ -422,14 +427,14 @@ export default function Board() {
           connection="R_PCIE_CLKREQ.pin1"
         />
         <A_0402WGF1002TCE
-          schSectionName="PCIE_LINK"
+          schSectionName="PCIE_CONTROL"
           name="R_PCIE_CLKREQ_PU"
           schX={-9.2}
           schY={-4.1}
           schOrientation="vertical"
           connections={{
             pin1: "net.VCCH",
-            pin2: ".PCIe > .CLKREQ_N",
+            pin2: "net.PCIE_CLKREQ_N",
           }}
         />
         <netlabel inline
@@ -451,18 +456,17 @@ export default function Board() {
         {/* Series coupling belongs at each transmitter; the card supplies its own TX capacitors. */}
         {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map((polarity, index) => (
           <Fragment key={`PCIE_TX${lane}_${polarity}`}>
-            <netlabel inline net={`PCIe_TX${lane}_${polarity}`} connection={`PCIe.TX${lane}_${polarity}`}/>
-            <netlabel inline net={`PCIe_TX${lane}_${polarity}`} connection={`C_TX${lane}_${polarity}.pin2`}/>
+            <netlabel inline net={`PCIE_TX${lane}_${polarity}`} connection={`PCIe.TX${lane}_${polarity}`}/>
+            <netlabel inline net={`PCIE_TX${lane}_${polarity}`} connection={`C_TX${lane}_${polarity}.pin2`}/>
             <capacitor
-              schSectionName="PCIE_LINK"
+              schSectionName="PCIE_AC_COUPLING"
               name={`C_TX${lane}_${polarity}`}
               capacitance="220nF"
               maxVoltageRating="10V"
               footprint="0402"
               schOrientation="neg_left"
-              // Stagger the P/N columns to leave room for inline labels and values.
-              schX={polarity === "P" ? -3.8 : -2.2}
-              schY={-0.4 - lane * 1.4 - index * 0.7}
+              schX={-3}
+              schY={0.2 - lane * 2.2 - index * 1.1}
               pcbRotation={lane < 2 ? 0 : 90}
               connections={{
                 pin2: `.PCIe > .TX${lane}_${polarity}`,
@@ -475,27 +479,20 @@ export default function Board() {
           </Fragment>
         )))}
         <schematictext
-          text="Only lanes 0–3 are used. Lanes 4–15 are unconnected."
-          schX={-5.5}
-          schY={-6.4}
-          fontSize={0.18}
-          anchor="left"
-        />
-        <schematictext
           text="TX capacitors: 220nF / 10V, per ASMedia reference sheet 6."
           schX={-5.5}
-          schY={-6.75}
+          schY={-8.5}
           fontSize={0.18}
           anchor="left"
         />
-        <schematicsection name="PCIE_PRESENCE" displayName="Card Presence"/>
+        <schematictext text="Card Presence" schX={-11.8} schY={-9.4}
+          fontSize={0.18} anchor="top_left"/>
         <netlabel inline net="GND" connection="PCIe.PRSNT1_N"/>
         {(["X1", "X4", "X8", "X16"] as const).map(size => (
           <Fragment key={`PCIE_PRESENT_${size}`}>
             <netlabel inline net="PCIE_PRESENT_N" connection={`PCIe.PRSNT2_${size}_N`}/>
           </Fragment>
         ))}
-        <schematictext text="PCIe card presence (A1 / B17, B31, B48, B81)" schX={-10} schY={-8.3} fontSize={0.22} anchor="left"/>
         {/* ASMedia sheet 6 uses 4.7k pull-ups (R183/R196) and removable sense links. */}
         <resistor
           name="R_PCIE_PRESENT_PU"
@@ -506,8 +503,8 @@ export default function Board() {
           footprint="0402"
           manufacturerPartNumber="0402WGF4701TCE"
           supplierPartNumbers={{jlcpcb: ["C25900"]}}
-          schX={-3}
-          schY={-9.1}
+          schX={-8.5}
+          schY={-10.8}
           schOrientation="vertical"
           connections={{pin1: "net.VCCH", pin2: "net.PCIE_PRESENT_N"}}
         />
@@ -516,15 +513,14 @@ export default function Board() {
         <A_0402WGF0000TCE
           name="R_PCIE_PRESENT"
           schSectionName="PCIE_PRESENCE"
-          schX={-1}
-          schY={-10.1}
+          schX={-3.5}
+          schY={-12.3}
           connections={{pin1: "net.ASM_PRESENT_N", pin2: "net.PCIE_PRESENT_N"}}
         />
         <netlabel inline net="ASM_PRESENT_N" connection="R_PCIE_PRESENT.pin1"/>
         <netlabel inline net="PCIE_PRESENT_N" connection="R_PCIE_PRESENT.pin2"/>
-        <schematictext text="Empty = high; inserted card grounds the sense net. Pull-up uses unswitched VCCH." schX={-10} schY={-12.6} fontSize={0.18} anchor="left"/>
-        {/* Frame the switch block and include its local subcircuit in the page bounds. */}
-        <schematicrect schX={8.7} schY={-2.7} width={14.4} height={18.2} strokeWidth={0.02} color="#bbbbbb"/>
+        {/* Include the switch block's local subcircuit in the page bounds without a visible frame. */}
+        <schematicrect schX={8.7} schY={-2.7} width={14.4} height={18.2} strokeWidth={0} color="transparent"/>
         <SlotPower/>
         <SlotDecoupling/>
       </schematicsheet>
@@ -604,8 +600,8 @@ export default function Board() {
         />
         <trace name="PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1"/>
         <netlabel inline net="GND" connection="R_PSU_ON.pin2"/>
-        <schematictext text="0 ohm fitted: automatic power-on" schX={-6.5} schY={-2.2} fontSize={0.2} anchor="left"/>
-        <schematictext text="Remove R_PSU_ON to release PS_ON#" schX={-6.5} schY={-2.6} fontSize={0.2} anchor="left"/>
+        <schematictext text="0 ohm fitted: automatic power-on" schX={-6.5} schY={-2.2} fontSize={0.18} anchor="left"/>
+        <schematictext text="Remove R_PSU_ON to release PS_ON#" schX={-6.5} schY={-2.6} fontSize={0.18} anchor="left"/>
         <BuckInputs/>
         <BuckEnable/>
         <PsuControl/>

@@ -3,6 +3,7 @@ import {test} from "node:test";
 import {Circuit} from "tscircuit";
 import {Children} from "react";
 import {APXJ6R3ARA561MF80GFootprint} from "../imports/APXJ6R3ARA561MF80G";
+import {A_25SVPK470M} from "../imports/A_25SVPK470M";
 import Board from "../index.circuit";
 import bridgePinMap from "./fixtures/asm2464pdx-pin-map.json";
 
@@ -67,7 +68,7 @@ test("all bridge ground balls connect to every ATX COM pin", () => {
 test("slot bulk and ceramic capacitors bypass only the switched rails to PSU ground", () => {
   const banks = [
     {rail: "12V", contact: "A2", input: "pin10", capacitance: 470e-6, voltage: 25,
-      mpn: "PCR1E471MCL1GS", bulk: "C134", ceramics: ["C132", "C133"]},
+      mpn: "25SVPK470M", bulk: "C134", ceramics: ["C132", "C133"]},
     {rail: "3V3", contact: "A9", input: "pin1", capacitance: 560e-6, voltage: 6.3,
       mpn: "APXJ6R3ARA561MF80G", bulk: "C135", ceramics: ["C131"]},
   ];
@@ -88,6 +89,27 @@ test("slot bulk and ceramic capacitors bypass only the switched rails to PSU gro
     }
   }
   assert.equal(components.filter(c => ["C134", "C135", "C131", "C132", "C133"].includes(c.name)).length, 5);
+});
+
+test("C134 uses Panasonic F12 lands with positive pin 1 on the slot rail", () => {
+  const capacitor = A_25SVPK470M({name: "C134"}).props;
+  assert.deepEqual(capacitor.supplierPartNumbers.jlcpcb, ["C454276"]);
+  assert.equal(capacitor.polarized, true);
+  const pads = Children.toArray(capacitor.footprint.props.children)
+    .filter(element => element.type === "smtpad").map(element => element.props);
+  assert.equal(pads.length, 2);
+  const positive = pads.find(pad => pad.portHints.includes("pin1"));
+  const negative = pads.find(pad => pad.portHints.includes("pin2"));
+  assert.equal(positive.pcbX, "-4.35mm");
+  assert.equal(negative.pcbX, "4.35mm");
+  for (const pad of pads) {
+    assert.equal(pad.width, "4.4mm");
+    assert.equal(pad.height, "1.9mm");
+    assert.equal(pad.pcbY, "0mm");
+  }
+  const centerDistance = parseFloat(negative.pcbX) - parseFloat(positive.pcbX);
+  assert.ok(Math.abs(centerDistance - parseFloat(positive.width) - 4.3) < 1e-12);
+  assert.ok(Math.abs(centerDistance + parseFloat(positive.width) - 13.1) < 1e-12);
 });
 
 test("Chemi-Con F80 footprint follows the manufacturer's land dimensions and polarity", () => {
@@ -124,7 +146,6 @@ test("both slot supplies pass through correctly oriented P-channel FETs with no 
 });
 
 test("HDDPC controls both grounded-source drivers without touching either power rail", () => {
-  assert.equal(component("R_SLOT_ENABLE").resistance, 0);
   const enable = net("ASM2464PDX", "C21");
   for (const {suffix, atx, contacts} of rails) {
     const driver = `Q_SLOT_DRV_${suffix}`;
@@ -135,9 +156,9 @@ test("HDDPC controls both grounded-source drivers without touching either power 
     assert.notEqual(enable, net("PCIe", contacts[0]));
   }
   assert.notEqual(enable, ground);
-  assert.equal(component("R_SLOT_ENABLE_PD").resistance, 1000);
-  assert.equal(net("R_SLOT_ENABLE_PD", "pin1"), enable);
-  assert.equal(net("R_SLOT_ENABLE_PD", "pin2"), ground);
+  assert.equal(component("R_HDDPC_PD").resistance, 1000);
+  assert.equal(net("R_HDDPC_PD", "pin1"), enable);
+  assert.equal(net("R_HDDPC_PD", "pin2"), ground);
 });
 
 test("each gate has a source-referenced RC network and its own driver series resistor", () => {

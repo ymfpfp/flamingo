@@ -1,0 +1,46 @@
+{
+  "component": "C135",
+  "manufacturer_part_number": "APXJ6R3ARA561MF80G",
+  "model": "KiCad CP_Elec_6.3x7.7",
+  "scope": "Generic package model for visualization. It is not manufacturer-supplied part-specific CAD. Printed part markings are generic.",
+  "upstream": "https://github.com/KiCad/kicad-packages3D/tree/master/Capacitor_SMD.3dshapes",
+  "copyright": "2018 kicad StepUp",
+  "license": "CC-BY-SA-4.0 with KiCad electronic-design exception; see KiCad-LICENSE.md and original model headers.",
+  "downloaded_on": "2026-10-16",
+  "manufacturer_cad_download": "Chemi-Con part-specific download returned a maintenance page.",
+  "manufacturer_dimensions_mm": {
+    "can_diameter": 6.3,
+    "nominal_height": 7.7,
+    "base_width": 6.6
+  },
+  "native_measured_bounds_mm": {
+    "min": [
+      -3.8989,
+      -3.29946,
+      0
+    ],
+    "max": [
+      3.8989,
+      3.29946,
+      7.69874
+    ]
+  },
+  "conversion": "bun scripts/convert-c135-model.mjs. Scale original KiCad VRML by 2.54 to millimeters, rotate -90 degrees about X for glTF Y-up, and bake node transforms into mesh vertices. Convert materials to glTF PBR. Geometry and polarity are preserved. Encode front and back triangle windings because the circuit renderer drops the glTF doubleSided flag.",
+  "polarity": "Native +X is negative (dark top stripe and square base edge). Native -X is positive (chamfered base edge), matching pin1 on the left.",
+  "board_normal": "y+ in GLB; z+ in the original STEP",
+  "files": {
+    "C135-CP_Elec_6.3x7.7.wrl": {
+      "sha256": "517ae434f7cff09879eb518100af96f4a8bcd70a6a8c63d6299c6b90de3d04c4"
+    },
+    "C135-CP_Elec_6.3x7.7.step": {
+      "sha256": "c2a2efc3a0562b25c21f2b732dd2d6f0c3ff67148e12d40edff0e8fbdf71989b"
+    },
+    "C135-CP_Elec_6.3x7.7.glb": {
+      "sha256": "80dc1f863ead7eadd2c0510ab5a677d94babb055ab6fd1e2ade995071dd7fe01"
+    }
+  },
+  "validation": [
+    "Measured GLB bounds through circuit-json-to-gltf loader.",
+    "Reviewed standalone and mounted 3D previews."
+  ]
+}

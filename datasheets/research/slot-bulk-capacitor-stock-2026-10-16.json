@@ -1,0 +1,103 @@
+{
+  "checked_on": "2026-10-16",
+  "designator": "C135",
+  "status": "Original part retained. No stocked alternative found in the reviewed JLCPCB candidates that preserves original ESR, ripple rating and endurance.",
+  "jlcpcb_source": "Live product pages",
+  "catalog_search_limitation": "JLCPCB general search redirected to sign-in. CLI keyword search returned unrelated components; it was not treated as proof of absence. These are candidate checks, not an exhaustive catalog export.",
+  "jlcpcb_candidates": [
+    {
+      "mpn": "APXJ6R3ARA561MF80G",
+      "jlcpcb": "C2157846",
+      "stock": 0,
+      "preorder_minimum": 38,
+      "selected": true,
+      "esr_milliohm": 8,
+      "ripple_A": 5,
+      "endurance_hours_at_105C": 15000,
+      "source_url": "https://jlcpcb.com/partdetail/C2157846"
+    },
+    {
+      "mpn": "APXT6R3ARA561MF80G",
+      "jlcpcb": "C20232576",
+      "stock": 280,
+      "available_order_quantity": 279,
+      "minimum": 1,
+      "esr_milliohm": 22,
+      "ripple_A": 2.85,
+      "endurance_hours_at_105C": 15000,
+      "assessment": "Stocked. ESR and ripple ratings are lower than the original selection. Electrical qualification required before replacement.",
+      "source_url": "https://jlcpcb.com/partdetail/C20232576"
+    },
+    {
+      "mpn": "APXF6R3ARA561MH80G",
+      "jlcpcb": "C2161751",
+      "stock": 0,
+      "esr_milliohm": 9,
+      "ripple_A": 4.5,
+      "assessment": "Unavailable; larger 8mm body.",
+      "source_url": "https://jlcpcb.com/partdetail/C2161751"
+    },
+    {
+      "mpn": "APXJ6R3ARA561MFA0G",
+      "jlcpcb": "C2157866",
+      "stock": 0,
+      "esr_milliohm": 10,
+      "assessment": "Unavailable; taller 10mm body.",
+      "source_url": "https://jlcpcb.com/partdetail/C2157866"
+    },
+    {
+      "mpn": "6R3AVEA561M0608",
+      "jlcpcb": "C479649",
+      "stock": 0,
+      "preorder_minimum": 59,
+      "assessment": "Unavailable. Catalog specifies 5A ripple; exact ESR must be checked against manufacturer datasheet before use.",
+      "source_url": "https://jlcpcb.com/partdetail/C479649"
+    },
+    {
+      "mpn": "6R3AV5K561M0608C",
+      "jlcpcb": "C2919886",
+      "stock": 0,
+      "preorder_minimum": 63,
+      "esr_milliohm": 8,
+      "ripple_A": 5,
+      "endurance_hours_at_105C": 5000,
+      "assessment": "Unavailable. Matches nominal voltage/capacitance, ESR and ripple; shorter endurance than original.",
+      "source_url": "https://jlcpcb.com/partdetail/C2919886"
+    },
+    {
+      "mpn": "A765KN567M0JLAE012",
+      "jlcpcb": "C1882691",
+      "stock": 0,
+      "preorder_minimum": 26,
+      "esr_milliohm": 12,
+      "ripple_A": 5,
+      "assessment": "Unavailable; larger 8x10mm body and higher ESR.",
+      "source_url": "https://jlcpcb.com/partdetail/C1882691"
+    }
+  ],
+  "exact_part_external_sources": [
+    {
+      "distributor": "DigiKey",
+      "mpn": "APXJ6R3ARA561MF80G",
+      "cut_tape_part_number": "565-APXJ6R3ARA561MF80GCT-ND",
+      "stock": 844,
+      "minimum_order_quantity": 1,
+      "price_USD_at_1": 1.04,
+      "price_USD_at_10": 0.661,
+      "source_url": "https://www.digikey.com/en/products/detail/chemi-con/APXJ6R3ARA561MF80G/10486574",
+      "source": "Distributor product page retrieved with web tool; not a reserved-stock quote",
+      "verification_limit": "DigiKey browser access encountered Cloudflare verification. Stock and prices are from the web retrieval, which can be cached; confirm at checkout."
+    },
+    {
+      "distributor": "Mouser",
+      "mpn": "APXJ6R3ARA561MF80G",
+      "part_number": "661-XJ6R3ARA561MF80G",
+      "minimum_order_quantity": 1,
+      "source_url": "https://www.mouser.com/ProductDetail/Chemi-Con/APXJ6R3ARA561MF80G?qs=eP2BKZSCXI64pAfBVOxnZQ%3D%3D",
+      "source": "Regional distributor pages show stock; quantity and regional price vary and were not used for the recommendation"
+    }
+  ],
+  "recommendation": "Retain the exact Chemi-Con part. For a small prototype, buy cut tape and fit locally, or request a JLCPCB Global Sourcing quote. JLC price, minimum quantity including attrition, and delivery remain unverified.",
+  "global_sourcing_help": "https://jlcpcb.com/help/article/how-to-use-jlcpcb-global-sourcing-parts-service",
+  "purchases_made": false
+}

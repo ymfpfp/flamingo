@@ -1,4 +1,5 @@
 import type {CapacitorProps} from "@tscircuit/props";
+import capacitorBody from "../models/C135-CP_Elec_6.3x7.7.glb";
 
 /** Chemi-Con F80 lands: a=1.9 mm gap, b=3.5 mm length, c=1.6 mm width.
  * Source: datasheets/Chemi-Con-NPCAP-SMD-lands.pdf, page 1.
@@ -31,6 +32,9 @@ export function APXJ6R3ARA561MF80GFootprint() {
   );
 }
 
+/** Generic KiCad package body, with the negative stripe toward pin 2.
+ * Attribution and measured bounds: models/C135-model.provenance.json.
+ */
 export function APXJ6R3ARA561MF80G(props: Omit<CapacitorProps, "capacitance">) {
   return (
     <capacitor
@@ -40,6 +44,15 @@ export function APXJ6R3ARA561MF80G(props: Omit<CapacitorProps, "capacitance">) {
       manufacturerPartNumber="APXJ6R3ARA561MF80G"
       supplierPartNumbers={{jlcpcb: ["C2157846"]}}
       footprint={<APXJ6R3ARA561MF80GFootprint/>}
+      cadModel={{
+        glbUrl: capacitorBody,
+        modelBoardNormalDirection: "y+",
+        modelOriginPosition: {x: 0, y: 0, z: 0},
+        modelBounds: {
+          min: {x: -3.8989, y: 0, z: -3.29946},
+          max: {x: 3.8989, y: 7.69874, z: 3.29946},
+        },
+      }}
       {...props}
     />
   );

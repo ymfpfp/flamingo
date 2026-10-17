@@ -130,12 +130,14 @@ The switches include gate RC networks and output discharge resistors, but no cur
 
 | Slot rail | Bulk capacitor | Ceramic capacitors |
 | --- | --- | --- |
-| `SLOT_12V` | Nichicon PCR1E471MCL1GS, 470 µF, 25 V, ±20%, polymer | Two Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
+| `SLOT_12V` | Panasonic 25SVPK470M, 470 µF, 25 V, ±20%, polymer | Two Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
 | `SLOT_3V3` | Chemi-Con APXJ6R3ARA561MF80G, 560 µF, 6.3 V, ±20%, polymer | One Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
 
 The nominal capacitances and quantities match ASMedia reference sheet 6.
 Bulk positive terminals connect to the slot rails, and negative terminals connect to `GND`.
-The Nichicon part uses its exact supplier footprint. The Chemi-Con part uses the manufacturer F80 land dimensions.
+The Panasonic part uses the manufacturer F12 land dimensions. The Chemi-Con part uses the manufacturer F80 land dimensions.
+The Panasonic ripple limit is 5 A at or below 105 °C and 1.59 A above 105 °C, at 100 kHz.
+Its endurance rating is 1000 hours at 125 °C. Slot thermal and transient qualification remain incomplete.
 Final placement belongs beside the slot power contacts, with short rail connections and nearby ground vias.
 The local banks alone draw approximately 0.564 A at 12 V and 0.185 A at 3.3 V during a linear 10 ms ramp.
 This example excludes card capacitance and load current. The actual rise time, MOSFET safe operating area, and discharge timing still need checks.

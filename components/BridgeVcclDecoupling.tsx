@@ -17,7 +17,7 @@ export function BridgeVcclDecoupling() {
   return (
     <group name="VCCL_DECOUPLING" schY={-7}>
       <schematicsection name="VCCL_DECOUPLING"/>
-      <schematictext text="VCCL Decoupling" schX={-1.5} schY={2.6} fontSize={0.3} anchor="left"/>
+      <schematictext text="VCCL Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
       {capacitors.map(({ref, Capacitor}, index) => (
         <Capacitor
           key={ref}
@@ -39,7 +39,7 @@ export function BridgeVcclDecoupling() {
       />
       <schematictext
         text="ASMedia sheet 3, VCC18: 11 x 2.2uF + 3 x 10uF = 54.2uF. Selected ratings: 16V / 25V."
-        schX={-1.5} schY={2} fontSize={0.2} anchor="left"
+        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
       />
       <schematictext
         text="Keep C_VCCL_COUT (22uF) at the buck: combined nominal total = 76.2uF."

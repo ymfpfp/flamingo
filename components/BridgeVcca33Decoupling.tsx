@@ -9,10 +9,10 @@ export function BridgeVcca33Decoupling() {
   return (
     <group name="VCCA33_DECOUPLING" schX={18.5}>
       <schematicsection name="VCCA33_DECOUPLING"/>
-      <schematictext text="VCCA33 Decoupling" schX={-1.5} schY={2.6} fontSize={0.3} anchor="left"/>
+      <schematictext text="VCCA33 Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
       <schematictext
         text="ASMedia sheet 3: R4, C7, C8."
-        schX={-1.5} schY={2} fontSize={0.2} anchor="left"
+        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
       />
       <A_0402WGF0000TCE
         name="R_VCCA33_4"

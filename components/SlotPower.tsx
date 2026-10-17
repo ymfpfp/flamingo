@@ -2,7 +2,6 @@ import {Fragment} from "react";
 import {AO4407A} from "imports/AO4407A";
 import {DMP2008UFG_7} from "imports/DMP2008UFG_7";
 import {A_2N7002K_7} from "imports/A_2N7002K_7";
-import {A_0402WGF0000TCE} from "imports/A_0402WGF0000TCE";
 import {A_0402WGF1001TCE} from "imports/A_0402WGF1001TCE";
 import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
 import {A_0402WGF5100TCE} from "imports/A_0402WGF5100TCE";
@@ -11,7 +10,7 @@ import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
 
 const rails = [
   {suffix: "3V3", input: "VCCH", output: "SLOT_3V3", y: 4},
-  {suffix: "12V", input: "V12V", output: "SLOT_12V", y: -4},
+  {suffix: "12V", input: "V12V", output: "SLOT_12V", y: -3},
 ] as const;
 
 // Source and drain each have several internally connected package terminals.
@@ -59,25 +58,13 @@ export function SlotPower() {
       {["VCCH", "V12V", "SLOT_3V3", "SLOT_12V", "ASM_HDDPC", "GND"].map(name => (
         <Fragment key={name}><net name={name}/></Fragment>
       ))}
-      <net name="SLOT_POWER_ENABLE"/>
-      <schematicsection name="SLOT_POWER" displayName="2. Slot power switches"/>
-      <A_0402WGF0000TCE
-        name="R_SLOT_ENABLE"
-        schSectionName="SLOT_POWER"
-        schX={-1} schY={-3.9}
-        connections={{pin1: "net.ASM_HDDPC", pin2: "net.SLOT_POWER_ENABLE"}}
-      />
-      <A_0402WGF1001TCE
-        name="R_SLOT_ENABLE_PD"
-        schSectionName="SLOT_POWER"
-        schX={-0.2} schY={-5.5}
-        schOrientation="vertical"
-      />
-      <trace from=".R_SLOT_ENABLE > .pin2" to=".R_SLOT_ENABLE_PD > .pin1"/>
-      <netlabel inline net="GND" connection="R_SLOT_ENABLE_PD.pin2"/>
-      <netlabel inline net="ASM_HDDPC" connection="R_SLOT_ENABLE.pin1"/>
-      <schematictext text="HDDPC high: both rails ON" schX={1} schY={-2.9} fontSize={0.23} anchor="left"/>
-      <schematictext text="HDDPC low: both rails OFF" schX={1} schY={-3.3} fontSize={0.23} anchor="left"/>
+      {/* Match the sheet's fixed dividers so each function has its own area. */}
+      {[-0.2, -7.2].map(y => (
+        <Fragment key={y}>
+          <schematicline x1={-1.7} y1={y} x2={12.75} y2={y}
+            strokeWidth={0.02} color="#000000" isDashed/>
+        </Fragment>
+      ))}
       {rails.map(({suffix, input, output, y}) => {
         const power = `Q_SLOT_${suffix}`;
         const driver = `Q_SLOT_DRV_${suffix}`;
@@ -85,7 +72,7 @@ export function SlotPower() {
         const off = `R_SLOT_OFF_${suffix}`;
         const cap = `C_SLOT_GATE_${suffix}`;
         const discharge = `R_SLOT_DISCHARGE_${suffix}`;
-        const section = "SLOT_POWER";
+        const section = `SLOT_POWER_${suffix}`;
         const commonPowerProps = {
           name: power,
           schSectionName: section,
@@ -96,14 +83,15 @@ export function SlotPower() {
         };
         return (
           <Fragment key={suffix}>
-            <schematictext text={`${suffix === "3V3" ? "3.3 V" : "12 V"}: supply → switch → PCIe slot`} schX={1} schY={y + 1.6} fontSize={0.26} anchor="left"/>
+            <schematictext text={`${suffix === "3V3" ? "3.3 V" : "12 V"} slot power`}
+              schX={-1.5} schY={y + (suffix === "3V3" ? 3.36 : 2.6)} fontSize={0.18} anchor="top_left"/>
             {suffix === "3V3" ? (
               <DMP2008UFG_7 {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"]]}/>
             ) : (
               <AO4407A {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"], ["pin5", "pin6", "pin7", "pin8"]]}/>
             )}
-            <A_2N7002K_7 name={driver} schSectionName={section} schX={1} schY={y - 4}
-              connections={{S: "net.GND"}}/>
+            <A_2N7002K_7 name={driver} schSectionName={section} schX={1} schY={y - 2.8}
+              connections={{G: "net.ASM_HDDPC", S: "net.GND"}}/>
             <A_0402WGF5100TCE name={series} schSectionName={section} schX={3.5} schY={y - 2.8}/>
             <A_0402WGF1003TCE name={off} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>
             {/* Reference nominal value; verify startup current and MOSFET SOA with the card load. */}
@@ -116,18 +104,27 @@ export function SlotPower() {
             <trace from={`.${power} > .pin4`} to={`.${series} > .pin2`}/>
             <trace from={`.${series} > .pin1`} to={`.${driver} > .D`}/>
             <trace from={`.${power} > .pin5`} to={`.${discharge} > .pin1`}/>
-            <trace from=".R_SLOT_ENABLE > .pin2" to={`.${driver} > .G`}/>
+            <netlabel inline net="ASM_HDDPC" connection={`${driver}.G`}/>
             <netlabel inline net={input} connection={`${power}.pin1`}/>
             <netlabel inline net={output} connection={`${power}.pin5`}/>
             <netlabel inline net="GND" connection={`${driver}.S`}/>
             <netlabel inline net="GND" connection={`${discharge}.pin2`}/>
-            <schematictext text="Gate driver" schX={1.2} schY={y - 5.6} fontSize={0.2} anchor="center"/>
           </Fragment>
         );
       })}
-      <schematictext text="100k holds each switch OFF. 10uF slows its turn-on." schX={0} schY={-10.4} fontSize={0.22} anchor="left"/>
-      <schematictext text="1k at each output discharges the rail after switch-off." schX={0} schY={-10.8} fontSize={0.22} anchor="left"/>
-      <schematictext text="Reference: ASMedia sheet 6. Startup timing and protection need verification." schX={0} schY={-11.3} fontSize={0.18} anchor="left"/>
+      <schematictext text="ASM_HDDPC control" schX={-1.5} schY={-7.4}
+        fontSize={0.18} anchor="top_left"/>
+      <A_0402WGF1001TCE
+        name="R_HDDPC_PD"
+        schSectionName="SLOT_POWER_CONTROL"
+        schX={1} schY={-9.3}
+        schOrientation="vertical"
+        connections={{pin1: "net.ASM_HDDPC", pin2: "net.GND"}}
+      />
+      <netlabel inline net="ASM_HDDPC" connection="R_HDDPC_PD.pin1"/>
+      <netlabel inline net="GND" connection="R_HDDPC_PD.pin2"/>
+      <schematictext text="High: both slot supplies ON" schX={4} schY={-8.6} fontSize={0.18} anchor="left"/>
+      <schematictext text="Low: both slot supplies OFF" schX={4} schY={-9} fontSize={0.18} anchor="left"/>
     </subcircuit>
   );
 }

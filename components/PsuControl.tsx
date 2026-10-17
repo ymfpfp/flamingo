@@ -77,8 +77,7 @@ export function PsuControl() {
       </XL_1608UWC_04>
       <trace from=".R_PSU_LED > .pin2" to=".LED_PSU_OK > .anode"/>
       <trace from=".LED_PSU_OK > .cathode" to=".U_PSU_LED > .Y"/>
-      <schematictext text="PWR_OK high: driver sinks LED current" schX={-1.5} schY={-3.8} fontSize={0.2} anchor="left"/>
-      <schematictext text="White LED = PSU main rails good; not USB link or bridge readiness" schX={-6.5} schY={-4.3} fontSize={0.18} anchor="left"/>
+      <schematictext text="PWR_OK high: driver sinks LED current" schX={-1.5} schY={-3.8} fontSize={0.18} anchor="left"/>
     </group>
   );
 }

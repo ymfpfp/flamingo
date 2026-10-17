@@ -21,7 +21,7 @@ export function BuckInputs() {
           <group key={rail} name={section} schX={3 + index * 14} schY={8}>
             <schematicsection name={section}/>
             <schematictext text={`${rail} Buck: 5 V Supply`}
-              schX={-6.2} schY={1.7} fontSize={0.24} anchor="left"/>
+              schX={-6.2} schY={1.7} fontSize={0.18} anchor="left"/>
             <TPS62903RPJR
               name={name}
               schSectionName={section}

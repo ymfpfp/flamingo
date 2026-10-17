@@ -6,7 +6,7 @@ import {TS_1088_AR02016} from "imports/TS_1088_AR02016";
 export function BridgeReset() {
   return (
     <group name="BRIDGE_RESET" schX={13} schY={-6}>
-      <schematicsection name="BRIDGE_RESET" displayName="5. Bridge Reset"/>
+      <schematicsection name="BRIDGE_RESET" displayName="Bridge Reset"/>
       <A_0402WGF1003TCE
         name="R_RST"
         tolerance="1%"

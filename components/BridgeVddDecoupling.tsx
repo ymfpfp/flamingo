@@ -20,7 +20,7 @@ export function BridgeVddDecoupling() {
   return (
     <group name="VDD_DECOUPLING" schY={-13}>
       <schematicsection name="VDD_DECOUPLING"/>
-      <schematictext text="VDD Decoupling" schX={-1.5} schY={2.6} fontSize={0.3} anchor="left"/>
+      <schematictext text="VDD Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
       {rows.map((row, rowIndex) => (
         <group key={rowIndex} schY={-rowIndex * 1.5}>
           {row.map(({ref, Capacitor}, index) => (
@@ -46,7 +46,7 @@ export function BridgeVddDecoupling() {
       ))}
       <schematictext
         text="ASMedia sheet 3, VDD095: 11 x 2.2uF + 3 x 10uF + 4 x 220nF = 55.08uF."
-        schX={-1.5} schY={2} fontSize={0.2} anchor="left"
+        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
       />
       <schematictext
         text="Keep C_VDD_COUT (22uF) at the buck: combined nominal total = 77.08uF."

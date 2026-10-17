@@ -640,7 +640,7 @@
       "component_file": "imports/A_0402WGF1001TCE.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R_SLOT_ENABLE_PD",
+        "R_HDDPC_PD",
         "R_PSU_LED"
       ],
       "documents": [
@@ -659,7 +659,7 @@
         "sheet": "pcie",
         "quantity": 1,
         "board_references": [
-          "R_SLOT_ENABLE_PD"
+          "R_HDDPC_PD"
         ]
       }
     },
@@ -751,19 +751,9 @@
       ],
       "placed_on_board": true,
       "board_references": [
-        "R_SLOT_ENABLE",
         "R_PSU_ON",
         "R_VCCA33_4"
       ],
-      "slot_power_use": {
-        "inventory_file": "../slot-power-parts.json",
-        "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
-        "quantity": 1,
-        "board_references": [
-          "R_SLOT_ENABLE"
-        ]
-      },
       "bridge_decoupling_inventory": "../bridge-decoupling-parts.json",
       "bridge_analog_supply_link": {
         "manufacturer_part_number": "0402WGF0000TCE",
@@ -1423,18 +1413,16 @@
       "manufacturer_part_number": "PCR1E471MCL1GS",
       "manufacturer": "Nichicon",
       "component_file": "imports/PCR1E471MCL1GS.tsx",
-      "board_references": [
-        "C134"
-      ],
+      "board_references": [],
       "product_url": "https://www.nichicon.com/en-us/part/pcr1e471mcl1gs/769/",
-      "placed_on_board": true,
+      "placed_on_board": false,
       "supplier_part_numbers": {
         "jlcpcb": [
           "C2161727"
         ]
       },
       "inventory_file": "../slot-power-parts.json",
-      "selection_status": "Selected for slot decoupling; inrush and final PCB placement remain unqualified.",
+      "selection_status": "Replaced at C134 by Panasonic 25SVPK470M on 2026-10-16 because JLCPCB stock was zero. Historical datasheet retained.",
       "documents": [
         {
           "file": "PCR1E471MCL1GS.pdf",
@@ -1479,7 +1467,13 @@
           "sha256": "d71683fc00f0cde034f73e31fd7628d54b829093c44dfb3557530bb6a622946c",
           "notes": "Manufacturer soldering and recommended land-pattern sheet. F80: a=1.9mm gap, b=3.5mm pad length, c=1.6mm pad width."
         }
-      ]
+      ],
+      "cad_model": {
+        "file": "../models/C135-CP_Elec_6.3x7.7.glb",
+        "provenance": "../models/C135-model.provenance.json",
+        "source": "KiCad CP_Elec_6.3x7.7 package model, converted from original VRML to glTF with baked transforms.",
+        "manufacturer_specific": false
+      }
     },
     {
       "manufacturer_part_number": "CL10B104KB8NNNC",
@@ -1507,6 +1501,49 @@
           "pages": 36,
           "sha256": "8bd9b54d6064901bec00676b23d3a40e11d35edb33b6bb4d1f31c5dbdfd96572",
           "notes": "Samsung part-specific reference specification, hosted by DigiKey: 100nF, 50V, +/-10%, X7R, EIA 0603."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "25SVPK470M",
+      "manufacturer": "Panasonic",
+      "component_file": "imports/A_25SVPK470M.tsx",
+      "board_references": [
+        "C134"
+      ],
+      "product_url": "https://industrial.panasonic.com/ww/products/pt/os-con/models/25SVPK470M",
+      "placed_on_board": true,
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C454276"
+        ]
+      },
+      "inventory_file": "../slot-power-parts.json",
+      "selection_status": "Selected for C134 after stock review on 2026-10-16. Manufacturer F12 lands and polarity checked. Thermal, inrush and final PCB placement remain unqualified.",
+      "catalog_stock_snapshot": {
+        "checked_on": "2026-10-16",
+        "stock": 706,
+        "available_order_quantity": 699,
+        "minimum_order_quantity": 1,
+        "source_url": "https://jlcpcb.com/partdetail/C454276",
+        "source": "Live JLCPCB product page"
+      },
+      "documents": [
+        {
+          "file": "25SVPK470M.pdf",
+          "source_url": "https://industrial.panasonic.com/cdbs/www-data/pdf/AAB8000/AAB8000C226.pdf",
+          "origin": "manufacturer document",
+          "pages": 6,
+          "sha256": "a2b5433a9542f38afbaf12e1e43d9132d75634a3d229fe0795cf7b7e1a0b8dc1",
+          "notes": "SVPK family datasheet. 470uF, 25V, +/-20%, 14 milliohm ESR. Ripple: 5A at or below 105 C; 1.59A above 105 C through 125 C. F12 body: 10x12.6mm. Endurance: 1000h at 125 C."
+        },
+        {
+          "file": "Panasonic-OSCON-SMD-lands.pdf",
+          "source_url": "https://industrial.panasonic.com/cdbs/www-data/pdf/AAB8000/AAB8000COL10.pdf",
+          "origin": "manufacturer document",
+          "pages": 1,
+          "sha256": "cdcf08dd8351b5e568603a781b32938674042151fb58ce77c5347867f4d92b23",
+          "notes": "Panasonic recommended soldering conditions and land pattern. F12: a=4.3mm gap, b=13.1mm overall span, c=1.9mm pad width. Each pad length=(13.1-4.3)/2=4.4mm. Positive terminal uses the chamfered base edge in the SVPK drawing."
         }
       ]
     }

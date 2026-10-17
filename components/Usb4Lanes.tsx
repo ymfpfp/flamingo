@@ -75,10 +75,6 @@ export function Usb4Lanes() {
         text="Separate PHY-side ESD clamps; 220k connector-side discharge resistors."
         schX={4.5} schY={9.6} fontSize={0.18} anchor="left"
       />
-      <schematictext
-        text="Final pair placement, ground returns, and 40 Gbps signal integrity remain to be checked."
-        schX={4.5} schY={9.2} fontSize={0.18} anchor="left"
-      />
     </group>
   );
 }

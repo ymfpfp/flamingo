@@ -121,7 +121,7 @@
       "reuses_existing_import": false,
       "optional": false,
       "board_references": [
-        "R_SLOT_ENABLE_PD"
+        "R_HDDPC_PD"
       ]
     },
     {
@@ -167,30 +167,11 @@
       ]
     },
     {
-      "manufacturer_part_number": "0402WGF0000TCE",
-      "manufacturer": "UNI-ROYAL",
-      "jlcpcb_part_number": "C17168",
-      "component_file": "imports/A_0402WGF0000TCE.tsx",
-      "export_name": "A_0402WGF0000TCE",
-      "quantity": 1,
-      "role": "Removable HDDPC signal link",
-      "reference_designators": [
-        "R181"
-      ],
-      "datasheet": "datasheets/0402WGF1003TCE.pdf",
-      "selection_notes": "0 ohm, 0402. Signal link only; never use this small resistor as a power-rail bypass.",
-      "reuses_existing_import": true,
-      "optional": true,
-      "board_references": [
-        "R_SLOT_ENABLE"
-      ]
-    },
-    {
-      "manufacturer_part_number": "PCR1E471MCL1GS",
-      "manufacturer": "Nichicon",
-      "jlcpcb_part_number": "C2161727",
-      "component_file": "imports/PCR1E471MCL1GS.tsx",
-      "export_name": "PCR1E471MCL1GS",
+      "manufacturer_part_number": "25SVPK470M",
+      "manufacturer": "Panasonic",
+      "jlcpcb_part_number": "C454276",
+      "component_file": "imports/A_25SVPK470M.tsx",
+      "export_name": "A_25SVPK470M",
       "quantity": 1,
       "role": "Switched 12 V slot bulk capacitor",
       "board_references": [
@@ -199,7 +180,7 @@
       "reference_designators": [
         "CE1"
       ],
-      "datasheet": "datasheets/PCR1E471MCL1GS.pdf",
+      "datasheet": "datasheets/25SVPK470M.pdf",
       "capacitance_uF": 470,
       "rated_voltage_V": 25,
       "tolerance_percent": 20,
@@ -207,15 +188,28 @@
       "polarized": true,
       "positive_pin": "pin1",
       "negative_pin": "pin2",
-      "ESR_max_milliohm": 15,
-      "ESR_conditions": "20 C, 100kHz",
-      "ripple_current_A": 4.1,
-      "ripple_conditions": "125 C, 100kHz",
+      "ESR_max_milliohm": 14,
+      "ESR_conditions": "20 C, 100-300kHz",
+      "ripple_current_A": 5,
+      "ripple_conditions": "At or below 105 C, 100kHz",
       "body_diameter_mm": 10,
-      "body_height_mm": 12.7,
-      "footprint_source": "tsci import C2161727 --jlcpcb --use-exact-footprint",
-      "product_url": "https://www.nichicon.com/en-us/part/pcr1e471mcl1gs/769/",
-      "selection_notes": "Matches reference capacitance with 25 V rating instead of 16 V. Exact imported footprint: pin1 positive at x=-4.200017mm, pin2 negative at x=+4.200017mm. Supplier body/model import does not establish assembly stock."
+      "body_height_mm": 12.6,
+      "footprint_source": "Panasonic F12 recommended lands: 4.3mm gap, 13.1mm total span, two 4.4x1.9mm pads at x=+/-4.35mm. Pin1 positive on left. Supplier artwork/model from tsci import C454276 --jlcpcb --use-exact-footprint.",
+      "product_url": "https://industrial.panasonic.com/ww/products/pt/os-con/models/25SVPK470M",
+      "selection_notes": "Replaces out-of-stock PCR1E471MCL1GS at C134. Same 470uF/25V rating. Panasonic F12 lands replace narrower imported pads. Above 105 C through 125 C the 100kHz ripple limit is 1.59A. Endurance is 1000h at 125 C, versus 4000h for the original Nichicon. Final thermal, inrush and transient qualification remain incomplete.",
+      "land_pattern_document": "datasheets/Panasonic-OSCON-SMD-lands.pdf",
+      "ripple_current_above_105C_A": 1.59,
+      "endurance_hours": 1000,
+      "endurance_temperature_C": 125,
+      "jlcpcb_stock_snapshot": {
+        "checked_on": "2026-10-16",
+        "stock": 706,
+        "available_order_quantity": 699,
+        "minimum_order_quantity": 1,
+        "source_url": "https://jlcpcb.com/partdetail/C454276",
+        "source": "Live JLCPCB product page"
+      },
+      "placement_notes": "Both slot banks use explicit relative PCB positions to preserve body/courtyard clearance during automatic group packing. Final slot-side mechanical placement remains pending."
     },
     {
       "manufacturer_part_number": "APXJ6R3ARA561MF80G",
@@ -248,7 +242,14 @@
       "body_height_mm": 7.7,
       "footprint_source": "Manufacturer F80 recommended lands: two 3.5x1.6mm pads at x=+/-2.7mm; gap=1.9mm. Positive pin1 on left with + marking.",
       "product_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXJ6R3ARA561MF80G",
-      "selection_notes": "Matches the reference 560uF/6.3V rating. Supplier catalog part C2157846 exists, but tsci could not find its EasyEDA library entry; the footprint uses the manufacturer land dimensions instead. No 3D model is attached. Supplier stock is not established."
+      "selection_notes": "Matches the reference 560uF/6.3V rating. JLCPCB C2157846 has zero live stock and a pre-order minimum of 38 on 2026-10-16. Exact part is listed at DigiKey in cut tape with minimum 1. Retain original part pending sourcing decision. EasyEDA library import was unavailable; footprint uses manufacturer F80 lands. A local KiCad package model supplies the full 3D body. See models/C135-model.provenance.json.",
+      "availability_research": "datasheets/research/slot-bulk-capacitor-stock-2026-10-16.json",
+      "cad_model": {
+        "file": "models/C135-CP_Elec_6.3x7.7.glb",
+        "provenance": "models/C135-model.provenance.json",
+        "package_model": true,
+        "manufacturer_specific": false
+      }
     },
     {
       "manufacturer_part_number": "CL10B104KB8NNNC",
@@ -284,7 +285,8 @@
     "R186 optional 3 kohm pull-down",
     "R177 and R193 optional alternate pull-ups",
     "C123, C127 and C130 optional capacitors",
-    "R169/R170/R192/R194 and D14/D15 bypass paths"
+    "R169/R170/R192/R194 and D14/D15 bypass paths",
+    "R181 HDDPC signal link; driver inputs connect directly to ASM_HDDPC"
   ],
   "remaining_design_work": [
     "Confirm intended slot load and calculate current, startup timing, MOSFET SOA and thermal margins.",
@@ -301,19 +303,28 @@
       "SLOT_12V"
     ],
     "rail_bypasses_populated": false,
-    "schematic_layout": "Matched rail rows with visible wiring. The connector view shows its supplies, control signals and lanes 0-3; the footprint retains every physical contact."
+    "schematic_layout": "Separate areas for the 3.3 V slot switch, 12 V slot switch, and ASM_HDDPC pull-down. Each driver uses an ASM_HDDPC net label. The connector view shows its supplies, control signals and lanes 0-3; the footprint retains every physical contact."
   },
   "validation": {
-    "build": "passed; routing disabled",
+    "build": "Routing disabled. Build with parts engine disabled passes. Supplier-enabled build reports an existing ASM2464PDX overlap with the USB connector cutout; reproduced with original C134 in a temporary baseline.",
     "typecheck": "passed",
     "connection_tests": "18 passed, 0 failed",
     "schematic_placement": "passed",
-    "pcb_placement": "No placement DRC errors. Automatic packing retains an existing R_SPI_CS orientation advisory.",
-    "hardware_qualified": false
+    "pcb_placement": "Passed with no PCB placement errors or warnings after explicit relative placement of slot decoupling banks.",
+    "hardware_qualified": false,
+    "capacitor_replacement_2026_10_16": {
+      "typecheck": "passed",
+      "slot_power_tests": "8 passed, 0 failed",
+      "netlist": "0 errors, 0 warnings",
+      "schematic_placement": "passed",
+      "pcb_placement": "0 errors, 0 warnings",
+      "full_build_limitation": "Supplier-enabled build fails on bridge/USB-cutout overlap. Same error occurs with original C134. Routing remains disabled.",
+      "pcb_visual_review": "Reviewed generated PCB PNG. Slot capacitor bodies and adjacent ceramics have clearance."
+    }
   },
-  "updated_on": "2026-10-15",
+  "updated_on": "2026-10-16",
   "slot_decoupling": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-16",
     "implementation_file": "components/SlotDecoupling.tsx",
     "reference": "datasheets/ASM2464PDX_TI_R03.pdf, sheet 6, CE1/C132/C133 and CE2/C131",
     "status": "Selected and connected to switched outputs; placement and hardware qualification pending.",
