@@ -1,7 +1,7 @@
 import {Fragment} from "react";
 import {AO4407A} from "imports/AO4407A";
 import {DMP2008UFG_7} from "imports/DMP2008UFG_7";
-import {A_2N7002K_7} from "imports/A_2N7002K_7";
+import {NX3008NBK_215} from "imports/NX3008NBK_215";
 import {A_0402WGF1001TCE} from "imports/A_0402WGF1001TCE";
 import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
 import {A_0402WGF5100TCE} from "imports/A_0402WGF5100TCE";
@@ -90,7 +90,7 @@ export function SlotPower() {
             ) : (
               <AO4407A {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"], ["pin5", "pin6", "pin7", "pin8"]]}/>
             )}
-            <A_2N7002K_7 name={driver} schSectionName={section} schX={1} schY={y - 2.8}
+            <NX3008NBK_215 name={driver} schSectionName={section} schX={1} schY={y - 2.8}
               connections={{G: "net.ASM_HDDPC", S: "net.GND"}}/>
             <A_0402WGF5100TCE name={series} schSectionName={section} schX={3.5} schY={y - 2.8}/>
             <A_0402WGF1003TCE name={off} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>

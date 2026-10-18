@@ -1,0 +1,30 @@
+{
+  "file": "vendor/tps24720_trans.lib",
+  "manufacturer": "Texas Instruments",
+  "source_url": "https://www.ti.com/lit/zip/slvm222",
+  "package": "SLVM222B",
+  "sha256": "5b953b4fe3af9a9a563679d43440af52e9f8878e673438ce3f09501ad6195cfd",
+  "modified": false,
+  "ngspice_compatibility": "Direct test fails: Undefined parameter [_u2_u625]. Not used for passing simulations.",
+  "status": "Historical protected-topology model retained for reference.",
+  "historical_2n7002k_comparison": {
+    "file": "vendor/2N7002K.spice.txt",
+    "manufacturer": "Diodes Incorporated",
+    "source_url": "https://www.diodes.com/spice/download/1834/2N7002K.spice.txt",
+    "retrieved_on": "2026-10-18",
+    "sha256": "f5182be81738b3dc80cb2109045a9f475c83f8dc39a45a096bd76229e4dc8d3d",
+    "copy_method": "Transcribed through primary-source browser; comments added and whitespace normalized. License and numerical parameters retained.",
+    "scope": "Gate-driver simulation only; not a guaranteed production corner or slot-load model."
+  },
+  "selected_gate_driver": {
+    "manufacturer_part_number": "NX3008NBK,215",
+    "jlcpcb_part_number": "C179399",
+    "source_url": "https://assets.nexperia.com/documents/data-sheet/NX3008NBK.pdf",
+    "datasheet_revision": "5 November 2022",
+    "model_type": "Conservative on-state RC envelope with an idealized continuous control transition and a 10 mA sink ceiling; not a manufacturer transistor model.",
+    "maximum_Rds_ohm_at_1V8_10mA_25C": 2.8,
+    "sink_ceiling_A": 0.01,
+    "sensitivity_Rds_ohm": 5.6,
+    "scope": "On-state gate RC checks only, assuming monotonic MOSFET conduction. Off-state leakage, dynamic gate behavior, temperature extremes and power-switch SOA are not qualified."
+  }
+}

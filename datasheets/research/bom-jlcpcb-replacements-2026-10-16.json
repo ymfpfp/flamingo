@@ -89,10 +89,12 @@
         "replacement_bottom_terminal_length_mm": 0.25,
         "source": "Manufacturer datasheet PDF page 4 (printed page 3), ratings on PDF pages 2-3"
       },
-      "datasheet": "datasheets/VO-0402-1pct-21K.pdf",
+      "datasheet": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8590201846947622912-C2906409.pdf",
       "note": "LCSC flags this VO catalog item NRND; the JLCPCB page currently allows immediate purchase with minimum 1. Adequate for the two prototypes, less desirable for a long-term production BOM.",
       "source_url": "https://jlcpcb.com/partdetail/C2906409",
-      "result": "stocked_compatible_replacement"
+      "result": "stocked_compatible_replacement",
+      "former_local_filename": "datasheets/VO-0402-1pct-21K.pdf",
+      "retained_locally": false
     },
     {
       "original_mpn": "RC0201FR-07220KL",

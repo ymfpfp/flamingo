@@ -144,6 +144,9 @@ test("every bridge transmit conductor has one series capacitor and remains isola
       const capacitor = capacitors.find(element => element.name === name);
       assert.equal(capacitor.ftype, "simple_capacitor");
       assert.ok(Math.abs(capacitor.capacitance - 220e-9) < 1e-15);
+      assert.equal(capacitor.manufacturer_part_number, "CL05B224KO5NNNC");
+      assert.deepEqual(capacitor.supplier_part_numbers.jlcpcb, ["C16772"]);
+      assert.equal(capacitor.max_voltage_rating, 16);
       const input = net(port(name, "pin1"));
       const output = net(port(name, "pin2"));
       assert.equal(input, net(port("ASM2464PDX", bridgeTx[polarity])), `${name} bridge contact`);
@@ -161,7 +164,7 @@ test("the 48 unused lane contacts and B10 are NC; presence contacts remain avail
   const connector = components.find(element => element.name === "PCIe");
   const connectorPorts = ports.filter(element => element.source_component_id === connector.source_component_id);
   assert.equal(connectorPorts.length, 164);
-  assert.equal(connectorPorts.filter(element => element.do_not_connect).length, 49);
+  assert.equal(connectorPorts.filter(element => element.do_not_connect).length, 62);
   assert.equal(port("PCIe", "B10").do_not_connect, true);
   for (let lane = 4; lane < 16; lane++) {
     for (const direction of ["TX", "RX"]) {

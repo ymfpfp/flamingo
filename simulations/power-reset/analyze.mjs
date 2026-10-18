@@ -56,6 +56,7 @@ export function analyze(graphs, scenario) {
     status: inputOrder === null ? "not_observed" : inputOrder < -scenario.stepMs ? "fail" : "pass", measuredMs: inputOrder});
   const release = crossing(graphs.ASM_RST_N, requirements.reset.rising_threshold_min_v);
   const high = crossing(graphs.ASM_RST_N, requirements.reset.guaranteed_high_v);
+  const allRailsValidMs = Math.max(...railNames.map(n => crossing(graphs[n], requirements.rails[n].min) ?? Infinity));
   const outside = t => railNames.filter(n => {
     const v = valueAt(graphs[n], t), r = requirements.rails[n];
     return v < r.min || v > r.max;
@@ -88,6 +89,7 @@ export function analyze(graphs, scenario) {
   checks.push({id: "reset_during_rail_fault", category: "engineering_goal",
     status: violation ? "fail" : !faultExercised ? "not_exercised" : "pass", violation});
   return {name: scenario.name, description: scenario.description, checks, crossed90Ms: crossed90,
+    startupMarginMs: release === null || !Number.isFinite(allRailsValidMs) ? null : release - allRailsValidMs,
     buckEnableAt2VMs: crossing(graphs.BUCK_EN, 2),
     failed: checks.filter(c => c.status === "fail" || c.status === "not_observed").map(c => c.id)};
 }

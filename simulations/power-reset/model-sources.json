@@ -1,29 +1,67 @@
 {
-  "ngspice_adapter": {"package": "@tscircuit/ngspice-spice-engine", "version": "0.0.20"},
+  "ngspice_adapter": {
+    "package": "@tscircuit/ngspice-spice-engine",
+    "version": "0.0.20"
+  },
   "supervisor": {
     "part": "TPS389001DSER",
     "kind": "project behavioral approximation, not a manufacturer model",
     "source": "datasheets/TPS389001DSET.pdf",
-    "sections": ["7.5", "7.6", "8.3.1", "8.3.2", "8.3.3", "8.3.4"],
+    "sections": [
+      "7.5",
+      "7.6",
+      "8.3.1",
+      "8.3.2",
+      "8.3.3",
+      "8.3.4"
+    ],
     "rising_sense_v": 1.157,
     "falling_sense_v": 1.15,
     "nominal_release_delay_us": 25,
     "release_delay_method": "An internal RC reaches 0.5 after approximately 25 us. This timer is an approximation and is not a physical fitted capacitor.",
-    "omissions": ["325 us startup delay", "falling propagation delay", "glitch rejection", "threshold and delay variation", "valid output behavior below 1.5 V", "input/output leakage and clamp paths", "CT programming"]
+    "omissions": [
+      "325 us startup delay",
+      "falling propagation delay",
+      "glitch rejection",
+      "threshold and delay variation",
+      "valid output behavior below 1.5 V",
+      "input/output leakage and clamp paths",
+      "CT programming"
+    ]
   },
   "buck": {
-    "part": "TPS62903RPJR",
+    "parts": [
+      "TPS62903RPJR"
+    ],
     "kind": "prescribed rail waveform; no converter model runs",
-    "vendor_archive_url": "https://www.ti.com/lit/zip/SLVMDN8",
-    "archive_sha256": "77171ff8a695841655b448fa4903f88146953943161b11d199699d9ec69ae776",
-    "checked_on": "2026-10-16",
-    "library_path_in_archive": "TPS62903_PSPICE_TRANS/TPS62903_TRANS.LIB",
-    "result": "The library begins with **$ENCRYPTED_LIB and uses $CDNENCSTART_ADV2. It cannot run in ngspice. The encrypted library is not copied into this repository."
+    "checked_on": "2026-10-18",
+    "result": "No validated converter model runs. Waveforms retain the unchanged divider targets; they do not predict TPS62903 startup.",
+    "vendor_model": {
+      "part": "TPS62903RPJR",
+      "kind": "prescribed rail waveform; no converter model runs",
+      "vendor_archive_url": "https://www.ti.com/lit/zip/SLVMDN8",
+      "archive_sha256": "77171ff8a695841655b448fa4903f88146953943161b11d199699d9ec69ae776",
+      "checked_on": "2026-10-16",
+      "library_path_in_archive": "TPS62903_PSPICE_TRANS/TPS62903_TRANS.LIB",
+      "result": "The library begins with **$ENCRYPTED_LIB and uses $CDNENCSTART_ADV2. It cannot run in ngspice. The encrypted library is not copied into this repository."
+    }
   },
   "bridge": {
     "kind": "threshold/range checks only; no bridge behavioral model",
     "source": "datasheets/ASM2464PDX_DataSheet_R0_3.pdf",
-    "sections": ["6.2", "6.3.7", "7"],
-    "omissions": ["supply currents", "input clamps", "internal reset behavior", "firmware", "clock outputs", "HDDPC", "PERST0"]
+    "sections": [
+      "6.2",
+      "6.3.7",
+      "7"
+    ],
+    "omissions": [
+      "supply currents",
+      "input clamps",
+      "internal reset behavior",
+      "firmware",
+      "clock outputs",
+      "HDDPC",
+      "PERST0"
+    ]
   }
 }

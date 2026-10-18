@@ -1,0 +1,37 @@
+{
+  "revision": "1.0",
+  "engineeringGeometryPass": true,
+  "failures": [],
+  "vendorAcceptanceReceived": false,
+  "productionRelease": false,
+  "counts": {
+    "total": 273,
+    "circular": 196,
+    "oblong": 77,
+    "paste": 273,
+    "coarsePowerAndGround": 121
+  },
+  "measurementsMm": {
+    "minimumCopper": 0.19489999999999993,
+    "closestCopper": [
+      "A2",
+      "B2"
+    ],
+    "minimumMaskWeb": 0.15989999999999993,
+    "closestMask": [
+      "A2",
+      "B2"
+    ],
+    "outerEscapePadClearance": 0.10300000000000001,
+    "outerEscapeMaskClearance": 0.09300000000000001,
+    "coarseDogbonePadToViaCopper": 0.2346194077712559,
+    "coarseDogbonePadToDrill": 0.2846194077712559
+  },
+  "minimumApertureAreaRatio": 0.8333333333333334,
+  "limits": [
+    "Nominal geometry only; mask registration and stencil transfer require assembler acceptance.",
+    "The 0.20 mm circular land is a project candidate, not an ASMedia-specified land diameter.",
+    "The local dogbone calculation is a single-cell feasibility check, not a completed escape or plane-continuity proof.",
+    "Global 0.10 mm routing rules remain active. Local 3 mil escapes require explicit region checks during layout."
+  ]
+}

@@ -18,7 +18,7 @@ The runtime stays in the ignored `.tscircuit/spice/` directory.
 The runner checks its SHA-256 hash before use.
 Subsequent simulations run without network access.
 
-Run all ten scenarios:
+Run all 28 scenarios:
 
 ```sh
 bun run sim:power-reset
@@ -51,10 +51,17 @@ The runner writes these files under `dist/power-reset/`:
 - `report.json`: requirements, measured timing intervals, and findings.
 - `report.md`: a readable summary of every check.
 - `<scenario>.cir`: the actual SPICE netlist submitted by tscircuit.
-- `<scenario>.circuit.json`: the circuit and simulation results.
+- `<scenario>.simulation.json`: the nominal circuit and simulation results.
 - `<scenario>.waveforms.json`: named voltage samples and timestamps in milliseconds.
 
 The output directory is ignored by Git.
+The `.simulation.json` suffix prevents the CLI from discovering the reports as additional circuit entrypoints.
+The project build command also names `index.circuit.tsx` explicitly.
+
+Corner runs change `R_RST` and `C_RST` values in the exported SPICE netlist before execution.
+The report records each original value, scale factor, and simulated value.
+The Circuit JSON retains nominal component values so it still identifies the production parts.
+The submitted `.cir` file records the actual values used for that run.
 
 For plots, install Matplotlib in a Python environment, then run:
 
@@ -80,7 +87,7 @@ Changes to those dividers require corresponding changes to the prescribed scenar
 `VCCA33` is assumed equal to `VCCH` through its zero-ohm link.
 These experiments omit supply wiring impedance and capacitor charging currents.
 
-TI's downloaded TPS62903 library uses Cadence encryption and cannot run in ngspice.
+The TPS62903 vendor library uses Cadence encryption and cannot run in ngspice.
 [model-sources.json](model-sources.json) records the archive URL, hash, and model limitations.
 An unencrypted compatible model is necessary for converter-level checks.
 A separately checked behavioral converter model is another option, with a narrower scope.
@@ -150,9 +157,26 @@ They do not establish a particular replacement circuit or qualify the board.
 
 ## Next checks
 
-1. Resolve the reset requirements and select an appropriate rail-monitoring arrangement if necessary.
+1. Check the normal-startup assumptions against the actual PSU, capacitor, and regulator behavior before changing the reference reset circuit.
 2. Obtain a compatible buck model, then connect output behavior to the actual enable circuit and complete capacitor banks.
 3. Add component tolerances, effective capacitance, supply variation, and bridge input leakage or clamp information.
 4. Add reset-button, extended shutdown, brownout, and restart scenarios with those models.
 5. Extend the experiments to slot power and externally specified PCIe reset timing.
 6. Check model predictions against prototype measurements.
+
+## Normal-startup sensitivity review, 2026-10-16
+
+Eighteen additional cases check supply voltage at 95%, 100%, and 105% of nominal.
+Each case uses matched 5 V and 3.3 V ramps of 0.2 ms, 2 ms, or 20 ms.
+Each ramp runs with nominal reset RC values and with 99 kohm plus 0.5 uF.
+The half-capacitance case is a sensitivity test, not a guaranteed capacitance bound.
+
+The prescribed outputs allow 1 ms for supervisor release and 5 ms for buck startup and settling.
+The supervisor threshold includes its positive accuracy limit and opposing divider tolerances.
+The 1 ms allowance is a test assumption because the available supervisor timing table does not supply a maximum release delay.
+The 5 ms settling allowance also requires verification under the real bridge load.
+
+All eighteen cases pass the implemented startup checks.
+The smallest modeled interval between all rails becoming valid and possible reset release is approximately 16.8 ms.
+This result supports retaining the reference RC during the schematic review.
+It does not qualify actual regulator stability, firmware behavior, or supply-fault recovery.

@@ -18,16 +18,16 @@ const rows = [capacitors.slice(0, 9), capacitors.slice(9)];
 
 export function BridgeVddDecoupling() {
   return (
-    <group name="VDD_DECOUPLING" schY={-13}>
-      <schematictext text="VDD Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
+    <group name="VDD_DECOUPLING" schY={-7}>
+      <schematictext text="VDD Decoupling" schX={0} schY={2.6} fontSize={0.18} anchor="center"/>
       {rows.map((row, rowIndex) => (
-        <group key={rowIndex} schY={-rowIndex * 1.5}>
+        <group key={rowIndex} schY={-rowIndex * 2.2}>
           {row.map(({ref, Capacitor}, index) => (
             <Capacitor
               key={ref}
               name={`C_VDD_${ref}`}
               schSectionName="VDD_DECOUPLING"
-              schX={index * 1.8}
+              schX={-7.8 + index * 1.8}
               schY={0}
               schOrientation="vertical"
               connections={{pin1: "net.VDD", pin2: "net.GND"}}
@@ -45,11 +45,11 @@ export function BridgeVddDecoupling() {
       ))}
       <schematictext
         text="ASMedia sheet 3, VDD095: 11 x 2.2uF + 3 x 10uF + 4 x 220nF = 55.08uF."
-        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
+        schX={0} schY={2} fontSize={0.18} anchor="center"
       />
       <schematictext
-        text="Keep C_VDD_COUT (22uF) at the buck: combined nominal total = 77.08uF."
-        schX={-1.5} schY={-3.5} fontSize={0.18} anchor="left"
+        text="Keep both 10uF COUT capacitors at the buck: combined nominal total = 75.08uF."
+        schX={0} schY={-4} fontSize={0.18} anchor="center"
       />
     </group>
   );

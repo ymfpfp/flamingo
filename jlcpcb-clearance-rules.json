@@ -1,9 +1,20 @@
 {
-  "revision": "1.0.38",
+  "revision": "1.0.39",
   "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
-  "reviewedOn": "2026-10-15",
-  "process": { "surfaceFinish": "ENIG", "assembly": "standard" },
-  "copper": { "outerOz": 1, "innerOz": 0.5, "layers": 4 },
+  "reviewedOn": "2026-10-17",
+  "process": {
+    "surfaceFinish": "ENIG",
+    "assembly": "standard",
+    "solderMaskColor": "green",
+    "viaFill": "epoxy filled and copper capped",
+    "bridgeProcess": "manufacturing/bridge-bga/process.json",
+    "vendorAcceptanceReceived": false
+  },
+  "copper": {
+    "outerOz": 1,
+    "innerOz": 0.5,
+    "layers": 6
+  },
   "minimumMm": {
     "traceWidth": 0.1,
     "traceToTrace": 0.1,
@@ -24,13 +35,14 @@
     "viaPadDiameter": 0.25,
     "circularBgaPadDiameter": 0.2
   },
-  "bgaComponentNames": ["ASM2464PDX"],
+  "bgaComponentNames": [
+    "ASM2464PDX"
+  ],
   "bgaFanoutReferenceMm": {
     "traceWidth": 0.0762,
     "padToTrace": 0.09,
     "status": "reference_only",
-    "note": "Published local BGA limits. The board keeps conservative routing rules until an explicit fanout region and process review permit an exception."
+    "note": "Short local 3 mil traces are published for multilayer BGA fanout. Keep global 0.10 mm rules until an explicit fanout region exists. Proposed outer mask expansion is included in the bridge process review."
   },
   "note": "Trace spacing is conservative for 1 oz multilayer fabrication. Motor-power-to-pad 0.15 mm and via-to-pad 0.125 mm are board targets above the general 0.10 mm copper spacing. No power-pad clearance exceptions are permitted."
 }
-

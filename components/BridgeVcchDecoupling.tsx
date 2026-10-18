@@ -15,14 +15,14 @@ const capacitors = banks.flatMap(bank => bank.refs.map(ref => ({...bank, ref})))
 
 export function BridgeVcchDecoupling() {
   return (
-    <group name="VCCH_DECOUPLING">
-      <schematictext text="VCCH Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
+    <group name="VCCH_DECOUPLING" schX={-4.4} schY={7}>
+      <schematictext text="VCCH Decoupling" schX={0} schY={2.6} fontSize={0.18} anchor="center"/>
       {capacitors.map(({ref, Capacitor}, index) => (
         <Capacitor
           key={ref}
           name={`C_VCCH_${ref}`}
           schSectionName="VCCH_DECOUPLING"
-          schX={index * 1.8}
+          schX={-8.7 + index * 1.8}
           schY={0}
           schOrientation="vertical"
           connections={{pin1: "net.VCCH", pin2: "net.GND"}}
@@ -38,7 +38,7 @@ export function BridgeVcchDecoupling() {
       />
       <schematictext
         text="ASMedia sheet 3: 4 x 2.2uF + 2 x 10uF + 4 x 220nF = 29.68uF."
-        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
+        schX={0} schY={2} fontSize={0.18} anchor="center"
       />
     </group>
   );

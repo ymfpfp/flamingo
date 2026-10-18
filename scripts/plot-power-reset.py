@@ -8,12 +8,13 @@ import matplotlib.pyplot as plt
 output = Path(__file__).resolve().parent.parent / "dist" / "power-reset"
 panels = [
     ("nominal", "Illustrative startup: rails settle before reset can release", (0, 130)),
+    ("startup-105pct-20ms-half-c", "Normal-startup sensitivity: slow ramp, 50% reset C, -1% reset R", (0, 90)),
     ("vdd-within-datasheet-window", "VDD meets its arrival limit but trails possible reset release", (0, 130)),
     ("vdd-brownout", "VDD brownout: reset stays high while VCCH remains present", (200, 275)),
     ("short-power-cycle", "Short power cycle: the RC retains charge (input clamps omitted)", (240, 280)),
 ]
 colors = {"VCCH": "#64748b", "VCCL": "#2563eb", "VDD": "#059669", "ASM_RST_N": "#dc2626"}
-fig, axes = plt.subplots(4, 1, figsize=(10, 11.5))
+fig, axes = plt.subplots(5, 1, figsize=(10, 14))
 for ax, (name, title, limits) in zip(axes, panels):
     data = json.loads((output / f"{name}.waveforms.json").read_text())
     for signal, color in colors.items():

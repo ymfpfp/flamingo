@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
+import {SN74AHCT1G14DBVR} from "../imports/SN74AHCT1G14DBVR";
 import Board from "../index.circuit";
 
 const circuit = new Circuit();
@@ -93,4 +94,23 @@ test("the status input and LED branch stay within their datasheet current budget
   // Conservative bound: ignore LED forward voltage and output saturation entirely.
   assert.ok(5.25 / ledResistanceMin < 8e-3, "the LED branch cannot exceed the driver sink rating");
   assert.ok(5.25 ** 2 / ledResistanceMin < 0.0625, "the 0402 resistor stays below 1/16 W");
+});
+
+test("PSU inverter lands retain clearance at every packing rotation", async () => {
+  for(const rotation of [0,90,180,270]) {
+    const c=new Circuit();c.schematicDisabled=true;
+    c.add(<board routingDisabled><SN74AHCT1G14DBVR name="U_TEST" pcbX={0} pcbY={0} pcbRotation={rotation}/></board>);
+    await c.renderUntilSettled();
+    const j=c.getCircuitJson(), pads=j.filter(e=>e.type==="pcb_smtpad");
+    assert.equal(pads.length,5);
+    assert.ok(!j.some(e=>e.type==="pcb_pad_pad_clearance_error"),`rotation ${rotation}`);
+    const adjacent=[1,2,3].map(pin=>pads.find(p=>p.port_hints.includes(`pin${pin}`)));
+    assert.ok(adjacent.every(Boolean));
+    for(let i=1;i<adjacent.length;i++) {
+      const a=adjacent[i-1],b=adjacent[i];
+      const dx=Math.abs(a.x-b.x)-(a.width+b.width)/2;
+      const dy=Math.abs(a.y-b.y)-(a.height+b.height)/2;
+      assert.ok(Math.max(dx,dy)>=0.349999,`adjacent pin clearance at ${rotation}`);
+    }
+  }
 });

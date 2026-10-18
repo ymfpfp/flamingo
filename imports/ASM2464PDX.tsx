@@ -1,6 +1,7 @@
 import {sortByAlphabetical} from "lib/utils";
 import type {ComponentProps} from "react";
 import {Fragment} from "react";
+import bridgeProcess from "../manufacturing/bridge-bga/process.json";
 
 const genPinLabels = (
   identStart: string, 
@@ -445,11 +446,10 @@ const ballToPos = (ball: string) => {
  *   0.46 mm for the outer-array pitch, 0.65 mm for the inner-array pitch
  * - Ball diameter: 0.23mm
  * - Use 7x13mil oblong pads for the outermost row on each edge, with AA1 horizontal.
- * - The 0.18mm circular lands follow the community footprint linked above and
- *   match JLCPCB's related ASM2464PD footprint, C7509569 (121 internal pads).
- *   The supplier SVG and measurements are saved in datasheets/footprints/.
- *   This is not an ASMedia land-pattern specification for PDX; verify the lands
- *   and mask/paste settings with the assembly provider before fabrication.
+ * - Circular lands are a 0.20mm engineering candidate for the selected ENIG process.
+ *   ASMedia specifies no circular land diameter; this is pending vendor acceptance.
+ * - Copper, mask and paste proposals are explicit in manufacturing/bridge-bga/.
+ *   Do not apply the related ASM2464PD footprint as PDX manufacturing approval.
  *
  * Routing is especially complicated with BGA because the balls on the inside are also
  * connected to traces. This is typically solved with fanout routing: put a small copper
@@ -469,7 +469,7 @@ export const Footprint = () => {
           height: rotatedOblong ? "0.1778mm" : "0.3302mm",
         } : {
           shape: "circle" as const,
-          radius: "0.09mm",
+          radius: bridgeProcess.footprint.circularLandDiameterMm / 2,
         };
         const [x, y] = ballToPos(ball);
         return <Fragment key={ball}><smtpad
@@ -478,6 +478,10 @@ export const Footprint = () => {
           pcbY={y} 
           portHints={[pin, ball]} 
           layer="top" 
+          solderMaskMargin={isOblong
+            ? bridgeProcess.footprint.oblongSolderMaskMarginMm
+            : bridgeProcess.footprint.circularSolderMaskMarginMm}
+          solderPasteMargin={bridgeProcess.footprint.solderPasteMarginMm}
           {...padShape}
         /></Fragment>;
       })}

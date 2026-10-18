@@ -1,0 +1,65 @@
+{
+  "checked_on": "2026-10-17",
+  "scope": "Primary manufacturer and fabrication/assembly publications; no vendor approval received.",
+  "primary_device_documents": [
+    "ASM2464PDX_DataSheet_R0_3.pdf, pp21-23",
+    "ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf, p2"
+  ],
+  "sources": [
+    {
+      "url": "https://jlcpcb.com/capabilities/pcb-capabilities",
+      "facts": [
+        "ENIG required for 0.20\u20130.25 mm circular BGA pads.",
+        "Multilayer local BGA rules differ from general trace rules; exact footprint needs CAM review.",
+        "Current LDI process supports nominal 1:1 pad/mask openings; neighboring trace-to-mask clearance is 0.09 mm.",
+        "Green 1 oz mask dam target is 0.10 mm.",
+        "Filled/capped vias are a six-layer-and-above process option/default; confirm actual order settings."
+      ]
+    },
+    {
+      "url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+      "facts": [
+        "Standard PCBA supports the 0.46 mm bridge pitch; Economy BGA minimum is listed as 0.50 mm.",
+        "Standard PCBA lists SPI and BGA X-ray.",
+        "Customer-supplied PDX acceptance and placement rotation still require confirmation."
+      ]
+    },
+    {
+      "url": "https://jlcpcb.com/help/article/instructions-for-stencil-order",
+      "facts": [
+        "Special 0.06 mm stencil foil is listed.",
+        "Exact paste-layer reproduction requires an explicit ordering remark.",
+        "Availability of this specific mixed-BOM step-stencil combination is not established by the general foil listing."
+      ]
+    },
+    {
+      "url": "https://jlcpcb.com/help/article/opening-process-standard-of-stencil",
+      "facts": [
+        "Default BGA apertures are optimized by pitch and can differ from submitted paste geometry.",
+        "The mixed-pitch PDX proposal requests a component-specific exception."
+      ]
+    },
+    {
+      "url": "https://jlcpcb.com/help/article/bga-design-guidelines---pcb-layout-recommendations-for-bga-packages",
+      "facts": [
+        "Filled and capped vias avoid solder-wicking problems.",
+        "The text recommends at least 0.15 mm drill and 0.35 mm via copper where possible.",
+        "Short 0.076 mm local traces are discussed for multilayer BGA fanout."
+      ]
+    },
+    {
+      "url": "https://jlcpcb.com/blog/bga-stencil-design-apertures-thickness-tips",
+      "facts": [
+        "Aperture area ratio is aperture area divided by aperture-wall area.",
+        "A conventional minimum area ratio is 0.66; the candidate is calculated from actual aperture geometry."
+      ]
+    }
+  ],
+  "unresolved": [
+    "PDX-specific circular land diameter acceptance",
+    "Outer-mask registration and nominal openings",
+    "Mixed-BOM local stencil thickness, paste volume, paste type and reflow",
+    "Filled/capped via process and exact dielectric stackup",
+    "Customer-supplied exact PDX part, A1 orientation and inspection"
+  ]
+}

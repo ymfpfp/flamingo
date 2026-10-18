@@ -15,14 +15,14 @@ const capacitors = banks.flatMap(bank => bank.refs.map(ref => ({...bank, ref})))
 
 export function BridgeVcclDecoupling() {
   return (
-    <group name="VCCL_DECOUPLING" schY={-7}>
-      <schematictext text="VCCL Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
+    <group name="VCCL_DECOUPLING">
+      <schematictext text="VCCL Decoupling" schX={0} schY={2.6} fontSize={0.18} anchor="center"/>
       {capacitors.map(({ref, Capacitor}, index) => (
         <Capacitor
           key={ref}
           name={`C_VCCL_${ref}`}
           schSectionName="VCCL_DECOUPLING"
-          schX={index * 1.8}
+          schX={-12.3 + index * 1.8}
           schY={0}
           schOrientation="vertical"
           connections={{pin1: "net.VCCL", pin2: "net.GND"}}
@@ -38,11 +38,11 @@ export function BridgeVcclDecoupling() {
       />
       <schematictext
         text="ASMedia sheet 3, VCC18: 11 x 2.2uF + 3 x 10uF = 54.2uF. Selected ratings: 16V / 25V."
-        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
+        schX={0} schY={2} fontSize={0.18} anchor="center"
       />
       <schematictext
-        text="Keep C_VCCL_COUT (22uF) at the buck: combined nominal total = 76.2uF."
-        schX={-1.5} schY={-2} fontSize={0.18} anchor="left"
+        text="Keep both 10uF COUT capacitors at the buck: combined nominal total = 74.2uF."
+        schX={0} schY={-2} fontSize={0.18} anchor="center"
       />
     </group>
   );

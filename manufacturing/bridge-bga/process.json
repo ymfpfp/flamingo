@@ -1,0 +1,26 @@
+{
+  "revision": "1.0",
+  "footprint": {
+    "circularLandDiameterMm": 0.2,
+    "circularSolderMaskMarginMm": 0.025,
+    "oblongSolderMaskMarginMm": 0.01,
+    "solderPasteMarginMm": 0,
+    "outerPitchMm": 0.46,
+    "oblongWidthMm": 0.1778
+  },
+  "escape": {
+    "innerArrayNets": ["GND", "GNDA", "VCCH", "VCCA33", "VCCL", "VDD"],
+    "outerEscapeTraceWidthMm": 0.0762,
+    "innerDogboneOffsetMm": 0.325,
+    "viaCopperDiameterMm": 0.25,
+    "viaDrillMm": 0.15,
+    "minimumMaskWebMm": 0.1
+  },
+  "assembly": {
+    "bridgeStencilThicknessMm": 0.06,
+    "minimumApertureAreaRatio": 0.66
+  },
+  "vendorAcceptance": {
+    "received": false
+  }
+}

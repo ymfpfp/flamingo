@@ -38,7 +38,7 @@ export function checkJlcpcbDimensions(json: AnyCircuitElement[]): DrcFinding[] {
     tooSmall.map(e => e.pcb_smtpad_id));
   const oblongs = bgaPads.filter(e => e.shape === "pill" || e.shape === "rotated_pill");
   if (oblongs.length) findings.push({rule: "bga_oblong_process_review", severity: "warning",
-    message: `${oblongs.length} oblong BGA pads need JLCPCB acceptance for their exact copper, mask, and stencil geometry.`,
+    message: `${oblongs.length} oblong BGA pads and the candidate circular lands, mask and stencil need JLCPCB DFM/DFA acceptance. See manufacturing/bridge-bga/.`,
     elementIds: oblongs.map(e => e.pcb_smtpad_id)});
 
   for (const element of json) {

@@ -73,8 +73,8 @@ test("outer lands match ASMedia's 7 by 13 mil pattern and AA1 exception", () => 
       isHorizontal ? horizontal++ : vertical++;
     } else {
       assert.equal(pad.shape, "circle", ball);
-      // Provisional circular land diameter; not specified in ASMedia's datasheet.
-      assert.equal(pad.radius, "0.09mm", ball);
+      // Engineering candidate; ASMedia does not specify the circular land diameter.
+      assert.equal(pad.radius, 0.1, ball);
     }
   }
   assert.equal(horizontal, 39);

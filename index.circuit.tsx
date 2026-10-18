@@ -18,6 +18,7 @@ import {A_0402WGF0000TCE} from "imports/A_0402WGF0000TCE";
 import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {A_39301240} from "imports/A_39301240";
 import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
+import {CL05B224KO5NNNC} from "imports/CL05B224KO5NNNC";
 import ASM2464PDX from "imports/ASM2464PDX";
 import {GT_USB_7087B} from "imports/GT_USB_7087B";
 import {RC0402FR_0712K1L} from "imports/RC0402FR_0712K1L";
@@ -29,6 +30,11 @@ import {XXCBCLNANF_25M} from "imports/XXCBCLNANF_25M";
 // The slot is mechanically x16; the bridge supplies four PCIe lanes.
 const unusedPcieLanes = ([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const)
   .flatMap(lane => [`TX${lane}_P`, `TX${lane}_N`, `RX${lane}_P`, `RX${lane}_N`] as const);
+const unusedPcieSideband = [
+  "JTAG_TCK", "JTAG_TDI", "JTAG_TDO", "JTAG_TMS", "JTAG_TRST_N",
+  "SMB_CLK", "SMB_DATA", "PWRBRK_N",
+  "RSVD_A19", "RSVD_A32", "RSVD_A33", "RSVD_A50", "RSVD_B82",
+] as const;
 
 export default function Board() {
   return (
@@ -39,7 +45,7 @@ export default function Board() {
       anchorAlignment="bottom_left"
       boardAnchorPosition={{x: 0, y: 0}}
       routingDisabled={true}
-      layers={4}
+      layers={6}
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
@@ -119,17 +125,32 @@ export default function Board() {
       <netlabel inline net="USB_VBUS_SENSE" connection=".ASM2464PDX > .VBUS"/>
 
       <schematicsheet name="bridge" sheetIndex={1} sheetSize="ANSI_B">
-        <schematicsection name="BRIDGE_CHIP" displayName="1. Chip"/>
-        <schematicsection name="BRIDGE_UART" displayName="2. UART"/>
-        <schematicsection name="BRIDGE_SPI" displayName="3. SPI"/>
-        <schematicsection name="BRIDGE_OSCILLATOR" displayName="4. Crystal Oscillator"/>
-        <group schX={-12} schY={0}>
+        {/* Fixed section dividers keep the centered clusters independent of their bounds. */}
+        <schematicline x1={-4} y1={-10} x2={-4} y2={8}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={4.5} y1={-10} x2={4.5} y2={8}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        <schematicline x1={-4} y1={-1.5} x2={25} y2={-1.5}
+          strokeWidth={0.02} color="#000000" isDashed/>
+        {[
+          {text: "Chip", x: -17.3, y: 7.8},
+          {text: "UART", x: -3.8, y: 7.8},
+          {text: "SPI", x: 4.7, y: 7.8},
+          {text: "Crystal Oscillator", x: -3.8, y: -1.7},
+          {text: "Bridge Reset", x: 4.7, y: -1.7},
+        ].map(({text, x, y}) => (
+          <Fragment key={text}>
+            <schematictext text={text} schX={x} schY={y}
+              fontSize={0.18} anchor="top_left"/>
+          </Fragment>
+        ))}
+        <group schX={-12} schY={-3}>
           <ASM2464PDX schSectionName="BRIDGE_CHIP"/>
           <UartHeader
             name="UART"
             schSectionName="BRIDGE_UART"
-            schX={13}
-            schY={4}
+            schX={13.8}
+            schY={6.1}
             connections={{
               GND: "net.GND",
               TX: "net.ASM_UART_TX",
@@ -145,8 +166,8 @@ export default function Board() {
             footprint="0402"
             manufacturerPartNumber="0402WGF4701TCE"
             supplierPartNumbers={{jlcpcb: ["C25900"]}}
-            schX={10}
-            schY={6}
+            schX={10.8}
+            schY={8.1}
             schOrientation="vertical"
             connections={{pin1: "net.VCCH", pin2: "net.ASM_UART_TX"}}
           />
@@ -158,7 +179,7 @@ export default function Board() {
             "ASMedia datasheet, section 5.1.",
           ].map((text, index) => (
             <Fragment key={text}>
-              <schematictext text={text} schX={9} schY={2.5 - index * 0.32}
+              <schematictext text={text} schX={9.8} schY={4.6 - index * 0.32}
                 fontSize={0.18} anchor="left"/>
             </Fragment>
           ))}
@@ -186,8 +207,8 @@ export default function Board() {
           <W25Q32JVSSIQ
             name="W25Q32JVSSIQ"
             schSectionName="BRIDGE_SPI"
-            schX={24}
-            schY={4}
+            schX={23}
+            schY={6.3}
             schPinArrangement={{
               leftSide: {direction: "top-to-bottom", pins: [3, 1, 2, 4]},
               rightSide: {direction: "top-to-bottom", pins: [8, 7, 6, 5]},
@@ -206,8 +227,8 @@ export default function Board() {
           <A_0402WGF1002TCE
             name="R_SPI_WP"
             schSectionName="BRIDGE_SPI"
-            schX={20}
-            schY={6.5}
+            schX={19}
+            schY={8.8}
             schOrientation="vertical"
             connections={{pin1: "net.VCCH", pin2: ".W25Q32JVSSIQ > .WP"}}
           />
@@ -219,8 +240,8 @@ export default function Board() {
           <A_0402WGF1002TCE
             name="R_SPI_HOLD"
             schSectionName="BRIDGE_SPI"
-            schX={28}
-            schY={4}
+            schX={27}
+            schY={6.3}
             schOrientation="vertical"
             connections={{pin1: "net.VCCH", pin2: ".W25Q32JVSSIQ > .HOLD"}}
           />
@@ -232,15 +253,15 @@ export default function Board() {
             "W25Q32JV pp. 9, 16; Winbond technical FAQ.",
           ].map((text, index) => (
             <Fragment key={`hold-note-${index}`}>
-              <schematictext text={text} schX={20} schY={2 - index * 0.32}
+              <schematictext text={text} schX={19} schY={4.3 - index * 0.32}
                 fontSize={0.18} anchor="left"/>
             </Fragment>
           ))}
           <A_0402WGF1002TCE
             name="R_SPI_CS"
             schSectionName="BRIDGE_SPI"
-            schX={23}
-            schY={6.5}
+            schX={22}
+            schY={8.8}
             schOrientation="vertical"
             connections={{pin1: "net.VCCH", pin2: ".W25Q32JVSSIQ > .N_CS"}}
           />
@@ -250,14 +271,14 @@ export default function Board() {
           <CL05B104KO5NNNC
             name="C_SPI_VCC"
             schSectionName="BRIDGE_SPI"
-            schX={27}
-            schY={6.5}
+            schX={26}
+            schY={8.8}
             schOrientation="vertical"
             connections={{pin1: "net.VCCH", pin2: "net.GND"}}
           />
           <netlabel inline net="VCCH" connection="C_SPI_VCC.pin1"/>
           <netlabel inline net="GND" connection="C_SPI_VCC.pin2"/>
-          <group schX={12} schY={-6}>
+          <group schX={10.75} schY={-2.85}>
             <XXCBCLNANF_25M
               name="XCLK"
               schSectionName="BRIDGE_OSCILLATOR"
@@ -282,8 +303,8 @@ export default function Board() {
         <SpiProgrammingHeader
           name="SPI_PROG"
           schSectionName="BRIDGE_SPI"
-          schX={22}
-          schY={4}
+          schX={21}
+          schY={3.3}
           connections={{
             RST_N: "net.ASM_RST_N",
             GND: "net.GND",
@@ -301,18 +322,18 @@ export default function Board() {
           "Shared SPI bus: SPI output release during reset remains unverified.",
         ].map((text, index) => (
           <Fragment key={`spi-programming-note-${index}`}>
-            <schematictext text={text} schX={19} schY={2 - index * 0.32}
+            <schematictext text={text} schX={18} schY={1.3 - index * 0.32}
               fontSize={0.18} anchor="left"/>
           </Fragment>
         ))}
       </schematicsheet>
       <schematicsheet name="bridge_decoupling" displayName="Bridge Decoupling" sheetIndex={2}>
-        {/* Align the rail sections explicitly, including the VCCA33 column. */}
-        <schematicline x1={-1.5} y1={-3.5} x2={24.85} y2={-3.5}
+        {/* Center each capacitor bank within its section. */}
+        <schematicline x1={-14} y1={3.5} x2={14} y2={3.5}
           strokeWidth={0.02} color="#000000" isDashed/>
-        <schematicline x1={-1.5} y1={-10} x2={24.85} y2={-10}
+        <schematicline x1={-14} y1={-3.5} x2={14} y2={-3.5}
           strokeWidth={0.02} color="#000000" isDashed/>
-        <schematicline x1={17.6} y1={3.2} x2={17.6} y2={-3.5}
+        <schematicline x1={5.2} y1={10.2} x2={5.2} y2={3.5}
           strokeWidth={0.02} color="#000000" isDashed/>
         <BridgeVcchDecoupling/>
         <BridgeVcca33Decoupling/>
@@ -349,7 +370,7 @@ export default function Board() {
             bottomSide: {direction: "left-to-right", pins: ["GND"]},
           }}
           // B10 is NC because this design does not support standby wake.
-          noConnect={[...unusedPcieLanes, "V3V3_AUX"]}
+          noConnect={[...unusedPcieLanes, ...unusedPcieSideband, "V3V3_AUX"]}
           connections={{
             GND: "net.GND",
             V12V: "net.SLOT_12V",
@@ -465,12 +486,9 @@ export default function Board() {
           <Fragment key={`PCIE_TX${lane}_${polarity}`}>
             <netlabel inline net={`PCIE_TX${lane}_${polarity}`} connection={`PCIe.TX${lane}_${polarity}`}/>
             <netlabel inline net={`PCIE_TX${lane}_${polarity}`} connection={`C_TX${lane}_${polarity}.pin2`}/>
-            <capacitor
+            <CL05B224KO5NNNC
               schSectionName="PCIE_AC_COUPLING"
               name={`C_TX${lane}_${polarity}`}
-              capacitance="220nF"
-              maxVoltageRating="10V"
-              footprint="0402"
               schOrientation="neg_left"
               schX={-3}
               schY={0.2 - lane * 2.2 - index * 1.1}
@@ -486,7 +504,7 @@ export default function Board() {
           </Fragment>
         )))}
         <schematictext
-          text="TX capacitors: 220nF / 10V, per ASMedia reference sheet 6."
+          text="TX capacitors: 220nF / 16V X7R, Samsung CL05B224KO5NNNC."
           schX={-5.5}
           schY={-8.5}
           fontSize={0.18}
@@ -528,13 +546,19 @@ export default function Board() {
         <netlabel inline net="PCIE_PRESENT_N" connection="R_PCIE_PRESENT.pin2"/>
         {/* Include the switch block's local subcircuit in the page bounds without a visible frame. */}
         <schematicrect schX={8.7} schY={-2.7} width={14.4} height={18.2} strokeWidth={0} color="transparent"/>
-        <SlotPower/>
+
         <SlotDecoupling/>
+        <SlotPower/>
       </schematicsheet>
+
       <schematicsheet name="usb" sheetIndex={4}>
         <schematicsection name="USB" displayName="USB4 Receptacle"/>
         <GT_USB_7087B
           name="USBC"
+          // Preliminary anchor keeps the receptacle facing the left board edge.
+          pcbX={-70}
+          pcbY={0}
+          pcbRotation={270}
           // Reserve room for the connector courtyard during automatic packing.
           pcbMarginX="1mm"
           pcbMarginY="1mm"
@@ -562,7 +586,7 @@ export default function Board() {
         <Usb4Lanes/>
         <UsbVbusSense/>
       </schematicsheet>
-      <schematicsheet name="power" sheetIndex={3}>
+      <schematicsheet name="power" sheetIndex={3} sheetSize="ANSI_B">
         <schematicsection name="ATX_START" displayName="ATX Input and Automatic Start"/>
         <A_39301240
           name="ATX"

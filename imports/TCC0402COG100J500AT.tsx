@@ -9,6 +9,7 @@ export const TCC0402COG100J500AT = (props: Omit<CapacitorProps, "capacitance">) 
     <capacitor
       name={name}
       capacitance="10pF"
+      maxVoltageRating="50V"
       supplierPartNumbers={{
   "jlcpcb": [
     "C696913"

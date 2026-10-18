@@ -7,6 +7,9 @@ export type Scenario = {
   stepMs: number;
   rails: Record<"V5V" | "VCCH" | "VCCL" | "VDD", readonly Point[]>;
   resetLeakageUa?: number;
+  resetResistanceScale?: number;
+  resetCapacitanceScale?: number;
+  assumptions?: string[];
 };
 
 const ramp = (volts: number, start: number, rise = 2): Point[] => [[0, 0], [start, 0], [start + rise, volts]];
@@ -36,3 +39,31 @@ export const scenarios: Scenario[] = [
   {name: "vdd-within-datasheet-window", description: "VDD meets the 90 ms arrival window but starts after reset's earliest Schmitt threshold crossing.", durationMs: 300, stepMs: 0.05,
     rails: {...base, VDD: ramp(1.130578512, 84, 5)}},
 ];
+
+/** Normal-startup sensitivity envelope; these are bounded test inputs, not a buck model. */
+export const startupEnvelopeScenarios: Scenario[] = [0.95, 1, 1.05].flatMap(scale =>
+  [0.2, 2, 20].flatMap(riseMs => [false, true].map(fastReset => {
+    // Upper SENSE threshold and opposing +/-0.1% divider tolerances.
+    const threshold = 1.157 * 1.01 * (1 + 16200 * 1.001 / (10000 * 0.999));
+    const vcch = 3.3 * scale;
+    const thresholdMs = 1 + riseMs * threshold / vcch;
+    // Test assumptions: allow 1 ms after threshold for supervisor release,
+    // then 4 ms delay plus a 1 ms ramp for each low-voltage rail.
+    const outputStartMs = thresholdMs + 1 + 4;
+    return {
+      name: `startup-${Math.round(scale * 100)}pct-${riseMs}ms-${fastReset ? "half-c" : "nominal-rc"}`,
+      description: `Matched ATX ramps, ${Math.round(scale * 100)}% supply voltage, ${riseMs} ms rise, ${fastReset ? "50% reset capacitance and -1% resistance" : "nominal reset RC"}.`,
+      durationMs: 400, stepMs: 0.05,
+      rails: {V5V: ramp(5 * scale, 1, riseMs), VCCH: ramp(vcch, 1, riseMs),
+        VCCL: ramp(1.894214876, outputStartMs, 1), VDD: ramp(1.130578512, outputStartMs, 1)},
+      resetResistanceScale: fastReset ? 0.99 : 1,
+      resetCapacitanceScale: fastReset ? 0.5 : 1,
+      assumptions: [
+        "5 V and 3.3 V have matched start and rise times, with matching +/-5% endpoint variation.",
+        "Supervisor release occurs within 1 ms of the calculated high threshold. This is a test allowance, not a datasheet maximum.",
+        "Both buck outputs reach their targets within 5 ms after that release, with no overshoot.",
+        "Reset effective capacitance is at least 0.5 uF. This is a sensitivity floor, not a guaranteed manufacturer limit.",
+        "Bridge loading, regulator stability, input clamps and capacitor nonlinearities are not simulated.",
+      ],
+    } satisfies Scenario;
+  })));

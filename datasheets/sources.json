@@ -1,5 +1,5 @@
 {
-  "checked_on": "2026-10-15",
+  "checked_on": "2026-10-18",
   "scope": "Local PDFs cover current board components and design references. Historical entries preserve source URLs and hashes for removed documents.",
   "components": [
     {
@@ -28,7 +28,19 @@
           "sha256": "4a09440d6510e29e441e9228214ca18650a3a83e15631530c9b3bb51c430f221",
           "notes": "Current project ASM2464PDX datasheet, revision 0.3. Original download source is not recorded."
         }
-      ]
+      ],
+      "footprint_review": {
+        "reviewed_on": "2026-10-17",
+        "process_file": "manufacturing/bridge-bga/process.json",
+        "status": "engineering candidate; vendor acceptance pending",
+        "circular_land_diameter_mm": 0.2,
+        "outer_oblong_mm": [
+          0.1778,
+          0.3302
+        ],
+        "circular_land_authority": "Project candidate; not specified by ASMedia. The previous 0.18 mm community/supplier references remain historical comparison data.",
+        "paste": "Explicit 1:1 copper geometry; proposed local 0.06 mm stencil region needs assembler acceptance."
+      }
     },
     {
       "manufacturer_part_number": "W25Q32JVSSIQ",
@@ -36,7 +48,7 @@
       "component_file": "imports/W25Q32JVSSIQ.tsx",
       "placed_on_board": true,
       "board_references": [
-        "SPI"
+        "W25Q32JVSSIQ"
       ],
       "documents": [
         {
@@ -208,7 +220,7 @@
       "component_file": "imports/RC0402FR_0712K1L.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R1"
+        "R_RST_N"
       ],
       "documents": [
         {
@@ -217,7 +229,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ]
     },
@@ -255,8 +267,9 @@
         "R_SPI_WP",
         "R_SPI_HOLD",
         "R_SPI_CS",
-        "R_BUCK_EN_PU",
-        "R_VBUS_BOTTOM"
+        "R_PCIE_CLKREQ_PU",
+        "R_VBUS_BOTTOM",
+        "R_BUCK_EN_PU"
       ],
       "documents": [
         {
@@ -279,10 +292,10 @@
       "placed_on_board": true,
       "board_references": [
         "C_SPI_VCC",
-        "C_PSU_LED",
         "C_VCCL_HF",
         "C_VDD_HF",
-        "C_BUCK_EN"
+        "C_BUCK_EN",
+        "C_PSU_LED"
       ],
       "documents": [
         {
@@ -458,7 +471,9 @@
             "former_local_filename": "RC0201FR-07220KL.pdf",
             "retained_locally": false
           }
-        ]
+        ],
+        "placed_on_board": false,
+        "board_references": []
       },
       "implementation": {
         "stock_substitution": {
@@ -493,7 +508,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 2,
         "board_references": [
           "R_SLOT_OFF_3V3",
@@ -561,7 +576,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 1,
         "board_references": [
           "Q_SLOT_12V"
@@ -590,7 +605,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 1,
         "board_references": [
           "Q_SLOT_3V3"
@@ -601,30 +616,26 @@
       "manufacturer_part_number": "2N7002K-7",
       "manufacturer": "Diodes Incorporated",
       "component_file": "imports/A_2N7002K_7.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "Q_SLOT_DRV_3V3",
-        "Q_SLOT_DRV_12V"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
-          "file": "2N7002K.pdf",
           "source_url": "https://www.diodes.com/datasheet/download/2N7002K.pdf",
           "origin": "downloaded",
           "pages": 8,
           "sha256": "669e5d68d6458e0879d7396416bdcdb3ef9966ea60f054773d4c891d735aa818",
-          "notes": "N-channel, 60 V; gate=1, source=2, drain=3. Reference-family driver; verify sinking current at worst-case HDDPC output voltage during final circuit design."
+          "notes": "N-channel, 60 V; gate=1, source=2, drain=3. Reference-family driver; verify sinking current at worst-case HDDPC output voltage during final circuit design.",
+          "former_local_filename": "2N7002K.pdf",
+          "retained_locally": false,
+          "removal_reason": "Gate driver replaced by NX3008NBK,215. Historical SPICE model and its provenance remain in simulations/slot-power/."
         }
       ],
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
-        "quantity": 2,
-        "board_references": [
-          "Q_SLOT_DRV_3V3",
-          "Q_SLOT_DRV_12V"
-        ]
+        "sheet": "slot_power",
+        "quantity": 0,
+        "board_references": []
       }
     },
     {
@@ -649,7 +660,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 2,
         "board_references": [
           "R_SLOT_GATE_3V3",
@@ -679,7 +690,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 1,
         "board_references": [
           "R_HDDPC_PD"
@@ -708,7 +719,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 2,
         "board_references": [
           "R_SLOT_DISCHARGE_3V3",
@@ -727,7 +738,9 @@
             "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
             "notes": "1 kohm, 1%, 1206, 1/4 W. 12 V nominal dissipation is 0.144 W; at 13.2 V and -1% resistance it is 0.176 W. Check temperature derating during layout."
           }
-        ]
+        ],
+        "placed_on_board": false,
+        "board_references": []
       },
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -768,7 +781,7 @@
       "slot_power_use": {
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
-        "sheet": "pcie",
+        "sheet": "slot_power",
         "quantity": 2,
         "board_references": [
           "C_SLOT_GATE_3V3",
@@ -802,8 +815,13 @@
       ],
       "placed_on_board": true,
       "board_references": [
-        "R_PSU_ON",
-        "R_VCCA33_4"
+        "R_VCCA33_4",
+        "R_PCIE_PERST",
+        "R_PCIE_REFCLK_P",
+        "R_PCIE_REFCLK_N",
+        "R_PCIE_CLKREQ",
+        "R_PCIE_PRESENT",
+        "R_PSU_ON"
       ],
       "bridge_decoupling_inventory": "../bridge-decoupling-parts.json",
       "bridge_analog_supply_link": {
@@ -812,7 +830,13 @@
         "jlcpcb_part_number": "C17168",
         "quantity": 1,
         "board_references": [
-          "R_VCCA33_4"
+          "R_VCCA33_4",
+          "R_PCIE_PERST",
+          "R_PCIE_REFCLK_P",
+          "R_PCIE_REFCLK_N",
+          "R_PCIE_CLKREQ",
+          "R_PCIE_PRESENT",
+          "R_PSU_ON"
         ],
         "resistance_ohm": 0,
         "package_eia": "0402",
@@ -829,7 +853,8 @@
           "pad_height_mm": 0.54
         },
         "reuses_existing_import": true,
-        "selection_notes": "Reference R4 analog supply link only. ASMedia leaves supply current TBD; check current, voltage drop, and turn-on pulse margin with the final power budget. The 2A overload rating is not a continuous rating."
+        "selection_notes": "Reference R4 analog supply link only. ASMedia leaves supply current TBD; check current, voltage drop, and turn-on pulse margin with the final power budget. The 2A overload rating is not a continuous rating.",
+        "placed_on_board": true
       }
     },
     {
@@ -854,7 +879,8 @@
           "sha256": "5657941b4f3173e4d88e75b4cb427010cd636a241487cb8dfe46ccf6a5339505",
           "notes": "Revision R. 5 V TTL-compatible Schmitt-trigger inverter. Pin 1 NC, 2 A, 3 GND, 4 Y, 5 VCC. Positive threshold <=2.0 V, input leakage <=1 uA, rated sink current 8 mA. Output sinks the LED when ATX PWR_OK is high; it is not a 3.3 V logic output."
         }
-      ]
+      ],
+      "footprint_review": "Explicit SOT-23-5 rectangular lands retain intended 1.1 x 0.6 mm pads at 0.95 mm pitch and 2.6 mm row spacing. Corrects rotation-dependent overlap in generated footprinter pads; checked at all four orthogonal rotations."
     },
     {
       "manufacturer_part_number": "XL-1608UWC-04",
@@ -884,11 +910,8 @@
       "manufacturer_part_number": "SLW5040S2R2MST",
       "manufacturer": "Sunltech Tech",
       "component_file": "imports/SLW5040S2R2MST.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "L_VCCL",
-        "L_VDD"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C206346"
@@ -897,12 +920,14 @@
       "product_url": "https://jlcpcb.com/partdetail/SunltechTech-SLW5040S2R2MST/C206346",
       "documents": [
         {
-          "file": "SLW5040S2R2MST.pdf",
           "source_url": "https://datasheet.lcsc.com/datasheet/pdf/3b3c132b337466bfe3bc78dcabb85adb.pdf?productCode=C206346",
           "origin": "downloaded",
           "pages": 19,
           "sha256": "9f6c49321358b2bafb117052c06d649851f6159bd5f9eb42c0aebc01918f1343",
-          "notes": "Sunltech SLW-S series Rev.03. Page 2: 5 x 5 x 4 mm maximum height, package dimensions. Page 9: 2.2 uH +/-20%, 17 mOhm DCR +/-30%, 6.5 A Isat at 30% inductance loss, 3.95 A Irms at 40 C rise from 20 C ambient. Ratings and temperature definitions are stated below the electrical tables."
+          "notes": "Sunltech SLW-S series Rev.03. Page 2: 5 x 5 x 4 mm maximum height, package dimensions. Page 9: 2.2 uH +/-20%, 17 mOhm DCR +/-30%, 6.5 A Isat at 30% inductance loss, 3.95 A Irms at 40 C rise from 20 C ambient. Ratings and temperature definitions are stated below the electrical tables.",
+          "former_local_filename": "SLW5040S2R2MST.pdf",
+          "retained_locally": false,
+          "removal_reason": "Buck inductor replaced by XGL4020-102MEC."
         }
       ],
       "availability_snapshot": {
@@ -911,7 +936,8 @@
         "stock": 261,
         "notes": "Extended part. Supplier snapshot only; no order placed."
       },
-      "footprint_notes": "Exact EasyEDA footprint imported with tsci import --jlcpcb --use-exact-footprint C206346. Two non-polarized pads, 4 mm center spacing, approximately 2.124 x 4.220 mm lands."
+      "footprint_notes": "Exact EasyEDA footprint imported with tsci import --jlcpcb --use-exact-footprint C206346. Two non-polarized pads, 4 mm center spacing, approximately 2.124 x 4.220 mm lands.",
+      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained."
     },
     {
       "manufacturer_part_number": "CL21A226MAYNNNE",
@@ -919,8 +945,6 @@
       "component_file": "imports/CL21A226MAYNNNE.tsx",
       "placed_on_board": true,
       "board_references": [
-        "C_VCCL_COUT",
-        "C_VDD_COUT",
         "C_VCCA33_7"
       ],
       "supplier_part_numbers": {
@@ -947,7 +971,7 @@
       ],
       "implementation": {
         "footprint_source": "tsci import --jlcpcb --use-exact-footprint C602037",
-        "use": "One output capacitor per TPS62903, plus C_VCCA33_7 from the analog supply to GND."
+        "use": "C_VCCA33_7 analog-supply decoupling only. Both buck outputs use two 10 uF CL21A106KAYNNNE capacitors."
       },
       "bridge_decoupling_inventory": "../bridge-decoupling-parts.json"
     },
@@ -1095,8 +1119,9 @@
       ],
       "implementation": {
         "footprint_source": "tsci import --jlcpcb --use-exact-footprint C2866502",
-        "checked_on": "2026-10-15"
-      }
+        "checked_on": "2026-10-18"
+      },
+      "selection_status": "Selected for both TPS62903 buck circuits on 2026-10-18. See docs/reviews/tps62903-return-2026-10-18.md."
     },
     {
       "manufacturer_part_number": "RT0402BRD0726K1L",
@@ -1205,14 +1230,11 @@
       }
     },
     {
-      "manufacturer_part_number": "0402 \u00b11% 21K",
+      "manufacturer_part_number": "0402 ±1% 21K",
       "manufacturer": "VO",
       "component_file": "imports/VO_0402_1pct_21K.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_VCCL_MODE",
-        "R_VDD_MODE"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C2906409"
@@ -1221,12 +1243,14 @@
       "product_url": "https://jlcpcb.com/partdetail/C2906409",
       "documents": [
         {
-          "file": "VO-0402-1pct-21K.pdf",
           "source_url": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8590201846947622912-C2906409.pdf",
           "origin": "manufacturer datasheet",
           "pages": 14,
           "sha256": "fb6ac211ca2f1c23ed05ac6306ba61202b2f9bfdc414213604803a76f50693d9",
-          "notes": "Stock replacement verified on 2026-10-16. Existing footprint and package model retained."
+          "notes": "Stock replacement verified on 2026-10-16. Existing footprint and package model retained.",
+          "former_local_filename": "VO-0402-1pct-21K.pdf",
+          "retained_locally": false,
+          "removal_reason": "21 kohm MODE resistor replaced by the 8.87 kohm RC0402FR-078K87L selection. Its current family document remains local."
         }
       ],
       "implementation": {
@@ -1257,7 +1281,9 @@
             "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
             "notes": "Manufacturer RC_L series specification. Shared family reference also covers RC0402FR-0721KL, 21 kohm, +/-1%, +/-100 ppm/C, 1/16 W, 50 V."
           }
-        ]
+        ],
+        "placed_on_board": false,
+        "board_references": []
       }
     },
     {
@@ -1290,7 +1316,9 @@
             "sha256": "ee79599730e7606ba9718d9820b411020e3dcd9ff7d44572f8ee63fead15b9d0",
             "notes": "TPS3890 Rev A. Page 3 pin map and rising 1.157 V adjustable threshold; page 5 accuracy and CT-open timing; page 13 divider equation; DSE package drawing. Exact C2066907 footprint imported."
           }
-        ]
+        ],
+        "placed_on_board": false,
+        "board_references": []
       },
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -1418,7 +1446,11 @@
         "C_VCCL_20",
         "C_VDD_4",
         "C_VDD_12",
-        "C_VDD_18"
+        "C_VDD_18",
+        "C_VCCL_COUT",
+        "C_VCCL_COUT_B",
+        "C_VDD_COUT",
+        "C_VDD_COUT_B"
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -1426,7 +1458,7 @@
         ]
       },
       "product_url": "https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do",
-      "selection_status": "Selected for bridge decoupling; electrical and layout qualification pending.",
+      "selection_status": "Selected for bridge decoupling and two local output capacitors per TPS62903. Effective capacitance and hardware response require checks.",
       "inventory_file": "../bridge-decoupling-parts.json",
       "footprint_notes": {
         "source": "tsci import C15850 --jlcpcb",
@@ -1470,11 +1502,19 @@
         "C_VCCH_27",
         "C_VCCH_31",
         "C_VCCH_35",
+        "C_VCCA33_8",
         "C_VDD_26",
         "C_VDD_30",
         "C_VDD_34",
         "C_VDD_39",
-        "C_VCCA33_8"
+        "C_TX0_P",
+        "C_TX0_N",
+        "C_TX1_P",
+        "C_TX1_N",
+        "C_TX2_P",
+        "C_TX2_N",
+        "C_TX3_P",
+        "C_TX3_N"
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -1482,7 +1522,7 @@
         ]
       },
       "product_url": "https://product.samsungsem.com/mlcc/CL05B224KO5NNN.do",
-      "selection_status": "Selected for bridge decoupling; electrical and layout qualification pending.",
+      "selection_status": "Selected for bridge decoupling and eight PCIe TX coupling capacitors; electrical and layout qualification pending.",
       "inventory_file": "../bridge-decoupling-parts.json",
       "footprint_notes": {
         "source": "tsci import C16772 --jlcpcb",
@@ -1524,12 +1564,14 @@
       "selection_status": "Replaced at C134 by Panasonic 25SVPK470M on 2026-10-16 because JLCPCB stock was zero. Historical datasheet retained.",
       "documents": [
         {
-          "file": "PCR1E471MCL1GS.pdf",
           "source_url": "https://www.nichicon.com/getmedia/51030c7a-8ec4-4fdb-b99e-cb0da44e1bf9/e-pcr6-26-29.pdf",
           "origin": "manufacturer document",
           "pages": 2,
           "sha256": "98c4b35e8e008c797a68942e8b09c2a4dce6aa472c112ba58d371e259483bcee",
-          "notes": "Nichicon PCR family datasheet; includes PCR1E471MCL1GS, 470uF, 25V, 15 milliohm ESR and 4.1A rated high-frequency ripple."
+          "notes": "Nichicon PCR family datasheet; includes PCR1E471MCL1GS, 470uF, 25V, 15 milliohm ESR and 4.1A rated high-frequency ripple.",
+          "former_local_filename": "PCR1E471MCL1GS.pdf",
+          "retained_locally": false,
+          "removal_reason": "Slot bulk capacitor replaced by Panasonic 25SVPK470M."
         }
       ]
     },
@@ -1645,6 +1687,362 @@
           "notes": "Panasonic recommended soldering conditions and land pattern. F12: a=4.3mm gap, b=13.1mm overall span, c=1.9mm pad width. Each pad length=(13.1-4.3)/2=4.4mm. Positive terminal uses the chamfered base edge in the SVPK drawing."
         }
       ]
+    },
+    {
+      "manufacturer_part_number": "TPS259824LNRGER",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/TPS259824LNRGER.tsx",
+      "documents": [
+        {
+          "source_url": "https://www.ti.com/lit/ds/symlink/tps25982.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 58,
+          "sha256": "655c21dbf6b91a3c98b7ab26cd3bf0020d3eb7d765f411c71030d22fa4b6bc1f",
+          "notes": "Revision D. 3.3 V slot current limiter; LNRGE latch-off variant.",
+          "former_local_filename": "TPS25982.pdf",
+          "retained_locally": false,
+          "removal_reason": "eFuse belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "TPS24720RGTT",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/TPS24720RGTT.tsx",
+      "documents": [
+        {
+          "source_url": "https://www.ti.com/lit/ds/symlink/tps24720.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 41,
+          "sha256": "af9f0c2f8f3beedda917b0e2e1ea662687d4f36defede283e99c7dd2098b41f5",
+          "notes": "Revision E. Pin map and RGT0016C land example used for the local 16-pin QFN plus exposed-pad footprint.",
+          "former_local_filename": "TPS24720.pdf",
+          "retained_locally": false,
+          "removal_reason": "Controller belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "IXTA80N075L2",
+      "manufacturer": "IXYS / Littelfuse",
+      "component_file": "imports/IXTA80N075L2.tsx",
+      "documents": [
+        {
+          "source_url": "https://astrolkwx.com/wp-content/uploads/IXTP80N075L2_datasheet.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 5,
+          "sha256": "5dd7c5a7ab2ca3c242930c7be82b6f540ccaafcfe0c8b14393a99be0240369f3",
+          "notes": "Manufacturer datasheet pages 1-5 extracted without modifying page content. Download appended unrelated material. Full original SHA256 a1daf4f041e2c4b9982270a814d6e5aaeb0bc55e6fb2b4fa3fa91901b3ae819f. Figure 14 specifies FBSOA at 75 C case temperature.",
+          "former_local_filename": "IXTA80N075L2.pdf",
+          "retained_locally": false,
+          "removal_reason": "MOSFET belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "WSL25123L000FEA",
+      "manufacturer": "Vishay",
+      "component_file": "imports/SlotPowerPassives.tsx",
+      "documents": [
+        {
+          "source_url": "https://www.vishay.com/docs/30100/wsl.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 5,
+          "sha256": "96c2dc89ae1e3039815ed6c41f566a6e9f6b53035f8e45ea2ada1697935a44dc",
+          "notes": "WSL2512, 3 milliohm, 1%, 1 W. Manufacturer low-resistance land pattern: two 3.05 x 3.68 mm pads, 1.27 mm gap. Generic 2512 lands do not match.",
+          "former_local_filename": "WSL.pdf",
+          "retained_locally": false,
+          "removal_reason": "Current shunt belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "GRM31C5C1H224JE02L",
+      "manufacturer": "Murata",
+      "component_file": "imports/GRM31C5C1H224JE02L.tsx",
+      "documents": [
+        {
+          "source_url": "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM31C5C1H224JE02-01A.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 33,
+          "sha256": "0cf9274b6ce7c12de1f31e27bbf01d8cda86c9aa79a0a6b03c85fab8617be6ae",
+          "notes": "220 nF, 50 V, C0G, 5%, 1206; two parallel parts form the 12 V fault timer.",
+          "former_local_filename": "GRM31C5C1H224JE02L.pdf",
+          "retained_locally": false,
+          "removal_reason": "Capacitor belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "C2012C0G1H153JT000N",
+      "manufacturer": "TDK",
+      "component_file": "imports/C2012C0G1H153JT000N.tsx",
+      "documents": [
+        {
+          "source_url": "https://www.rxelectronics.es/datasheet/f3/C2012Y5V1H105Z-0.85.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 72,
+          "sha256": "c72913b45e8cd5162ef25ace45f32989e2641d025bc6cd3e24710a1ea71ca3c5",
+          "notes": "Manufacturer C-series family catalog hosted by distributor. Includes C2012C0G1H153J: 15 nF, 50 V, 5%, 0805. Old full ordering alias corresponds to C2012C0G1H153J085AA.",
+          "former_local_filename": "TDK-C-Series.pdf",
+          "retained_locally": false,
+          "removal_reason": "Referenced capacitor belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "SMBJ13A",
+      "manufacturer": "Littelfuse",
+      "component_file": "imports/SMBJ13A.tsx",
+      "documents": [
+        {
+          "source_url": "https://www.datasheets.com/littelfuse/smbj12a/datasheet.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 6,
+          "sha256": "45ba05da59e44cb82bad56f195856d6947dec11a8a4ecf90dfa91dc808f02cb7",
+          "notes": "Manufacturer SMBJ family document; includes SMBJ13A, 13 V standoff and 21.5 V maximum clamp at 28 A. Distributor page fields are not the electrical authority.",
+          "former_local_filename": "SMBJ13A.pdf",
+          "retained_locally": false,
+          "removal_reason": "TVS belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "SS54",
+      "manufacturer": "MDD",
+      "component_file": "imports/SS54.tsx",
+      "documents": [
+        {
+          "source_url": "https://media.onzuu.com/static/datasheets/mdd/ss54.pdf",
+          "origin": "downloaded secondary vendor cross-reference",
+          "pages": 11,
+          "sha256": "a9ecebbeb1de0c4590d67f73eb9a36585d3b9dc051b490e8862aed9e87f0849c",
+          "notes": "Secondary NextGen Components specification cross-references original MDD SS54. Not an MDD-authored datasheet. Confirm manufacturer lot ratings before procurement; exact MDD footprint imported from C22452.",
+          "former_local_filename": "SS54.pdf",
+          "retained_locally": false,
+          "removal_reason": "Diode belongs to the abandoned protected slot-power design."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "XGL4020-102MEC",
+      "manufacturer": "Coilcraft",
+      "component_file": "imports/XGL4020_102MEC.tsx",
+      "documents": [
+        {
+          "file": "XGL4020.pdf",
+          "source_url": "https://www.coilcraft.com/getmedia/76c9c081-4945-4c85-9129-9356e1ad6734/xgl4020.pdf",
+          "origin": "downloaded manufacturer document",
+          "pages": 3,
+          "sha256": "1e050d7e4f44f7e1f3ae3be38de87b15e4d72b2ef463c7b1f4edc292f83ad2c0",
+          "notes": "Manufacturer February 2026 family datasheet. 1 uH; 9 milliohm max DCR, 12 A Irms, Isat 3.8/6.3/8.8 A for 10/20/30% drop."
+        }
+      ],
+      "placed_on_board": true,
+      "board_references": [
+        "L_VCCL",
+        "L_VDD"
+      ],
+      "selection_status": "Selected for both TPS62903 buck circuits on 2026-10-18. See docs/reviews/tps62903-return-2026-10-18.md."
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-07300RL",
+      "manufacturer": "YAGEO",
+      "component_file": "imports/RC0402FR_07300RL.tsx",
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-078K87L",
+      "manufacturer": "YAGEO",
+      "component_file": "imports/RC0402FR_078K87L.tsx",
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+        }
+      ],
+      "placed_on_board": true,
+      "board_references": [
+        "R_VCCL_MODE",
+        "R_VDD_MODE"
+      ],
+      "selection_status": "Selected for both TPS62903 buck circuits on 2026-10-18. See docs/reviews/tps62903-return-2026-10-18.md."
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-0710RL",
+      "manufacturer": "YAGEO",
+      "component_file": "imports/SlotPowerPassives.tsx",
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-0751R1L",
+      "manufacturer": "YAGEO",
+      "component_file": "imports/SlotPowerPassives.tsx",
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-071K43L",
+      "manufacturer": "YAGEO",
+      "component_file": "imports/SlotPowerPassives.tsx",
+      "documents": [
+        {
+          "file": "RC0402FR-0712K1L.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/b426be3ce22c6de3e0c3a2248e49159e.pdf?productCode=C132157",
+          "origin": "downloaded",
+          "pages": 11,
+          "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+        }
+      ],
+      "placed_on_board": false,
+      "board_references": []
+    },
+    {
+      "manufacturer_part_number": "RT8059GJ5",
+      "manufacturer": "Richtek",
+      "component_file": "imports/RT8059GJ5.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C20542"
+        ]
+      },
+      "documents": [
+        {
+          "source_url": "https://www.richtek.com/assets/product_file/RT8059/DS8059-06.pdf",
+          "origin": "downloaded from manufacturer",
+          "sha256": "4a5b02c8a7af0687b8628ba9405a6e4e7e950920cea0cd652abb8df2087d6bb4",
+          "notes": "ASMedia sheet 4 U5 annotation selects RT8059. Richtek DS8059-06: 1 A, 1.5 MHz, five-pin TSOT-23-5. Output accuracy +/-3% does not guarantee the complete bridge VCCL interval.",
+          "former_local_filename": "RT8059.pdf",
+          "retained_locally": false,
+          "removal_reason": "Evaluated VCCL regulator replaced by TPS62903RPJR."
+        }
+      ],
+      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained."
+    },
+    {
+      "manufacturer_part_number": "ID8225B-ADA60R",
+      "manufacturer": "iDESYN",
+      "component_file": "imports/ID8225B_ADA60R.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {},
+      "documents": [
+        {
+          "source_url": "https://idesyn.com/wp-content/uploads/2024/01/iD8225B-V0.4.pdf",
+          "origin": "downloaded from manufacturer",
+          "sha256": "b6788b90ce8f72a08144972362020d31051a725177a14632c35140a4e9b70afc",
+          "notes": "ASMedia sheet 4 U6 supplies the six-pin map. Public Rev 0.4 is a two-page brief: 2.5 A continuous, 3 A peak, 1.5 MHz. Accuracy limits and package dimensions are absent. Standard SOT-23-6 footprint and exact procurement need vendor confirmation; no matching JLCPCB part was found.",
+          "former_local_filename": "iD8225B.pdf",
+          "retained_locally": false,
+          "removal_reason": "Evaluated VDD regulator replaced by TPS62903RPJR."
+        }
+      ],
+      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained."
+    },
+    {
+      "manufacturer_part_number": "DMN3732U-7",
+      "manufacturer": "Diodes Incorporated",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "digikey": [
+          "31-DMN3732U-7CT-ND"
+        ]
+      },
+      "documents": [
+        {
+          "source_url": "https://www.diodes.com/datasheet/download/DMN3732U.pdf",
+          "origin": "manufacturer datasheet",
+          "pages": 7,
+          "sha256": "56320c6fa34dc69355bfc809f6c29528e67d82067867e57fdca180d96bfa29d6",
+          "notes": "DS44418 Rev. 3-2, page 2: max 0.73 ohm at VGS=1.8 V, ID=75 mA, 25 C. Gate/source/drain SOT23 pinout matches the previous driver. 30 V VDS, +/-8 V VGS. Previously selected for the 2.4 V drive requirement; superseded by NX3008NBK,215 for JLCPCB sourcing.",
+          "former_local_filename": "DMN3732U.pdf",
+          "retained_locally": false,
+          "removal_reason": "Gate driver replaced by NX3008NBK,215."
+        }
+      ],
+      "sourcing_note": "Superseded by JLCPCB-stocked NX3008NBK,215 (C179399); retained for historical traceability."
+    },
+    {
+      "manufacturer_part_number": "NX3008NBK,215",
+      "manufacturer": "Nexperia",
+      "component_file": "imports/NX3008NBK_215.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "Q_SLOT_DRV_3V3",
+        "Q_SLOT_DRV_12V"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C179399"
+        ]
+      },
+      "documents": [
+        {
+          "source_url": "https://assets.nexperia.com/documents/data-sheet/NX3008NBK.pdf",
+          "origin": "manufacturer PDF reviewed through browser; direct download returned HTTP 403",
+          "pages": 15,
+          "revision": "5 November 2022",
+          "notes": "Pages 2/3/6: SOT23 G1/S2/D3, 30 V VDS, +/-8 V VGS; max 2.8 ohm at VGS=1.8 V, ID=10 mA, Tj=25 C. Gate-network screening uses a conservative 10 mA sink ceiling."
+        }
+      ],
+      "sourcing_note": "JLCPCB C179399, Extended. Search returned 40,178 in stock, USD 0.0529 on 2026-10-18; snapshot, not an inventory reservation.",
+      "supplier_url": "https://jlcpcb.com/partdetail/Nexperia-NX3008NBK215/C179399"
     }
   ],
   "retired_components": [
@@ -1839,7 +2237,8 @@
         "catalog_url": "https://jlcpcb.com/partdetail/3382919-CL05B224KA5VPNC/C2976455",
         "placed_on_board": false,
         "notes": "Package differs from 0201. Exact JLC search on October 14, 2026 reported two pieces, insufficient for four TX capacitors on one board. Stock can change.",
-        "catalog_stock_snapshot": 2
+        "catalog_stock_snapshot": 2,
+        "board_references": []
       },
       {
         "manufacturer_part_number": "CC0603JRX7R8BB334",
@@ -1855,7 +2254,8 @@
         "catalog_url": "https://www.lcsc.com/product-detail/C519579.html",
         "placed_on_board": false,
         "notes": "Initial tolerance interval 313.5-346.5 nF at specified test conditions; not guaranteed over temperature, DC bias or aging. Package differs from 0201. Exact JLC search on October 14, 2026 reported 7522 pieces. Stock can change.",
-        "catalog_stock_snapshot": 7522
+        "catalog_stock_snapshot": 7522,
+        "board_references": []
       }
     ],
     "manufacturer_characteristics_reference": "https://www.murata.com/en-eu/support/faqs/capacitor/ceramiccapacitor/char/0005",
@@ -1893,7 +2293,13 @@
         "quantity_per_board": 4,
         "catalog_stock_snapshot": 254994,
         "checked_on": "2026-10-14",
-        "stock_source": "tsci search --jlcpcb --json C701263"
+        "stock_source": "tsci search --jlcpcb --json C701263",
+        "board_references": [
+          "C_USB_TX1_P",
+          "C_USB_TX1_N",
+          "C_USB_TX2_P",
+          "C_USB_TX2_N"
+        ]
       },
       {
         "role": "RX",
@@ -1909,7 +2315,13 @@
         "quantity_per_board": 4,
         "catalog_stock_snapshot": 14775,
         "checked_on": "2026-10-14",
-        "stock_source": "tsci search --jlcpcb --json C723889"
+        "stock_source": "tsci search --jlcpcb --json C723889",
+        "board_references": [
+          "C_USB_RX1_P",
+          "C_USB_RX1_N",
+          "C_USB_RX2_P",
+          "C_USB_RX2_N"
+        ]
       }
     ],
     "X5R_alternative_assessment": {
@@ -1929,7 +2341,8 @@
         "assessment": "New part-specific evidence: Samsung reference sheet page 2 specifies +/-15% temperature change across -55 to +85 C, without the saved Murata sheet's -33% cold exception. This improves the stated cold-temperature limit only. Initial tolerance remains +/-10%, so 300-363 nF and USB4 channel performance remain unqualified. No substitution.",
         "stock_source": "tsci search --jlcpcb --json C2980695; exact MPN query returned no results, but catalog-number query confirmed MPN and 248 pieces.",
         "former_local_filename": "CL03A334KA3NRNC.pdf",
-        "retained_locally": false
+        "retained_locally": false,
+        "board_references": []
       },
       "tighter_tolerance_search": "No exact 0201, 25 V, 330 nF X5R +/-5% alternative verified in the checked catalog and distributor searches. Keyword searches returned near matches and do not establish global unavailability.",
       "RX_limitation": "330 nF +/-10% spans 297-363 nF at specified measurement conditions, before temperature, DC bias and aging. It does not guarantee the USB-IF 300-363 nF RX interval.",
@@ -1975,7 +2388,8 @@
         "catalog_stock_snapshot": 7522,
         "stock_source": "tsci search --jlcpcb --json C519579",
         "placed_on_board": false,
-        "limitation": "Better initial tolerance does not establish better overall USB4 channel performance. Larger pads depart from ASMedia layout guidance. Effective capacitance over temperature, DC bias and aging remains unqualified."
+        "limitation": "Better initial tolerance does not establish better overall USB4 channel performance. Larger pads depart from ASMedia layout guidance. Effective capacitance over temperature, DC bias and aging remains unqualified.",
+        "board_references": []
       }
     },
     "RX_deeper_search": {
@@ -2020,7 +2434,7 @@
       "public_reference_design_checks": [
         {
           "source_url": "https://github.com/canmi21/ASM2464PD/blob/main/PCBA%20Project%20-%20BOM%20Quotation%20for%202230%20USB4%20Enclosure.xlsx",
-          "sheet": "PCBA1-BOM\u62a5\u4ef7\u660e\u7ec6",
+          "sheet": "PCBA1-BOM报价明细",
           "cells": "D17:J17",
           "RX_part": "GRM033R60J334ME90D",
           "finding": "Quote assigns 330 nF, 0201, 6.3 V, +/-20% to C62,C63,C72,C73. Fails voltage and tolerance targets. Public author design, not ASMedia qualification."
@@ -2141,7 +2555,14 @@
         "nominal_capacitance_nF": 330,
         "manufacturer_tolerance_percent": 10,
         "quantity_per_board": 4,
-        "circuit_substitution": false
+        "circuit_substitution": false,
+        "placed_on_board": true,
+        "board_references": [
+          "C_USB_RX1_P",
+          "C_USB_RX1_N",
+          "C_USB_RX2_P",
+          "C_USB_RX2_N"
+        ]
       },
       "target_initial_interval_nF": [
         313.5,
@@ -2328,7 +2749,7 @@
     "automatic_start_file": "index.circuit.tsx"
   },
   "buck_inputs": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-18",
     "implementation_file": "../components/BuckInputs.tsx",
     "converter": "TPS62903RPJR",
     "supply": "Main ATX V5V; separate from V5VSB and USB_VBUS.",
@@ -2338,72 +2759,69 @@
     "status": "Converter, LC filter, feedback, MODE and shared VCCH-qualified enable fitted. Bridge reset/PG control and complete startup timing remain pending; PCB placement and routing remain preliminary."
   },
   "buck_inductors": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-18",
     "implementation_file": "../components/BuckInputs.tsx",
-    "part": "SLW5040S2R2MST",
+    "part": "XGL4020-102MEC",
     "quantity": 2,
-    "topology": "Single SW pin to inductor pin1. Inductor pin2 connects to its VCCL/VDD output, COUT, divider top and VOS. EN uses the shared VCCH-qualified BUCK_EN net.",
+    "nominal_inductance_uH": 1,
+    "topology": "SW -> inductor pin1; pin2 -> filtered rail, local COUT, VOS and divider top.",
     "planning_check": {
-      "method": "TPS62903 equations 11 and 12. A 3 A output remains a provisional regulator envelope, not an established bridge load. Calculations use nominal 1 MHz, not a guaranteed minimum frequency.",
-      "input_max_v": 5.25,
-      "inductance_min_h": 1.76e-06,
-      "evaluation_frequency_hz": 1000000.0,
-      "provisional_output_current_a": 3,
-      "rails": [
-        {
-          "rail": "VCCL",
-          "target_output_v": 1.9,
-          "ripple_a_peak_to_peak": 0.68885,
-          "peak_a": 3.3444,
-          "peak_with_20_percent_margin_a": 4.0133,
-          "rms_a": 3.0066
-        },
-        {
-          "rail": "VDD",
-          "target_output_v": 1.13,
-          "ripple_a_peak_to_peak": 0.50385,
-          "peak_a": 3.2519,
-          "peak_with_20_percent_margin_a": 3.9023,
-          "rms_a": 3.0035
-        }
-      ],
-      "limitations": "Inductance reduction with DC bias and temperature, startup/fault peak current, core loss, and board thermal behavior require checking with the final design. The 6.5 A saturation rating uses 30% L drop; the 3.95 A thermal rating is not a 125 C ambient guarantee."
+      "load_envelope_A": 3,
+      "inductance_initial_reduction_percent": 20,
+      "additional_bias_reduction_percent": 10,
+      "frequency_reduction_sensitivity_percent": 10,
+      "minimum_buck_peak_current_limit_A": 4,
+      "inductor_10_percent_drop_current_A": 3.8,
+      "inductor_30_percent_drop_current_A": 8.8,
+      "Irms_at_40C_rise_A": 12
     },
-    "status": "Retained 2.2 uH inductors with new TPS62903 converters; table 8-3 recommends 2.2 uH / 22 uF for nominal 1 MHz."
+    "status": "Selected TI-supported 1 uH filter for 2.5 MHz. Actual bridge load, transients, frequency corners and temperature require checks."
   },
   "buck_output_capacitors": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-18",
     "implementation_file": "../components/BuckInputs.tsx",
-    "part": "CL21A226MAYNNNE",
-    "quantity": 2,
-    "nominal_capacitance_uF": 22,
+    "part": "CL21A106KAYNNNE",
+    "quantity": 4,
+    "quantity_per_rail": 2,
+    "nominal_capacitance_uF": 10,
     "rated_voltage_V": 25,
     "dielectric": "X5R",
-    "tolerance_percent": 20,
+    "tolerance_percent": 10,
     "package_EIA": "0805",
-    "reference": {
-      "file": "TPS62903RPJR.pdf",
-      "printed_pages": [
-        18,
-        20
-      ],
-      "finding": "Table 8-3 lists 2.2 uH / 22 uF as the standard 1 MHz filter. Effective output capacitance must satisfy the operating limits on page 4."
-    },
-    "topology": "Filtered output after each inductor to GND; VOS senses the same output. EN uses the shared VCCH-qualified BUCK_EN net.",
-    "placement_followup": "Place close to the inductor output and converter GND with short, wide copper.",
-    "selection_status": "Prototype selection supported by nominal TI filter values and Samsung typical low-voltage curves. Guaranteed effective capacitance across bias, temperature, tolerance and aging remains unqualified.",
     "temperature_range_C": [
       -55,
       85
     ],
-    "limitations": [
-      "The capacitor temperature range includes ripple self-heating.",
-      "Future bridge decoupling changes total output capacitance; check the final LC filter and control-loop stability.",
-      "Startup sequencing, final load requirements, PCB copper loss and transient response remain incomplete. Forced PWM and external feedback are configured."
-    ]
+    "reference": {
+      "file": "TPS62903RPJR.pdf",
+      "printed_pages": [
+        4,
+        18,
+        38
+      ],
+      "finding": "1 uH at 2.5 MHz with the screened 10-100 uF effective complete output bank."
+    },
+    "complete_nominal_bank_uF": {
+      "VCCL": 74.2,
+      "VDD": 75.08
+    },
+    "effective_capacitance_screening": {
+      "maximum_uF": {
+        "VCCL": 93.863,
+        "VDD": 94.9762
+      },
+      "minimum_sensitivity_uF": {
+        "VCCL": 28.3815,
+        "VDD": 28.7181
+      },
+      "assumptions": "All selected parts +/-10% initial tolerance, +/-15% temperature change; -50% DC bias is a sensitivity assumption, not a guaranteed lower limit."
+    },
+    "topology": "Both local capacitors shunt each filtered output to GND. VOS senses the same output.",
+    "placement_followup": "Place both local capacitors near the converter and inductor output; keep the VIN/GND loop short.",
+    "selection_status": "Static and LC screening support placement. Actual stability, ripple, startup and load-step response remain unmeasured."
   },
   "buck_feedback": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-18",
     "implementation_file": "../components/BuckInputs.tsx",
     "reference": {
       "file": "TPS62903RPJR.pdf",
@@ -2475,7 +2893,7 @@
     "remaining_validation": [
       "PCB supply and ground drops, ripple and load-step excursions must fit the remaining margins.",
       "Final load current, thermal behavior and startup sequencing remain unverified.",
-      "Check effective capacitance and final total output capacitance after bridge decoupling is added."
+      "Check effective capacitance and distributed-bank response on the final PCB. Nominal banks are 74.20 uF on VCCL and 75.08 uF on VDD."
     ]
   },
   "superseded_buck_designs": [
@@ -2558,23 +2976,23 @@
     }
   ],
   "buck_configuration": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-18",
     "part": "TPS62903RPJR",
     "reference": {
       "file": "TPS62903RPJR.pdf",
       "printed_page": 10,
       "table": "7-1",
-      "option": 8
+      "option": 4
     },
-    "MODE_resistance_ohm": 21000,
-    "frequency_Hz_nominal": 1000000,
+    "MODE_resistance_ohm": 8870,
+    "frequency_Hz_nominal": 2500000,
     "mode": "forced PWM",
     "feedback": "external divider, nominal VFB 0.6 V",
     "active_output_discharge": false,
     "dynamic_mode_change": false,
     "SS_TR": "Intentionally open for fastest startup, preserving the previously selected behavior; pin table 5-1 permits this.",
-    "EN": "Grounded pending startup control.",
-    "PG": "Not connected yet; open-drain pin available for future sequencing."
+    "EN": "Shared BUCK_EN net from the existing VCCH supervisor.",
+    "PG": "Intentionally unconnected on both regulators; no rail-ready reset gating."
   },
   "buck_enable": {
     "checked_on": "2026-10-15",
@@ -2616,21 +3034,42 @@
         "resistance_ohms": 4700,
         "tolerance_percent": 1,
         "manufacturer_part_number": "0402WGF4701TCE",
-        "jlcpcb": "C25900"
+        "jlcpcb": "C25900",
+        "placed_on_board": true,
+        "board_references": [
+          "R_UART_TX",
+          "R_TEST_EN",
+          "R_PCIE_PRESENT_PU",
+          "R_VBUS_TOP"
+        ]
       },
       {
         "reference": "R_VBUS_BOTTOM",
         "resistance_ohms": 10000,
         "tolerance_percent": 1,
         "manufacturer_part_number": "0402WGF1002TCE",
-        "jlcpcb": "C25744"
+        "jlcpcb": "C25744",
+        "placed_on_board": true,
+        "board_references": [
+          "R_SPI_WP",
+          "R_SPI_HOLD",
+          "R_SPI_CS",
+          "R_PCIE_CLKREQ_PU",
+          "R_VBUS_BOTTOM",
+          "R_BUCK_EN_PU"
+        ]
       },
       {
         "reference": "C_VBUS_SENSE",
         "capacitance_uF": 1,
         "voltage_rating_V": 25,
         "manufacturer_part_number": "CL05A105KA5NQNC",
-        "jlcpcb": "C52923"
+        "jlcpcb": "C52923",
+        "placed_on_board": true,
+        "board_references": [
+          "C_RST",
+          "C_VBUS_SENSE"
+        ]
       }
     ],
     "output_at_5V_unloaded_V": 3.401360544217687,
@@ -2661,7 +3100,7 @@
     "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending"
   },
   "document_cleanup": {
-    "checked_on": "2026-10-16",
+    "checked_on": "2026-10-18",
     "removed_documents": [
       {
         "former_local_filename": "TPS62130RGTR.pdf",
@@ -2707,9 +3146,114 @@
         "sha256": "3752b70fa02df0b73e9b70b501d52486d8ff5536cdce90a0b8b3acf4d9cd83ca",
         "reason": "The current board uses UNI-ROYAL 0201WMF2203TEE instead of RC0201FR-07220KL.",
         "retained_locally": false
+      },
+      {
+        "former_local_filename": "2N7002K.pdf",
+        "sha256": "669e5d68d6458e0879d7396416bdcdb3ef9966ea60f054773d4c891d735aa818",
+        "reason": "Gate driver replaced by NX3008NBK,215. Historical SPICE model and its provenance remain in simulations/slot-power/.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "DMN3732U.pdf",
+        "sha256": "56320c6fa34dc69355bfc809f6c29528e67d82067867e57fdca180d96bfa29d6",
+        "reason": "Gate driver replaced by NX3008NBK,215.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "GRM31C5C1H224JE02L.pdf",
+        "sha256": "0cf9274b6ce7c12de1f31e27bbf01d8cda86c9aa79a0a6b03c85fab8617be6ae",
+        "reason": "Capacitor belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "IXTA80N075L2.pdf",
+        "sha256": "5dd7c5a7ab2ca3c242930c7be82b6f540ccaafcfe0c8b14393a99be0240369f3",
+        "reason": "MOSFET belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "PCR1E471MCL1GS.pdf",
+        "sha256": "98c4b35e8e008c797a68942e8b09c2a4dce6aa472c112ba58d371e259483bcee",
+        "reason": "Slot bulk capacitor replaced by Panasonic 25SVPK470M.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "RT8059.pdf",
+        "sha256": "4a5b02c8a7af0687b8628ba9405a6e4e7e950920cea0cd652abb8df2087d6bb4",
+        "reason": "Evaluated VCCL regulator replaced by TPS62903RPJR.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "SLW5040S2R2MST.pdf",
+        "sha256": "9f6c49321358b2bafb117052c06d649851f6159bd5f9eb42c0aebc01918f1343",
+        "reason": "Buck inductor replaced by XGL4020-102MEC.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "SMBJ13A.pdf",
+        "sha256": "45ba05da59e44cb82bad56f195856d6947dec11a8a4ecf90dfa91dc808f02cb7",
+        "reason": "TVS belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "SS54.pdf",
+        "sha256": "a9ecebbeb1de0c4590d67f73eb9a36585d3b9dc051b490e8862aed9e87f0849c",
+        "reason": "Diode belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "TDK-C-Series.pdf",
+        "sha256": "c72913b45e8cd5162ef25ace45f32989e2641d025bc6cd3e24710a1ea71ca3c5",
+        "reason": "Referenced capacitor belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "TPS24720.pdf",
+        "sha256": "af9f0c2f8f3beedda917b0e2e1ea662687d4f36defede283e99c7dd2098b41f5",
+        "reason": "Controller belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "TPS25982.pdf",
+        "sha256": "655c21dbf6b91a3c98b7ab26cd3bf0020d3eb7d765f411c71030d22fa4b6bc1f",
+        "reason": "eFuse belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "VO-0402-1pct-21K.pdf",
+        "sha256": "fb6ac211ca2f1c23ed05ac6306ba61202b2f9bfdc414213604803a76f50693d9",
+        "reason": "21 kohm MODE resistor replaced by the 8.87 kohm RC0402FR-078K87L selection. Its current family document remains local.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "WSL.pdf",
+        "sha256": "96c2dc89ae1e3039815ed6c41f566a6e9f6b53035f8e45ea2ada1697935a44dc",
+        "reason": "Current shunt belongs to the abandoned protected slot-power design.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "iD8225B.pdf",
+        "sha256": "b6788b90ce8f72a08144972362020d31051a725177a14632c35140a4e9b70afc",
+        "reason": "Evaluated VDD regulator replaced by TPS62903RPJR.",
+        "retained_locally": false,
+        "removed_on": "2026-10-18"
       }
     ],
-    "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata."
+    "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata. Superseded component PDFs retain source URLs and hashes only."
   },
   "slot_decoupling": {
     "checked_on": "2026-10-15",
@@ -2724,5 +3268,34 @@
     "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
     "applied_count": 4,
     "C135": "Original APXJ6R3ARA561MF80G retained."
+  },
+  "buck_reference_restoration": {
+    "checked_on": "2026-10-18",
+    "implementation_file": "../components/BuckInputs.tsx",
+    "review": "../docs/reviews/reference-buck-restoration-2026-10-18.md",
+    "VCCL": "RT8059GJ5",
+    "VDD": "ID8225B-ADA60R",
+    "filters": "2.2 uH and one local 22 uF per rail",
+    "divider_targets_V": {
+      "VCCL": 1.894214876,
+      "VDD": 1.130578512
+    },
+    "qualification": "Reference selection restored for evaluation. RT8059 output accuracy exceeds VCCL allowance; iD8225B complete specifications and sourcing remain open.",
+    "historical": true,
+    "superseded_by": "buck_tps62903_return"
+  },
+  "buck_tps62903_return": {
+    "checked_on": "2026-10-18",
+    "implementation_file": "../components/BuckInputs.tsx",
+    "review": "../docs/reviews/tps62903-return-2026-10-18.md",
+    "parts": [
+      "TPS62903RPJR"
+    ],
+    "filters": "1 uH and two local 10 uF per rail; 8.87 kohm MODE for 2.5 MHz forced PWM, external feedback and no active discharge.",
+    "divider_targets_V": {
+      "VCCL": 1.894214876,
+      "VDD": 1.130578512
+    },
+    "qualification": "Static voltage budget fits both bridge intervals. LC screening uses stated capacitance and frequency sensitivities. Hardware startup, ripple, thermal and load-step checks remain open."
   }
 }

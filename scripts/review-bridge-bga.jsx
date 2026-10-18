@@ -1,0 +1,16 @@
+import {Circuit} from "tscircuit";
+import {createElement} from "react";
+import {mkdir,writeFile,readFile} from "node:fs/promises";
+import {convertCircuitJsonToPcbSvg} from "circuit-to-svg";
+import {reviewBridgeBga} from "../lib/bridge-bga-review.mjs";
+import BridgeFootprintReview from "../manufacturing/bridge-bga/footprint-review.circuit";
+const c=new Circuit();c.schematicDisabled=true;c.add(createElement(BridgeFootprintReview));await c.renderUntilSettled();
+const j=c.getCircuitJson();
+const nativeErrors=j.filter(e=>e.type.endsWith("_error"));if(nativeErrors.length)throw Error(JSON.stringify(nativeErrors));
+const balls=JSON.parse(await readFile("tests/fixtures/asm2464pdx-pin-map.json","utf8")).balls;
+const report=reviewBridgeBga(j,balls);
+await mkdir("manufacturing/bridge-bga/review",{recursive:true});
+await writeFile("manufacturing/bridge-bga/review/footprint.circuit.json",JSON.stringify(j,null,2)+"\n");
+await writeFile("manufacturing/bridge-bga/review/geometry.json",JSON.stringify(report,null,2)+"\n");
+await writeFile("manufacturing/bridge-bga/review/footprint.svg",convertCircuitJsonToPcbSvg(j,{width:1500,height:1500,showCourtyards:true}));
+console.log(JSON.stringify(report,null,2));if(!report.engineeringGeometryPass)process.exitCode=1;

@@ -4,6 +4,8 @@ import {Circuit} from "tscircuit";
 import {Children} from "react";
 import {APXJ6R3ARA561MF80GFootprint} from "../imports/APXJ6R3ARA561MF80G";
 import {A_25SVPK470M} from "../imports/A_25SVPK470M";
+import {A_2N7002K_7} from "../imports/A_2N7002K_7";
+import {NX3008NBK_215} from "../imports/NX3008NBK_215";
 import Board from "../index.circuit";
 import bridgePinMap from "./fixtures/asm2464pdx-pin-map.json";
 
@@ -51,6 +53,27 @@ const rails = [
   {suffix: "3V3", atx: "pin1", contacts: ["A9", "A10", "B8"], drains: [5], mpn: "DMP2008UFG-7"},
   {suffix: "12V", atx: "pin10", contacts: ["A2", "A3", "B1", "B2", "B3"], drains: [5, 6, 7, 8], mpn: "AO4407A"},
 ];
+
+test("replacement driver preserves the original physical gate, source and drain lands", async () => {
+  const c = new Circuit(); c.schematicDisabled = true;
+  c.add(<board routingDisabled partsEngineDisabled>
+    <A_2N7002K_7 name="OLD" pcbX={-5} pcbY={0}/>
+    <NX3008NBK_215 name="NEW" pcbX={5} pcbY={0}/>
+  </board>);
+  await c.renderUntilSettled();
+  const j = c.getCircuitJson();
+  const lands = name => {
+    const source = j.find(e => e.type === "source_component" && e.name === name);
+    const pcb = j.find(e => e.type === "pcb_component" && e.source_component_id === source.source_component_id);
+    return ["G", "S", "D"].map(alias => {
+      const port = j.find(e => e.type === "source_port" && e.source_component_id === source.source_component_id && e.port_hints.includes(alias));
+      const physical = j.find(e => e.type === "pcb_port" && e.source_port_id === port.source_port_id);
+      const pad = j.find(e => e.type === "pcb_smtpad" && e.pcb_port_id === physical.pcb_port_id);
+      return [alias, +(pad.x - pcb.center.x).toFixed(6), +(pad.y - pcb.center.y).toFixed(6), pad.width, pad.height];
+    });
+  };
+  assert.deepEqual(lands("NEW"), lands("OLD"));
+});
 
 test("all bridge ground balls connect to every ATX COM pin", () => {
   for (const pin of [3, 5, 7, 15, 17, 18, 19, 24]) {
@@ -149,7 +172,8 @@ test("HDDPC controls both grounded-source drivers without touching either power 
   const enable = net("ASM2464PDX", "C21");
   for (const {suffix, atx, contacts} of rails) {
     const driver = `Q_SLOT_DRV_${suffix}`;
-    assert.equal(component(driver).manufacturer_part_number, "2N7002K-7");
+    assert.equal(component(driver).manufacturer_part_number, "NX3008NBK,215");
+    assert.deepEqual(component(driver).supplier_part_numbers, {jlcpcb: ["C179399"]});
     assert.equal(net(driver, "G"), enable);
     assert.equal(net(driver, "S"), ground);
     assert.notEqual(enable, net("ATX", atx));

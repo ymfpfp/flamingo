@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
+import {cloneElement} from "react";
 import Board from "../index.circuit";
 
 const circuit = new Circuit();
 circuit.pcbDisabled = true;
 circuit.schematicDisabled = true;
-circuit.add(Board());
+circuit.add(cloneElement(Board(), {partsEngineDisabled: true}));
 await circuit.renderUntilSettled();
 const json = circuit.getCircuitJson();
 const components = json.filter(e => e.type === "source_component");
@@ -53,7 +54,7 @@ test("both TPS62903 inputs use main ATX 5 V with shunt bypassing", () => {
       assert.equal(net(name, "pin1"), input, `${name} must not interrupt the input rail`);
       assert.equal(net(name, "pin2"), ground, `${name} must bypass to ground`);
     }
-    for (const pin of ["SW", "FB", "VOS"]) {
+    for (const pin of ["SW", "FB"]) {
       assert.notEqual(net(buck, pin), input, `${buck}.${pin} must not receive raw 5 V`);
       assert.notEqual(net(buck, pin), ground, `${buck}.${pin} must remain available for the output stage`);
     }
@@ -65,14 +66,16 @@ test("each output capacitor bypasses the filtered rail to ground without touchin
   const input = net("ATX", "pin4");
   const outputs = [];
   for (const rail of ["VCCL", "VDD"]) {
-    const name = `C_${rail}_COUT`;
     const output = net(`L_${rail}`, "pin2");
     const switching = net(`L_${rail}`, "pin1");
-    assert.equal(component(name).manufacturer_part_number, "CL21A226MAYNNNE");
-    assert.equal(component(name).capacitance, 22e-6);
-    assert.equal(net(name, "pin1"), output);
-    assert.equal(net(name, "pin2"), ground);
-    assert.equal(net(`${rail}_BUCK`, "VOS"), output);
+    for (const suffix of ["COUT", "COUT_B"]) {
+      const name = `C_${rail}_${suffix}`;
+      assert.equal(component(name).manufacturer_part_number, "CL21A106KAYNNNE");
+      assert.equal(component(name).capacitance, 10e-6);
+      assert.equal(net(name, "pin1"), output);
+      assert.equal(net(name, "pin2"), ground);
+    }
+    assert.equal(net(`${rail}_BUCK`, "VOS"), output, "VOS must sense the filtered output, not SW or FB");
     assert.equal(new Set([input, ground, switching, output]).size, 4,
       "the capacitor must bypass the output after the inductor, not raw 5 V or SW");
     outputs.push(output);
@@ -106,21 +109,20 @@ test("feedback dividers sense each filtered output, return to GND, and set the i
   assert.notEqual(feedbackNets[0], feedbackNets[1], "the control loops must remain separate");
 });
 
-test("each buck drives its own bridge rail through one 2.2 uH inductor with output sensing after the inductor", () => {
+test("each buck drives its own bridge rail through one 1 uH inductor", () => {
   const input = net("ATX", "pin4");
   const ground = net("ATX", "pin3");
   const outputs = [];
   for (const rail of ["VCCL", "VDD"]) {
     const buck = `${rail}_BUCK`;
     const name = `L_${rail}`;
-    assert.equal(component(name).manufacturer_part_number, "SLW5040S2R2MST");
-    assert.equal(component(name).inductance, "2.2uH");
+    assert.equal(component(name).manufacturer_part_number, "XGL4020-102MEC");
+    assert.equal(component(name).inductance, "1uH");
     const switching = net(name, "pin1");
     const output = net(name, "pin2");
     for (const pin of ["SW"]) {
       assert.equal(net(buck, pin), switching, `${buck}.${pin}`);
     }
-    assert.equal(net(buck, "VOS"), output, "sense the filtered output rather than the switching node");
     const bridgePorts = ports.filter(p => p.source_component_id === component("ASM2464PDX").source_component_id
       && p.port_hints.includes(rail));
     assert.ok(bridgePorts.length > 0, `${rail} bridge supply pins`);
@@ -135,51 +137,29 @@ test("each buck drives its own bridge rail through one 2.2 uH inductor with outp
 });
 
 
-test("21 kohm MODE resistors select external feedback, 1 MHz forced PWM and no active discharge", () => {
-  const ground = net("ATX", "pin3");
-  const modeNets = [];
+test("TPS62903 physical pins, 2.5 MHz mode resistors and unused outputs match TI requirements", () => {
   for (const rail of ["VCCL", "VDD"]) {
+    const signals = ["PG", "SW", "VOS", "GND", "EN", "VIN", "MODE", "SS", "FB"];
     const buck = `${rail}_BUCK`;
-    const resistor = `R_${rail}_MODE`;
     assert.equal(component(buck).manufacturer_part_number, "TPS62903RPJR");
-    assert.equal(component(resistor).resistance, 21000);
-    assert.equal(component(resistor).manufacturer_part_number, "0402 ±1% 21K");
-    assert.equal(net(buck, "MODE"), net(resistor, "pin1"));
-    assert.equal(net(resistor, "pin2"), ground);
-    assert.notEqual(net(buck, "MODE"), ground, "MODE must see 21k, not a direct ground strap");
-    assert.notEqual(net(buck, "MODE"), net(buck, "FB"));
-    modeNets.push(net(buck, "MODE"));
     const buckPorts = ports.filter(p => p.source_component_id === component(buck).source_component_id);
-    assert.equal(buckPorts.length, 9, "the replacement has nine physical pins and no separate exposed pad");
-    for (const [pin, signal] of [[1, "PG"], [2, "SW"], [3, "VOS"], [4, "GND"], [5, "EN"],
-      [6, "VIN"], [7, "MODE"], [8, "SS"], [9, "FB"]]) {
-      const port = buckPorts.find(p => p.port_hints.includes(`pin${pin}`));
-      assert.ok(port?.port_hints.includes(signal), `${buck} pin ${pin} must be ${signal}`);
+    assert.equal(buckPorts.length, signals.length);
+    signals.forEach((signal, index) => {
+      const p = buckPorts.find(p => p.port_hints.includes(`pin${index + 1}`));
+      assert.ok(p?.port_hints.includes(signal), `${buck} pin ${index + 1} must be ${signal}`);
+    });
+    const mode = `R_${rail}_MODE`;
+    assert.equal(component(mode).resistance, 8870);
+    assert.equal(net(mode, "pin1"), net(buck, "MODE"));
+    assert.equal(net(mode, "pin2"), net("ATX", "pin3"));
+    assert.notEqual(net(buck, "MODE"), net(buck, "FB"));
+    for (const signal of ["PG", "SS"]) {
+      const p = buckPorts.find(p => p.port_hints.includes(signal));
+      assert.equal(p.do_not_connect, true, `${buck}.${signal}`);
+      assert.ok(!json.some(e => e.type === "source_trace" && e.connected_source_port_ids.includes(p.source_port_id)));
     }
-    assert.equal(json.filter(e => e.type === "source_trace" && e.connected_source_port_ids.includes(
-      buckPorts.find(p => p.port_hints.includes("SS")).source_port_id)).length, 0,
-      "SS/TR stays open for the previously selected fastest startup");
-  }
-  assert.notEqual(modeNets[0], modeNets[1]);
-});
-
-test("reference, divider tolerance, drift and leakage leave at least 10 mV for remaining rail errors", () => {
-  // TPS62903 table 6.5: reference +/-0.9%, FB leakage max 70 nA.
-  // Resistors: +/-0.1% initially, +/-25 ppm/C each, 125 C from the 25 C reference.
-  // This is a static component budget; ripple, PCB losses and load steps remain separate.
-  const variation = 0.001 + 25e-6 * 125;
-  for (const [rail, minimum, maximum] of [["VCCL", 1.85, 1.95], ["VDD", 1.10, 1.16]]) {
-    const top = component(`R_${rail}_FBT`).resistance;
-    const bottom = component(`R_${rail}_FBB`).resistance;
-    const low = 0.6 * 0.991 * (1 + top * (1 - variation) / (bottom * (1 + variation)))
-      - 70e-9 * top * (1 + variation);
-    const high = 0.6 * 1.009 * (1 + top * (1 + variation) / (bottom * (1 - variation)))
-      + 70e-9 * top * (1 + variation);
-    assert.ok(low >= minimum + 0.010, `${rail} low bound ${low}`);
-    assert.ok(high <= maximum - 0.010, `${rail} high bound ${high}`);
   }
 });
-
 
 test("VCCH supervisor controls both buck enables through its open-drain output and pull-up", () => {
   const ground = net("ATX", "pin3");

@@ -3,7 +3,7 @@ import {test} from "node:test";
 import {Children, isValidElement} from "react";
 import {createEngine} from "../simulations/power-reset/engine.mjs";
 import {simulateScenario} from "../simulations/power-reset/run.mjs";
-import {scenarios} from "../simulations/power-reset/scenarios";
+import {scenarios, startupEnvelopeScenarios} from "../simulations/power-reset/scenarios";
 import {valueAt, crossing, extractGraphs} from "../simulations/power-reset/analyze.mjs";
 import Board from "../index.circuit";
 import {BridgeReset} from "../components/BridgeReset";
@@ -13,6 +13,7 @@ const engine = await createEngine();
 const runs = new Map();
 // The ngspice WASM instance and fetch-cache adapter are intentionally serial.
 for (const scenario of scenarios) runs.set(scenario.name, await simulateScenario(engine, scenario));
+for (const scenario of startupEnvelopeScenarios) runs.set(scenario.name, await simulateScenario(engine, scenario));
 const nominal = runs.get("nominal");
 const result = (name, id) => runs.get(name).analysis.checks.find(c => c.id === id);
 
@@ -105,4 +106,17 @@ test("missing and nonfinite simulation results cannot produce passing reports", 
   const damaged = structuredClone(nominal.circuitJson);
   damaged.find(e => e.type === "simulation_transient_voltage_graph").voltage_levels[2] = NaN;
   assert.throws(() => extractGraphs(damaged, scenarios[0]), /Invalid or truncated/);
+});
+
+test("normal-startup envelope retains positive reset margin across 18 supply, ramp, and RC sensitivity cases", () => {
+  assert.equal(startupEnvelopeScenarios.length, 18);
+  for (const scenario of startupEnvelopeScenarios) {
+    const run = runs.get(scenario.name);
+    assert.deepEqual(run.analysis.failed, [], scenario.name);
+    assert.ok(run.analysis.startupMarginMs > 0, scenario.name);
+    if (scenario.resetCapacitanceScale === 0.5) {
+      assert.equal(run.analysis.appliedOverrides.C_RST.simulatedValue, 0.5e-6);
+      assert.match(run.netlist, /^CC_RST\s+\S+\s+\S+\s+5e-7$/m);
+    }
+  }
 });

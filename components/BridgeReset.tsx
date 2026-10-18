@@ -5,8 +5,7 @@ import {TS_1088_AR02016} from "imports/TS_1088_AR02016";
 /** ASMedia reference sheet 3: R30, C52 and normally-open SW2. */
 export function BridgeReset() {
   return (
-    <group name="BRIDGE_RESET" schX={13} schY={-6}>
-      <schematicsection name="BRIDGE_RESET" displayName="Bridge Reset"/>
+    <group name="BRIDGE_RESET" schX={11.75} schY={-5.7}>
       <A_0402WGF1003TCE
         name="R_RST"
         tolerance="1%"

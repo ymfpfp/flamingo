@@ -7,16 +7,16 @@ import {CL21A226MAYNNNE} from "imports/CL21A226MAYNNNE";
 // Selected MPNs and catalog footprints; final PCB placement remains pending.
 export function BridgeVcca33Decoupling() {
   return (
-    <group name="VCCA33_DECOUPLING" schX={19.5}>
-      <schematictext text="VCCA33 Decoupling" schX={-1.5} schY={2.6} fontSize={0.18} anchor="left"/>
+    <group name="VCCA33_DECOUPLING" schX={9.6} schY={7}>
+      <schematictext text="VCCA33 Decoupling" schX={0} schY={2.6} fontSize={0.18} anchor="center"/>
       <schematictext
         text="ASMedia sheet 3: R4, C7, C8."
-        schX={-1.5} schY={2} fontSize={0.18} anchor="left"
+        schX={0} schY={2} fontSize={0.18} anchor="center"
       />
       <A_0402WGF0000TCE
         name="R_VCCA33_4"
         schSectionName="VCCA33_DECOUPLING"
-        schX={0} schY={0.9}
+        schX={-3} schY={0.9}
         schOrientation="vertical"
         connections={{pin1: "net.VCCH", pin2: "net.VCCA33"}}
       />
@@ -28,7 +28,7 @@ export function BridgeVcca33Decoupling() {
           key={ref}
           name={`C_VCCA33_${ref}`}
           schSectionName="VCCA33_DECOUPLING"
-          schX={2.2 + index * 1.9} schY={0}
+          schX={-0.5 + index * 1.9} schY={0}
           schOrientation="vertical"
           connections={{pin1: "net.VCCA33", pin2: "net.GND"}}
         />
@@ -45,11 +45,11 @@ export function BridgeVcca33Decoupling() {
       />
       <schematictext
         text="22uF / 25V + 220nF / 16V = 22.22uF."
-        schX={-1.5} schY={-2} fontSize={0.18} anchor="left"
+        schX={0} schY={-2} fontSize={0.18} anchor="center"
       />
       <schematictext
         text="Parts selected; PCB placement pending."
-        schX={-1.5} schY={-2.5} fontSize={0.18} anchor="left"
+        schX={0} schY={-2.5} fontSize={0.18} anchor="center"
       />
     </group>
   );

@@ -5,7 +5,7 @@ import {checkJlcpcbDimensions, runJlcpcbDrc} from "../lib/jlcpcb-drc";
 import {jlcpcbBoardRules} from "../lib/jlcpcb-rules";
 import {Footprint} from "../imports/ASM2464PDX";
 
-const board = {type: "pcb_board", pcb_board_id: "board", num_layers: 4,
+const board = {type: "pcb_board", pcb_board_id: "board", num_layers: 6,
   center: {x: 0, y: 0}, width: 20, height: 20, thickness: 1.6};
 const source = {type: "source_component", source_component_id: "bga-source", name: "ASM2464PDX", ftype: "simple_chip"};
 const component = {type: "pcb_component", pcb_component_id: "bga", source_component_id: "bga-source",
@@ -22,15 +22,15 @@ test("BGA diameter check distinguishes 0.18 mm from the 0.20 mm boundary", () =>
   assert.equal(checkJlcpcbDimensions([...base, pad("A", 0, 0.2)]).length, 0);
 });
 
-test("the actual bridge footprint reports all existing undersized circular pads", async () => {
+test("the candidate bridge removes the circular-size error and retains the process-review gate", async () => {
   const circuit = new Circuit();
   circuit.schematicDisabled = true;
-  circuit.add(<board width="15mm" height="15mm" routingDisabled>
+  circuit.add(<board width="15mm" height="15mm" layers={6} routingDisabled>
     <chip name="ASM2464PDX" footprint={<Footprint/>}/>
   </board>);
   await circuit.renderUntilSettled();
   const findings = checkJlcpcbDimensions(circuit.getCircuitJson());
-  assert.equal(findings.find(f => f.rule === "bga_pad_diameter").elementIds.length, 196);
+  assert.ok(!findings.some(f => f.rule === "bga_pad_diameter"));
   assert.equal(findings.find(f => f.rule === "bga_oblong_process_review").elementIds.length, 77);
 });
 
@@ -101,7 +101,7 @@ test("an unrouted or failed build cannot establish fabrication readiness", async
 test("board routing properties serialize the configured clearances", async () => {
   const circuit = new Circuit();
   circuit.schematicDisabled = true;
-  circuit.add(<board {...jlcpcbBoardRules} layers={4} width="10mm" height="10mm" routingDisabled/>);
+  circuit.add(<board {...jlcpcbBoardRules} layers={6} width="10mm" height="10mm" routingDisabled/>);
   await circuit.renderUntilSettled();
   const pcb = circuit.getCircuitJson().find(e => e.type === "pcb_board");
   assert.equal(pcb.min_trace_width, 0.1);
