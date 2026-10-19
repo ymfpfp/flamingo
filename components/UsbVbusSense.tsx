@@ -4,10 +4,12 @@ import {CL05A105KA5NQNC} from "imports/CL05A105KA5NQNC";
 /** ASMedia reference sheet 3: R57/R60 divider and C68 filter. */
 export function UsbVbusSense() {
   return (
-    <group name="USB_VBUS_SENSE" schX={-8}>
+    <group name="USB_VBUS_SENSE" schX={-8}
+      pcbStyle={{silkscreenTextVisibility: "hidden"}}>
       <schematicsection name="USB_VBUS_SENSE" displayName="USB VBUS Sense"/>
       <resistor
         name="R_VBUS_TOP"
+        pcbX={0} pcbY={2.9} pcbRotation={180} layer="top"
         resistance="4.7k"
         tolerance="1%"
         footprint="0402"
@@ -21,6 +23,7 @@ export function UsbVbusSense() {
       />
       <A_0402WGF1002TCE
         name="R_VBUS_BOTTOM"
+        pcbX={0} pcbY={1.4} pcbRotation={0} layer="top"
         schSectionName="USB_VBUS_SENSE"
         schX={0} schY={-1.1}
         schOrientation="vertical"
@@ -28,12 +31,15 @@ export function UsbVbusSense() {
       />
       <CL05A105KA5NQNC
         name="C_VBUS_SENSE"
+        pcbX={0} pcbY={0} pcbRotation={0} layer="top"
         maxVoltageRating="25V"
         schSectionName="USB_VBUS_SENSE"
         schX={3} schY={-1.1}
         schOrientation="vertical"
         connections={{pin1: "net.USB_VBUS_SENSE", pin2: "net.GND"}}
       />
+      {/* PCB column: filtered sense pads face the bridge (-X); capacitor is
+          nearest G1. The upper raw-VBUS pad and the two ground pads face +X. */}
       <trace name="VBUS_DIVIDER" from=".R_VBUS_TOP > .pin2" to=".R_VBUS_BOTTOM > .pin1"/>
       <trace name="VBUS_FILTER" from=".R_VBUS_TOP > .pin2" to=".C_VBUS_SENSE > .pin1"/>
       <netlabel inline net="USB_VBUS" connection="R_VBUS_TOP.pin1"/>

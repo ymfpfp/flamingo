@@ -12,7 +12,9 @@ Bridge decoupling parts and catalog footprints are selected.
 
 The PCB configuration now specifies six layers and a thickness of 1.6 mm.
 The bridge footprint and assembly process are candidates pending vendor acceptance.
-Automatic packing supplies preliminary positions, and routing is disabled.
+The board outline is 52.5 × 123.62 mm.
+The PCIe courtyard has 5 mm of space from ATX below and about 5 mm from the top and left edges.
+Automatic packing supplies preliminary positions for the other components, and routing is disabled.
 Hardware operation and throughput remain unmeasured.
 
 [index.circuit.tsx](index.circuit.tsx) contains five schematic sheets:
@@ -35,7 +37,8 @@ bun install --frozen-lockfile
 
 | Command | Purpose |
 | --- | --- |
-| `bun run dev` | Open the tscircuit development viewer |
+| `bun run dev` | Open the cached PCB placement preview |
+| `bun run dev:full` | Open the source editor and full tscircuit development viewer |
 | `bun run build` | Build the circuit from the selected local part definitions |
 | `bun run build:supplier` | Check the optional supplier-enabled build; a USB cutout placement error remains open |
 | `bun test ./tests` | Run the circuit tests |
@@ -55,6 +58,72 @@ bun install --frozen-lockfile
 The tests cover bridge pins and footprints, ground connectivity, buck circuits, USB4, VBUS sensing, PCIe, and slot power.
 Passing tests do not establish complete PCB connectivity, signal integrity, or hardware operation.
 The SPICE tests require `bun run sim:setup` before their first run.
+
+### Connector placement
+
+[index.circuit.tsx](index.circuit.tsx) defines the board size and the `pcbGroupPlacements` map.
+The preview uses the same circuit, footprints, and schematic as the normal build.
+
+1. Run `bun run dev` to open the circuit preview.
+2. Select the PCB view to examine the top view.
+3. Edit `pcbX` or `pcbY` in the `pcbGroupPlacements` map in `index.circuit.tsx`.
+4. Save the file to update the preview.
+5. Select the 3D view to examine connector access.
+6. Run `bun run build` to produce a fresh full build.
+
+Coordinates use millimeters and place the bottom-left corner of each group footprint or courtyard.
+The board origin is its bottom-left corner. Positive X points right, and positive Y points up.
+Keys with `/` place a subgroup relative to its parent.
+`pcbRotation` specifies counterclockwise degrees. `offBoard: true` permits a group outside the board during placement.
+
+The first preview creates a full build. Later X/Y edits reuse the rendered circuit and schematic.
+Each move updates pads, courtyards, group bounds, and 3D models, then repeats the placement checks.
+The preview reads the original cache for each move to prevent accumulated coordinate drift.
+Generated preview files remain in `dist/`. `index.circuit.tsx` remains the circuit source.
+
+Rotations, grid changes, board dimensions, footprints, connections, and other source changes trigger a full build.
+Expressions in the placement map also use a full build. The cached path requires literal numeric X/Y values and disabled routing.
+Routed geometry always uses a full build. A failed update reports an error in the viewer and retains the previous full build.
+`bun run dev:full` retains the original source editor and full rebuild behavior.
+`bun run dev --port 3023` selects a different preview port.
+
+### PCIe mechanical zones
+
+`lib/pcie-mechanical.ts` defines the XKB assembly keepout and the CEM component height zones.
+The PCB view shows their boundaries and a color legend on the PCB notes layer.
+These notes do not appear on the manufactured silkscreen.
+The zones move with the PCIe connector, including cached placement updates.
+The board outline clips each zone.
+
+| Zone | Basis | Restriction |
+| --- | --- | --- |
+| XKB assembly | 89 mm housing, 8.80 mm body width, 92 mm hold-down span, 9.20 mm signal land span | No other components on the connector side |
+| CEM card area | CEM Figure 86, adapted to the XKB housing boundary | 15.24 mm maximum component height |
+| CEM front strip | CEM Figure 86, from -10.16 mm to +5.09 mm relative to the chassis mounting datum | 5.08 mm maximum component height |
+| CEM anti-misinsertion feature | 2.50 mm width, centered on the slot, for 10.30 mm ahead of the XKB housing | 6.35 mm maximum component height |
+
+The XKB source is [the connector drawing](datasheets/X1618WVS-164-9TV30.pdf), pages 1-2.
+The CEM source is [Revision 4.0, Version 0.9](https://whycan.com/files/members/1761/PCIe_CEM_SPEC_R4_V9_12072018_NCB.pdf), Figures 33 and 86, pages 90 and 158.
+This public CEM copy is a draft.
+Its microATX illustration supplies the reference envelope, not a required microATX outline for this board.
+Datum A coincides with the first locator axis, 1.65 mm after A11.
+The key center precedes that axis by 0.15 mm.
+The transverse height envelope extends to the actual XKB housing boundary on row A.
+
+At the current connector position, the 5.08 mm strip lies beyond the top board edge.
+Its definition remains available for later connector positions.
+The XKB drawing has no retention latch.
+A different connector or an added retention mechanism requires a new mechanical review.
+
+The placement checks reject components inside the XKB assembly keepout.
+`bun run check:drc` also compares reviewed maximum component heights with the CEM limits.
+Unknown heights produce `pcie_height_unreviewed` warnings.
+`pcieComponentHeightsMm` records reviewed heights by manufacturer part number.
+The current ATX header uses a conservative 10 mm limit from its Molex drawing.
+This limit covers the bare header, not the attached cable.
+The checks use component and courtyard bounds and apply only on the connector side of the board.
+Copper traces, vias, and ground pours remain available in these mechanical zones.
+Card coolers, cables, supports, and enclosure clearances still require an assembly review.
 
 ### Power/reset simulation
 

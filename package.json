@@ -10,7 +10,8 @@
     "electronics"
   ],
   "scripts": {
-    "dev": "tsci dev",
+    "dev": "bun scripts/dev-preview.mjs",
+    "dev:full": "tsci dev",
     "build": "tsci build index.circuit.tsx --disable-parts-engine",
     "build:supplier": "tsci build index.circuit.tsx",
     "check:drc": "bun scripts/check-jlcpcb.mjs",
@@ -22,7 +23,7 @@
     "push": "tsci push",
     "snapshot": "tsci snapshot",
     "snapshot:update": "tsci snapshot --update",
-    "start": "tsci dev",
+    "start": "bun scripts/dev-preview.mjs",
     "typecheck": "tsc --noEmit",
     "check:bga": "bun scripts/review-bridge-bga.jsx",
     "check:slot-power": "bun scripts/check-slot-power.mjs",
@@ -33,13 +34,15 @@
     "@tscircuit/ngspice-spice-engine": "0.0.20",
     "@types/react": "^19.3.0",
     "spicets": "0.0.4",
-    "tscircuit": "^0.0.2823",
+    "tscircuit": "^0.0.2832",
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@tscircuit/circuit-json-util": "0.0.119",
+    "@tscircuit/footprinter": "0.0.431",
     "@tscircuit/math-utils": "^0.0.38"
   },
   "patchedDependencies": {
-    "@tscircuit/core@0.0.2128": "patches/@tscircuit%2Fcore@0.0.2128.patch"
+    "@tscircuit/core@0.0.2131": "patches/@tscircuit%2Fcore@0.0.2131.patch"
   }
 }

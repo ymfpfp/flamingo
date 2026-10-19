@@ -1,10 +1,11 @@
 import {A_0402WGF0000TCE} from "imports/A_0402WGF0000TCE";
 import {CL05B224KO5NNNC} from "imports/CL05B224KO5NNNC";
 import {CL21A226MAYNNNE} from "imports/CL21A226MAYNNNE";
+import {bridgeDecouplingPlacement} from "lib/bridge-decoupling-placement";
 
 // ASMedia ASM2464PDX_TI_R03, sheet 3: R4 feeds VCCA33 from VCC33_SYS.
 // C7 and C8 decouple the analog side of that link to GND.
-// Selected MPNs and catalog footprints; final PCB placement remains pending.
+// Top-side placement keeps the feed and bypass capacitors beside H5.
 export function BridgeVcca33Decoupling() {
   return (
     <group name="VCCA33_DECOUPLING" schX={9.6} schY={7}>
@@ -15,6 +16,7 @@ export function BridgeVcca33Decoupling() {
       />
       <A_0402WGF0000TCE
         name="R_VCCA33_4"
+        {...bridgeDecouplingPlacement("R_VCCA33_4")}
         schSectionName="VCCA33_DECOUPLING"
         schX={-3} schY={0.9}
         schOrientation="vertical"
@@ -27,6 +29,7 @@ export function BridgeVcca33Decoupling() {
         <Capacitor
           key={ref}
           name={`C_VCCA33_${ref}`}
+          {...bridgeDecouplingPlacement(`C_VCCA33_${ref}`)}
           schSectionName="VCCA33_DECOUPLING"
           schX={-0.5 + index * 1.9} schY={0}
           schOrientation="vertical"
@@ -48,7 +51,7 @@ export function BridgeVcca33Decoupling() {
         schX={0} schY={-2} fontSize={0.18} anchor="center"
       />
       <schematictext
-        text="Parts selected; PCB placement pending."
+        text="Place the feed and capacitors beside H5 on the top side."
         schX={0} schY={-2.5} fontSize={0.18} anchor="center"
       />
     </group>

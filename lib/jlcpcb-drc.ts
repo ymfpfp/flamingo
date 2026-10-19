@@ -12,6 +12,7 @@ import {
 } from "@tscircuit/checks";
 import type {AnyCircuitElement} from "tscircuit";
 import {jlcpcbRules as rules} from "./jlcpcb-rules";
+import {checkPcieMechanicalZones} from "./pcie-mechanical";
 
 export interface DrcFinding {
   rule: string;
@@ -76,6 +77,7 @@ export async function runJlcpcbDrc(input: AnyCircuitElement[], {requireRouted = 
   // Some native checks normalize endpoint metadata. Keep the caller's input intact.
   const json: AnyCircuitElement[] = JSON.parse(JSON.stringify(input));
   const findings = checkJlcpcbDimensions(json);
+  findings.push(...checkPcieMechanicalZones(json));
   const addNative = (diagnostics: AnyCircuitElement[]) => {
     for (const d of diagnostics) {
       const record = d as unknown as Record<string, unknown>;

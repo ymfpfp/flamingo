@@ -3,6 +3,7 @@ import {A_0201WMF2203TEE} from "imports/A_0201WMF2203TEE";
 import {GRM033R61E334KE15D} from "imports/GRM033R61E334KE15D";
 import {GRM033R61E224KE01D} from "imports/GRM033R61E224KE01D";
 import {ESD150B1W0201E6327XTSA1} from "imports/ESD150B1W0201E6327XTSA1";
+import {usb4Placement} from "lib/usb4-placement";
 
 // ASMedia ASM2464PDX_TI_R03, sheet 3: preserve polarity and map pair 1 to lane 0.
 export const usb4Signals = [
@@ -25,9 +26,6 @@ export function Usb4Lanes() {
         const connectorNet = `net.USB_${signal.name}`;
         const bridgeNet = `net.ASM_${signal.bridgePin}`;
         const y = 8 - index * 2.2;
-        // Keep each capacitor and its two shunts together in the placement preview.
-        // Final placement must follow the connector-to-PHY differential pair routes.
-        const pcbY = 10.5 - index * 3;
         return (
           <Fragment key={signal.name}>
             <Capacitor
@@ -36,8 +34,7 @@ export function Usb4Lanes() {
               schX={7}
               schY={y}
               schOrientation="vertical"
-              pcbX={0}
-              pcbY={pcbY}
+              {...usb4Placement(signal.name, "capacitor")}
               connections={{pin1: connectorNet, pin2: bridgeNet}}
             />
             {/* One bidirectional clamp per conductor, on the PHY side of the capacitor.
@@ -47,9 +44,7 @@ export function Usb4Lanes() {
               schSectionName="USB4_LANES"
               schX={9}
               schY={y - 0.8}
-              pcbX={1.6}
-              pcbY={pcbY - 1.2}
-              pcbRotation={270}
+              {...usb4Placement(signal.name, "clamp")}
               connections={{pin1: bridgeNet, pin2: "net.GND"}}
             />
             {/* Connector-side discharge paths match R66-R73 in the ASMedia reference. */}
@@ -59,9 +54,7 @@ export function Usb4Lanes() {
               schX={5}
               schY={y - 0.8}
               schOrientation="vertical"
-              pcbX={-1.6}
-              pcbY={pcbY - 1.2}
-              pcbRotation={270}
+              {...usb4Placement(signal.name, "discharge")}
               connections={{pin1: connectorNet, pin2: "net.GND"}}
             />
           </Fragment>

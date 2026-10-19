@@ -8,7 +8,8 @@ import type {ChipProps} from "@tscircuit/props";
 /** Shared buck enable; independent of the bridge's reset net and buck PG pins. */
 export function BuckEnable({spiceModel}: {spiceModel?: ChipProps["spiceModel"]} = {}) {
   return (
-    <group name="BUCK_ENABLE" schX={16} schY={0}>
+    <group name="BUCK_ENABLE" schX={16} schY={0}
+      pcbStyle={{silkscreenTextVisibility: "hidden"}}>
       <schematicsection name="BUCK_ENABLE" displayName="VCCH Monitor and Buck Enable"/>
       <TPS389001DSER
         name="U_BUCK_EN"

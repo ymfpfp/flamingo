@@ -6,8 +6,6 @@ import {simulateScenario} from "../simulations/power-reset/run.mjs";
 import {scenarios, startupEnvelopeScenarios} from "../simulations/power-reset/scenarios";
 import {valueAt, crossing, extractGraphs} from "../simulations/power-reset/analyze.mjs";
 import Board from "../index.circuit";
-import {BridgeReset} from "../components/BridgeReset";
-import {BuckEnable} from "../components/BuckEnable";
 
 const engine = await createEngine();
 const runs = new Map();
@@ -41,12 +39,15 @@ test("the production board and simulation use the same reset and supervisor comp
     });
   }
   visit(Board());
-  assert.equal(elements.filter(e => e.type === BridgeReset).length, 1);
-  assert.equal(elements.filter(e => e.type === BuckEnable).length, 1);
-  assert.equal(elements.find(e => e.type === BuckEnable).props.spiceModel, undefined);
+  // Board resolves component functions before applying PCB placement.
+  assert.equal(elements.filter(e => e.type === "group" && e.props.name === "BRIDGE_RESET").length, 1);
+  assert.equal(elements.filter(e => e.type === "group" && e.props.name === "BUCK_ENABLE").length, 1);
+  assert.equal(elements.find(e => e.props.name === "U_BUCK_EN").props.spiceModel, undefined);
   const modeled = nominal.circuitJson.filter(e => e.type === "source_component");
   for (const name of ["R_RST", "C_RST", "R_BUCK_EN_TOP", "R_BUCK_EN_BOTTOM", "R_BUCK_EN_PU", "C_BUCK_EN"]) {
     assert.equal(modeled.filter(e => e.name === name).length, 1, name);
+    assert.equal(elements.find(e => e.props.name === name).props.manufacturerPartNumber,
+      modeled.find(e => e.name === name).manufacturer_part_number, name);
   }
   assert.match(nominal.netlist, /RR_RST VCCH ASM_RST_N 100K/i);
   assert.match(nominal.netlist, /CC_RST ASM_RST_N 0 1U/i);

@@ -5,7 +5,7 @@ import {A_25SVPK470M} from "imports/A_25SVPK470M";
 
 /** ASMedia reference sheet 6: CE1/C132/C133 and CE2/C131.
  * All capacitors shunt the switched slot outputs to GND.
- * Final PCB placement belongs beside the slot power contacts.
+ * Each capacitor has its own PCB group for placement beside the slot power contacts.
  */
 export function SlotDecoupling() {
   return (
@@ -19,26 +19,28 @@ export function SlotDecoupling() {
         {rail: "12V", Bulk: A_25SVPK470M, bulkName: "C134", ceramics: ["C132", "C133"], y: 0, label: "12 V: 470uF / 25V + 2 x 100nF / 50V"},
         {rail: "3V3", Bulk: APXJ6R3ARA561MF80G, bulkName: "C135", ceramics: ["C131"], y: -5, label: "3.3 V: 560uF / 6.3V + 100nF / 50V"},
       ] as const).map(({rail, Bulk, bulkName, ceramics, y, label}) => (
-        <group key={rail} schY={y} pcbX={0} pcbY={rail === "12V" ? 0 : -12}>
-          <schematictext text={label} schX={-1.2} schY={2} fontSize={0.18} anchor="left"/>
-          <Bulk name={bulkName} schSectionName="SLOT_DECOUPLING"
-            pcbX={0} pcbY={0}
-            schX={0} schY={0} schOrientation="vertical"
-            connections={{pin1: `net.SLOT_${rail}`, pin2: "net.GND"}}/>
-          <netlabel inline net={`SLOT_${rail}`} connection={`${bulkName}.pin1`}/>
-          <netlabel inline net="GND" connection={`${bulkName}.pin2`}/>
+        <Fragment key={rail}>
+          <schematictext text={label} schX={-1.2} schY={y + 2} fontSize={0.18} anchor="left"/>
+          <group name={`${bulkName}_PLACEMENT`} schY={y}>
+            <Bulk name={bulkName} schSectionName="SLOT_DECOUPLING"
+              pcbX={0} pcbY={0}
+              schX={0} schY={0} schOrientation="vertical"
+              connections={{pin1: `net.SLOT_${rail}`, pin2: "net.GND"}}/>
+            <netlabel inline net={`SLOT_${rail}`} connection={`${bulkName}.pin1`}/>
+            <netlabel inline net="GND" connection={`${bulkName}.pin2`}/>
+          </group>
           {ceramics.map((name, index) => (
-            <Fragment key={name}>
+            <group key={name} name={`${name}_PLACEMENT`} schY={y}>
               <CL10B104KB8NNNC name={name}
-                pcbX={9 + index * 3} pcbY={0}
+                pcbX={0} pcbY={0}
                 schSectionName="SLOT_DECOUPLING"
                 schX={1.9 + index * 1.9} schY={0} schOrientation="vertical"
                 connections={{pin1: `net.SLOT_${rail}`, pin2: "net.GND"}}/>
               <netlabel inline net={`SLOT_${rail}`} connection={`${name}.pin1`}/>
               <netlabel inline net="GND" connection={`${name}.pin2`}/>
-            </Fragment>
+            </group>
           ))}
-        </group>
+        </Fragment>
       ))}
       <schematictext text="Place beside slot power contacts. Include card capacitance in the inrush check."
         schX={-1.2} schY={-7.2} fontSize={0.18} anchor="left"/>

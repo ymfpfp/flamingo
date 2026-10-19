@@ -1,11 +1,12 @@
 import {CL05A225KO5NQNC} from "imports/CL05A225KO5NQNC";
 import {CL21A106KAYNNNE} from "imports/CL21A106KAYNNNE";
+import {bridgeDecouplingPlacement} from "lib/bridge-decoupling-placement";
 
 // ASMedia ASM2464PDX_TI_R03, sheet 3: VCC18 supplies the VCCL balls.
 // Keep the reference's values and quantities: 11*2.2uF + 3*10uF.
 // The existing 22uF regulator output capacitor is additional, matching C78
 // on reference sheet 4. Check TPS62903 stability with the combined bank.
-// Selected MPNs and catalog footprints; final PCB placement remains pending.
+// Top-side placement follows the bridge's VCCL supply-ball regions.
 const banks = [
   {refs: [2, 10, 17, 25, 29, 33, 37, 41, 43, 45, 46], Capacitor: CL05A225KO5NQNC},
   {refs: [5, 13, 20], Capacitor: CL21A106KAYNNNE},
@@ -21,6 +22,7 @@ export function BridgeVcclDecoupling() {
         <Capacitor
           key={ref}
           name={`C_VCCL_${ref}`}
+          {...bridgeDecouplingPlacement(`C_VCCL_${ref}`)}
           schSectionName="VCCL_DECOUPLING"
           schX={-12.3 + index * 1.8}
           schY={0}

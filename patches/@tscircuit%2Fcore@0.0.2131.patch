@@ -1,0 +1,77 @@
+diff --git a/dist/index.js b/dist/index.js
+index 4d5c0206edf5f8a34a7435a58ec5e2cb199ff01b..3fc0f89c1143aa69a97d9710703698d72581d720 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -11165,6 +11165,7 @@ var PlatedHole = class extends PrimitiveComponent2 {
+       });
+       this.pcb_plated_hole_id = pcb_plated_hole.pcb_plated_hole_id;
+       db2.pcb_solder_paste.insert({
++        pcb_component_id,
+         layer: "top",
+         shape: "circle",
+         // @ts-ignore: no idea why this is triggering
+@@ -11175,6 +11176,7 @@ var PlatedHole = class extends PrimitiveComponent2 {
+         pcb_group_id: this.getGroup()?.pcb_group_id ?? void 0
+       });
+       db2.pcb_solder_paste.insert({
++        pcb_component_id,
+         layer: "bottom",
+         shape: "circle",
+         // @ts-ignore: no idea why this is triggering
+@@ -11235,6 +11237,7 @@ var PlatedHole = class extends PrimitiveComponent2 {
+       this.pcb_plated_hole_id = pcb_plated_hole.pcb_plated_hole_id;
+       if (props.shape === "pill") {
+         db2.pcb_solder_paste.insert({
++          pcb_component_id,
+           layer: "top",
+           shape: "rotated_pill",
+           radius: Math.min(props.outerWidth, props.outerHeight) / 2,
+@@ -11247,6 +11250,7 @@ var PlatedHole = class extends PrimitiveComponent2 {
+           pcb_group_id: this.getGroup()?.pcb_group_id ?? void 0
+         });
+         db2.pcb_solder_paste.insert({
++          pcb_component_id,
+           layer: "bottom",
+           shape: "rotated_pill",
+           radius: Math.min(props.outerWidth, props.outerHeight) / 2,
+@@ -11260,6 +11264,7 @@ var PlatedHole = class extends PrimitiveComponent2 {
+         });
+       } else if (props.shape === "oval") {
+         db2.pcb_solder_paste.insert({
++          pcb_component_id,
+           layer: "top",
+           shape: "oval",
+           width: props.outerWidth,
+@@ -11270,6 +11275,7 @@ var PlatedHole = class extends PrimitiveComponent2 {
+           pcb_group_id: this.getGroup()?.pcb_group_id ?? void 0
+         });
+         db2.pcb_solder_paste.insert({
++          pcb_component_id,
+           layer: "bottom",
+           shape: "oval",
+           width: props.outerWidth,
+@@ -105296,6 +105302,15 @@ var InlineNetLabelSolver = class _InlineNetLabelSolver extends BaseSolver10 {
+       x: (start.x + end.x) / 2,
+       y: (start.y + end.y) / 2
+     };
++    // Keep terminal text 0.1 mm from its pin, even when the minimum
++    // stub length leaves additional wire beyond a short label.
++    const labelCenter = {
++      ...anchorPoint,
++      [axis]: start[axis] + Math.sign(end[axis] - start[axis]) * Math.min(
++        (width + 0.2) / 2,
++        Math.abs(end[axis] - start[axis]) / 2
++      )
++    };
+     const sides = axis === "x" ? ["y+", "y-"] : ["x-", "x+"];
+     for (const side of sides) {
+       for (const offset of this.getInlineOffsets(
+@@ -105307,7 +105322,7 @@ var InlineNetLabelSolver = class _InlineNetLabelSolver extends BaseSolver10 {
+         obstacles?.traces ?? this.traces,
+         ignoredTraceIds
+       )) {
+-        const center = side === "y+" ? { x: anchorPoint.x, y: anchorPoint.y + offset } : side === "y-" ? { x: anchorPoint.x, y: anchorPoint.y - offset } : side === "x-" ? { x: anchorPoint.x - offset, y: anchorPoint.y } : { x: anchorPoint.x + offset, y: anchorPoint.y };
++        const center = side === "y+" ? { x: labelCenter.x, y: anchorPoint.y + offset } : side === "y-" ? { x: labelCenter.x, y: anchorPoint.y - offset } : side === "x-" ? { x: anchorPoint.x - offset, y: labelCenter.y } : { x: anchorPoint.x + offset, y: labelCenter.y };
+         const halfAlong = width / 2;
+         const halfAcross = height / 2;
+         const bounds = axis === "x" ? {

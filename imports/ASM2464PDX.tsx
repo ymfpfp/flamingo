@@ -1,3 +1,4 @@
+import type {ChipProps} from "@tscircuit/props";
 import {sortByAlphabetical} from "lib/utils";
 import type {ComponentProps} from "react";
 import {Fragment} from "react";
@@ -502,11 +503,12 @@ export const Footprint = () => {
   );
 };
 
-export default function ASM2464PDX({schSectionName}: {schSectionName?: string} = {}) {
+export default function ASM2464PDX({schSectionName, ...pcbProps}: Pick<ChipProps, "schSectionName" | "pcbX" | "pcbY" | "pcbRotation"> = {}) {
   return (
     <>
       <chip
         name="ASM2464PDX"
+        {...pcbProps}
         schSectionName={schSectionName}
         manufacturerPartNumber="ASM2464PDX"
         datasheetUrl="https://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PDX/ASM2464PDX_DataSheet_R0_3.pdf"

@@ -1,12 +1,13 @@
 import {CL05A225KO5NQNC} from "imports/CL05A225KO5NQNC";
 import {CL05B224KO5NNNC} from "imports/CL05B224KO5NNNC";
 import {CL21A106KAYNNNE} from "imports/CL21A106KAYNNNE";
+import {bridgeDecouplingPlacement} from "lib/bridge-decoupling-placement";
 
 // ASMedia ASM2464PDX_TI_R03, sheet 3: VDD095 supplies the VDD balls.
 // Keep the reference's values and quantities on our 1.13V VDD rail.
 // The existing 22uF regulator output capacitor is additional, matching C79
 // on reference sheet 4. Check TPS62903 stability with the combined bank.
-// Selected MPNs and catalog footprints; final PCB placement remains pending.
+// Top-side placement follows the left edge of the VDD supply region.
 const banks = [
   {refs: [1, 9, 15, 22, 24, 28, 32, 36, 40, 42, 44], Capacitor: CL05A225KO5NQNC},
   {refs: [4, 12, 18], Capacitor: CL21A106KAYNNNE},
@@ -21,11 +22,12 @@ export function BridgeVddDecoupling() {
     <group name="VDD_DECOUPLING" schY={-7}>
       <schematictext text="VDD Decoupling" schX={0} schY={2.6} fontSize={0.18} anchor="center"/>
       {rows.map((row, rowIndex) => (
-        <group key={rowIndex} schY={-rowIndex * 2.2}>
+        <group key={rowIndex} schY={-rowIndex * 2.2} pcbX={0} pcbY={0} pcbRelative>
           {row.map(({ref, Capacitor}, index) => (
             <Capacitor
               key={ref}
               name={`C_VDD_${ref}`}
+              {...bridgeDecouplingPlacement(`C_VDD_${ref}`)}
               schSectionName="VDD_DECOUPLING"
               schX={-7.8 + index * 1.8}
               schY={0}

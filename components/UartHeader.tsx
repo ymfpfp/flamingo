@@ -24,10 +24,12 @@ export function UartHeaderFootprint() {
           <silkscreentext
             text={label === "GND" ? label : `UART_${label}`}
             pcbX={(index - 1) * 2.54}
-            pcbY={3.2}
-            pcbRotation={90}
+            pcbY={1.6}
+            // A full turn explicitly keeps text horizontal when the header is at 90°.
+            // Zero inherits the header rotation in the current renderer.
+            pcbRotation={360}
             fontSize="0.8mm"
-            anchorAlignment="center"
+            anchorAlignment="center_right"
           />
         </Fragment>
       ))}
@@ -36,14 +38,8 @@ export function UartHeaderFootprint() {
         {x: 3.7, y: 1.15}, {x: -3.7, y: 1.15}, {x: -3.7, y: -1.15},
       ]}/>
       <silkscreentext
-        text="3V3 UART"
-        pcbY={-1.9}
-        fontSize="0.8mm"
-        anchorAlignment="center"
-      />
-      <silkscreentext
         text="{NAME}"
-        pcbY={-3}
+        pcbY={-2.5}
         fontSize="0.8mm"
         anchorAlignment="center"
       />

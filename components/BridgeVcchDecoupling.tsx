@@ -1,10 +1,11 @@
 import {CL05A225KO5NQNC} from "imports/CL05A225KO5NQNC";
 import {CL05B224KO5NNNC} from "imports/CL05B224KO5NNNC";
 import {CL21A106KAYNNNE} from "imports/CL21A106KAYNNNE";
+import {bridgeDecouplingPlacement} from "lib/bridge-decoupling-placement";
 
 // ASMedia ASM2464PDX_TI_R03, sheet 3: VCC33_SYS supplies the VCCH balls.
 // Keep the reference's values and quantities: 4*2.2uF + 2*10uF + 4*220nF.
-// Selected MPNs and catalog footprints; final PCB placement remains pending.
+// Top-side placement follows the bridge's VCCH supply-ball region.
 const banks = [
   {refs: [3, 11, 16, 19], Capacitor: CL05A225KO5NQNC},
   {refs: [6, 14], Capacitor: CL21A106KAYNNNE},
@@ -21,6 +22,7 @@ export function BridgeVcchDecoupling() {
         <Capacitor
           key={ref}
           name={`C_VCCH_${ref}`}
+          {...bridgeDecouplingPlacement(`C_VCCH_${ref}`)}
           schSectionName="VCCH_DECOUPLING"
           schX={-8.7 + index * 1.8}
           schY={0}

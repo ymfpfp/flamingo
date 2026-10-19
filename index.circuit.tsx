@@ -1,5 +1,10 @@
-import {Fragment} from "react";
+import {Children, cloneElement, Fragment, isValidElement, type ReactElement, type ReactNode} from "react";
+import type {Board as PcbBoard, Group} from "tscircuit";
+import {applyPcbGroupPlacements, type PcbGroupPlacement, type PcbPlacementGroups} from "lib/pcb-group-placement";
 import {jlcpcbBoardRules} from "lib/jlcpcb-rules";
+import {outlineSilkscreenText} from "lib/silkscreen-font";
+import {flamingoSilkscreen} from "lib/flamingo-silkscreen";
+import {tsMarkSilkscreen} from "lib/ts-mark-silkscreen";
 import {BridgeReset} from "components/BridgeReset";
 import {BridgeVcca33Decoupling} from "components/BridgeVcca33Decoupling";
 import {BridgeVcchDecoupling} from "components/BridgeVcchDecoupling";
@@ -7,7 +12,7 @@ import {BridgeVcclDecoupling} from "components/BridgeVcclDecoupling";
 import {BridgeVddDecoupling} from "components/BridgeVddDecoupling";
 import {BuckEnable} from "components/BuckEnable";
 import {BuckInputs} from "components/BuckInputs";
-import {PsuControl} from "components/PsuControl";
+import {PsuControl, PsuOkLed} from "components/PsuControl";
 import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
 import {SlotPower} from "components/SlotPower";
 import {SlotDecoupling} from "components/SlotDecoupling";
@@ -27,6 +32,246 @@ import {W25Q32JVSSIQ} from "imports/W25Q32JVSSIQ";
 import {X1618WVS_164_9TV30} from "imports/X1618WVS_164_9TV30";
 import {XXCBCLNANF_25M} from "imports/XXCBCLNANF_25M";
 
+// Coordinates place the bottom-left of each group's footprint/courtyard bounds.
+// Set offBoard: false when placing a group to enable its board-boundary checks.
+// Root coordinates are board coordinates; / keys offset a subgroup within its parent.
+// Connector-only sections are included so every part is controlled by this map.
+export const pcbGroupPlacements = {
+  BRIDGE_CORE: {pcbX: 23.5, pcbY: 83.7, offBoard: false}, // USB4 faces the upper-right USB-C connector; PCIe faces left.
+  "BRIDGE_CORE/OSCILLATOR": {pcbX: 11.1, pcbY: 22}, // Above the bridge, beside XI/XO after its 180-degree rotation.
+  BRIDGE_UART: {pcbX: 43.07, pcbY: 59.95, pcbRotation: 90, offBoard: false}, // UART below SPI, near the bridge and right edge.
+  R_UART_TX: {pcbX: 47.54, pcbY: 58.4, pcbRotation: 180, offBoard: false}, // Continue the UART column, 2.54 mm below GND.
+  LED_PSU_OK: {pcbX: 47.81655, pcbY: 28.05055, pcbRotation: 90, offBoard: false}, // Right-edge indicator beside its ATX control circuit.
+  BRIDGE_SPI: {pcbX: 46.7, pcbY: 69.8, pcbRotation: 90, offBoard: false}, // Beside flash; same column as UART with 5.08 mm between their nearest holes.
+  BRIDGE_RESET: {pcbX: 44.00435, pcbY: 107.9501, offBoard: false}, // Right-edge reset access immediately above USB-C; RC parts sit left of the button.
+
+  // Top-side decoupling surrounds the bridge and clears the flash and USB parts.
+  VCCH_DECOUPLING: {pcbX: 34.045, pcbY: 83.575, offBoard: false},
+  VCCA33_DECOUPLING: {pcbX: 35.83435, pcbY: 93.645, offBoard: false},
+  VCCL_DECOUPLING: {pcbX: 21.0799, pcbY: 97.98, offBoard: false},
+  VDD_DECOUPLING: {pcbX: 16.6799, pcbY: 83.175, offBoard: false},
+  "VDD_DECOUPLING/0": {pcbX: 0, pcbY: 8.305},
+  "VDD_DECOUPLING/1": {pcbX: 0, pcbY: 0},
+
+  // A1/B1 are at native -X; 270 degrees puts the bracket end at the top.
+  PCIE_LINK: {pcbX: 5, pcbY: 26.12, pcbRotation: 270, offBoard: false}, // Original position, 5 mm above ATX.
+  // Clock links share identical top-side geometry beside A13/A14. The slower
+  // control links and CLKREQ pull-up form a second column toward the bridge.
+  R_PCIE_REFCLK_P: {pcbX: 15.83435, pcbY: 99.4408, offBoard: false},
+  R_PCIE_REFCLK_N: {pcbX: 15.83435, pcbY: 98.2408, offBoard: false},
+  R_PCIE_PERST: {pcbX: 18.23435, pcbY: 102.68, offBoard: false},
+  R_PCIE_CLKREQ: {pcbX: 18.23435, pcbY: 99.48, offBoard: false},
+  R_PCIE_CLKREQ_PU: {pcbX: 18.234355, pcbY: 101.08, offBoard: false},
+  // Four top-side TX pairs in the left strip, beside slot B14/B15 through B27/B28.
+  // Anchors use courtyard lower-left corners; centers share X=3 mm and 1.2 mm P/N pitch.
+  C_TX0_P: {pcbX: 2.0799, pcbY: 98.4408, offBoard: false},
+  C_TX0_N: {pcbX: 2.0799, pcbY: 97.2408, offBoard: false},
+  C_TX1_P: {pcbX: 2.0799, pcbY: 93.4408, offBoard: false},
+  C_TX1_N: {pcbX: 2.0799, pcbY: 92.2408, offBoard: false},
+  C_TX2_P: {pcbX: 2.0799, pcbY: 89.4408, offBoard: false},
+  C_TX2_N: {pcbX: 2.0799, pcbY: 88.2408, offBoard: false},
+  C_TX3_P: {pcbX: 2.0799, pcbY: 85.4408, offBoard: false},
+  C_TX3_N: {pcbX: 2.0799, pcbY: 84.2408, offBoard: false},
+  PCIE_PRESENCE: {pcbX: 17, pcbY: 64.34, offBoard: false}, // Beside the slot's x8 presence contact, below the buck converters.
+  SLOT_DECOUPLING: {pcbX: 15.55, pcbY: 104.66, offBoard: false}, // Original power-contact bypass position beside the slot.
+  // One ceramic column beside the power contacts, with rail pads toward the slot.
+  "SLOT_DECOUPLING/C132_PLACEMENT": {pcbX: 0, pcbY: 7}, // A2/A3, 12 V.
+  "SLOT_DECOUPLING/C133_PLACEMENT": {pcbX: 0, pcbY: 3.5}, // Second 12 V bypass.
+  "SLOT_DECOUPLING/C131_PLACEMENT": {pcbX: 0, pcbY: 0}, // A9/A10, 3.3 V.
+  // Bulk capacitors sit side by side on the same centerline, outside the card zone.
+  "SLOT_DECOUPLING/C134_PLACEMENT": {pcbX: 3.2, pcbY: 4.94},
+  "SLOT_DECOUPLING/C135_PLACEMENT": {pcbX: 17.1, pcbY: 6.74},
+  SLOT_POWER: {pcbX: 25.0, pcbY: 53.0, pcbRotation: 180, offBoard: false}, // Tuck the slot switches under the bucks toward the bridge; output capacitors stay at the slot.
+
+  USB: {pcbX: 44.2, pcbY: 91.7, pcbRotation: 90, offBoard: false}, // Upper-right; cutout opens onto the right edge.
+  USB4_LANES: {pcbX: 40.2, pcbY: 92.7653302, offBoard: false}, // Four symmetric pair cells behind USB-C.
+  USB_VBUS_SENSE: {pcbX: 35.834355, pcbY: 98.68, offBoard: false}, // Top-side filter column near bridge G1, clear of the USB4 lane groups.
+  ATX: {pcbX: 0, pcbY: 0, offBoard: false}, // Courtyard meets the bottom/left board edges.
+  R_PSU_ON: {pcbX: 47.50435, pcbY: 23.28, offBoard: false}, // Below the PSU LED near ATX, with clearance for rework.
+  // Local buck layouts keep VIN bypassing and the SW/inductor loops compact.
+  // Align the upper VDD buck with VCCL, keeping their horizontal positions.
+  VCCL_BUCK_INPUT: {pcbX: 21.995002, pcbY: 72.0, offBoard: false},
+  VDD_BUCK_INPUT: {pcbX: 30.995002, pcbY: 72.0, offBoard: false},
+  BUCK_ENABLE: {pcbX: 34, pcbY: 62, offBoard: false}, // Clear the slot-power switch and discharge resistor below the monitor.
+  PSU_CONTROL: {pcbX: 39.5, pcbY: 24, offBoard: false}, // Above ATX beside the right-edge PSU indicator.
+} satisfies Record<string, PcbGroupPlacement>;
+
+let renderedPlacementGroups: PcbPlacementGroups | undefined;
+export function getRenderedPlacementGroups(): PcbPlacementGroups {
+  if (!renderedPlacementGroups) throw new Error("Render the board before reading placement groups");
+  return renderedPlacementGroups;
+}
+
+function groupPlacement(name: string): PcbGroupPlacement {
+  const placement = (pcbGroupPlacements as Record<string, PcbGroupPlacement>)[name];
+  if (!placement) throw new Error(`Add ${name} to pcbGroupPlacements`);
+  return placement;
+}
+
+type PlacementContext = {
+  name: string;
+  offBoard: boolean;
+  manualLayout: boolean;
+  partIndex: number;
+};
+
+const pcbPartElements = new Set([
+  "chip", "connector", "resistor", "capacitor", "inductor", "diode", "led",
+  "mosfet", "transistor", "crystal", "resonator", "pushbutton", "pinheader",
+]);
+
+// Align actual rendered geometry after tscircuit's local layouts have finished,
+// before placement checks, routing, or CAD generation. This also includes loose
+// schematic sections, which do not have a native <group> element.
+function bottomLeftGroupLayout() {
+  const members = new Map<string, Set<string>>();
+  const nativeGroups = new Map<string, Group>();
+  const looseOffsets: PcbPlacementGroups["looseOffsets"] = {};
+  const addPart = (group: string, part: string) => {
+    if (!members.has(group)) members.set(group, new Set());
+    members.get(group)!.add(part);
+  };
+  const attachBoard = (board: PcbBoard | null) => {
+    if (!board) return;
+    const original = board.doInitialPcbFlexRender.bind(board);
+    board.doInitialPcbFlexRender = () => {
+      original();
+      if (board.root!.pcbDisabled) return;
+      const json = board.root!.db.toArray();
+      renderedPlacementGroups = {
+        looseOffsets,
+        members: Object.fromEntries([...members].map(([name, parts]) => [name, [...parts]])),
+        nativeGroupIds: Object.fromEntries([...nativeGroups]
+          .filter(([, group]) => group.pcb_group_id)
+          .map(([name, group]) => [name, group.pcb_group_id!])),
+      };
+      applyPcbGroupPlacements(json, pcbGroupPlacements, renderedPlacementGroups);
+      // Omit footprint outlines, but retain board artwork and the bridge's A1 corner marker.
+      // Keep text, circular pin markers, and placement courtyards.
+      const {db} = board.root!;
+      const bridgeSource = db.source_component.list().find(part => part.name === "ASM2464PDX");
+      const bridgePcb = db.pcb_component.list().find(part => part.source_component_id === bridgeSource?.source_component_id);
+      for (const element of [...json]) {
+        if (element.type === "pcb_silkscreen_path" && element.pcb_component_id && element.pcb_component_id !== bridgePcb?.pcb_component_id) {
+          db.pcb_silkscreen_path.delete(element.pcb_silkscreen_path_id);
+        }
+        if (element.type === "pcb_silkscreen_rect") db.pcb_silkscreen_rect.delete(element.pcb_silkscreen_rect_id);
+        if (element.type === "pcb_silkscreen_line") db.pcb_silkscreen_line.delete(element.pcb_silkscreen_line_id);
+      }
+    };
+    // Convert resolved labels after placement and automatic text adjustment.
+    const originalCadRender = board.doInitialCadModelRender.bind(board);
+    board.doInitialCadModelRender = () => {
+      originalCadRender();
+      if (board.root!.pcbDisabled) return;
+      const {db} = board.root!;
+      for (const graphic of flamingoSilkscreen({pcbX: 42, pcbY: 49, pcbRotation: 130})) db.pcb_silkscreen_graphic.insert(graphic);
+      // Companion badge between the PSU_OK LED and flamingo, in board coordinates.
+      for (const graphic of tsMarkSilkscreen({pcbX: 44.5, pcbY: 36.5, pcbRotation: 90})) db.pcb_silkscreen_graphic.insert(graphic);
+      for (const text of [...db.pcb_silkscreen_text.list()]) {
+        const graphics = outlineSilkscreenText(text);
+        for (const graphic of graphics) db.pcb_silkscreen_graphic.insert(graphic);
+        db.pcb_silkscreen_text.delete(text.pcb_silkscreen_text_id);
+      }
+    };
+  };
+  return {addPart, nativeGroups, looseOffsets, attachBoard};
+}
+
+// Resolve pure component functions to apply group positions from this file only.
+// Footprint props are left intact, including their local pad coordinates.
+function placePcbGroups(
+  node: ReactNode,
+  context?: PlacementContext,
+  loosePartCounts: Record<string, number> = {},
+  layout = bottomLeftGroupLayout(),
+): ReactNode {
+  if (Array.isArray(node)) return node.map(child => placePcbGroups(child, context, loosePartCounts, layout));
+  if (!isValidElement<Record<string, unknown>>(node)) return node;
+  if (typeof node.type === "function") {
+    return placePcbGroups(
+      (node.type as (props: Record<string, unknown>) => ReactNode)(node.props), context, loosePartCounts, layout,
+    );
+  }
+
+  const props = node.props;
+  if (typeof node.type === "string" && pcbPartElements.has(node.type)) {
+    const capacitorStyle = node.type === "capacitor" ? {
+      pcbStyle: {...props.pcbStyle as Record<string, unknown>, silkscreenTextVisibility: "hidden"},
+    } : {};
+    // Individual references listed in the map override schematic-section grouping.
+    const partName = String(props.name);
+    const name = context?.name ?? (partName in pcbGroupPlacements ? partName : String(props.schSectionName));
+    layout.addPart(name, partName);
+    if (context) {
+      const index = context.partIndex++;
+      return cloneElement(node, {
+        ...capacitorStyle,
+        // Groups containing independently positioned subgroups cannot be packed.
+        // Give their remaining parts a preliminary local layout instead.
+        ...(context.manualLayout && props.pcbX === undefined && props.pcbY === undefined
+          ? {pcbX: (index % 3) * 12 - 12, pcbY: -Math.floor(index / 3) * 12}
+          : {}),
+        allowOffBoard: context.offBoard,
+      });
+    }
+
+    // Other loose parts on a sheet move together by schematic section.
+    const placement = groupPlacement(name);
+    const index = loosePartCounts[name] ?? 0;
+    loosePartCounts[name] = index + 1;
+    const localX = name === "BRIDGE_UART" ? -index * 8 : (index % 4) * 4;
+    const localY = name === "BRIDGE_UART" ? index * 6 : -Math.floor(index / 4) * 4;
+    const angle = (placement.pcbRotation ?? 0) * Math.PI / 180;
+    const x = localX * Math.cos(angle) - localY * Math.sin(angle);
+    const y = localX * Math.sin(angle) + localY * Math.cos(angle);
+    layout.looseOffsets[partName] = {x, y};
+    return cloneElement(node, {
+      ...capacitorStyle,
+      pcbX: x,
+      pcbY: y,
+      pcbRotation: (placement.pcbRotation ?? 0) + Number(props.pcbRotation ?? 0),
+      allowOffBoard: placement.offBoard ?? true,
+    });
+  }
+
+  const isGroup = node.type === "group" || node.type === "subcircuit";
+  let groupProps = {};
+  if (isGroup) {
+    const name = context
+      ? `${context.name}/${props.name ?? node.key}`
+      : String(props.name);
+    const placement = groupPlacement(name);
+    const manualLayout = Object.keys(pcbGroupPlacements).some(key => key.startsWith(`${name}/`));
+    context = {
+      name,
+      offBoard: placement.offBoard ?? context?.offBoard ?? true,
+      manualLayout,
+      partIndex: 0,
+    };
+    groupProps = {
+      ref: (group: Group | null) => { if (group) layout.nativeGroups.set(name, group); },
+      // Pack at a stable local origin. Moving an anchor must not repack other groups.
+      pcbX: 0,
+      pcbY: 0,
+      pcbRotation: placement.pcbRotation ?? 0,
+      ...(placement.pcbGrid ? {
+        pcbGrid: true,
+        pcbGridCols: placement.pcbGridCols,
+        pcbGridGap: placement.pcbGridGap,
+      } : {}),
+      ...(manualLayout ? {pcbRelative: true} : {}),
+    };
+  }
+  const children = props.children === undefined ? undefined
+    : Children.map(props.children as ReactNode, child => placePcbGroups(child, context, loosePartCounts, layout));
+  return cloneElement(node, {
+    ...groupProps,
+    ...(node.type === "board" ? {pcbRelative: true, ref: layout.attachBoard} : {}),
+    ...(props.children === undefined ? {} : {children}),
+  });
+}
+
 // The slot is mechanically x16; the bridge supplies four PCIe lanes.
 const unusedPcieLanes = ([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const)
   .flatMap(lane => [`TX${lane}_P`, `TX${lane}_N`, `RX${lane}_P`, `RX${lane}_N`] as const);
@@ -37,18 +282,23 @@ const unusedPcieSideband = [
 ] as const;
 
 export default function Board() {
-  return (
+  return placePcbGroups(
     <board
       {...jlcpcbBoardRules}
-      pcbPack
-      pcbPackGap="7mm"
-      anchorAlignment="bottom_left"
+      // Top view in millimeters: +X right, +Y up. ATX remains on the bottom edge.
+      // Original outline, without added M3 mounting holes or screw keepouts.
+      width="52.5mm"
+      height="123.62mm"
+      boardAnchorAlignment="bottom_left"
       boardAnchorPosition={{x: 0, y: 0}}
       routingDisabled={true}
       layers={6}
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
+      {/* Converted to the same Iosevka Term outlines as the component labels. */}
+      <silkscreentext text="rev 1" pcbX={48.9} pcbY={36.5} pcbRotation={90} fontSize={0.8}
+        layer="top" anchorAlignment="center"/>
       <net name="GND"/>
       <net name="GNDA" connectsTo={["net.GND"]}/>
       <net name="VDD"/>
@@ -144,34 +394,38 @@ export default function Board() {
               fontSize={0.18} anchor="top_left"/>
           </Fragment>
         ))}
-        <group schX={-12} schY={-3}>
-          <ASM2464PDX schSectionName="BRIDGE_CHIP"/>
-          <UartHeader
-            name="UART"
-            schSectionName="BRIDGE_UART"
-            schX={13.8}
-            schY={6.1}
-            connections={{
-              GND: "net.GND",
-              TX: "net.ASM_UART_TX",
-              RX: "net.ASM_UART_RX",
-            }}
-          />
-          {/* UART_TX is sampled as MEMREPAIR at startup (ASMedia section 5.1).
-              Bias it high through a resistor so UART can still drive it low. */}
-          <resistor
-            name="R_UART_TX"
-            schSectionName="BRIDGE_UART"
-            resistance="4.7k"
-            footprint="0402"
-            manufacturerPartNumber="0402WGF4701TCE"
-            supplierPartNumbers={{jlcpcb: ["C25900"]}}
-            schX={10.8}
-            schY={8.1}
-            schOrientation="vertical"
-            connections={{pin1: "net.VCCH", pin2: "net.ASM_UART_TX"}}
-          />
-          <netlabel inline net="VCCH" connection="R_UART_TX.pin1"/>
+        {/* PCB positions for these loose sections are in pcbGroupPlacements. */}
+        <UartHeader
+          name="UART"
+          schSectionName="BRIDGE_UART"
+          schX={1.8}
+          schY={3.1}
+          connections={{
+            GND: "net.GND",
+            TX: "net.ASM_UART_TX",
+            RX: "net.ASM_UART_RX",
+          }}
+        />
+        {/* UART_TX is sampled as MEMREPAIR at startup (ASMedia section 5.1).
+            The R_UART_TX map entry places its pull-up directly below the header. */}
+        <resistor
+          name="R_UART_TX"
+          schSectionName="BRIDGE_UART"
+          pcbRotation={0}
+          resistance="4.7k"
+          footprint="0402_nosilkscreen"
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
+          manufacturerPartNumber="0402WGF4701TCE"
+          supplierPartNumbers={{jlcpcb: ["C25900"]}}
+          schX={-1.2}
+          schY={5.1}
+          schOrientation="vertical"
+          connections={{pin1: "net.VCCH", pin2: "net.ASM_UART_TX"}}
+        />
+        <netlabel inline net="VCCH" connection="R_UART_TX.pin1"/>
+        <group name="BRIDGE_CORE" schX={-12} schY={-3} pcbPackGap="3mm" pcbPadding="2mm"
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}>
+          <ASM2464PDX schSectionName="BRIDGE_CHIP" pcbX={0} pcbY={0} pcbRotation={180}/>
           {[
             "UART_TX is sampled at power-on.",
             "High enables internal memory repair (MEMREPAIR).",
@@ -185,6 +439,7 @@ export default function Board() {
           ))}
           <RC0402FR_0712K1L
             name="R_RST_N"
+            pcbX={3.8} pcbY={8.1}
             schSectionName="BRIDGE_CHIP"
             schX={6}
             schY={-2.3}
@@ -194,6 +449,7 @@ export default function Board() {
           {/* Match the reference design: hold TEST_EN low during normal operation. */}
           <resistor
             name="R_TEST_EN"
+            pcbX={7} pcbY={-3}
             schSectionName="BRIDGE_CHIP"
             resistance="4.7k"
             footprint="0402"
@@ -206,6 +462,7 @@ export default function Board() {
           />
           <W25Q32JVSSIQ
             name="W25Q32JVSSIQ"
+            pcbX={-0.8} pcbY={-10.8} pcbRotation={90}
             schSectionName="BRIDGE_SPI"
             schX={23}
             schY={6.3}
@@ -226,6 +483,7 @@ export default function Board() {
           {/* Standard SPI: bias WP/IO2 and unused IO3 high through separate pull-ups. */}
           <A_0402WGF1002TCE
             name="R_SPI_WP"
+            pcbX={-4} pcbY={-7.1}
             schSectionName="BRIDGE_SPI"
             schX={19}
             schY={8.8}
@@ -239,6 +497,7 @@ export default function Board() {
               We choose 10k to match CS; the FAQ specifies 10k explicitly only for CS. */}
           <A_0402WGF1002TCE
             name="R_SPI_HOLD"
+            pcbX={-2} pcbY={-7.1} pcbRotation={180}
             schSectionName="BRIDGE_SPI"
             schX={27}
             schY={6.3}
@@ -259,6 +518,7 @@ export default function Board() {
           ))}
           <A_0402WGF1002TCE
             name="R_SPI_CS"
+            pcbX={0} pcbY={-7.1}
             schSectionName="BRIDGE_SPI"
             schX={22}
             schY={8.8}
@@ -270,6 +530,7 @@ export default function Board() {
           {/* C73 on ASMedia's reference schematic, sheet 3, is also 100nF. */}
           <CL05B104KO5NNNC
             name="C_SPI_VCC"
+            pcbX={5} pcbY={-10.8} pcbRotation={90}
             schSectionName="BRIDGE_SPI"
             schX={26}
             schY={8.8}
@@ -278,9 +539,9 @@ export default function Board() {
           />
           <netlabel inline net="VCCH" connection="C_SPI_VCC.pin1"/>
           <netlabel inline net="GND" connection="C_SPI_VCC.pin2"/>
-          <group schX={10.75} schY={-2.85}>
+          <group name="OSCILLATOR" schX={10.75} schY={-2.85} pcbRelative>
             <XXCBCLNANF_25M
-              name="XCLK"
+              name="XCLK" pcbX={0} pcbY={0}
               schSectionName="BRIDGE_OSCILLATOR"
               schX={0}
               schY={0}
@@ -292,7 +553,7 @@ export default function Board() {
                 pin4: "net.GND",
               }}
             />
-            <TCC0402COG100J500AT name="C1" schSectionName="BRIDGE_OSCILLATOR"
+            <TCC0402COG100J500AT name="C1" pcbX={-3.3} pcbY={-1} schSectionName="BRIDGE_OSCILLATOR"
               schX={3} schY={0} schOrientation="vertical"
               connections={{pin1: "net.ASM_XI", pin2: "net.ASM_XO"}}/>
             <netlabel inline net="ASM_XI" connection="C1.pin1"/>
@@ -301,7 +562,7 @@ export default function Board() {
         </group>
         <BridgeReset/>
         <SpiProgrammingHeader
-          name="SPI_PROG"
+          name="SPI"
           schSectionName="BRIDGE_SPI"
           schX={21}
           schY={3.3}
@@ -357,6 +618,7 @@ export default function Board() {
         <schematictext text="PCIe x4 connection" schX={-11.6} schY={8.4} fontSize={0.18} anchor="left"/>
         <X1618WVS_164_9TV30
           name="PCIe"
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schSectionName="PCIE_LINK"
           schX={-4.98}
           schY={4.6}
@@ -409,6 +671,8 @@ export default function Board() {
         <A_0402WGF0000TCE
           schSectionName="PCIE_CONTROL"
           name="R_PCIE_PERST"
+          layer="top" pcbRotation={180}
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schX={-9.2}
           schY={0.2}
           connections={{
@@ -426,6 +690,8 @@ export default function Board() {
             <A_0402WGF0000TCE
               schSectionName="PCIE_CONTROL"
               name={`R_PCIE_REFCLK_${polarity}`}
+              layer="top" pcbRotation={180}
+              pcbStyle={{silkscreenTextVisibility: "hidden"}}
               schX={-9.2}
               schY={-0.6 - index * 0.8}
               connections={{
@@ -443,6 +709,8 @@ export default function Board() {
         <A_0402WGF0000TCE
           schSectionName="PCIE_CONTROL"
           name="R_PCIE_CLKREQ"
+          layer="top" pcbRotation={180}
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schX={-9.2}
           schY={-2.2}
           connections={{
@@ -457,6 +725,8 @@ export default function Board() {
         <A_0402WGF1002TCE
           schSectionName="PCIE_CONTROL"
           name="R_PCIE_CLKREQ_PU"
+          layer="top" pcbRotation={180}
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schX={-9.2}
           schY={-4.1}
           schOrientation="vertical"
@@ -481,7 +751,8 @@ export default function Board() {
             />
           </Fragment>
         )))}
-        {/* Series coupling belongs at each transmitter; the card supplies its own TX capacitors. */}
+        {/* ASMedia's PCIe guide places our TX coupling near the slot connector.
+            The card supplies its own TX capacitors for the reverse direction. */}
         {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map((polarity, index) => (
           <Fragment key={`PCIE_TX${lane}_${polarity}`}>
             <netlabel inline net={`PCIE_TX${lane}_${polarity}`} connection={`PCIe.TX${lane}_${polarity}`}/>
@@ -492,7 +763,9 @@ export default function Board() {
               schOrientation="neg_left"
               schX={-3}
               schY={0.2 - lane * 2.2 - index * 1.1}
-              pcbRotation={lane < 2 ? 0 : 90}
+              pcbRotation={0}
+              layer="top"
+              pcbStyle={{silkscreenTextVisibility: "hidden"}}
               connections={{
                 pin2: `.PCIe > .TX${lane}_${polarity}`,
               }}
@@ -522,7 +795,8 @@ export default function Board() {
         <resistor
           name="R_PCIE_PRESENT_PU"
           schSectionName="PCIE_PRESENCE"
-          pcbRotation={180}
+          pcbRotation={0}
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           resistance="4.7k"
           tolerance="1%"
           footprint="0402"
@@ -538,6 +812,8 @@ export default function Board() {
         <A_0402WGF0000TCE
           name="R_PCIE_PRESENT"
           schSectionName="PCIE_PRESENCE"
+          pcbRotation={180}
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schX={-3.5}
           schY={-12.3}
           connections={{pin1: "net.ASM_PRESENT_N", pin2: "net.PCIE_PRESENT_N"}}
@@ -555,10 +831,7 @@ export default function Board() {
         <schematicsection name="USB" displayName="USB4 Receptacle"/>
         <GT_USB_7087B
           name="USBC"
-          // Preliminary anchor keeps the receptacle facing the left board edge.
-          pcbX={-70}
-          pcbY={0}
-          pcbRotation={270}
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           // Reserve room for the connector courtyard during automatic packing.
           pcbMarginX="1mm"
           pcbMarginY="1mm"
@@ -590,6 +863,7 @@ export default function Board() {
         <schematicsection name="ATX_START" displayName="ATX Input and Automatic Start"/>
         <A_39301240
           name="ATX"
+          // Right-angle connector faces the bottom edge, opposite the bracket.
           schSectionName="ATX_START"
           schX={-4}
           schY={0}
@@ -624,6 +898,7 @@ export default function Board() {
             automatic start whenever AC is present (Intel ATX section 3.3.3). */}
         <A_0402WGF0000TCE
           name="R_PSU_ON"
+          pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schSectionName="ATX_START"
           schX={-1.7} schY={-1.6}
           schOrientation="vertical"
@@ -634,7 +909,8 @@ export default function Board() {
         <BuckInputs/>
         <BuckEnable/>
         <PsuControl/>
+        <PsuOkLed/>
       </schematicsheet>
     </board>
-  );
+  ) as ReactElement;
 }

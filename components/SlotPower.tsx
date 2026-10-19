@@ -7,6 +7,7 @@ import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
 import {A_0402WGF5100TCE} from "imports/A_0402WGF5100TCE";
 import {RC1206FR_071KL} from "imports/RC1206FR_071KL";
 import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
+import {slotPowerPlacement} from "lib/slot-power-placement";
 
 const rails = [
   {suffix: "3V3", input: "VCCH", output: "SLOT_3V3", y: 4},
@@ -74,6 +75,7 @@ export function SlotPower() {
         const discharge = `R_SLOT_DISCHARGE_${suffix}`;
         const section = `SLOT_POWER_${suffix}`;
         const commonPowerProps = {
+          ...slotPowerPlacement(power),
           name: power,
           schSectionName: section,
           schX: 8,
@@ -90,13 +92,13 @@ export function SlotPower() {
             ) : (
               <AO4407A {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"], ["pin5", "pin6", "pin7", "pin8"]]}/>
             )}
-            <NX3008NBK_215 name={driver} schSectionName={section} schX={1} schY={y - 2.8}
+            <NX3008NBK_215 {...slotPowerPlacement(driver)} name={driver} schSectionName={section} schX={1} schY={y - 2.8}
               connections={{G: "net.ASM_HDDPC", S: "net.GND"}}/>
-            <A_0402WGF5100TCE name={series} schSectionName={section} schX={3.5} schY={y - 2.8}/>
-            <A_0402WGF1003TCE name={off} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>
+            <A_0402WGF5100TCE {...slotPowerPlacement(series)} name={series} schSectionName={section} schX={3.5} schY={y - 2.8}/>
+            <A_0402WGF1003TCE {...slotPowerPlacement(off)} name={off} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>
             {/* Reference nominal value; verify startup current and MOSFET SOA with the card load. */}
-            <CL31B106KAHNNNE name={cap} schSectionName={section} schX={6} schY={y - 1.4} schOrientation="vertical"/>
-            <RC1206FR_071KL name={discharge} schSectionName={section} schX={9.8} schY={y - 1.4} schOrientation="vertical"/>
+            <CL31B106KAHNNNE {...slotPowerPlacement(cap)} name={cap} schSectionName={section} schX={6} schY={y - 1.4} schOrientation="vertical"/>
+            <RC1206FR_071KL {...slotPowerPlacement(discharge)} name={discharge} schSectionName={section} schX={9.8} schY={y - 1.4} schOrientation="vertical"/>
             <trace from={`.${power} > .pin1`} to={`.${off} > .pin1`}/>
             <trace from={`.${power} > .pin1`} to={`.${cap} > .pin1`}/>
             <trace from={`.${power} > .pin4`} to={`.${off} > .pin2`}/>
@@ -115,6 +117,7 @@ export function SlotPower() {
       <schematictext text="ASM_HDDPC control" schX={-1.5} schY={-7.4}
         fontSize={0.18} anchor="top_left"/>
       <A_0402WGF1001TCE
+        {...slotPowerPlacement("R_HDDPC_PD")}
         name="R_HDDPC_PD"
         schSectionName="SLOT_POWER_CONTROL"
         schX={1} schY={-9.3}
