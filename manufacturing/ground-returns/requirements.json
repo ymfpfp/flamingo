@@ -1,0 +1,46 @@
+{
+  "sources": [
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf: ground references, USB guard spacing greater than 8h and ground-fence pitch at most 40 mil",
+    "datasheets/ASM2464PDX_TI_R03.pdf: populated shunt grounds, bridge support resistors, flash and reset network",
+    "jlcpcb-clearance-rules.json",
+    "manufacturing/bridge-bga/process.json"
+  ],
+  "componentLayer": "top",
+  "assembledComponents": 153,
+  "remainingGroundPadsBefore": 18,
+  "assembledGroundPads": 286,
+  "contactLayer": "top",
+  "referenceLayers": [
+    "inner1",
+    "inner4"
+  ],
+  "minimumContactWidthMm": 0.2,
+  "nominalContactWidthMm": 0.25,
+  "maximumContactLengthMm": 2,
+  "contactLengthNote": "Project locality target, not a numerical ASMedia requirement. USB ESD returns use nearby existing full-stack ground-fence vias.",
+  "minimumForeignTopCopperGapMm": 0.1,
+  "minimumForeignViaToPadGapMm": 0.15,
+  "minimumViaDrillToDrillMm": 0.2,
+  "minimumForeignInnerDrillToCopperMm": 0.2,
+  "newVias": 11,
+  "reusedGroundVias": 7,
+  "viaCopperDiameterMm": 0.3,
+  "viaDrillDiameterMm": 0.2,
+  "viaSpan": "top to bottom, all six copper layers",
+  "viaProcess": "Epoxy filled and copper capped under the existing board process.",
+  "routing": "All native saved ground contacts are retained. This revision removes one unused floating auxiliary via inside the connector copper keepout. All 520 previous trace geometries and all assembled component placements remain fixed.",
+  "qualification": "Physical return connectivity and layout only. Reset signals, REXT/TEST_EN signal sides and other unfinished signals remain separate. Final SI, load, startup and thermal qualification remain open.",
+  "assembledGroundCopperLands": 288,
+  "analogGroundPads": 66,
+  "validation": "Every GND/GNDA PCB port, every physical pad/plated land, and every ground via must reach both reference planes. Native GND/GNDA port errors must be zero.",
+  "removedFloatingGroundVia": {
+    "name": "USB2_GND_RETURN_3",
+    "position": {
+      "x": 47.4,
+      "y": 98.75
+    },
+    "copperDiameterMm": 0.3,
+    "drillDiameterMm": 0.2,
+    "reason": "Unused auxiliary via was isolated inside the USB-C all-layer copper keepout. Removing it restores a single physical ground network without interrupting the VCCH reset feed. No assembled component ground depended on it."
+  }
+}

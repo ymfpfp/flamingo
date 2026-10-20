@@ -1,0 +1,12 @@
+{
+  "generator": "@tscircuit/fanout-solver",
+  "version": "0.0.78",
+  "inputTerminals": 141,
+  "bestNativeEscapes": 127,
+  "runtimeReplay": "Native saved autorouting phase 8 (PDN_CONTACTS)",
+  "editing": "Reviewed local contact paths, drill consolidation, direct ground straps and broad power copper complete the fanout. No custom route-search algorithm is used.",
+  "artifacts": {
+    "bga-native-input.json": "92280107243556e4b0bf7a60e85656dd11645ad5381efb57e7d5526650b463ac",
+    "bga-native-result.json": "5d71eb90d55785cf69c36f82ea6b939faf5fc4a1e73ddb6b2521905b7102b36a"
+  }
+}

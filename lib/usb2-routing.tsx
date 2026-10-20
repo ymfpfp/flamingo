@@ -25,7 +25,9 @@ export function Usb2Routing(){return <>
   {connections.map(c=><Fragment key={c.name}><trace {...c} routingPhaseIndex={3} width={usb2Rules.width}/></Fragment>)}
   {/* Native differentialpair metadata cannot represent two tied USB-C rows.
       The saved paired paths and emitted-copper audit enforce USB2 geometry. */}
-  {[{x:34.9,y:96.7},{x:41.8,y:98.1},{x:43.4,y:98.2},{x:47.4,y:98.75}].map((p,i)=><Fragment key={i}>
+  {/* These returns contact both ground planes. The former fourth stitching
+      via at (47.4,98.75) was isolated inside the connector copper keepout. */}
+  {[{x:34.9,y:96.7},{x:41.8,y:98.1},{x:43.4,y:98.2}].map((p,i)=><Fragment key={i}>
     <via name={`USB2_GND_RETURN_${i}`} pcbX={p.x} pcbY={p.y} fromLayer="top" toLayer="bottom"
       holeDiameter={.2} outerDiameter={.3} connectsTo="net.GND"/>
   </Fragment>)}

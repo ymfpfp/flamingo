@@ -1,0 +1,391 @@
+[
+  {
+    "name": "PDN_C_VCCL_25_pin1",
+    "selector": "C_VCCL_25.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 25.720100000000006,
+        "y": 104.5,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 25.720100000000006,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_25_pin2",
+    "selector": "C_VCCL_25.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 24.879900000000003,
+        "y": 104.5,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 24.879900000000003,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_29_pin1",
+    "selector": "C_VCCL_29.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 27.920100000000005,
+        "y": 104.5,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 27.5,
+        "y": 104.9201,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 27.5,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_29_pin2",
+    "selector": "C_VCCL_29.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 27.079900000000002,
+        "y": 104.5,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 26.7,
+        "y": 104.8799,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 26.7,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_33_pin1",
+    "selector": "C_VCCL_33.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.920100000000005,
+        "y": 104.5,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.85,
+        "y": 104.5701,
+        "width": 0.15,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.85,
+        "y": 106.35,
+        "width": 0.15,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_33_pin2",
+    "selector": "C_VCCL_33.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.079900000000002,
+        "y": 104.5,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.5,
+        "y": 104.9201,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.5,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_46_pin2",
+    "selector": "C_VCCL_46.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 36.9201,
+        "y": 104.3,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 37.5,
+        "y": 104.87990000000002,
+        "width": 0.15,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 37.5,
+        "y": 104.9,
+        "width": 0.15,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_12_pin1",
+    "selector": "C_VDD_12.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 23.400000000000002,
+        "y": 105.3,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 23.4,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_12_pin2",
+    "selector": "C_VDD_12.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 21.400000000000002,
+        "y": 105.3,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 21.4,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_26_pin1",
+    "selector": "C_VDD_26.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 31.300000000000004,
+        "y": 90.0299,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.95,
+        "y": 90.0299,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_26_pin2",
+    "selector": "C_VDD_26.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 31.300000000000004,
+        "y": 90.87010000000001,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.95,
+        "y": 90.87010000000001,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_30_pin1",
+    "selector": "C_VDD_30.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.400000000000006,
+        "y": 90.0299,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 31.6701,
+        "y": 89.3,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.95,
+        "y": 89.3,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_30_pin2",
+    "selector": "C_VDD_30.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.400000000000006,
+        "y": 90.87010000000001,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 31.6701,
+        "y": 91.6,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.95,
+        "y": 91.6,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_34_pin1",
+    "selector": "C_VDD_34.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.5,
+        "y": 90.0299,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 33.8,
+        "y": 90.0299,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VDD_34_pin2",
+    "selector": "C_VDD_34.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.5,
+        "y": 90.87010000000001,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 33.8,
+        "y": 90.87010000000001,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_43_pin1",
+    "selector": "C_VCCL_43.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.020100000000006,
+        "y": 105.6,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.0201,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "PDN_C_VCCL_43_pin2",
+    "selector": "C_VCCL_43.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.179900000000004,
+        "y": 105.6,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 28.1799,
+        "y": 106.05,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  }
+]

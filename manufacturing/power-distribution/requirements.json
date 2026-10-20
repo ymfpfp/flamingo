@@ -1,0 +1,55 @@
+{
+  "revision": "1.0",
+  "sources": [
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6",
+    "datasheets/ASM2464PDX_DataSheet_R0_3.pdf power-supply limits and maximum-current TBD entries",
+    "manufacturing/stackup/JLC06161H-3313.json",
+    "manufacturing/bridge-bga/process.json",
+    "jlcpcb-clearance-rules.json",
+    "manufacturing/buck-routing/requirements.json"
+  ],
+  "componentLayer": "top",
+  "bridgeCurrentPlanning": {
+    "basis": "Use the related ASM2464PD as a sizing reference and retain 3 A design loads for the PDX VCCL and VDD rails. Similar current demand is an engineering assumption, not a confirmed PDX specification.",
+    "referencePart": "ASM2464PD",
+    "referenceDocument": "ASMedia ASM2464PD datasheet revision 0.4, May 5, 2023, sections 6.2 and 6.3.12, pages 15 and 18",
+    "referenceUrl": "https://device.report/m/1ecf9e4f15ce5a1cffa2d4a31caa79e66efbac09b98459a91df5bddf49091be2.pdf",
+    "referenceMaximumCurrentA": {"VCCH": 0.00945, "VCCL": 0.4557, "VDD": 1.8123},
+    "referenceNominalVoltageV": {"VCCH": 3.3, "VCCL": 1.9, "VDD": 1.05},
+    "pdxAssumedDesignLoadA": {"VCCL": 3, "VDD": 3},
+    "limitations": "The PDX uses a nominal 1.13 V core supply. The PD table does not establish PDX current limits or transient demand. Its VCCH figure varies with GPIO use and gives no separate VCCA33 current. Budget other 3.3 V loads separately. Keep PDX voltage limits and all existing voltage-drop checks; validate startup, ripple, load response and temperatures on prototype hardware."
+  },
+  "rails": {
+    "VCCL": {"primaryLayer": "inner2", "parallelFeedLayer": "inner3", "bridgeBalls": 17, "bypassCapacitors": 14},
+    "VDD": {"primaryLayer": "inner3", "parallelFeedLayer": "inner2", "bridgeBalls": 40, "bypassCapacitors": 18}
+  },
+  "groundReferenceLayers": ["inner1", "inner4"],
+  "mainPowerWidthGuidelineMm": 0.381,
+  "mainPowerSpacingGuidelineMm": 0.2032,
+  "mainPowerRegionClearanceMm": 0.205,
+  "localBgaContactMinimumWidthMm": 0.1,
+  "localContactNote": "Short BGA and capacitor contacts use fine geometry where the pad pitch prevents a 15 mil track. Broad regions carry the main rail current. The emitted-copper DC screen checks these contacts as part of each supply path.",
+  "outerCopperThicknessMm": 0.035,
+  "innerCopperThicknessMm": 0.0152,
+  "vias": {"span": "top to bottom", "minimumCopperDiameterMm": 0.25, "minimumDrillMm": 0.15, "filledAndCapped": true, "blindOrMicrovias": false},
+  "projectDcScreen": {
+    "loadEnvelopePerRailA": 3,
+    "actualBridgeMaximumCurrentKnown": false,
+    "equalCurrentPerSupplyBall": true,
+    "copperTemperatureC": 80,
+    "viaPlatingAssumedMm": 0.02,
+    "maximumConductorDropWithMeshAllowanceMV": 8,
+    "minimumMeshAllowancePercent": 20,
+    "reference": "Local output capacitor feedback contact",
+    "scope": "Actual top copper, both assigned inner power regions, and plated via barrels."
+  },
+  "qualification": {
+    "actualLoadVoltageQualified": false,
+    "hardwareValidated": false,
+    "vendorProcessAccepted": false,
+    "acPdnQualified": false,
+    "thermalQualified": false,
+    "regulatorTransientsQualified": false,
+    "note": "The 3 A load is the project screening envelope, not an ASMedia current specification. The current layout exceeds the separate 8 mV project screen; actual-load voltage qualification remains open. Package losses, ground return, capacitor impedance, unequal ball currents, ripple and load steps require separate qualification."
+  }
+}

@@ -59,6 +59,7 @@ export function SlotPower() {
       {["VCCH", "V12V", "SLOT_3V3", "SLOT_12V", "ASM_HDDPC", "GND"].map(name => (
         <Fragment key={name}><net name={name}/></Fragment>
       ))}
+      <autoroutingphase name="SLOT_POWER_LOCAL_CONTROL" phaseIndex={13} minTraceWidth={.15} pcbTracePaths={[]}/>
       {/* Match the sheet's fixed dividers so each function has its own area. */}
       {[-0.2, -7.2].map(y => (
         <Fragment key={y}>
@@ -81,6 +82,13 @@ export function SlotPower() {
           schX: 8,
           schY: y,
           symbol: <PowerMosfetSymbol/>,
+          // Keep the other package terminals out of the schematic fallback box.
+          // internallyConnectedPins still retains every physical source/drain pad.
+          schPinArrangement: {
+            leftSide: {direction: "top-to-bottom" as const, pins: [1]},
+            rightSide: {direction: "top-to-bottom" as const, pins: [5]},
+            bottomSide: {direction: "left-to-right" as const, pins: [4]},
+          },
           connections: {pin1: `net.${input}`, pin5: `net.${output}`},
         };
         return (
@@ -101,10 +109,10 @@ export function SlotPower() {
             <RC1206FR_071KL {...slotPowerPlacement(discharge)} name={discharge} schSectionName={section} schX={9.8} schY={y - 1.4} schOrientation="vertical"/>
             <trace from={`.${power} > .pin1`} to={`.${off} > .pin1`}/>
             <trace from={`.${power} > .pin1`} to={`.${cap} > .pin1`}/>
-            <trace from={`.${power} > .pin4`} to={`.${off} > .pin2`}/>
-            <trace from={`.${power} > .pin4`} to={`.${cap} > .pin2`}/>
-            <trace from={`.${power} > .pin4`} to={`.${series} > .pin2`}/>
-            <trace from={`.${series} > .pin1`} to={`.${driver} > .D`}/>
+            <trace name={`SP_${suffix}_GATE_OFF`} schDisplayLabel="" from={`.${off} > .pin2`} to={`.${power} > .pin4`} routingPhaseIndex={13} width={.15} maxViaCount={0}/>
+            <trace name={`SP_${suffix}_GATE_CAP`} schDisplayLabel="" from={`.${cap} > .pin2`} to={`.${power} > .pin4`} routingPhaseIndex={13} width={.15} maxViaCount={0}/>
+            <trace name={`SP_${suffix}_GATE_SERIES`} schDisplayLabel="" from={`.${series} > .pin2`} to={`.${power} > .pin4`} routingPhaseIndex={13} width={.15} maxViaCount={0}/>
+            <trace name={`SP_${suffix}_DRIVE`} schDisplayLabel="" from={`.${series} > .pin1`} to={`.${driver} > .D`} routingPhaseIndex={13} width={.15} maxViaCount={0}/>
             <trace from={`.${power} > .pin5`} to={`.${discharge} > .pin1`}/>
             <netlabel inline net="ASM_HDDPC" connection={`${driver}.G`}/>
             <netlabel inline net={input} connection={`${power}.pin1`}/>
@@ -125,6 +133,7 @@ export function SlotPower() {
         connections={{pin1: "net.ASM_HDDPC", pin2: "net.GND"}}
       />
       <netlabel inline net="ASM_HDDPC" connection="R_HDDPC_PD.pin1"/>
+      <trace name="SP_HDDPC_PULLDOWN" schDisplayLabel="" from="R_HDDPC_PD.pin1" to="Q_SLOT_DRV_3V3.G" routingPhaseIndex={13} width={.25} maxViaCount={0}/>
       <netlabel inline net="GND" connection="R_HDDPC_PD.pin2"/>
     </subcircuit>
   );

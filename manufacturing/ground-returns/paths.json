@@ -1,0 +1,446 @@
+[
+  {
+    "name": "GRET_R_RST_N_CONTACT",
+    "connection": "R_RST_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.4328,
+        "y": 108.40000740000005,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 34.05,
+        "y": 108.4000074,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_TEST_EN_CONTACT",
+    "connection": "R_TEST_EN.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 39.309999999999995,
+        "y": 106.40000740000005,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 39.95,
+        "y": 106.4000074,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_W25Q32JVSSIQ_CONTACT",
+    "connection": "W25Q32JVSSIQ.pin4",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.230092,
+        "y": 88.50500740000005,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 33.6,
+        "y": 88.5050074,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_C_RST_CONTACT",
+    "connection": "C_RST.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 45.3901,
+        "y": 110.2,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 45.99,
+        "y": 110.2,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_SW_RESET_CONTACT",
+    "connection": "SW_RESET.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 48.47,
+        "y": 108.8151,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 49.8,
+        "y": 108.8151,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_TX1_P_CONTACT",
+    "connection": "R_USB_TX1_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 43.49999969999997,
+        "y": 95.96171300000005,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.5,
+        "y": 95.96171270000002,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.5,
+        "y": 95.55,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_TX2_P_CONTACT",
+    "connection": "R_USB_TX2_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 42.99999969999997,
+        "y": 101.77785800000004,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 42.9999977,
+        "y": 101.77786,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 42.55,
+        "y": 101.77786,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_TX2_N_CONTACT",
+    "connection": "R_USB_TX2_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 42.99999969999997,
+        "y": 99.71164200000004,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 42.99999769999993,
+        "y": 99.71164,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 42.55,
+        "y": 99.71164,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_RX1_P_CONTACT",
+    "connection": "R_USB_RX1_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 43.19999969999997,
+        "y": 92.96689200000004,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.2,
+        "y": 92.96689170000002,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.2,
+        "y": 92.55,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_RX1_N_CONTACT",
+    "connection": "R_USB_RX1_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 43.19999969999997,
+        "y": 95.03310800000004,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.4,
+        "y": 95.033108,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_RX2_N_CONTACT",
+    "connection": "R_USB_RX2_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 43.49999969999997,
+        "y": 102.76689200000004,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.5,
+        "y": 102.7668917,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.5,
+        "y": 102.35,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "GRET_D_USB_TX1_N_CONTACT",
+    "connection": "D_USB_TX1_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.59999969999997,
+        "y": 97.64005000000003,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.7,
+        "y": 97.74005030000006,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.7,
+        "y": 98.1,
+        "layer": "top",
+        "width": 0.2
+      }
+    ]
+  },
+  {
+    "name": "GRET_D_USB_TX2_P_CONTACT",
+    "connection": "D_USB_TX2_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.59999969999997,
+        "y": 101.33005000000003,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.6300497,
+        "y": 101.3,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.9,
+        "y": 101.3,
+        "layer": "top",
+        "width": 0.2
+      }
+    ]
+  },
+  {
+    "name": "GRET_D_USB_TX2_N_CONTACT",
+    "connection": "D_USB_TX2_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.59999969999997,
+        "y": 99.42995000000005,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.72994970000002,
+        "y": 99.3,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.9,
+        "y": 99.3,
+        "layer": "top",
+        "width": 0.2
+      }
+    ]
+  },
+  {
+    "name": "GRET_D_USB_RX1_P_CONTACT",
+    "connection": "D_USB_RX1_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.59999969999997,
+        "y": 93.09995000000005,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.400049699999926,
+        "y": 92.9,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 92.9,
+        "layer": "top",
+        "width": 0.2
+      }
+    ]
+  },
+  {
+    "name": "GRET_D_USB_RX1_N_CONTACT",
+    "connection": "D_USB_RX1_N.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.59999969999997,
+        "y": 95.00005000000003,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.9,
+        "y": 95.30005030000007,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.9,
+        "y": 95.7,
+        "layer": "top",
+        "width": 0.2
+      }
+    ]
+  },
+  {
+    "name": "GRET_D_USB_RX2_P_CONTACT",
+    "connection": "D_USB_RX2_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.59999969999997,
+        "y": 104.75005000000003,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.5,
+        "y": 104.8500497,
+        "layer": "top",
+        "width": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 40.5,
+        "y": 105.45,
+        "layer": "top",
+        "width": 0.2
+      }
+    ]
+  },
+  {
+    "name": "GRET_R_USB_RX2_P_CONTACT",
+    "connection": "R_USB_RX2_P.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 43.49999969999997,
+        "y": 104.83310800000004,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.2,
+        "y": 105.13310770000001,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 43.2,
+        "y": 105.45,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  }
+]

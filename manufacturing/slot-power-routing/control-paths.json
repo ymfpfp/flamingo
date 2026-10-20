@@ -1,0 +1,470 @@
+[
+  {
+    "name": "SP_3V3_GATE_OFF",
+    "connection": "R_SLOT_OFF_3V3.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 26.798450000000006,
+        "y": 63.940000000000005,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 26.798450000000006,
+        "y": 64.93947400000002,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.524124000000004,
+        "y": 68.66514800000002,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_GATE_CAP",
+    "connection": "C_SLOT_GATE_3V3.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 26.365650000000006,
+        "y": 66.54740000000001,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 28.48339800000001,
+        "y": 68.66514800000002,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.524124000000004,
+        "y": 68.66514800000002,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_GATE_SERIES",
+    "connection": "R_SLOT_GATE_3V3.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.865650000000006,
+        "y": 66.7728,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.524124000000004,
+        "y": 68.431274,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.524124000000004,
+        "y": 68.66514800000002,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_DRIVE",
+    "connection": "R_SLOT_GATE_3V3.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.865650000000006,
+        "y": 65.9072,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.33285000000001,
+        "y": 65.44,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.915650000000007,
+        "y": 65.44,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_GATE_OFF",
+    "connection": "R_SLOT_OFF_12V.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 25.53285,
+        "y": 54.34,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 25.53285,
+        "y": 54.477270000000004,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 28.59058,
+        "y": 57.535000000000004,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000004,
+        "y": 57.535000000000004,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_GATE_CAP",
+    "connection": "C_SLOT_GATE_12V.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 26.365650000000006,
+        "y": 56.34740000000001,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 27.553250000000002,
+        "y": 57.535000000000004,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000004,
+        "y": 57.535000000000004,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_GATE_SERIES",
+    "connection": "R_SLOT_GATE_12V.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.13285,
+        "y": 54.34,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 28.13285,
+        "y": 56.202144000000004,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000004,
+        "y": 57.535000000000004,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRIVE",
+    "connection": "R_SLOT_GATE_12V.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.998450000000002,
+        "y": 54.34,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 29.39845,
+        "y": 54.74,
+        "layer": "top",
+        "width": 0.15
+      },
+      {
+        "route_type": "wire",
+        "x": 30.915650000000007,
+        "y": 54.74,
+        "layer": "top",
+        "width": 0.15
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_PULLDOWN",
+    "connection": "R_HDDPC_PD.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.46565,
+        "y": 67.80720000000001,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 34.72345999999999,
+        "y": 67.06501,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 32.44064000000001,
+        "y": 67.06501,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 32.44064000000001,
+        "y": 65.26500999999999,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 64.49,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "SP_PSU_START",
+    "connection": "ATX.pin16",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 36.52503539999991,
+        "y": 19.570002000000073,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 36.52503539999991,
+        "y": 26.799842899999867,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 40.69965250000004,
+        "y": 30.97446,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 49.14501,
+        "y": 30.97446,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 49.14501,
+        "y": 27.941135000000003,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 48.0372,
+        "y": 26.833325000000002,
+        "layer": "top",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 48.0372,
+        "y": 23.8,
+        "layer": "top",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_DRIVERS",
+    "connection": "SP_HDDPC_DRV_12V.bottom",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.215650000000004,
+        "y": 53.79,
+        "layer": "bottom",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 32.740640000000006,
+        "y": 54.26501,
+        "layer": "bottom",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 32.740640000000006,
+        "y": 64.01498999999998,
+        "layer": "bottom",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 64.49,
+        "layer": "bottom",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_TRUNK",
+    "connection": "SP_HDDPC_ESC.inner3",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 94.52,
+        "layer": "inner3",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 91.5,
+        "layer": "inner3",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_FLASH_CROSS",
+    "connection": "SP_HDDPC_FLASH_A.inner2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 91.5,
+        "layer": "inner2",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 87.87,
+        "layer": "inner2",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_MAIN",
+    "connection": "SP_HDDPC_FLASH_B.inner3",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 87.87,
+        "layer": "inner3",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 23.3,
+        "y": 86.87,
+        "layer": "inner3",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 23.3,
+        "y": 74.8,
+        "layer": "inner3",
+        "width": 0.25
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_GATE_FEED",
+    "connection": "SP_HDDPC_BUCK.inner2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 23.3,
+        "y": 74.8,
+        "layer": "inner2",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 23.3,
+        "y": 74.57299370326254,
+        "layer": "inner2",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 28.94999,
+        "y": 68.92300370326254,
+        "layer": "inner2",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 28.94999,
+        "y": 67.64999,
+        "layer": "inner2",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 32.10998000000001,
+        "y": 64.49,
+        "layer": "inner2",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 64.49,
+        "layer": "inner2",
+        "width": 0.25
+      }
+    ]
+  }
+]

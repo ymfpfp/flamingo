@@ -120,7 +120,8 @@ export function checkPcieMechanicalZones(json: AnyCircuitElement[],
   const sources = new Map(json.filter(e => e.type === "source_component").map(e => [e.source_component_id, e]));
   const findings: PcieMechanicalFinding[] = [];
   for (const part of json.filter(e => e.type === "pcb_component")) {
-    if (part.pcb_component_id === connector.pcb_component_id || part.layer !== connector.layer) continue;
+    if (part.pcb_component_id === connector.pcb_component_id || part.layer !== connector.layer
+      || part.source_component_id?.startsWith("source_manually_placed_via_")) continue;
     const ownGeometry = json.filter(e => (e.type.startsWith("pcb_courtyard_") || e.type === "pcb_component")
       && "pcb_component_id" in e && e.pcb_component_id === part.pcb_component_id)
       .map(e => e.type === "pcb_component" ? {...e, rotation: 0} : e);

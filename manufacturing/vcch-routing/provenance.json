@@ -1,0 +1,16 @@
+{
+  "generator": "@tscircuit/fanout-solver",
+  "version": "0.0.78",
+  "nativeBridgeEscapes": 8,
+  "nativeBridgeTargets": 12,
+  "nativeOtherEscapes": 46,
+  "nativeOtherTargets": 49,
+  "runtimeReplay": "Native saved autorouting phase 9 (VCCH_CONTACTS)",
+  "review": "Local pad contacts were widened where space permits; same-net BGA branches share legal drill sites. Existing guard-ground returns serve C8 and C35. Five prior ground stubs use adjacent existing returns. No custom route-search algorithm is used.",
+  "artifacts": {
+    "bridge-native-input.json": "bdde9dfa8c230e7dd498f1fc2175b5526d495b4d61f767733ed405b8b4f133f2",
+    "bridge-native-result.json": "97dd7d6657e6c1b94f6b7a1ee839a3b3ddde05df691dafeff5af823d06125b00",
+    "contact-native-input.json": "6ca0130c5de84277ee8992f7ad5093215c2a9a9cf202eedced7281350dacf344",
+    "contact-native-result.json": "7d1b1da76925fc745a01b4dc9bf7fb98a5879dc181775c6778ab0aaef1b1308c"
+  }
+}

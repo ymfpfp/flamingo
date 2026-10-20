@@ -1,0 +1,10 @@
+import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import {auditVbusRouting} from '../lib/vbus-routing-audit.mjs';
+import {runJlcpcbDrc} from '../lib/jlcpcb-drc';
+import {runAllNetlistChecks,runAllPlacementChecks,checkSchematicPlacement,checkTracesAreContiguous} from '@tscircuit/checks';
+const file=process.argv[2]??'dist/preview/circuit.json',raw=JSON.parse(readFileSync(file)),j=raw.circuitJson??raw,out='dist/vbus-routing/';mkdirSync(out,{recursive:true});
+const audit=auditVbusRouting(j),drc=await runJlcpcbDrc(j),checks=[await runAllNetlistChecks(j),await runAllPlacementChecks(j),checkSchematicPlacement(j),checkTracesAreContiguous(j)];
+writeFileSync(out+'audit.json',JSON.stringify(audit,null,2));writeFileSync(out+'drc.json',JSON.stringify(drc,null,2));let ok=audit.passed&&drc.passed&&checks.every(c=>!c.length);
+for(const f of audit.failures)console.error(f);for(const f of drc.findings)if(f.severity==='error')console.error(f.message);for(const c of checks)if(c.length)console.error(c);
+const p=spawnSync(process.env.PCIE_SI_PYTHON??'python3',['simulations/power-distribution/check_vbus.py',file,'--self-test'],{stdio:'inherit'});if(p.error)throw p.error;ok=ok&&p.status===0;console.log(audit.scope);process.exitCode=ok?0:1;

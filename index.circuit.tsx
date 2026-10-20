@@ -5,6 +5,13 @@ import {jlcpcbBoardRules} from "lib/jlcpcb-rules";
 import {usb4RoutedContacts, prepareUsb4Routing} from "lib/usb4-routing";
 import {prepareUsb2Routing, Usb2Routing} from "lib/usb2-routing";
 import {BridgeClockRouting, prepareBridgeClockRouting} from "lib/bridge-clock-routing";
+import {BuckRouting,prepareBuckRouting} from "lib/buck-routing";
+import {PowerDistribution,preparePowerDistribution} from "lib/power-distribution";
+import {VcchRouting,prepareVcchRouting} from "lib/vcch-routing";
+import {Atx5vRouting,prepareAtx5vRouting} from "lib/atx5v-routing";
+import {SlotPowerRouting,prepareSlotPowerRouting} from "lib/slot-power-routing";
+import {VbusRouting,prepareVbusRouting} from "lib/vbus-routing";
+import {GroundReturns,prepareGroundReturns} from "lib/ground-returns";
 import {usbGuardBands, usbShieldFences} from "lib/usb-shielding";
 import {pcieConnectorRules, preparePcieConnectorRouting} from "lib/pcie-connector-routing";
 import {usb4Rules, usb4TraceRules} from "lib/high-speed-rules";
@@ -100,9 +107,9 @@ export const pcbGroupPlacements = {
   ATX: {pcbX: 0, pcbY: 0, offBoard: false}, // Courtyard meets the bottom/left board edges.
   R_PSU_ON: {pcbX: 47.50435, pcbY: 23.28, offBoard: false}, // Below the PSU LED near ATX, with clearance for rework.
   // Local buck layouts keep VIN bypassing and the SW/inductor loops compact.
-  // Align the upper VDD buck with VCCL, keeping their horizontal positions.
-  VCCL_BUCK_INPUT: {pcbX: 21.995002, pcbY: 72.0, offBoard: false},
-  VDD_BUCK_INPUT: {pcbX: 30.995002, pcbY: 72.0, offBoard: false},
+  // Offset VDD above/right of VCCL to clear the slot-power switch and bypasses.
+  VCCL_BUCK_INPUT: {pcbX: 21.995002, pcbY: 70.886, offBoard: false},
+  VDD_BUCK_INPUT: {pcbX: 31.595002, pcbY: 72.086, offBoard: false},
   BUCK_ENABLE: {pcbX: 34, pcbY: 62, offBoard: false}, // Clear the slot-power switch and discharge resistor below the monitor.
   PSU_CONTROL: {pcbX: 39.5, pcbY: 22.11, offBoard: false}, // Bypass below VCC, clear of the SOT-23 courtyard; driver and resistors retain their positions.
 } satisfies Record<string, PcbGroupPlacement>;
@@ -139,6 +146,13 @@ function bottomLeftGroupLayout() {
   let pciePhase: AutoroutingPhase | undefined;
   let usb2Phase: AutoroutingPhase | undefined;
   let clockPhase: AutoroutingPhase | undefined;
+  const buckPhases:AutoroutingPhase[]=[];
+  let pdnPhase:AutoroutingPhase|undefined;
+  let vcchPhase:AutoroutingPhase|undefined;
+  let atx5vPhase:AutoroutingPhase|undefined;
+  const slotPowerPhases:AutoroutingPhase[]=[];
+  const vbusPhases:AutoroutingPhase[]=[];
+  let groundReturnsPhase:AutoroutingPhase|undefined;
   const members = new Map<string, Set<string>>();
   const nativeGroups = new Map<string, Group>();
   const looseOffsets: PcbPlacementGroups["looseOffsets"] = {};
@@ -165,6 +179,13 @@ function bottomLeftGroupLayout() {
       if (pciePhase) preparePcieConnectorRouting(board, pciePhase);
       if (usb2Phase) prepareUsb2Routing(board, usb2Phase);
       if (clockPhase) prepareBridgeClockRouting(board, clockPhase);
+      for(const phase of buckPhases)prepareBuckRouting(board,phase);
+      if(pdnPhase)preparePowerDistribution(board,pdnPhase);
+      if(vcchPhase)prepareVcchRouting(board,vcchPhase);
+      if(atx5vPhase)prepareAtx5vRouting(board,atx5vPhase);
+      for(const phase of slotPowerPhases)prepareSlotPowerRouting(board,phase);
+      for(const phase of vbusPhases)prepareVbusRouting(board,phase);
+      if(groundReturnsPhase)prepareGroundReturns(board,groundReturnsPhase);
       // Omit footprint outlines, but retain board artwork and the bridge's A1 corner marker.
       // Keep text, circular pin markers, and placement courtyards.
       const {db} = board.root!;
@@ -200,6 +221,13 @@ function bottomLeftGroupLayout() {
     attachUsb4Phase: (phase: AutoroutingPhase | null) => { if (phase) usb4Phase = phase; },
     attachUsb2Phase: (phase: AutoroutingPhase | null) => { if (phase) usb2Phase = phase; },
     attachClockPhase: (phase: AutoroutingPhase | null) => { if (phase) clockPhase = phase; },
+    attachBuckPhase:(phase:AutoroutingPhase|null)=>{if(phase&&!buckPhases.includes(phase))buckPhases.push(phase);},
+    attachPdnPhase:(phase:AutoroutingPhase|null)=>{if(phase)pdnPhase=phase;},
+    attachVcchPhase:(phase:AutoroutingPhase|null)=>{if(phase)vcchPhase=phase;},
+    attachAtx5vPhase:(phase:AutoroutingPhase|null)=>{if(phase)atx5vPhase=phase;},
+    attachSlotPowerPhase:(phase:AutoroutingPhase|null)=>{if(phase)slotPowerPhases.push(phase);},
+    attachVbusPhase:(phase:AutoroutingPhase|null)=>{if(phase)vbusPhases.push(phase);},
+    attachGroundReturnsPhase:(phase:AutoroutingPhase|null)=>{if(phase)groundReturnsPhase=phase;},
     attachPciePhase: (phase: AutoroutingPhase | null) => { if (phase) pciePhase = phase; }};
 }
 
@@ -297,6 +325,13 @@ function placePcbGroups(
     ...(node.type === "autoroutingphase" && props.name === "PCIE_TX_CONNECTOR" ? {ref: layout.attachPciePhase} : {}),
     ...(node.type === "autoroutingphase" && props.name === "USB2_FIXED" ? {ref: layout.attachUsb2Phase} : {}),
     ...(node.type === "autoroutingphase" && props.name === "BRIDGE_CLOCKS" ? {ref: layout.attachClockPhase} : {}),
+    ...(node.type === "autoroutingphase" && ["BUCK_POWER","BUCK_SENSE","BUCK_ENABLE_LOCAL","BUCK_MONITOR_LOCAL"].includes(String(props.name)) ? {ref: layout.attachBuckPhase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "PDN_CONTACTS" ? {ref: layout.attachPdnPhase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "VCCH_CONTACTS" ? {ref: layout.attachVcchPhase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "ATX5V_CONTACTS" ? {ref: layout.attachAtx5vPhase} : {}),
+    ...(node.type === "autoroutingphase" && ["SLOT_POWER_CONTACTS","SLOT_POWER_CONTROL","SLOT_POWER_LOCAL_CONTROL"].includes(String(props.name)) ? {ref: layout.attachSlotPowerPhase} : {}),
+    ...(node.type === "autoroutingphase" && String(props.name).startsWith("VBUS_SENSING_") ? {ref: layout.attachVbusPhase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "GROUND_RETURNS" ? {ref: layout.attachGroundReturnsPhase} : {}),
     ...(props.children === undefined ? {} : {children}),
   });
 }
@@ -355,6 +390,13 @@ export default function Board() {
       <PsuStatusRouting/>
       <Usb2Routing/>
       <BridgeClockRouting/>
+      <BuckRouting/>
+      <PowerDistribution/>
+      <VcchRouting/>
+      <Atx5vRouting/>
+      <SlotPowerRouting/>
+      <VbusRouting/>
+      <GroundReturns/>
       {/* Local return vias bridge the two GND references beside row transitions. */}
       {[[42.65, 100.74475],
         [40.9, 95.7], [40.2, 97.9], [40.5, 102.8],
@@ -967,7 +1009,7 @@ export default function Board() {
           schOrientation="vertical"
           connections={{pin2: "net.GND"}}
         />
-        <trace name="PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1"/>
+        <trace name="SP_PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1" routingPhaseIndex={14} width={.25} maxViaCount={0}/>
         <netlabel inline net="GND" connection="R_PSU_ON.pin2"/>
         <BuckInputs/>
         <BuckEnable/>

@@ -1,0 +1,131 @@
+[
+  {
+    "name": "VBUS_RAW_A4",
+    "selector": "USBC.A4",
+    "x": 44.699999,
+    "y": 97.7448829999999,
+    "net": "USB_VBUS",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_RAW_A9",
+    "selector": "USBC.A9",
+    "x": 44.699999,
+    "y": 100.24475099999991,
+    "net": "USB_VBUS",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_RAW_B4",
+    "selector": "USBC.B4",
+    "x": 46.29,
+    "y": 100.075,
+    "net": "USB_VBUS",
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15
+  },
+  {
+    "name": "VBUS_RAW_B9",
+    "selector": "USBC.B9",
+    "x": 46.29,
+    "y": 97.415,
+    "net": "USB_VBUS",
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15
+  },
+  {
+    "name": "VBUS_RAW_DIVIDER",
+    "selector": "R_VBUS_TOP.pin1",
+    "x": 39.15,
+    "y": 105.215,
+    "net": "USB_VBUS",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_SENSE_DIVIDER",
+    "selector": "R_VBUS_TOP.pin2",
+    "x": 38.1,
+    "y": 105,
+    "net": "USB_VBUS_SENSE",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_SENSE_CAP",
+    "selector": "C_VBUS_SENSE.pin1",
+    "x": 37.97990000000011,
+    "y": 99.3,
+    "net": "USB_VBUS_SENSE",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_SENSE_BRIDGE",
+    "selector": "ASM2464PDX.G1",
+    "x": 34.1,
+    "y": 95.56000740000005,
+    "net": "USB_VBUS_SENSE",
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15
+  },
+  {
+    "name": "VBUS_GND_A1",
+    "selector": "USBC.A1",
+    "x": 45.2,
+    "y": 96.2447589999999,
+    "net": "GND",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_GND_A12",
+    "selector": "USBC.A12",
+    "x": 44.700253,
+    "y": 101.74487499999991,
+    "net": "GND",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "VBUS_GND_B1",
+    "selector": "USBC.B1",
+    "x": 46.27,
+    "y": 101.4946849999999,
+    "net": "GND",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2
+  },
+  {
+    "name": "USB_SHIELD_FENCE_37",
+    "selector": "R_VBUS_BOTTOM.pin2",
+    "x": 38.7,
+    "y": 102.6,
+    "net": "GND",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "existing": true
+  },
+  {
+    "name": "USB_SHIELD_FENCE_26",
+    "selector": "C_VBUS_SENSE.pin2",
+    "x": 38.95,
+    "y": 99.45,
+    "net": "GND",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "existing": true
+  },
+  {
+    "name": "USB_SHIELD_FENCE_18",
+    "selector": "USBC.B12",
+    "x": 45.5,
+    "y": 93,
+    "net": "GND",
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "existing": true
+  }
+]

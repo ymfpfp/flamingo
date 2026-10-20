@@ -281,6 +281,22 @@ Each 8.87 kΩ MODE resistor selects external feedback and disables active output
 Including bridge decoupling, nominal capacitance is 74.20 µF for VCCL and 75.08 µF for VDD.
 Both converters support up to 3 A. Actual bridge current remains unmeasured.
 
+The local buck routes use top copper for SW, VIN, output capacitors, VOS, FB, and ground returns.
+The output connections use 2 mm traces with local copper regions.
+The SW connections use short 0.5 mm pin exits that widen to 0.8 mm and 1.2 mm.
+The input capacitors sit below VIN/GND, with nearby ground vias and local ground copper.
+The shared enable connection uses the bottom layer between the regulator escapes and the supervisor output.
+All assembled components remain on top.
+The supervisor sense divider uses two short 0.15 mm top traces without vias, over the L2 ground plane.
+The ATX 5 V feed connects both buck input circuits through L4 copper and two parallel vias at each input capacitor.
+The bridge supply distribution is described below.
+
+`bun run check:bucks` checks the current preview copper, connectivity, fabrication clearances, and static rail calculations.
+The Python checks use the environment specified by `PCIE_SI_PYTHON` and the dependencies in `simulations/pcie-tx/requirements.txt`.
+The [local routing requirements](manufacturing/buck-routing/requirements.json) separate the project layout budgets from the ASMedia supply limits and TI recommendations.
+The checks include output trace resistance, quiet-sense spacing, ground attachment, and a projected input-loop area.
+These checks do not establish ripple, startup, thermal behavior, load-step response, or complete power-distribution performance.
+
 The static component calculation gives 1.8648–1.9239 V for VCCL and 1.1153–1.1459 V for VDD.
 These intervals include feedback accuracy, divider tolerance, temperature drift, and feedback leakage.
 PCB voltage drop, ripple, and load changes must fit the remaining margins of at least 14 mV.
@@ -369,8 +385,9 @@ The [BGA process proposal](manufacturing/bridge-bga/process.json) records these 
 
 L2 (`inner1`) and L5 (`inner4`) contain GND pours.
 GND vias flank the BGA launches and connector transitions.
-Power routing and the remaining bridge power/GND fanout still need routing.
-The surface pours connect nearby shunt ground pads. The remaining ground connections need routing.
+Bridge supply and ground fanout is routed.
+The ATX 12 V feed, switched 12 V/3.3 V slot outputs, HDDPC controls, gate RC networks, discharge resistors and ATX PS_ON link are routed on the fixed top-only assembly. Main power uses L3/L4, with L2/L5 ground references. The physical audit checks every slot power contact and all 69 slot ground contacts. Run `bun run check:slot-routing` against the validated preview, and see `dist/slot-power-routing/report.html` for the copper review and conductor screen. Startup/shutdown SOA, hot MOSFET temperature, actual card loading and fault clearing remain open; the circuit does not actively enforce the 75 W budget.
+All 286 assembled ground ports, including 66 GNDA balls, reach both L2/L5 reference planes. The audit also checks all 288 individual copper lands, every ground PCB port and every ground via. An unused auxiliary USB2 ground via was removed from the connector copper keepout; its isolated position caused native GND/GNDA connectivity errors. All 520 prior traces and all top-side component placements are preserved. Run `bun run check:grounds`; see `dist/ground-returns/report.html`. Reset and other unfinished signal wiring remain separate.
 The analog bypass, VBUS filter, and nearby return vias sit outside the coupled USB corridors.
 
 Run `bun run check:usb4` to rebuild the routed stage, audit its copper, and render previews in `dist/usb4-routing/`.
@@ -391,6 +408,7 @@ Effective capacitance and channel performance still need checks before productio
 
 [UsbVbusSense.tsx](components/UsbVbusSense.tsx) uses a 4.7 kΩ / 10 kΩ divider and a 1 µF filter capacitor.
 Cable VBUS remains separate from the ATX rails.
+USB VBUS sensing uses saved native routes on L3 with short top pad connections. All four receptacle VBUS contacts join the divider input. The filtered signal reaches bridge G1. All four receptacle ground pins and both divider/filter ground pads connect to the ground planes. All assembled parts remain on top. Run `bun run check:vbus` for physical continuity, ASMedia 5:8 mil width/spacing, preserved routing, and fabrication checks; see `dist/vbus-routing/report.html`.
 Powered-off sensing and system protection performance remain unqualified.
 Extra USB2 protection is deferred for this prototype.
 
@@ -455,7 +473,54 @@ All assembled components must remain on the top layer. Bottom copper routing and
 The fabrication DRC rejects bottom-side component placement, and a regression test checks this requirement.
 The VDD and VCCL bypasses occupy top-side pockets outside the PCIe corridors; the fast VDD capacitors sit below the bridge.
 The CLKREQ links and nearby return vias moved clear of the signal corridors. Bypass quantities and values are unchanged.
-These banks still need their power connections routed and their power-distribution performance reviewed.
+VCCL and VDD distribution uses L3/L4 power regions with parallel feed sections.
+Top contacts connect all 17 VCCL balls, 40 VDD balls, and 32 bypass capacitors.
+The ground contacts reach the L2/L5 reference planes through full-stack vias.
+All 153 assembled components retain their top placement.
+
+The main power regions use at least 0.205 mm clearance against the 8 mil guideline.
+Short BGA contacts use fine traces because the pad pitch prevents a 15 mil track.
+These contacts retain the fabrication clearances.
+The routing uses native tscircuit fanout results with saved contact paths and broad power copper.
+The [distribution requirements](manufacturing/power-distribution/requirements.json) record the layer assignments, contact rules, and screening assumptions.
+
+VCCH distribution connects the four main ATX 3.3 V contacts through L3, with an L4 flash branch.
+These loads include 11 bridge balls, ten bypass capacitors, flash, pull-ups, and the buck supervisor supply.
+All three source pads of the 3.3 V slot switch connect to this feed.
+VCCA33 retains its separate analog net through the existing 0 Ω link.
+Its L3 region connects H5 and both analog bypass capacitors.
+Local ground contacts connect the bypasses, flash capacitor, and supervisor to L2/L5.
+The supervisor divider midpoint connects both resistors to SENSE through top copper, away from the buck switching loops.
+Five bridge ground stubs use nearby existing returns to free the two supply paths.
+All 260 other trace geometries and all 153 assembled placements remain fixed.
+
+The new inner branches use at least 0.8 mm authored width and 0.205 mm clearance.
+Short component and BGA escapes retain fine geometry where the pad pitch prevents the general power-track dimensions.
+The [3.3 V requirements](manufacturing/vcch-routing/requirements.json) record these local contacts and the validation scope.
+Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun run check:vcch` to check the saved preview.
+An optional Circuit JSON argument selects another build.
+
+The five main ATX 5 V contacts join a 6 mm L4 feeder with short branches to both buck input capacitors.
+Each capacitor uses two filled and capped 0.4 mm drill / 0.8 mm copper vias, with 0.8 mm top contacts.
+The L4 power regions retain at least 0.205 mm spacing. The existing switching loops and all component positions remain fixed.
+Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun run check:atx5v` for copper continuity, fabrication clearances and the input-feed resistance screen.
+The input screen assumes 2 A per buck, 4 A combined, at 80 °C, with a 100 mV project budget and mesh allowance.
+These are sizing assumptions, not ASMedia current limits. Connector loss, ground-return loss, transients and temperatures still need qualification.
+The [ATX 5 V requirements](manufacturing/atx5v-routing/requirements.json) record the geometry and scope.
+
+Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun run check:pdn` to check the saved preview.
+An optional Circuit JSON argument selects another build.
+The checks include physical copper continuity, clearances, existing route preservation, and a DC sheet-resistance screen.
+The DC screen applies 3 A per rail at 80 °C, with equal current per supply ball.
+The 8 mV project budget includes a mesh allowance of at least 20 percent.
+The available ASMedia datasheet gives no maximum rail currents, so 3 A remains a project screening envelope.
+The current layout passes the physical copper and clearance checks.
+After the 3.3 V routing, the 3 A estimate gives about 10.4 mV for VCCL and 10.8 mV for VDD.
+With the mesh allowance, these estimates reach 12.8 mV and 13.8 mV.
+Both exceed the project budget, so `check:pdn` returns a failure for this separate screen.
+Voltage qualification at the actual bridge load remains open.
+Preview refresh requires all layout checks to pass and records the open load qualification.
+Ground return, package losses, capacitor impedance, regulator transients, and thermal performance require separate qualification.
 
 Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun run check:pcie` for the combined layout checks.
 Use the environment installed from `simulations/pcie-tx/requirements.txt`. An optional Circuit JSON argument avoids rebuilding.

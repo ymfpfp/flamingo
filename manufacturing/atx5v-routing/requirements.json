@@ -1,0 +1,58 @@
+{
+  "revision": "1.0",
+  "sources": [
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6: short power connections, 15:8 mil geometry and L3/L4 power layers",
+    "datasheets/TPS62903RPJR.pdf sections 6.3 and 10: 3-17 V input range and compact input bypass loop",
+    "manufacturing/stackup/JLC06161H-3313.json",
+    "jlcpcb-clearance-rules.json"
+  ],
+  "componentLayer": "top",
+  "sourceContacts": [
+    "ATX.pin4",
+    "ATX.pin6",
+    "ATX.pin21",
+    "ATX.pin22",
+    "ATX.pin23"
+  ],
+  "destinations": [
+    "VCCL_BUCK.VIN",
+    "C_VCCL_CIN.pin1",
+    "C_VCCL_HF.pin1",
+    "VDD_BUCK.VIN",
+    "C_VDD_CIN.pin1",
+    "C_VDD_HF.pin1"
+  ],
+  "net": "V5V",
+  "mainLayer": "inner3",
+  "referenceLayers": [
+    "inner1",
+    "inner4"
+  ],
+  "asmediaPowerMinimumWidthMm": 0.381,
+  "asmediaPowerMinimumSpacingMm": 0.2032,
+  "authoredSharedTrunkWidthMm": 6,
+  "authoredMinimumBranchWidthMm": 1.8,
+  "powerRegionClearanceMm": 0.215,
+  "topContactWidthMm": 0.8,
+  "viasPerBuck": 2,
+  "viaCopperDiameterMm": 0.8,
+  "viaDrillDiameterMm": 0.4,
+  "viaSpan": "top to bottom",
+  "viaInPadProcess": "Epoxy filled and copper capped, as already specified for this board",
+  "layoutPreservation": "All 153 assembled placements and 326 earlier trace paths remain fixed. New L4 branches reserve a small portion of the lower power-plane edges. Recheck the existing VCCL/VDD DC screen after repouring.",
+  "projectInputDcScreen": {
+    "loadPerBuckA": 2,
+    "combinedCurrentA": 4,
+    "copperTemperatureC": 80,
+    "viaPlatingAssumedMm": 0.02,
+    "minimumMeshAllowancePercent": 25,
+    "maximumConductorDropWithAllowanceMV": 100,
+    "basis": "Conservative input-feed sizing screen. Each regulator has a 3 A output design envelope, at approximately 1.9 V or 1.13 V. The assumed 2 A input per buck is a project margin, not an ASMedia load specification or a regulator current limit."
+  },
+  "qualification": {
+    "hardwareValidated": false,
+    "thermalQualified": false,
+    "vendorProcessAccepted": false,
+    "scope": "Layout and resistive conductor screen. Connector/cable loss, ground-return loss, dynamic input current, ripple, startup, stability, fault protection and temperatures require separate qualification. The existing bridge-rail 3 A / 8 mV criterion remains unchanged."
+  }
+}

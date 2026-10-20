@@ -1,0 +1,49 @@
+{
+  "revision": "1.0",
+  "sources": [
+    "datasheets/TPS62903RPJR.pdf sections 8.2, 10.1 and 10.2.1",
+    "datasheets/ASM2464PDX_DataSheet_R0_3.pdf power-supply limits",
+    "manufacturing/stackup/JLC06161H-3313.json",
+    "jlcpcb-clearance-rules.json"
+  ],
+  "componentLayer": "top",
+  "regulators": ["VCCL_BUCK", "VDD_BUCK"],
+  "loadEnvelopePerRegulatorA": 3,
+  "loadEnvelopeBasis": "Conservative PDX design assumption, informed by the related ASM2464PD current table. See manufacturing/power-distribution/requirements.json bridgeCurrentPlanning. The 3 A envelope remains unchanged and is not a confirmed ASMedia PDX maximum.",
+  "actualBridgeCurrentMeasured": false,
+  "rails": {
+    "VCCL": {"asmediaMinimumV": 1.85, "asmediaMaximumV": 1.95, "feedbackTopOhm": 26100, "feedbackBottomOhm": 12100},
+    "VDD": {"asmediaMinimumV": 1.1, "asmediaMaximumV": 1.16, "feedbackTopOhm": 10700, "feedbackBottomOhm": 12100}
+  },
+  "switchingFrequencyHz": 2500000,
+  "inductanceUH": 1,
+  "localOutputCapacitorsPerRegulator": {"quantity": 2, "nominalEachUF": 10},
+  "outerCopperThicknessMm": 0.035,
+  "traceWidthsMm": {"switchPinNeck": 0.5, "switchTransition": 0.8, "switchMain": 1.2, "inputPinNeck": 0.5, "inputMain": 0.9, "outputMain": 2, "quietSense": 0.15, "enable": 0.25},
+  "groundVia": {"drillMm": 0.2, "copperDiameterMm": 0.4, "layers": ["top", "inner1", "inner2", "inner3", "inner4", "bottom"]},
+  "projectLayoutBudgets": {
+    "switchTraceMaximumMm": 3,
+    "hfCapacitorToVinMaximumMm": 2,
+    "bulkInputToHfMaximumMm": 3,
+    "vosSenseMaximumMm": 4,
+    "fbInputMaximumMm": 3.5,
+    "fbOutputSenseMaximumMm": 6,
+    "minimumQuietSenseToSwitchCopperMm": 0.5,
+    "excludedVosPinLaunchMm": 0.4,
+    "maximumHfLoopProjectionMm2": 4,
+    "maximumOutputTraceSegmentDropMVAt3A80C": 5
+  },
+  "capacitorTraceLimits": {
+    "inputBulkAndHfMm": 3,
+    "outputCapacitorsMm": 6,
+    "note": "Explicit local limits replace the generic 1 mm automatic decoupling limit. The emitted-copper audit separately enforces the shorter VIN, VOS, SW and feedback budgets."
+  },
+  "qualification": {
+    "geometryAndStaticScreenOnly": true,
+    "hardwareValidated": false,
+    "globalPdnComplete": false,
+    "thermalQualified": false,
+    "rippleAndLoadStepsQualified": false,
+    "note": "Trace-segment resistance uses 35 um copper and a 60 C rise from 20 C. It excludes pad/package spreading, global planes, ground return and component losses. Local pours provide parallel paths. These project budgets are not separate ASMedia or TI numerical requirements."
+  }
+}

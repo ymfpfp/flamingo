@@ -34,7 +34,14 @@
     "check:pcie-tx": "bun scripts/check-pcie-tx-routing.mjs",
     "check:pcie-rx": "bun scripts/check-pcie-rx-routing.mjs",
     "check:pcie": "bun scripts/check-pcie.mjs",
-    "check:clocks": "bun scripts/check-bridge-clocks.mjs"
+    "check:clocks": "bun scripts/check-bridge-clocks.mjs",
+    "check:bucks": "bun scripts/check-buck-routing.mjs",
+    "check:pdn": "bun scripts/check-power-distribution.mjs",
+    "check:vcch": "bun scripts/check-vcch-routing.mjs",
+    "check:atx5v": "bun scripts/check-atx5v-routing.mjs",
+    "check:slot-routing": "bun scripts/check-slot-routing.mjs",
+    "check:vbus": "bun scripts/check-vbus-routing.mjs",
+    "check:grounds": "bun scripts/check-ground-returns.mjs"
   },
   "devDependencies": {
     "@tscircuit/checks": "0.0.247",

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "ATX5V_VCCL_A",
+    "rail": "VCCL",
+    "selector": "C_VCCL_CIN.pin1",
+    "x": 27.087602,
+    "y": 71.74,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8
+  },
+  {
+    "name": "ATX5V_VCCL_B",
+    "rail": "VCCL",
+    "selector": "C_VCCL_CIN.pin1",
+    "x": 27.687602,
+    "y": 72.4,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8
+  },
+  {
+    "name": "ATX5V_VDD_A",
+    "rail": "VDD",
+    "selector": "C_VDD_CIN.pin1",
+    "x": 37.3,
+    "y": 72.94,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8
+  },
+  {
+    "name": "ATX5V_VDD_B",
+    "rail": "VDD",
+    "selector": "C_VDD_CIN.pin1",
+    "x": 36.85,
+    "y": 73.64999999999999,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8
+  }
+]

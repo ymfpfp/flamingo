@@ -1,0 +1,2799 @@
+[
+  {
+    "name": "SP_12V_SOURCE_pin1_0",
+    "connection": "SP_12V_SOURCE_pin1_0.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.06570600000001,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000008,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_SOURCE_pin1_1",
+    "connection": "SP_12V_SOURCE_pin1_1.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.865706000000007,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000008,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_SOURCE_pin2_2",
+    "connection": "SP_12V_SOURCE_pin2_2.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.06570600000001,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000008,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_SOURCE_pin2_3",
+    "connection": "SP_12V_SOURCE_pin2_3.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.865706000000007,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000008,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_SOURCE_pin3_4",
+    "connection": "SP_12V_SOURCE_pin3_4.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.06570600000001,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000008,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_SOURCE_pin3_5",
+    "connection": "SP_12V_SOURCE_pin3_5.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 29.865706000000007,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.465706000000008,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin5_6",
+    "connection": "SP_12V_DRAIN_pin5_6.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 34.26559400000001,
+        "y": 57.535000000000004,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 57.535000000000004,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin5_7",
+    "connection": "SP_12V_DRAIN_pin5_7.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.065594000000004,
+        "y": 57.535000000000004,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 57.535000000000004,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin6_8",
+    "connection": "SP_12V_DRAIN_pin6_8.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 34.26559400000001,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin6_9",
+    "connection": "SP_12V_DRAIN_pin6_9.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.065594000000004,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 58.80500000000001,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin7_10",
+    "connection": "SP_12V_DRAIN_pin7_10.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 34.26559400000001,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin7_11",
+    "connection": "SP_12V_DRAIN_pin7_11.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.065594000000004,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 60.075,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin8_12",
+    "connection": "SP_12V_DRAIN_pin8_12.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 34.26559400000001,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRAIN_pin8_13",
+    "connection": "SP_12V_DRAIN_pin8_13.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.065594000000004,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.665594000000006,
+        "y": 61.345000000000006,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_DRAIN_14",
+    "connection": "SP_3V3_DRAIN_14.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.0499998,
+        "y": 69.10000000000002,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 32.759120800000005,
+        "y": 69.64012700000002,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_DRAIN_15",
+    "connection": "SP_3V3_DRAIN_15.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.0499998,
+        "y": 70.20000000000002,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 32.759120800000005,
+        "y": 69.64012700000002,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_DRAIN_16",
+    "connection": "SP_3V3_DRAIN_16.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.7999998,
+        "y": 69.10000000000002,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 32.759120800000005,
+        "y": 69.64012700000002,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_DRAIN_17",
+    "connection": "SP_3V3_DRAIN_17.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 32.7999998,
+        "y": 70.20000000000002,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 32.759120800000005,
+        "y": 69.64012700000002,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_OFF_SUPPLY",
+    "connection": "SP_12V_OFF_SUPPLY.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 26.39845,
+        "y": 54.34,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 26.39845,
+        "y": 54.34,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_GATE_CAP_SUPPLY",
+    "connection": "SP_12V_GATE_CAP_SUPPLY.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 26.365650000000006,
+        "y": 59.53260000000001,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 26.365650000000006,
+        "y": 59.53260000000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_BLEED",
+    "connection": "SP_12V_BLEED.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 59.518800000000006,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 59.518800000000006,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_BLEED_GND",
+    "connection": "SP_12V_BLEED_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 56.56120000000001,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 56.56120000000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_12V_DRIVER_GND",
+    "connection": "SP_12V_DRIVER_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.215650000000004,
+        "y": 55.690000000000005,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 33.215650000000004,
+        "y": 55.690000000000005,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_BLEED",
+    "connection": "SP_3V3_BLEED.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 38.41565,
+        "y": 71.4688,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 71.11880000000002,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_BLEED_GND",
+    "connection": "SP_3V3_BLEED_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 68.16120000000002,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 37.96565,
+        "y": 68.16120000000002,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_3V3_DRIVER_GND",
+    "connection": "SP_3V3_DRIVER_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 66.39,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 66.39,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_R_HDDPC_PD_GND",
+    "connection": "SP_R_HDDPC_PD_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.46565,
+        "y": 68.67280000000001,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 35.46565,
+        "y": 68.67280000000001,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_R_PSU_ON_GND",
+    "connection": "SP_R_PSU_ON_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 48.9028,
+        "y": 23.8,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 48.9028,
+        "y": 23.8,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin2_18",
+    "connection": "SP_PCIE_pin2_18.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.49492800000008,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin2_19",
+    "connection": "SP_PCIE_pin2_19.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 14.394928000000078,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin3_20",
+    "connection": "SP_PCIE_pin3_20.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.49492800000008,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin3_21",
+    "connection": "SP_PCIE_pin3_21.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 14.394928000000078,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin9_22",
+    "connection": "SP_PCIE_pin9_22.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.494928000000078,
+        "y": 105.86079860000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000077,
+        "y": 105.86079860000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin9_23",
+    "connection": "SP_PCIE_pin9_23.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 14.394928000000077,
+        "y": 105.86079860000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000077,
+        "y": 105.86079860000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin10_24",
+    "connection": "SP_PCIE_pin10_24.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.494928000000078,
+        "y": 104.86080060000023,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000077,
+        "y": 104.86080060000023,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin10_25",
+    "connection": "SP_PCIE_pin10_25.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 14.394928000000077,
+        "y": 104.86080060000023,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000077,
+        "y": 104.86080060000023,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin122_26",
+    "connection": "SP_PCIE_pin122_26.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.295044000000078,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin122_27",
+    "connection": "SP_PCIE_pin122_27.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 7.195044000000078,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 111.86078660000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin123_28",
+    "connection": "SP_PCIE_pin123_28.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.295044000000079,
+        "y": 113.86078260000025,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000079,
+        "y": 113.86078260000025,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin123_29",
+    "connection": "SP_PCIE_pin123_29.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 7.195044000000079,
+        "y": 113.86078260000025,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000079,
+        "y": 113.86078260000025,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin161_30",
+    "connection": "SP_PCIE_pin161_30.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.295044000000078,
+        "y": 106.86079660000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 106.86079660000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin161_31",
+    "connection": "SP_PCIE_pin161_31.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 7.195044000000078,
+        "y": 106.86079660000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 106.86079660000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin164_32",
+    "connection": "SP_PCIE_pin164_32.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.295044000000079,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000079,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_pin164_33",
+    "connection": "SP_PCIE_pin164_33.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 7.195044000000079,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000079,
+        "y": 112.86078460000024,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin1",
+    "connection": "SP_PCIE_GND_pin1.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 113.86078260000025,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 113.86078260000025,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin4",
+    "connection": "SP_PCIE_GND_pin4.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 110.86078860000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000079,
+        "y": 110.86078860000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin13",
+    "connection": "SP_PCIE_GND_pin13.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000077,
+        "y": 100.86080860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000077,
+        "y": 100.86080860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin15",
+    "connection": "SP_PCIE_GND_pin15.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 97,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 12.66081460000024,
+        "y": 97.86081460000024,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000075,
+        "y": 97.86081460000024,
+        "layer": "top",
+        "width": 0.4
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin18",
+    "connection": "SP_PCIE_GND_pin18.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000075,
+        "y": 94.86082060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000075,
+        "y": 94.86082060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin20",
+    "connection": "SP_PCIE_GND_pin20.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 91.5,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 91.76591590000015,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 12.89490870000009,
+        "y": 92.86082460000024,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000075,
+        "y": 92.86082460000024,
+        "layer": "top",
+        "width": 0.4
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin23",
+    "connection": "SP_PCIE_GND_pin23.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 90.8,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 12.739169399999756,
+        "y": 89.86083060000024,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000075,
+        "y": 89.86083060000024,
+        "layer": "top",
+        "width": 0.4
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin24",
+    "connection": "SP_PCIE_GND_pin24.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 87.4,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 87.76592390000015,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 12.894908700000089,
+        "y": 88.86083260000024,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000075,
+        "y": 88.86083260000024,
+        "layer": "top",
+        "width": 0.4
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin27",
+    "connection": "SP_PCIE_GND_pin27.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 86.8,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 12.739161399999762,
+        "y": 85.86083860000024,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000074,
+        "y": 85.86083860000024,
+        "layer": "top",
+        "width": 0.4
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin28",
+    "connection": "SP_PCIE_GND_pin28.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 83.5,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 11.8,
+        "y": 83.76593190000015,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 12.894908700000089,
+        "y": 84.86084060000024,
+        "layer": "top",
+        "width": 0.4
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000074,
+        "y": 84.86084060000024,
+        "layer": "top",
+        "width": 0.4
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin31",
+    "connection": "SP_PCIE_GND_pin31.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000074,
+        "y": 81.86084660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000074,
+        "y": 81.86084660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin34",
+    "connection": "SP_PCIE_GND_pin34.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 78.86085260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 78.86085260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin37",
+    "connection": "SP_PCIE_GND_pin37.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 75.86085860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 75.86085860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin38",
+    "connection": "SP_PCIE_GND_pin38.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 74.86086060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 74.86086060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin41",
+    "connection": "SP_PCIE_GND_pin41.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 71.86086660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 71.86086660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin42",
+    "connection": "SP_PCIE_GND_pin42.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 70.86086860000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000072,
+        "y": 70.86086860000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin45",
+    "connection": "SP_PCIE_GND_pin45.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 67.86087460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 67.86087460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin46",
+    "connection": "SP_PCIE_GND_pin46.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 66.86087660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 66.86087660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin49",
+    "connection": "SP_PCIE_GND_pin49.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 63.86088260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 63.86088260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin51",
+    "connection": "SP_PCIE_GND_pin51.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 61.86088660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.94492800000007,
+        "y": 61.86088660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin54",
+    "connection": "SP_PCIE_GND_pin54.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 58.86089260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 58.86089260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin55",
+    "connection": "SP_PCIE_GND_pin55.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 57.860894600000236,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 57.860894600000236,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin58",
+    "connection": "SP_PCIE_GND_pin58.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 54.860900600000235,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 54.860900600000235,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin59",
+    "connection": "SP_PCIE_GND_pin59.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 53.86090260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 53.86090260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin62",
+    "connection": "SP_PCIE_GND_pin62.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 50.86090860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 50.86090860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin63",
+    "connection": "SP_PCIE_GND_pin63.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 49.86091060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000068,
+        "y": 49.86091060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin66",
+    "connection": "SP_PCIE_GND_pin66.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000067,
+        "y": 46.86091660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000067,
+        "y": 46.86091660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin67",
+    "connection": "SP_PCIE_GND_pin67.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000067,
+        "y": 45.86091860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000067,
+        "y": 45.86091860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin70",
+    "connection": "SP_PCIE_GND_pin70.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000067,
+        "y": 42.86092460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000067,
+        "y": 42.86092460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin71",
+    "connection": "SP_PCIE_GND_pin71.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 41.86092660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 41.86092660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin74",
+    "connection": "SP_PCIE_GND_pin74.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 38.86093260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 38.86093260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin75",
+    "connection": "SP_PCIE_GND_pin75.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 37.86093460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 37.86093460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin78",
+    "connection": "SP_PCIE_GND_pin78.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 34.86094060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 34.86094060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin79",
+    "connection": "SP_PCIE_GND_pin79.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 33.860942600000236,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 33.860942600000236,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin82",
+    "connection": "SP_PCIE_GND_pin82.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 30.860948600000235,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 13.944928000000065,
+        "y": 30.860948600000235,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin85",
+    "connection": "SP_PCIE_GND_pin85.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000065,
+        "y": 35.86093860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000065,
+        "y": 35.86093860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin87",
+    "connection": "SP_PCIE_GND_pin87.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000066,
+        "y": 39.86093060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000066,
+        "y": 39.86093060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin89",
+    "connection": "SP_PCIE_GND_pin89.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000066,
+        "y": 43.86092260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000066,
+        "y": 43.86092260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin91",
+    "connection": "SP_PCIE_GND_pin91.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 47.86091460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 47.86091460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin93",
+    "connection": "SP_PCIE_GND_pin93.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 51.860906600000234,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 51.860906600000234,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin95",
+    "connection": "SP_PCIE_GND_pin95.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000068,
+        "y": 55.86089860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000068,
+        "y": 55.86089860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin97",
+    "connection": "SP_PCIE_GND_pin97.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 59.86089060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 59.86089060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin99",
+    "connection": "SP_PCIE_GND_pin99.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 63.86088260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 63.86088260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin100",
+    "connection": "SP_PCIE_GND_pin100.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.74504400000007,
+        "y": 65.86087860000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.74504400000007,
+        "y": 65.86087860000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin102",
+    "connection": "SP_PCIE_GND_pin102.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000071,
+        "y": 69.86087060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000071,
+        "y": 69.86087060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin104",
+    "connection": "SP_PCIE_GND_pin104.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000072,
+        "y": 73.86086260000025,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000072,
+        "y": 73.86086260000025,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin106",
+    "connection": "SP_PCIE_GND_pin106.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000073,
+        "y": 77.86085460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000073,
+        "y": 77.86085460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin109",
+    "connection": "SP_PCIE_GND_pin109.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000074,
+        "y": 83.86084260000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000074,
+        "y": 83.86084260000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin111",
+    "connection": "SP_PCIE_GND_pin111.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 87.86083460000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 87.86083460000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin113",
+    "connection": "SP_PCIE_GND_pin113.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 91.86082660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 91.86082660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin117",
+    "connection": "SP_PCIE_GND_pin117.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000076,
+        "y": 99.86081060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000076,
+        "y": 99.86081060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin120",
+    "connection": "SP_PCIE_GND_pin120.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 107.86079460000025,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 107.86079460000025,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin125",
+    "connection": "SP_PCIE_GND_pin125.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000064,
+        "y": 32.86094460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000064,
+        "y": 32.86094460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin127",
+    "connection": "SP_PCIE_GND_pin127.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000065,
+        "y": 36.86093660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000065,
+        "y": 36.86093660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin129",
+    "connection": "SP_PCIE_GND_pin129.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000066,
+        "y": 40.860928600000236,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000066,
+        "y": 40.860928600000236,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin131",
+    "connection": "SP_PCIE_GND_pin131.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000067,
+        "y": 44.86092060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000067,
+        "y": 44.86092060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin133",
+    "connection": "SP_PCIE_GND_pin133.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 48.86091260000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 48.86091260000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin135",
+    "connection": "SP_PCIE_GND_pin135.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 52.86090460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000675,
+        "y": 52.86090460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin137",
+    "connection": "SP_PCIE_GND_pin137.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 56.86089660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 56.86089660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin139",
+    "connection": "SP_PCIE_GND_pin139.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 60.86088860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000069,
+        "y": 60.86088860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin143",
+    "connection": "SP_PCIE_GND_pin143.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000071,
+        "y": 68.86087260000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000071,
+        "y": 68.86087260000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin145",
+    "connection": "SP_PCIE_GND_pin145.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000071,
+        "y": 72.86086460000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000071,
+        "y": 72.86086460000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin147",
+    "connection": "SP_PCIE_GND_pin147.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000073,
+        "y": 76.86085660000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000073,
+        "y": 76.86085660000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin149",
+    "connection": "SP_PCIE_GND_pin149.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000073,
+        "y": 80.86084860000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000073,
+        "y": 80.86084860000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin152",
+    "connection": "SP_PCIE_GND_pin152.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 86.86083660000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 86.86083660000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin154",
+    "connection": "SP_PCIE_GND_pin154.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 90.86082860000025,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000075,
+        "y": 90.86082860000025,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin156",
+    "connection": "SP_PCIE_GND_pin156.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000755,
+        "y": 94.86082060000024,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.7450440000000755,
+        "y": 94.86082060000024,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin157",
+    "connection": "SP_PCIE_GND_pin157.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000076,
+        "y": 96.86081660000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000076,
+        "y": 96.86081660000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_PCIE_GND_pin163",
+    "connection": "SP_PCIE_GND_pin163.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 110.86078860000023,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 6.745044000000078,
+        "y": 110.86078860000023,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C131_POWER",
+    "connection": "SP_C131_POWER.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 16.19999920000001,
+        "y": 106.4,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 16.19999920000001,
+        "y": 105.35999910000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C131_GND",
+    "connection": "SP_C131_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 17.6000472,
+        "y": 106.4,
+        "width": 0.4,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 17.60004720000001,
+        "y": 105.35999910000001,
+        "width": 0.4,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C132_POWER",
+    "connection": "SP_C132_POWER.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 16.19999920000001,
+        "y": 112.35999910000001,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 16.19999920000001,
+        "y": 112.35999910000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C132_GND",
+    "connection": "SP_C132_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 17.60004720000001,
+        "y": 112.35999910000001,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 17.60004720000001,
+        "y": 112.35999910000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C133_POWER",
+    "connection": "SP_C133_POWER.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 16.19999920000001,
+        "y": 108.85999910000001,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 16.19999920000001,
+        "y": 108.85999910000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C133_GND",
+    "connection": "SP_C133_GND.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 17.60004720000001,
+        "y": 108.85999910000001,
+        "width": 0.6,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 17.60004720000001,
+        "y": 108.85999910000001,
+        "width": 0.6,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin1_34",
+    "connection": "SP_C134_pin1_34.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 20.000012499999954,
+        "y": 117.54997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 21.100012499999956,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin1_35",
+    "connection": "SP_C134_pin1_35.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 20.000012499999954,
+        "y": 118.44997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 21.100012499999956,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin1_36",
+    "connection": "SP_C134_pin1_36.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 22.200012499999957,
+        "y": 117.54997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 21.100012499999956,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin1_37",
+    "connection": "SP_C134_pin1_37.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 22.200012499999957,
+        "y": 118.44997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 21.100012499999956,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin2_38",
+    "connection": "SP_C134_pin2_38.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.700012499999957,
+        "y": 117.54997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.80001249999996,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin2_39",
+    "connection": "SP_C134_pin2_39.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 28.700012499999957,
+        "y": 118.44997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.80001249999996,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin2_40",
+    "connection": "SP_C134_pin2_40.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 30.90001249999996,
+        "y": 117.54997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.80001249999996,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C134_pin2_41",
+    "connection": "SP_C134_pin2_41.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 30.90001249999996,
+        "y": 118.44997700000003,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 29.80001249999996,
+        "y": 117.99997700000003,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C135_pin1_42",
+    "connection": "SP_C135_pin1_42.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.75000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.650000000000006,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C135_pin1_43",
+    "connection": "SP_C135_pin1_43.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 34.650000000000006,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.650000000000006,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C135_pin1_44",
+    "connection": "SP_C135_pin1_44.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 35.550000000000004,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 34.650000000000006,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C135_pin2_45",
+    "connection": "SP_C135_pin2_45.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 39.15000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.05000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C135_pin2_46",
+    "connection": "SP_C135_pin2_46.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.05000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.05000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C135_pin2_47",
+    "connection": "SP_C135_pin2_47.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.95000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.05000000000001,
+        "y": 117.99999999999999,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_DRV_3V3",
+    "connection": "SP_HDDPC_DRV_3V3.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 64.49,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 33.21565000000001,
+        "y": 64.49,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_DRV_12V",
+    "connection": "SP_HDDPC_DRV_12V.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 33.215650000000004,
+        "y": 53.79,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 33.215650000000004,
+        "y": 53.79,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_HDDPC_ESC",
+    "connection": "SP_HDDPC_ESC.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 94.52,
+        "layer": "top",
+        "width": 0.1
+      },
+      {
+        "route_type": "wire",
+        "x": 24.3,
+        "y": 94.27299740000005,
+        "layer": "top",
+        "width": 0.1
+      },
+      {
+        "route_type": "wire",
+        "x": 24.852990000000005,
+        "y": 93.72000740000004,
+        "layer": "top",
+        "width": 0.1
+      },
+      {
+        "route_type": "wire",
+        "x": 24.9,
+        "y": 93.72000740000004,
+        "layer": "top",
+        "width": 0.1
+      }
+    ]
+  }
+]

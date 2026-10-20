@@ -69,3 +69,13 @@ test("annotations are idempotent and never block copper or change connector boun
   assert.equal(json.some(e => e.type === "pcb_keepout"), false);
   assert.equal(json.filter(e => e.type === "pcb_note_path").length, 4);
 });
+
+test("via proxies beneath the connector do not represent assembled bodies", () => {
+  const json = fixture();
+  json.push({type: "pcb_component", pcb_component_id: "via-proxy",
+    source_component_id: "source_manually_placed_via_test", center: {x: 0, y: 0},
+    width: 0.4, height: 0.4, rotation: 0, layer: "top"});
+  assert.deepEqual(checkPcieMechanicalZones(json), []);
+  part(json, 0, 0);
+  assert.equal(checkPcieMechanicalZones(json, {TEST: 1})[0].rule, "pcie_component_keepout");
+});

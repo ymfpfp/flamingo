@@ -1,0 +1,64 @@
+{
+  "revision": "1.1",
+  "sources": [
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6: power W:S 15:8 mil, short connections, L3/L4 power and L2/L5 ground",
+    "datasheets/ASM2464PDX_TI_R03.pdf sheet 3: VCCH bypass bank and R4/C7/C8 analog feed",
+    "manufacturing/stackup/JLC06161H-3313.json",
+    "jlcpcb-clearance-rules.json",
+    "manufacturing/bridge-bga/process.json",
+    "datasheets/TPS389001DSET.pdf section 11: low-impedance VDD bypass and no added CT capacitance"
+  ],
+  "componentLayer": "top",
+  "assembledComponents": 153,
+  "bridgeBalls": {
+    "VCCH": 11,
+    "VCCA33": 1
+  },
+  "bridgeBypassCapacitors": {
+    "VCCH": 10,
+    "VCCA33": 2
+  },
+  "vcchSource": "All four main ATX 3.3 V contacts; includes flash, pull-ups, monitor supply, programming power and all three slot-switch source pads",
+  "vcca33Source": "Existing R_VCCA33_4 0 ohm link from VCCH; retains a distinct analog net",
+  "powerLayers": [
+    "inner2",
+    "inner3"
+  ],
+  "groundReferences": [
+    "inner1",
+    "inner4"
+  ],
+  "mainPowerWidthGuidelineMm": 0.381,
+  "authoredMinimumInnerBranchWidthMm": 0.8,
+  "mainPowerSpacingGuidelineMm": 0.2032,
+  "innerPowerRegionClearanceMm": 0.205,
+  "contactMinimumWidthMm": 0.1,
+  "contactScope": "Short BGA and component escapes use pad-compatible widths where the fixed pad pitch prevents the general 15:8 mil geometry. Fabrication checks apply throughout. These are local contacts to the broad inner distribution regions.",
+  "vias": {
+    "span": "top to bottom",
+    "filledAndCapped": true,
+    "blindOrMicrovias": false,
+    "minimumCopperDiameterMm": 0.25,
+    "minimumDrillMm": 0.15
+  },
+  "groundRoutingChanges": "D4, D5, F4, K2 and L2 use adjacent existing return vias. F8 and H8 retain the former shared inner ground via sites. Existing signal and buck copper stays fixed.",
+  "supervisorSense": {
+    "net": "VCCH_SENSE",
+    "terminals": ["R_BUCK_EN_TOP.pin2", "R_BUCK_EN_BOTTOM.pin1", "U_BUCK_EN.SENSE"],
+    "layer": "top",
+    "widthMm": 0.15,
+    "maximumBranchLengthMm": 3,
+    "viaCount": 0,
+    "minimumForeignCopperGapMm": 0.1,
+    "projectSwitchCopperIsolationMm": 0.5,
+    "referencePlane": "inner1",
+    "note": "Low-current measurement wiring, not a power-distribution branch. The ASMedia 15:8 mil power-feed guidance remains applied to the supply distribution. Existing 16.2 kOhm / 10 kOhm divider, VDD bypass, CT no-connect and all assembled placements remain unchanged."
+  },
+  "qualification": {
+    "layoutOnly": true,
+    "pdxMaximumRailCurrentsKnown": false,
+    "hardwareValidated": false,
+    "vendorProcessAccepted": false,
+    "note": "The related ASM2464PD current table is a planning reference only; it does not establish PDX rail loads. Voltage at the package, startup, transient response, thermal behavior and final manufacturer acceptance remain open. The existing VCCL/VDD 3 A voltage-drop screen and its 8 mV criterion remain unchanged."
+  }
+}

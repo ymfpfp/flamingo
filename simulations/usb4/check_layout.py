@@ -110,8 +110,15 @@ def audit(j):
                             if b[0]<a[0]-.0001:routing_failures.append(f'{name}: backwards-running main copper')
                             if abs(b[1]-a[1])>.0001:headings.append(1 if b[1]>a[1] else -1)
                         if sum(a!=b for a,b in zip(headings,headings[1:]))>1:routing_failures.append(f'{name}: repeated serpentine turns')
-    gnd=next(n['source_net_id'] for n in j if n['type']=='source_net' and n['name']=='GND')
-    ground_vias=[v for v in j if v['type']=='pcb_via' and v.get('source_net_id')==gnd]
+    ground_net=next(n for n in j if n['type']=='source_net' and n['name']=='GND')
+    gnd=ground_net['source_net_id']
+    def is_ground_via(v):
+        # Explicit vias can connect through a named component port rather
+        # than directly to net.GND. Resolve that native connectivity too.
+        return v.get('source_net_id')==gnd or any(
+            sp.get(pid,{}).get('subcircuit_connectivity_map_key')==ground_net['subcircuit_connectivity_map_key']
+            for pid in src.get(v.get('source_trace_id'),{}).get('connected_source_port_ids',[]))
+    ground_vias=[v for v in j if v['type']=='pcb_via' and is_ground_via(v)]
     authored=json.loads(subprocess.check_output(['bun','-e','import {usbShieldFences,usbGuardBands} from "./lib/usb-shielding"; console.log(JSON.stringify({fences:usbShieldFences,bands:usbGuardBands}));'],cwd=ROOT,text=True))
     fences=authored['fences']
     fence_pitch=max(math.hypot(a['x']-b['x'],a['y']-b['y']) for row in fences for a,b in zip(row,row[1:]))
@@ -119,16 +126,31 @@ def audit(j):
     for p in [p for row in fences for p in row]:
         if not any(math.hypot(p['x']-v['x'],p['y']-v['y'])<1e-5 and 'inner1' in v['layers'] and 'inner4' in v['layers'] for v in ground_vias):
             routing_failures.append(f'Missing full-stack ground fence via at {p}')
-    outer_pours=[o for o in copper if o['label'].startswith('pcb_copper_pour') and any(l in o['layers'] for l in ['top','bottom'])]
+    ground_pours={p['pcb_copper_pour_id'] for p in j if p['type']=='pcb_copper_pour' and p.get('source_net_id')==gnd}
+    outer_pours=[o for o in copper if o['label'] in ground_pours and any(l in o['layers'] for l in ['top','bottom'])]
     # Adjacent authored bands can overlap. Check the actual connected copper
     # on each layer, rather than requiring a separate via in every source polygon.
     surfaces={layer:unary_union([o['shape'] for o in outer_pours if layer in o['layers']]) for layer in ['top','bottom']}
+    # Small BGA ground straps can reach a reference via through a ground trace
+    # and pad. Include that emitted copper when testing physical grounding;
+    # retain the guard-band-only surfaces for the stitching-pitch checks below.
+    ground_ports={p['pcb_port_id'] for p in j if p['type']=='pcb_port'
+        and sp.get(p.get('source_port_id'),{}).get('subcircuit_connectivity_map_key')==ground_net['subcircuit_connectivity_map_key']}
+    ground_traces={p['pcb_trace_id'] for p in j if p['type']=='pcb_trace' and (
+        p.get('source_trace_id')==gnd or gnd in src.get(p.get('source_trace_id'),{}).get('connected_source_net_ids',[])
+        or any(sp.get(pid,{}).get('subcircuit_connectivity_map_key')==ground_net['subcircuit_connectivity_map_key']
+            for pid in src.get(p.get('source_trace_id'),{}).get('connected_source_port_ids',[])))}
+    ground_via_ids={v['pcb_via_id'] for v in ground_vias}
+    conductors={layer:unary_union([o['shape'] for o in copper if layer in o['layers'] and (
+        o['label'] in ground_pours or o['label'] in ground_via_ids or o['port'] in ground_ports or o['trace'] in ground_traces)]).buffer(1e-7)
+        for layer in ['top','bottom']}
     shielding=[]
     for layer,surface in surfaces.items():
         for i,shape in enumerate(getattr(surface,'geoms',[surface])):
             if shape.is_empty:continue
+            connected=next((r for r in getattr(conductors[layer],'geoms',[conductors[layer]]) if r.intersects(shape)),shape)
             shielding.append({'pour':f'{layer}_guard_{i}','layer':layer,'areaMm2':shape.area,
-                'groundViaCount':sum(layer in v['layers'] and shape.intersects(Point(v['x'],v['y']).buffer(v['outer_diameter']/2)) for v in ground_vias)})
+                'groundViaCount':sum(layer in v['layers'] and connected.intersects(Point(v['x'],v['y']).buffer(v['outer_diameter']/2)) for v in ground_vias)})
     for row in fences:
         for p in row:
             via=next((v for v in ground_vias if math.hypot(p['x']-v['x'],p['y']-v['y'])<1e-5),None)

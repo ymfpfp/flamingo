@@ -1,0 +1,69 @@
+{
+  "sources": [
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf: Other signals table, VBUS point-to-point, W:S 5:8 mil, maximum 10 inches",
+    "datasheets/ASM2464PDX_TI_R03.pdf sheet 3: R57/R60/C68 sensing network",
+    "jlcpcb-clearance-rules.json",
+    "manufacturing/bridge-bga/process.json"
+  ],
+  "componentLayer": "top",
+  "assembledComponents": 153,
+  "signalLayers": [
+    "top",
+    "inner2"
+  ],
+  "groundPlanes": [
+    "inner1",
+    "inner4"
+  ],
+  "minimumSignalWidthMm": 0.127,
+  "nominalSignalWidthMm": 0.15,
+  "signalCopperSpacingMm": 0.2032,
+  "routerClearanceMm": 0.205,
+  "maximumPathLengthMm": 254,
+  "rawTerminals": [
+    "USBC.A4",
+    "USBC.A9",
+    "USBC.B4",
+    "USBC.B9",
+    "R_VBUS_TOP.pin1"
+  ],
+  "senseTerminals": [
+    "R_VBUS_TOP.pin2",
+    "R_VBUS_BOTTOM.pin1",
+    "C_VBUS_SENSE.pin1",
+    "ASM2464PDX.G1"
+  ],
+  "groundTerminals": [
+    "USBC.A1",
+    "USBC.A12",
+    "USBC.B1",
+    "USBC.B12",
+    "R_VBUS_BOTTOM.pin2",
+    "C_VBUS_SENSE.pin2"
+  ],
+  "existingNetwork": {
+    "upperOhms": 4700,
+    "lowerOhms": 10000,
+    "filterFarads": 0.000001
+  },
+  "vias": {
+    "span": "top to bottom",
+    "newCount": 11,
+    "standardCopperMm": 0.3,
+    "standardDrillMm": 0.2,
+    "bridgeCopperMm": 0.25,
+    "bridgeDrillMm": 0.15,
+    "filledAndCapped": true,
+    "fineConnectorContacts": {
+      "names": [
+        "VBUS_RAW_B4",
+        "VBUS_RAW_B9"
+      ],
+      "copperDiameterMm": 0.25,
+      "drillDiameterMm": 0.15,
+      "note": "Existing filled/capped fine-via process; clears the stricter native 0.15 mm via-to-pad check as well as the project 0.125 mm rule."
+    }
+  },
+  "routing": "Native SOLVERS.BusLanesSolver, replayed through autoroutingphase pcbTracePaths. Four receptacle power contacts form one cable-VBUS input. The divided/filtered signal goes to the bridge; cable VBUS stays separate from every ATX supply. Existing ground fence vias provide the divider and filter returns. The lower connector ground uses the adjacent existing plated shield leg as its direct ground-plane return, avoiding an extra drill beside the mounting slot.",
+  "qualification": "Layout and physical continuity only. Existing power-off VBUS sensing, input protection, bridge thresholds and system startup qualification remain open. The full board still has other unrouted signals. Ground return completion is checked separately by check:grounds."
+}

@@ -40,8 +40,7 @@ export function UsbVbusSense() {
       />
       {/* PCB column: filtered sense pads face the bridge (-X); capacitor is
           nearest G1. The upper raw-VBUS pad and the two ground pads face +X. */}
-      <trace name="VBUS_DIVIDER" from=".R_VBUS_TOP > .pin2" to=".R_VBUS_BOTTOM > .pin1"/>
-      <trace name="VBUS_FILTER" from=".R_VBUS_TOP > .pin2" to=".C_VBUS_SENSE > .pin1"/>
+      <trace name="VBUS_DIVIDER" from=".R_VBUS_TOP > .pin2" to=".R_VBUS_BOTTOM > .pin1" routingPhaseIndex={16} width={.15} maxViaCount={0}/>
       <netlabel inline net="USB_VBUS" connection="R_VBUS_TOP.pin1"/>
       <netlabel inline net="USB_VBUS_SENSE" connectsTo={["R_VBUS_TOP.pin2", "R_VBUS_BOTTOM.pin1"]}/>
       <netlabel inline net="USB_VBUS_SENSE" connection="C_VBUS_SENSE.pin1"/>

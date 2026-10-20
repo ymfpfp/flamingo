@@ -43,7 +43,15 @@ export function BuckEnable({spiceModel}: {spiceModel?: ChipProps["spiceModel"]} 
         schX={-3.5} schY={-1.1} schOrientation="vertical"
         pcbX={-2.8} pcbY={-1.3} pcbRotation={270}
         connections={{pin1: "net.VCCH_SENSE", pin2: "net.GND"}}/>
-      <trace from=".R_BUCK_EN_TOP > .pin2" to=".R_BUCK_EN_BOTTOM > .pin1"/>
+      <trace name="BUCK_MONITOR_DIVIDER" from=".R_BUCK_EN_BOTTOM > .pin1" to=".R_BUCK_EN_TOP > .pin2"
+        routingPhaseIndex={10} width={.15} maxViaCount={0}/>
+      <trace name="BUCK_MONITOR_SENSE" from="U_BUCK_EN.SENSE" to="R_BUCK_EN_TOP.pin2"
+        routingPhaseIndex={10} width={.15} maxViaCount={0}/>
+      <autoroutingphase name="BUCK_MONITOR_LOCAL" phaseIndex={10}
+        connections={["R_BUCK_EN_BOTTOM.pin1", "U_BUCK_EN.SENSE"]}
+        minTraceWidth={.15} pcbTracePaths={[]}/>
+      <bus name="BUCK_MONITOR_TOP" connections={["BUCK_MONITOR_DIVIDER", "BUCK_MONITOR_SENSE"]}
+        pcbAllowedLayers={["top"]} preferredLayer="top" pcbTraceWidth={.15}/>
       <netlabel inline net="VCCH_SENSE" connectsTo={["R_BUCK_EN_TOP.pin2", "R_BUCK_EN_BOTTOM.pin1"]}/>
       <netlabel inline net="VCCH" connection="R_BUCK_EN_TOP.pin1"/>
       <netlabel inline net="GND" connection="R_BUCK_EN_BOTTOM.pin2"/>
@@ -54,9 +62,15 @@ export function BuckEnable({spiceModel}: {spiceModel?: ChipProps["spiceModel"]} 
       <A_0402WGF1002TCE name="R_BUCK_EN_PU" schSectionName="BUCK_ENABLE"
         schX={3} schY={1.1} schOrientation="vertical"
         pcbX={2.8} pcbY={0.5} pcbRotation={180}
-        connections={{pin1: "net.VCCH", pin2: "net.BUCK_EN"}}/>
+        connections={{pin1: "net.VCCH"}}/>
       <netlabel inline net="VCCH" connection="R_BUCK_EN_PU.pin1"/>
-      <netlabel inline net="BUCK_EN" connectsTo={["R_BUCK_EN_PU.pin2", "U_BUCK_EN.N_RESET"]}/>
+      <netlabel inline net="BUCK_EN" connection="U_BUCK_EN.N_RESET"/>
+      <trace name="BUCK_ENABLE_PULLUP" from="R_BUCK_EN_PU.pin2" to="U_BUCK_EN.N_RESET"
+        routingPhaseIndex={7} width={.25} maxViaCount={0}/>
+      <autoroutingphase name="BUCK_ENABLE_LOCAL" phaseIndex={7}
+        connections={["R_BUCK_EN_PU.pin2"]} minTraceWidth={.25} pcbTracePaths={[]}/>
+      <bus name="BUCK_ENABLE_PULLUP_TOP" connections={["BUCK_ENABLE_PULLUP"]}
+        pcbAllowedLayers={["top"]} preferredLayer="top" pcbTraceWidth={.25}/>
       <CL05B104KO5NNNC name="C_BUCK_EN" schSectionName="BUCK_ENABLE"
         schX={-6.5} schY={0.6} schOrientation="vertical"
         pcbX={0.5} pcbY={-2} pcbRotation={180}

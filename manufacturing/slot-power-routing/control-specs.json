@@ -1,0 +1,122 @@
+[
+  {
+    "name": "SP_3V3_GATE_OFF",
+    "from": "R_SLOT_OFF_3V3.pin2",
+    "to": "Q_SLOT_3V3.pin4",
+    "select": "R_SLOT_OFF_3V3.pin2",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_3V3_GATE_CAP",
+    "from": "C_SLOT_GATE_3V3.pin2",
+    "to": "Q_SLOT_3V3.pin4",
+    "select": "C_SLOT_GATE_3V3.pin2",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_3V3_GATE_SERIES",
+    "from": "R_SLOT_GATE_3V3.pin2",
+    "to": "Q_SLOT_3V3.pin4",
+    "select": "R_SLOT_GATE_3V3.pin2",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_3V3_DRIVE",
+    "from": "R_SLOT_GATE_3V3.pin1",
+    "to": "Q_SLOT_DRV_3V3.D",
+    "select": "R_SLOT_GATE_3V3.pin1",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_12V_GATE_OFF",
+    "from": "R_SLOT_OFF_12V.pin2",
+    "to": "Q_SLOT_12V.pin4",
+    "select": "R_SLOT_OFF_12V.pin2",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_12V_GATE_CAP",
+    "from": "C_SLOT_GATE_12V.pin2",
+    "to": "Q_SLOT_12V.pin4",
+    "select": "C_SLOT_GATE_12V.pin2",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_12V_GATE_SERIES",
+    "from": "R_SLOT_GATE_12V.pin2",
+    "to": "Q_SLOT_12V.pin4",
+    "select": "R_SLOT_GATE_12V.pin2",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_12V_DRIVE",
+    "from": "R_SLOT_GATE_12V.pin1",
+    "to": "Q_SLOT_DRV_12V.D",
+    "select": "R_SLOT_GATE_12V.pin1",
+    "layer": "top",
+    "width": 0.15
+  },
+  {
+    "name": "SP_HDDPC_PULLDOWN",
+    "from": "R_HDDPC_PD.pin1",
+    "to": "Q_SLOT_DRV_3V3.G",
+    "select": "R_HDDPC_PD.pin1",
+    "layer": "top",
+    "width": 0.25
+  },
+  {
+    "name": "SP_PSU_START",
+    "from": "ATX.pin16",
+    "to": "R_PSU_ON.pin1",
+    "select": "ATX.pin16",
+    "layer": "top",
+    "width": 0.25
+  },
+  {
+    "name": "SP_HDDPC_DRIVERS",
+    "from": "SP_HDDPC_DRV_12V.bottom",
+    "to": "SP_HDDPC_DRV_3V3.bottom",
+    "select": "SP_HDDPC_DRV_12V.bottom",
+    "layer": "bottom",
+    "width": 0.25
+  },
+  {
+    "name": "SP_HDDPC_TRUNK",
+    "from": "SP_HDDPC_ESC.inner3",
+    "to": "SP_HDDPC_FLASH_A.inner3",
+    "select": "SP_HDDPC_ESC.inner3",
+    "layer": "inner3",
+    "width": 0.25
+  },
+  {
+    "name": "SP_HDDPC_FLASH_CROSS",
+    "from": "SP_HDDPC_FLASH_A.inner2",
+    "to": "SP_HDDPC_FLASH_B.inner2",
+    "select": "SP_HDDPC_FLASH_A.inner2",
+    "layer": "inner2",
+    "width": 0.25
+  },
+  {
+    "name": "SP_HDDPC_MAIN",
+    "from": "SP_HDDPC_FLASH_B.inner3",
+    "to": "SP_HDDPC_BUCK.inner3",
+    "select": "SP_HDDPC_FLASH_B.inner3",
+    "layer": "inner3",
+    "width": 0.25
+  },
+  {
+    "name": "SP_HDDPC_GATE_FEED",
+    "from": "SP_HDDPC_BUCK.inner2",
+    "to": "SP_HDDPC_DRV_3V3.inner2",
+    "select": "SP_HDDPC_BUCK.inner2",
+    "layer": "inner2",
+    "width": 0.25
+  }
+]

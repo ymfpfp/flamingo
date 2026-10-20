@@ -25,7 +25,7 @@ export function BuckInputs() {
               schX={-6.2} schY={1.7} fontSize={0.18} anchor="left"/>
             <TPS62903RPJR
               name={name} schSectionName={section} schX={0} schY={0}
-              pcbX={0} pcbY={0} pcbRotation={270}
+              pcbX={0} pcbY={0} pcbRotation={270} layer="top"
               noConnect={["SS", "PG"]}
               schPinArrangement={{
                 leftSide: {direction: "top-to-bottom", pins: ["VIN", "EN", "MODE", "SS", "GND"]},
@@ -33,13 +33,12 @@ export function BuckInputs() {
               }}
               connections={{
                 VIN: "net.V5V", GND: "net.GND", EN: "net.BUCK_EN",
-                SW: `.L_${rail} > .pin1`, VOS: `net.${rail}`, FB: `net.FB_${rail}`,
-                MODE: `.R_${rail}_MODE > .pin1`,
+                VOS: `net.${rail}`, FB: `net.FB_${rail}`,
               }}
             />
             <XGL4020_102MEC
               name={`L_${rail}`}
-              pcbX={0} pcbY={3.5} pcbRotation={90}
+              pcbX={0} pcbY={3.5} pcbRotation={90} layer="top"
               schSectionName={section}
               schX={3.1}
               schY={0.8}
@@ -51,7 +50,8 @@ export function BuckInputs() {
             <netlabel inline net={`FB_${rail}`} connection={`${name}.FB`}/>
             {/* TI table 8-3: 1 uH and 10-100 uF effective total at 2.5 MHz. */}
             <CL21A106KAYNNNE
-              pcbX={-3.3} pcbY={1.6} pcbRotation={270} name={`C_${rail}_COUT`}
+              pcbX={-3.3} pcbY={1.6} pcbRotation={270} layer="top" name={`C_${rail}_COUT`}
+              maxDecouplingTraceLength="6mm"
               schSectionName={section}
               schX={5}
               schY={-0.8}
@@ -61,30 +61,28 @@ export function BuckInputs() {
             <CL21A106KAYNNNE
               name={`C_${rail}_COUT_B`} schSectionName={section}
               schX={6.8} schY={-0.8} schOrientation="vertical"
-              pcbX={3.3} pcbY={5.7} pcbRotation={90}
+              pcbX={3.3} pcbY={5.7} pcbRotation={90} layer="top"
+              maxDecouplingTraceLength="6mm"
               connections={{pin1: `net.${rail}`, pin2: "net.GND"}}
             />
-            <trace name={`${rail}_OUTPUT_FILTER`} from={`.L_${rail} > .pin2`} to={`.C_${rail}_COUT > .pin1`}/>
             <netlabel inline net="GND" connection={`C_${rail}_COUT.pin2`}/>
             <netlabel inline net="GND" connection={`C_${rail}_COUT_B.pin2`}/>
             {/* Retain the 0.6 V feedback dividers for the 1.9 V / 1.13 V targets.
                 Keep the divider beside FB on the quiet right side. One output
                 capacitor sits toward VOS/GND; the other faces the inductor output. */}
             <TopResistor name={`R_${rail}_FBT`} schSectionName={section}
-              pcbX={3.3} pcbY={1.5} pcbRotation={180}
+              pcbX={3.3} pcbY={1.5} pcbRotation={180} layer="top"
               schX={2.5} schY={-1} schOrientation="vertical"
               connections={{pin2: `net.FB_${rail}`}}/>
             <RT0402BRD0712K1L name={`R_${rail}_FBB`} schSectionName={section}
-              pcbX={3.3} pcbY={2.7} pcbRotation={0}
+              pcbX={3.3} pcbY={2.7} pcbRotation={0} layer="top"
               schX={2.5} schY={-2.2} schOrientation="vertical"
               connections={{pin2: "net.GND"}}/>
-            <trace name={`${rail}_FB_OUTPUT`} from={`.L_${rail} > .pin2`} to={`.R_${rail}_FBT > .pin1`}/>
-            <trace name={`${rail}_FB_DIVIDER`} from={`.R_${rail}_FBT > .pin2`} to={`.R_${rail}_FBB > .pin1`}/>
             <netlabel inline net={`FB_${rail}`} connectsTo={[`R_${rail}_FBT.pin2`, `R_${rail}_FBB.pin1`]}/>
             <netlabel inline net="GND" connection={`R_${rail}_FBB.pin2`}/>
             {/* TI table 7-1 option 4: external FB, 2.5 MHz forced PWM, discharge off. */}
             <RC0402FR_078K87L name={`R_${rail}_MODE`} schSectionName={section}
-              pcbX={3.3} pcbY={-1.95} pcbRotation={90}
+              pcbX={3.3} pcbY={-1.95} pcbRotation={90} layer="top"
               schX={-2.5} schY={-1.5} schOrientation="vertical"
               connections={{pin2: "net.GND"}}/>
             <netlabel inline net={`${rail}_MODE`} connectsTo={[`${name}.MODE`, `R_${rail}_MODE.pin1`]}/>
@@ -93,7 +91,8 @@ export function BuckInputs() {
                 The local PCB layout keeps bypassing below VIN/GND. */}
             <CL31B106KAHNNNE
               name={`C_${rail}_CIN`}
-              pcbX={-0.425} pcbY={-2.45} pcbRotation={180}
+              pcbX={-0.425} pcbY={-3.564} pcbRotation={180} layer="top"
+              maxDecouplingTraceLength="3mm"
               schSectionName={section}
               schX={-5.7}
               schY={0.8}
@@ -102,7 +101,8 @@ export function BuckInputs() {
             />
             <CL05B104KO5NNNC
               name={`C_${rail}_HF`}
-              pcbX={1.95} pcbY={-0.4} pcbRotation={90}
+              pcbX={0} pcbY={-1.864} pcbRotation={180} layer="top"
+              maxDecouplingTraceLength="3mm"
               schSectionName={section}
               schX={-3.8}
               schY={0.8}
