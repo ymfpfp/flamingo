@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "bun scripts/dev-preview.mjs",
     "dev:full": "tsci dev",
+    "profile:3d": "node scripts/profile-3d-viewer.mjs",
     "build": "tsci build index.circuit.tsx --disable-parts-engine",
     "build:supplier": "tsci build index.circuit.tsx",
     "check:drc": "bun scripts/check-jlcpcb.mjs",
@@ -27,7 +28,13 @@
     "typecheck": "tsc --noEmit",
     "check:bga": "bun scripts/review-bridge-bga.jsx",
     "check:slot-power": "bun scripts/check-slot-power.mjs",
-    "sim:slot-driver": "bun scripts/simulate-slot-driver.jsx"
+    "sim:slot-driver": "bun scripts/simulate-slot-driver.jsx",
+    "check:usb4": "bun scripts/build-usb4-routing.mjs",
+    "check:usb": "bun scripts/check-usb.mjs",
+    "check:pcie-tx": "bun scripts/check-pcie-tx-routing.mjs",
+    "check:pcie-rx": "bun scripts/check-pcie-rx-routing.mjs",
+    "check:pcie": "bun scripts/check-pcie.mjs",
+    "check:clocks": "bun scripts/check-bridge-clocks.mjs"
   },
   "devDependencies": {
     "@tscircuit/checks": "0.0.247",

@@ -87,6 +87,32 @@ Routed geometry always uses a full build. A failed update reports an error in th
 `bun run dev:full` retains the original source editor and full rebuild behavior.
 `bun run dev --port 3023` selects a different preview port.
 
+### 3D preview performance
+
+The preview caches remote component models in `dist/preview/models/remote/`.
+The first run downloads each model once. Later runs use these local files.
+A failed download retains the remote URL.
+
+The preview combines identical opaque materials and reuses shadows during camera movement.
+Scene changes refresh the shadows. Component geometry, colors, dimensions, and placement stay the same.
+The canvas uses a maximum pixel ratio of 1.5. Board surface textures use a maximum of one megapixel per layer.
+These limits reduce display detail at extreme zoom.
+
+The preview generates its viewer bundle in `dist/viewer/` through the documented CLI override.
+It does not edit installed packages.
+An incompatible viewer update stops preparation with an error.
+`FLAMINGO_3D_ORIGINAL=1 bun run dev` uses the original viewer and remote model URLs.
+
+The profiler requires Playwright and Chrome.
+`PLAYWRIGHT_MODULE` can point to an existing Playwright module.
+
+1. Run `bun run dev`.
+2. Run `bun run profile:3d -- --url http://localhost:3020/#file=circuit.json --label optimized`.
+3. Open the reports and screenshots in `dist/3d-profile/`.
+
+The reports include model-ready time, tab-reopen time, rotation frame time, CPU profiles, and geometry counts.
+The profiler uses a 1280 × 900 viewport with a pixel ratio of 2.
+
 ### PCIe mechanical zones
 
 `lib/pcie-mechanical.ts` defines the XKB assembly keepout and the CEM component height zones.
@@ -153,10 +179,26 @@ Hardware qualification and the BGA fabrication decision remain open.
 [jlcpcb-clearance-rules.json](jlcpcb-clearance-rules.json) records the project rules and their source.
 The rules assume six copper layers, 1 oz outer copper, ENIG, green mask, and Standard PCBA.
 The proposed BGA-region through vias use epoxy filling and copper caps; vendor confirmation remains pending.
-The board uses conservative 0.10 mm trace width and spacing targets.
+The project sets general minimum trace width and spacing to 0.10 mm.
 JLCPCB lists 0.09 mm multilayer trace width and spacing, with local 3 mil traces in BGA fan-outs.
-Those local limits remain reference values. They do not enable a routing exception.
+The USB4 routes use 0.1234 mm traces, with matched 0.0762 mm necks at the direct top-layer RX1 and TX2 BGA escapes.
+Only the scoped USB4, PCIe RX3 and clock traces within their BGA escape areas receive this width exception.
+All copper clearances retain the global limits.
 See the [JLCPCB capabilities](https://jlcpcb.com/capabilities/pcb-capabilities).
+The [JLCPCB trace-width guide](https://jlcpcb.com/blog/pcb-trace-width-guide) gives 0.15–0.25 mm as the common range for signal and logic traces.
+
+The [shared trace widths](lib/trace-width-rules.ts) define the active classes:
+
+| Class | Width | Use |
+| --- | --- | --- |
+| General | 0.25 mm (about 10 mil) | Low-current logic, status, LED, and local supply connections |
+| Surface differential | 0.1234 mm | USB4 and PCIe pairs with an 85 Ω target on the selected stackup |
+| USB4 BGA neck | 0.0762 mm (3 mil) | Short, matched top-layer RX1 and TX2 launches within the BGA escape area |
+
+New low-current connections use the general width by default.
+High-speed widths come from the stackup calculation and retain their specified pair gap.
+Power distribution requires separate width calculations for rail current, voltage drop, copper thickness, and temperature rise.
+The general width does not establish a current rating for power distribution.
 
 The local checks cover circular bridge pads, trace widths, via dimensions, placement, and copper clearances.
 Existing traces receive clearance checks even before routing is complete.
@@ -172,7 +214,24 @@ The [bridge process review](manufacturing/bridge-bga/README.md) records geometry
 **Vendor acceptance is pending; the bridge manufacturing gate remains open.**
 ASMedia does not specify a circular land diameter in the available document.
 Changing the circular lands does not establish solder-joint reliability or approve the custom mask/stencil process.
-The exact dielectric stackup and impedance widths still need selection before routing.
+The selected stackup is [JLC06161H-3313](manufacturing/stackup/JLC06161H-3313.json).
+The nominal order thickness is 1.6 mm. The current manufacturer calculator lists a finished thickness of 1.54 mm ±10%.
+L1 carries high-speed signals. L2 and L5 are continuous ground planes. L3 and L4 carry power regions.
+L6 carries control signals and selected USB4 and PCIe trace sections.
+The outer dielectric thickness is 0.0994 mm. The outer copper thickness is 0.035 mm. The inner copper thickness is 0.0152 mm.
+The manufacturer calculator gives a 0.1234 mm trace width and 0.1001 mm pair gap for 85 Ω surface differential pairs.
+This result uses a non-coplanar model with solder mask and L2 as the reference plane.
+Nearby copper, BGA necks, and pad launches require separate checks before these dimensions become routing rules.
+The requested fabrication impedance tolerance is ±10%. The calculator's ±0.5% search tolerance does not specify fabrication accuracy.
+The [calculator guide](https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator) specifies Nan Ya NP-155F for four to eight layers.
+The fabrication specification now requires this family, with the exact core and prepreg variants pending factory identification.
+The [laminate research](manufacturing/stackup/laminate-research.json) records supplier data and the remaining factory questions.
+The supplier sheets give typical loss values at 1 GHz. They do not establish a production loss limit at 10 GHz.
+The USB4 routing target is at most 20 mm of copper per conductor.
+The [loss screen](scripts/screen-usb4-loss.mjs) estimates 2.60-3.47 dB at 10 GHz for a 20 mm route under explicit assumptions.
+This estimate uses an assumed Df of 0.020, a conductor-loss multiplier of one to two, and an assumed 1 dB component allowance.
+These assumptions are not measured bounds. Component models, exact material data, and routed geometry must establish the final channel loss.
+The circuit retains its nominal six-layer, 1.6 mm model. The separate stackup file records the fabrication recipe.
 
 The report keeps fabrication readiness separate from a geometry result.
 An unrouted board cannot establish fabrication readiness.
@@ -271,8 +330,62 @@ PCIe `V3V3_AUX` is intentionally unconnected. Standby wake is not supported, and
 Each conductor has a separate ESD clamp on the bridge side and a 220 kΩ discharge resistor on the connector side.
 All six connector shell contacts connect to `GND`.
 
+The fixed routing pass covers TX1, TX2, RX1, and RX2.
+The ESD, capacitor, and discharge banks sit on L1 (`top`), referenced to L2 (`inner1`) GND.
+TX1 and RX2 escape the BGA on L6 (`bottom`), referenced to L5 (`inner4`), and return to L1 before the ESD pads.
+TX2 and RX1 escape the BGA on L1 and use short L6 paths to reach the far connector row.
+TX1 and RX2 reach the near connector row on L1.
+
+[The high-speed rules](lib/high-speed-rules.ts) set 0.1234 mm copper width, 0.1001 mm pair gap, and a 0.10 mm channel skew target.
+The planar copper-length target is 20 mm.
+ASMedia's USB4 20 Gb/s table states "VIA hole Max. <=2". The project interprets this as two signal vias per conductor.
+The user also requires this maximum. All eight conductors use two signal vias each, and the audit rejects any excess.
+ASMedia also requires less than 1 mil of skew in every segment; the project target is 0.025 mm.
+All four pairs meet the copper-length targets for each segment and the whole channel.
+The audit also measures the local BGA launch before the coupled corridor, so later segments cannot hide an unequal launch.
+The direct RX1 and TX2 BGA escapes use equal lengths of 0.0762 mm neck copper on P and N.
+The neck exception applies only to four named top-layer traces inside the BGA escape area. Pad-to-trace clearance remains 0.10 mm.
+The outer stackup is nominally symmetric. The length audit excludes package delays, capacitor pad spans, and via depth.
+The geometry results do not establish matched electrical delay or USB4 compliance.
+
+USB2 D+/D− also reaches both USB-C contact rows.
+Each conductor uses four signal vias, which meets the ASMedia USB2 maximum.
+The near-row copper lengths match within 0.001 mm. The far-row mismatch is approximately 0.0244 mm.
+Both results meet the 0.5 mm project target and the ASMedia 20 mil limit.
+
+Ground guard bands on both outer layers shield the USB routes.
+Their authored outlines replace the large rectangular surface fill. Native pour solving applies the required clearances.
+The ground fences use hole spacing of at most 1.0 mm. Native stitching adds ground vias where both pours permit them.
+Each connected shield region touches a ground via. Each authored fence via contacts a surface guard band.
+The USB checks also enforce drill clearance between nearby vias and the rotated USB-C mounting slots.
+The coupled trunks pass the ASMedia copper-isolation limits outside the disclosed BGA, component, and connector launches.
+The inner ground pours also pass the trace-width projection and drill-clearance checks.
+
+Each TX1 and RX2 conductor uses a 0.15 mm drill / 0.25 mm copper BGA via and a 0.20 mm drill / 0.40 mm copper return via.
+Each TX2 and RX1 conductor uses two 0.20 mm drill / 0.40 mm copper vias at the connector.
+The TX1 and RX2 inner signal balls use filled/capped vias in their lands. Their outer balls reach matching vias through short top-layer launches.
+The via copper expands the effective inner lands to 0.25 mm. The combined lands, vias, mask, and stencil require vendor DFM/DFA acceptance.
+The [BGA process proposal](manufacturing/bridge-bga/process.json) records these details and the pending vendor decision.
+
+L2 (`inner1`) and L5 (`inner4`) contain GND pours.
+GND vias flank the BGA launches and connector transitions.
+Power routing and the remaining bridge power/GND fanout still need routing.
+The surface pours connect nearby shunt ground pads. The remaining ground connections need routing.
+The analog bypass, VBUS filter, and nearby return vias sit outside the coupled USB corridors.
+
+Run `bun run check:usb4` to rebuild the routed stage, audit its copper, and render previews in `dist/usb4-routing/`.
+The command reports the USB4 geometry result and the full-board DRC separately. Errors in either result produce a nonzero exit.
+The draft does not establish complete board routing or USB4 compliance.
+Native saved routing phases apply the manual paths. `routeRemaining={false}` disables implicit routing of the remaining connections.
+
+Run `USB_SI_PYTHON=/path/to/si-venv/bin/python bun run check:usb` for the combined USB2 and USB4 layout checks.
+Use the Python environment from `simulations/pcie-tx/requirements.txt`.
+
+The command covers fabrication DRC, connectivity, lengths, via counts, coupled geometry, copper isolation, shield attachment, and ground support.
+Native shorts and PCB style checks remain separate requirements before export.
+
 The selected USB4 capacitors use 0201 packages and X5R dielectric.
-This selection is accepted for the first prototype, although the ASMedia layout guideline specifies X7R.
+The user reconfirmed this prototype selection. It remains an explicit exception to the ASMedia X7R requirement.
 RX initial tolerance spans 297–363 nF, before bias, temperature, and aging effects, against the specified 300–363 nF range.
 Effective capacitance and channel performance still need checks before production.
 
@@ -285,6 +398,75 @@ The PCIe link includes eight Samsung CL05B224KO5NNNC transmitter capacitors: 220
 It also includes reference clock pair 0, reset, clock request, wake, and card presence.
 The card supplies its own transmitter coupling capacitors.
 The x16 connector provides four connected lanes. Firmware behavior, hot-plug operation, and measured throughput remain open work.
+
+All four PCIe TX pairs now have routes from the bridge through the coupling capacitors to the slot.
+The bridge sections use bottom copper, with short top launches and two full-stack signal vias per conductor.
+L5 provides the ground reference. The symmetric outer stackup uses the same 0.1234 mm width and 0.1001 mm pair gap.
+Ground return vias connect L2 and L5 within 1 mm of each signal via.
+The bottom trunks follow constant-offset pairs without individual tuning loops.
+Local BGA escapes balance P/N copper lengths within the 0.025 mm target, including the existing top routes to the slot.
+The bridge vias use 0.25 mm copper and 0.15 mm holes. The capacitor vias use 0.30 mm copper and 0.20 mm holes.
+The filled/capped signal land vias and offset ground land via are recorded in `manufacturing/bridge-bga/process.json`.
+All four PCIe RX pairs also have routes from the slot to the bridge, with no polarity or lane swaps.
+RX0–2 use short bottom sections and two signal vias per conductor. RX3 stays on top without signal vias.
+The coupled trunks use the same surface width and gap. RX3 uses short 0.0762 mm BGA necks with 0.10 mm pad clearance.
+The necks, pad flares and vias are launch discontinuities. Their geometry does not establish 85 Ω impedance through each transition.
+The TX3 local escape now uses an AA15 land via to make room for RX3. All TX pairs retain matched lengths and coupled trunks.
+The bridge clocks now have explicit saved routes in `lib/bridge-clock-routing.tsx`.
+The 25 MHz XI/XO traces stay on top and use no signal vias.
+The 10 pF capacitor remains across XI/XO, as shown in the ASMedia reference schematic.
+Both metal-cover lands on the crystal connect directly to GND through filled and capped vias.
+The PCIe REFCLK pair uses the bottom layer between two matched transitions per conductor.
+All assembled components remain on top.
+
+The ASMedia PCB guideline (R1.0, page 5) specifies 85 Ω ±15% for both clock circuits.
+The coupled sections use the selected stackup dimensions: 0.1234 mm width and 0.1001 mm edge gap.
+The XI/XO trace limit is 12.7 mm per conductor.
+The connector REFCLK limit is 177.8 mm, with less than 0.127 mm P/N length mismatch.
+The available XI/XO table does not specify a length-matching limit or a maximum via count.
+
+`bun run check:clocks` checks the current preview copper against these limits.
+Set `PCIE_SI_PYTHON` to a Python environment with the dependencies from `simulations/pcie-tx/requirements.txt`.
+The checks also measure pair geometry, foreign copper spacing, and L2/L5 reference support.
+The clock checks require more than 0.7952 mm spacing in the documented coupled sections.
+This distance also exceeds the 0.762 mm crystal spacing recommendation.
+The pad, via and BGA launches retain fabrication checks, but they still require the final SI review.
+Drawn trace lengths exclude package delay and component internal paths.
+Crystal startup, frequency accuracy and load-capacitance performance require the final oscillator review and hardware measurements.
+
+Run `bun run check:pcie-tx` to build the board and check the emitted TX copper.
+The command saves lengths, skew, geometry checks, and top/bottom previews in `dist/pcie-tx-routing/`.
+The geometry audit samples the emitted bottom trunks to reject separated loops even when their P/N lengths match.
+The first 3 mm after each BGA via and final 0.4 mm before the capacitor via are launch regions.
+These checks exclude capacitor pad span, via delay, and package delay. They do not establish channel impedance or PCIe compliance.
+
+Run `bun run check:pcie-rx` to check RX endpoints, widths, P/N skew, via counts, ground returns, and coupled trunk spacing.
+The command saves the rendered board and geometry audit in `dist/pcie-rx-routing/`.
+The RX audit excludes short launch regions and rejects separated loops even when their added P/N lengths match.
+RX0–3 drawn lengths are approximately 13.285, 21.013, 29.652 and 36.562 mm per conductor, with less than 0.001 mm P/N skew.
+Final launch, via, crosstalk, loss and electrical-delay validation remains part of the agreed SI review after routing.
+The `simulations/pcie-tx/check_reference_planes.py` script checks TX/RX trace-width projections against the rendered ground planes.
+It excludes each route's own via apertures. It does not model the surrounding electromagnetic field or return loss.
+
+ASMedia's PCIe Gen4 table calls for S1 > 8h outside each coupled pair.
+The selected 0.0994 mm outer dielectric gives a minimum isolation gap of 0.7952 mm.
+The layout now clears that distance to unrelated copper along the checked TX/RX coupled routes, including ground vias and component lands.
+All assembled components must remain on the top layer. Bottom copper routing and vias are allowed.
+The fabrication DRC rejects bottom-side component placement, and a regression test checks this requirement.
+The VDD and VCCL bypasses occupy top-side pockets outside the PCIe corridors; the fast VDD capacitors sit below the bridge.
+The CLKREQ links and nearby return vias moved clear of the signal corridors. Bypass quantities and values are unchanged.
+These banks still need their power connections routed and their power-distribution performance reviewed.
+
+Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun run check:pcie` for the combined layout checks.
+Use the environment installed from `simulations/pcie-tx/requirements.txt`. An optional Circuit JSON argument avoids rebuilding.
+This command runs fabrication DRC, TX/RX geometry, 8h isolation, and ground-plane projection checks.
+The isolation report is `dist/pcie-rx-routing/asmedia-spacing.json`; its regression check rejects the original capacitor intrusion.
+Native shorts and PCB style checks remain separate required checks before export.
+The isolation check reports top BGA pad-to-via escapes separately, with a 3.2 mm project limit.
+It also excludes the first 3 mm after each BGA via on bottom, 1 mm at a via/capacitor, and 2 mm at the slot.
+These regions retain fabrication clearance checks. Their pad pitch prevents a uniform 8h gap, so final launch/via SI remains open.
+The result establishes the checked coupled-route layout rules; it does not establish full PCIe compliance or factory DFM acceptance.
+Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun scripts/refresh-pcie-preview.mjs` to rebuild and validate the visible board preview.
 
 ## Programming access
 

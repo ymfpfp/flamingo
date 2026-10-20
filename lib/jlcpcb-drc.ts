@@ -13,6 +13,7 @@ import {
 import type {AnyCircuitElement} from "tscircuit";
 import {jlcpcbRules as rules} from "./jlcpcb-rules";
 import {checkPcieMechanicalZones} from "./pcie-mechanical";
+import {isUsb4NeckSegment, isPcieRxNeckSegment, isClockNeckSegment, usb4Rules} from "./high-speed-rules";
 
 export interface DrcFinding {
   rule: string;
@@ -32,6 +33,8 @@ export function checkJlcpcbDimensions(json: AnyCircuitElement[]): DrcFinding[] {
   const bgaIds = new Set(bgaComponents.map(e => e.pcb_component_id));
   const bgaPads = json.filter(e => e.type === "pcb_smtpad")
     .filter(e => bgaIds.has(e.pcb_component_id ?? ""));
+  const sourceTraces = new Map(json.filter(e => e.type === "source_trace").map(e => [e.source_trace_id, e]));
+  const sourcePorts = new Map(json.filter(e => e.type === "source_port").map(e => [e.source_port_id, e]));
   const tooSmall = bgaPads.filter(e =>
     e.shape === "circle" && e.radius * 2 + 1e-9 < rules.minimumMm.circularBgaPadDiameter);
   if (tooSmall.length) add("bga_pad_diameter",
@@ -39,10 +42,16 @@ export function checkJlcpcbDimensions(json: AnyCircuitElement[]): DrcFinding[] {
     tooSmall.map(e => e.pcb_smtpad_id));
   const oblongs = bgaPads.filter(e => e.shape === "pill" || e.shape === "rotated_pill");
   if (oblongs.length) findings.push({rule: "bga_oblong_process_review", severity: "warning",
-    message: `${oblongs.length} oblong BGA pads and the candidate circular lands, mask and stencil need JLCPCB DFM/DFA acceptance. See manufacturing/bridge-bga/.`,
+    message: `${oblongs.length} oblong BGA pads and the candidate circular lands, filled/capped USB4 vias, mask and stencil need JLCPCB DFM/DFA acceptance. See manufacturing/bridge-bga/.`,
     elementIds: oblongs.map(e => e.pcb_smtpad_id)});
 
   for (const element of json) {
+    if (element.type === "pcb_component"
+      && !element.source_component_id.startsWith("source_manually_placed_via_")
+      && element.layer !== rules.process.componentLayer) {
+      add("component_layer", `${sources.get(element.source_component_id)?.name ?? element.pcb_component_id}: all assembled components must be on the ${rules.process.componentLayer} layer.`,
+        [element.pcb_component_id]);
+    }
     if (element.type === "pcb_board" && element.num_layers !== rules.copper.layers) {
       add("process_layers", `The rules assume ${rules.copper.layers} copper layers.`, [element.pcb_board_id]);
     }
@@ -51,8 +60,15 @@ export function checkJlcpcbDimensions(json: AnyCircuitElement[]): DrcFinding[] {
         if (point.route_type !== "wire") return;
         // Tapered segments can specify an end width separately.
         for (const width of [point.width, point.end_width].filter(w => w !== undefined)) {
-          if (!Number.isFinite(width) || width! + 1e-9 < rules.minimumMm.traceWidth) {
-            add("trace_width", `${element.pcb_trace_id} point ${i}: ${width} mm width, minimum ${rules.minimumMm.traceWidth} mm.`,
+          const next = element.route[i+1];
+          const sourceTrace = sourceTraces.get(element.source_trace_id ?? "");
+          const local = next?.route_type === "wire" && (isUsb4NeckSegment(
+            sourceTrace?.name ?? "", point, next) || isPcieRxNeckSegment(
+              sourceTrace?.connected_source_port_ids.map(id => sourcePorts.get(id)?.name ?? "") ?? [], point, next)
+              || isClockNeckSegment(sourceTrace?.name??"",point,next));
+          const minimum = local ? usb4Rules.neckWidth : rules.minimumMm.traceWidth;
+          if (!Number.isFinite(width) || width! + 1e-9 < minimum) {
+            add("trace_width", `${element.pcb_trace_id} point ${i}: ${width} mm width, minimum ${minimum} mm.`,
               [element.pcb_trace_id]);
           }
         }
@@ -77,7 +93,9 @@ export async function runJlcpcbDrc(input: AnyCircuitElement[], {requireRouted = 
   // Some native checks normalize endpoint metadata. Keep the caller's input intact.
   const json: AnyCircuitElement[] = JSON.parse(JSON.stringify(input));
   const findings = checkJlcpcbDimensions(json);
-  findings.push(...checkPcieMechanicalZones(json));
+  // Native manually placed vias have proxy pcb_components but no assembled body.
+  findings.push(...checkPcieMechanicalZones(json.filter(e => !(e.type === "pcb_component"
+    && e.source_component_id.startsWith("source_manually_placed_via_")))));
   const addNative = (diagnostics: AnyCircuitElement[]) => {
     for (const d of diagnostics) {
       const record = d as unknown as Record<string, unknown>;

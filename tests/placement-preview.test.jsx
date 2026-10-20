@@ -6,6 +6,7 @@ import {applyPcbGroupPlacements} from "../lib/pcb-group-placement";
 import {updatePlacementPreview} from "../scripts/placement-preview";
 import {canReusePlacement, parsePlacementSource, placementLayoutKey} from "../scripts/preview-source.mjs";
 import {getBoundsOfPcbElements} from "@tscircuit/circuit-json-util";
+import {Children, cloneElement, isValidElement} from "react";
 
 function parse(body) {
   return parsePlacementSource(`export const pcbGroupPlacements = ${body} satisfies Record<string, Placement>;\nconst unrelated = 1;`);
@@ -26,7 +27,9 @@ test("only literal X/Y changes qualify for cached placement", () => {
     '{A: {pcbX: 5, pcbY: -4}, B: {pcbX: 1, pcbY: 1}}',
   ]) assert.equal(canReusePlacement(cache, input(parse(changed))), false, changed);
   assert.equal(canReusePlacement({...cache, translationOnly: false}, input(moved)), false);
-  assert.equal(canReusePlacement({...cache, circuitJson: [{type: "pcb_trace"}]}, input(moved)), false);
+  for (const type of ["pcb_trace", "pcb_via", "pcb_copper_pour"]) {
+    assert.equal(canReusePlacement({...cache, circuitJson: [{type}]}, input(moved)), false, type);
+  }
   assert.equal(canReusePlacement(cache, {...input(moved), sourceHash: "changed footprint"}), false);
   assert.equal(placementLayoutKey(original.placements), placementLayoutKey(moved.placements));
 });
@@ -43,9 +46,19 @@ test("placement updates discard stale clearance and keepout diagnostics", async 
 });
 
 test("cached root and nested moves match a fresh circuit render", {timeout: 120000}, async () => {
+  // Exercise the placement-only fast path. Pours, vias and routed copper are
+  // derived geometry and force a full render through canReusePlacement.
+  const placementOnly = node => {
+    if (Array.isArray(node)) return node.map(placementOnly);
+    if (!isValidElement(node)) return node;
+    if (["trace", "bus", "differentialpair", "via", "copperpour", "autoroutingphase"].includes(node.type)) return null;
+    return cloneElement(node, {}, Children.map(node.props.children, placementOnly));
+  };
   const render = async () => {
-    const circuit = new RootCircuit({platform: {partsEngineDisabled: true}});
-    circuit.add(Board());
+    // Translation caching applies to placement-only renders. Routed copper is
+    // rejected by canReusePlacement and requires a fresh render in production.
+    const circuit = new RootCircuit({platform: {partsEngineDisabled: true, routingDisabled: true}});
+    circuit.add(placementOnly(Board()));
     await circuit.renderUntilSettled();
     return {circuitJson: structuredClone(circuit.getCircuitJson()), groups: structuredClone(getRenderedPlacementGroups())};
   };

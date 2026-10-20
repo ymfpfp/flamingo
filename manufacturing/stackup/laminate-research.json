@@ -1,0 +1,117 @@
+{
+  "reviewedOn": "2026-10-18",
+  "stackup": "JLC06161H-3313",
+  "conclusion": "NP-155F is the documented calculator family for 4-8 layers. It is a plausible prototype material for the short USB4 routes. Complete channel loss acceptance remains unverified.",
+  "manufacturerStatements": [
+    {
+      "url": "https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator",
+      "section": "Notes",
+      "fact": "The 4-8 layer calculator uses Nan Ya NP-155F core material. The matching material must be selected when ordering."
+    },
+    {
+      "url": "https://jlcpcb.com/certifications",
+      "section": "Base Materials",
+      "fact": "The factory chooses among listed base materials unless the customer specifies a material at ordering. The stackup code does not uniquely assign a laminate."
+    },
+    {
+      "url": "https://jlcpcb.com/blog/glass-transition-temperature",
+      "section": "Advanced Material Selection and Process Control",
+      "fact": "The factory associates its Tg155 option with NP-155F and its Tg170 option with S1000-2M. This does not guarantee a specific lot or loss tangent."
+    }
+  ],
+  "supplierDocuments": [
+    {
+      "path": "datasheets/laminates/nan-ya-np-155f-jlcpcb.pdf",
+      "url": "https://rs.jlcpcb.com/static/file/nan-ya-np-155f-datasheet.pdf",
+      "pages": 3,
+      "sha256": "331f96ec89eed21f6a72aaf1490df999c712cc03219912388cea20193f113d6f",
+      "values": [
+        {
+          "product": "NP-155FR",
+          "frequencyHz": 1000000000.0,
+          "typicalDk": [
+            4.2,
+            4.4
+          ],
+          "typicalDf": [
+            0.014,
+            0.016
+          ]
+        },
+        {
+          "product": "NP-155FTL",
+          "frequencyHz": 1000000000.0,
+          "typicalDk": [
+            3.9,
+            4.1
+          ],
+          "typicalDf": [
+            0.012,
+            0.014
+          ]
+        }
+      ],
+      "limitations": "Typical supplier values at 1 GHz. These are not 10 GHz values, exact 3313 pressed-prepreg guarantees, or a production material assignment."
+    },
+    {
+      "path": "datasheets/laminates/kb-6165f-jlcpcb.pdf",
+      "url": "https://rs.jlcpcb.com/static/file/kb-6165f-datasheet.pdf",
+      "pages": 2,
+      "sha256": "5a48ca2a54a6c0bb7cf9284a4d7f27a4707b13d003eafe68b2a279a458823a40",
+      "values": [
+        {
+          "product": "KB-6165F",
+          "frequencyHz": 1000000000.0,
+          "typicalDk": 4.6,
+          "typicalDf": 0.016
+        },
+        {
+          "product": "KB-6065F 3313 RC58 +/-2% prepreg",
+          "frequencyHz": 1000000000.0,
+          "typicalDk": 4.4,
+          "typicalDf": 0.016,
+          "note": "A supplier example, not confirmation of the selected JLCPCB recipe."
+        }
+      ],
+      "limitations": "Typical supplier values at 1 GHz. These are not 10 GHz values, exact 3313 pressed-prepreg guarantees, or a production material assignment."
+    },
+    {
+      "path": "datasheets/laminates/s1000-2m-jlcpcb.pdf",
+      "url": "https://rs.jlcpcb.com/static/file/s1000-2m-tg170-datasheet.pdf",
+      "pages": 2,
+      "sha256": "0c4500a47d576164416986170a55ebca315a9ba8e98f886616acc5bead83b5f8",
+      "values": [
+        {
+          "product": "S1000-2M",
+          "frequencyHz": 1000000000.0,
+          "typicalDk": 4.6,
+          "typicalDf": 0.018
+        }
+      ],
+      "limitations": "Typical supplier values at 1 GHz. These are not 10 GHz values, exact 3313 pressed-prepreg guarantees, or a production material assignment."
+    }
+  ],
+  "lossAssessment": {
+    "deviceMode": "USB4 Gen3, 20 Gb/s per lane, 40 Gb/s aggregate",
+    "limitDbAt10GHz": 4,
+    "limitSource": "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf, page 3",
+    "screenScript": "scripts/screen-usb4-loss.mjs",
+    "generatedReport": "dist/laminate-review/usb4-loss-screen.json",
+    "routeLengthTargetMm": 20,
+    "screeningAssumptions": "Df=0.020 at 10 GHz, copper conductor multiplier 1-2, plus a lumped 1 dB component allowance. These are sensitivity assumptions, not measured bounds.",
+    "screeningTotalDbFor20Mm": [
+      2.6,
+      3.47
+    ],
+    "channelPassEstablished": false,
+    "note": "Only the laminate family is identified. Exact 10 GHz Df, copper roughness, routed geometry and component/via S-parameters remain open. Higher Tg does not imply lower electrical loss."
+  },
+  "manufacturerQuestions": [
+    "For JLC06161H-3313, six layers, nominal 1.6 mm, ENIG, 1 oz outer and 0.5 oz inner copper, can you supply and identify the exact Nan Ya NP-155F core and corresponding 3313/2116 prepreg variants?",
+    "Please provide construction-specific Dk and Df at 5 and 10 GHz, including resin content, glass style, test method, and production tolerances.",
+    "Please identify the copper foil type and roughness for the L1-to-L2 interface.",
+    "Please confirm the 85 ohm L1/L2 differential profile, including finished trace thickness, trapezoid widths, solder mask and impedance tolerance.",
+    "Please identify any material substitution before fabrication. Can you supply insertion-loss coupon data or a representative channel model?"
+  ],
+  "vendorContactMade": false
+}

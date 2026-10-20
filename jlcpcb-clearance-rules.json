@@ -1,12 +1,14 @@
 {
-  "revision": "1.0.39",
+  "revision": "1.0.42",
   "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
-  "reviewedOn": "2026-10-17",
+  "reviewedOn": "2026-10-19",
   "process": {
     "surfaceFinish": "ENIG",
     "assembly": "standard",
+    "componentLayer": "top",
     "solderMaskColor": "green",
     "viaFill": "epoxy filled and copper capped",
+    "stackup": "manufacturing/stackup/JLC06161H-3313.json",
     "bridgeProcess": "manufacturing/bridge-bga/process.json",
     "vendorAcceptanceReceived": false
   },
@@ -40,9 +42,9 @@
   ],
   "bgaFanoutReferenceMm": {
     "traceWidth": 0.0762,
-    "padToTrace": 0.09,
-    "status": "reference_only",
-    "note": "Short local 3 mil traces are published for multilayer BGA fanout. Keep global 0.10 mm rules until an explicit fanout region exists. Proposed outer mask expansion is included in the bridge process review."
+    "padToTrace": 0.1,
+    "status": "scoped_matched_top_escapes",
+    "note": "USB4 RX1/TX2 PHY_A traces use matched 0.0762 mm necks within x=33.5..34.7 mm, y=98.1..101 mm. PCIe RX3 uses scoped top escapes in isPcieRxNeckSegment. CLOCK_XO_BRIDGE and CLOCK_REFCLK_N_PHY use scoped top necks in isClockNeckSegment within y=101.5..102.35001 mm. All copper clearances retain the global limits, including 0.10 mm pad-to-trace. Vendor process acceptance remains required."
   },
   "note": "Trace spacing is conservative for 1 oz multilayer fabrication. Motor-power-to-pad 0.15 mm and via-to-pad 0.125 mm are board targets above the general 0.10 mm copper spacing. No power-pad clearance exceptions are permitted."
 }

@@ -1,0 +1,297 @@
+[
+  {
+    "connection": "ATX.pin8",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 19.724967399999905,
+        "y": 14.069886000000071,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 21.299974799999905,
+        "y": 12.494878600000071,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 38.10004279999991,
+        "y": 12.494878600000071,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 39.1499179999999,
+        "y": 13.54475380000006,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 39.1499179999999,
+        "y": 21.145009400000074,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.21677498426292,
+        "y": 21.145009400000074,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 42.07499,
+        "y": 23.003224415737154,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 42.07499,
+        "y": 25.125009999999953,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 42.44998,
+        "y": 25.49999999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 42.9,
+        "y": 25.49999999999995,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "R_PSU_OK_PD.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 45.22,
+        "y": 25.54219999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 45.1778,
+        "y": 25.49999999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 42.9,
+        "y": 25.49999999999995,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "ATX.pin4",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 36.52503539999991,
+        "y": 14.069886000000071,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 38.10004279999991,
+        "y": 15.644893400000075,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 38.10004279999991,
+        "y": 22.350042799999866,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 24.54999999999995,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "C_PSU_LED.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 23.45023149999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 24.54999999999995,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "R_PSU_LED.pin1",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.2265125,
+        "y": 28.53284999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 39.47499,
+        "y": 27.78132749999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 39.47499,
+        "y": 25.37500999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 24.54999999999995,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "R_PSU_LED.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.2265125,
+        "y": 29.39844999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 41.12751250000005,
+        "y": 30.29945,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 48.47,
+        "y": 30.29945,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "LED_PSU_OK.cathode",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 48.47,
+        "y": 28.70055,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 42.550550000000044,
+        "y": 28.70055,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 26.44999999999995,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "U_PSU_LED.GND",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 42.9,
+        "y": 26.44999999999995,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 43.8,
+        "y": 26.45,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "R_PSU_OK_PD.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 45.22,
+        "y": 26.407799999999952,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 45.95,
+        "y": 26.4078,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "connection": "C_PSU_LED.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 22.61,
+        "width": 0.25,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 40.3,
+        "y": 21.900000500000047,
+        "width": 0.25,
+        "layer": "top"
+      }
+    ]
+  }
+]

@@ -1,7 +1,13 @@
 import {Children, cloneElement, Fragment, isValidElement, type ReactElement, type ReactNode} from "react";
-import type {Board as PcbBoard, Group} from "tscircuit";
+import type {AutoroutingPhase, Board as PcbBoard, Group} from "tscircuit";
 import {applyPcbGroupPlacements, type PcbGroupPlacement, type PcbPlacementGroups} from "lib/pcb-group-placement";
 import {jlcpcbBoardRules} from "lib/jlcpcb-rules";
+import {usb4RoutedContacts, prepareUsb4Routing} from "lib/usb4-routing";
+import {prepareUsb2Routing, Usb2Routing} from "lib/usb2-routing";
+import {BridgeClockRouting, prepareBridgeClockRouting} from "lib/bridge-clock-routing";
+import {usbGuardBands, usbShieldFences} from "lib/usb-shielding";
+import {pcieConnectorRules, preparePcieConnectorRouting} from "lib/pcie-connector-routing";
+import {usb4Rules, usb4TraceRules} from "lib/high-speed-rules";
 import {outlineSilkscreenText} from "lib/silkscreen-font";
 import {flamingoSilkscreen} from "lib/flamingo-silkscreen";
 import {tsMarkSilkscreen} from "lib/ts-mark-silkscreen";
@@ -13,6 +19,8 @@ import {BridgeVddDecoupling} from "components/BridgeVddDecoupling";
 import {BuckEnable} from "components/BuckEnable";
 import {BuckInputs} from "components/BuckInputs";
 import {PsuControl, PsuOkLed} from "components/PsuControl";
+import {PcieConnectorRouting} from "components/PcieConnectorRouting";
+import {PsuStatusRouting} from "components/PsuStatusRouting";
 import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
 import {SlotPower} from "components/SlotPower";
 import {SlotDecoupling} from "components/SlotDecoupling";
@@ -32,36 +40,39 @@ import {W25Q32JVSSIQ} from "imports/W25Q32JVSSIQ";
 import {X1618WVS_164_9TV30} from "imports/X1618WVS_164_9TV30";
 import {XXCBCLNANF_25M} from "imports/XXCBCLNANF_25M";
 
+// Set false to temporarily hide both logos without changing their placements.
+const showSilkscreenArtwork = true;
+
 // Coordinates place the bottom-left of each group's footprint/courtyard bounds.
 // Set offBoard: false when placing a group to enable its board-boundary checks.
 // Root coordinates are board coordinates; / keys offset a subgroup within its parent.
 // Connector-only sections are included so every part is controlled by this map.
 export const pcbGroupPlacements = {
   BRIDGE_CORE: {pcbX: 23.5, pcbY: 83.7, offBoard: false}, // USB4 faces the upper-right USB-C connector; PCIe faces left.
-  "BRIDGE_CORE/OSCILLATOR": {pcbX: 11.1, pcbY: 22}, // Above the bridge, beside XI/XO after its 180-degree rotation.
+  "BRIDGE_CORE/OSCILLATOR": {pcbX: 8.2798845, pcbY: 21.179998}, // Short crystal loop above XI/XO; all parts remain on top.
   BRIDGE_UART: {pcbX: 43.07, pcbY: 59.95, pcbRotation: 90, offBoard: false}, // UART below SPI, near the bridge and right edge.
   R_UART_TX: {pcbX: 47.54, pcbY: 58.4, pcbRotation: 180, offBoard: false}, // Continue the UART column, 2.54 mm below GND.
   LED_PSU_OK: {pcbX: 47.81655, pcbY: 28.05055, pcbRotation: 90, offBoard: false}, // Right-edge indicator beside its ATX control circuit.
   BRIDGE_SPI: {pcbX: 46.7, pcbY: 69.8, pcbRotation: 90, offBoard: false}, // Beside flash; same column as UART with 5.08 mm between their nearest holes.
   BRIDGE_RESET: {pcbX: 44.00435, pcbY: 107.9501, offBoard: false}, // Right-edge reset access immediately above USB-C; RC parts sit left of the button.
 
-  // Top-side decoupling surrounds the bridge and clears the flash and USB parts.
+  // Top-only bypass banks leave the PCIe surface corridors clear.
   VCCH_DECOUPLING: {pcbX: 34.045, pcbY: 83.575, offBoard: false},
-  VCCA33_DECOUPLING: {pcbX: 35.83435, pcbY: 93.645, offBoard: false},
-  VCCL_DECOUPLING: {pcbX: 21.0799, pcbY: 97.98, offBoard: false},
-  VDD_DECOUPLING: {pcbX: 16.6799, pcbY: 83.175, offBoard: false},
-  "VDD_DECOUPLING/0": {pcbX: 0, pcbY: 8.305},
+  VCCA33_DECOUPLING: {pcbX: 35.83435, pcbY: 88.545, offBoard: false},
+  VCCL_DECOUPLING: {pcbX: 23.545, pcbY: 103.78, offBoard: false},
+  VDD_DECOUPLING: {pcbX: 20.445, pcbY: 81.375, offBoard: false},
+  "VDD_DECOUPLING/0": {pcbX: 1.0349, pcbY: 28.405},
   "VDD_DECOUPLING/1": {pcbX: 0, pcbY: 0},
 
   // A1/B1 are at native -X; 270 degrees puts the bracket end at the top.
   PCIE_LINK: {pcbX: 5, pcbY: 26.12, pcbRotation: 270, offBoard: false}, // Original position, 5 mm above ATX.
   // Clock links share identical top-side geometry beside A13/A14. The slower
   // control links and CLKREQ pull-up form a second column toward the bridge.
-  R_PCIE_REFCLK_P: {pcbX: 15.83435, pcbY: 99.4408, offBoard: false},
-  R_PCIE_REFCLK_N: {pcbX: 15.83435, pcbY: 98.2408, offBoard: false},
-  R_PCIE_PERST: {pcbX: 18.23435, pcbY: 102.68, offBoard: false},
-  R_PCIE_CLKREQ: {pcbX: 18.23435, pcbY: 99.48, offBoard: false},
-  R_PCIE_CLKREQ_PU: {pcbX: 18.234355, pcbY: 101.08, offBoard: false},
+  R_PCIE_REFCLK_P: {pcbX: 15.58, pcbY: 100.03435, offBoard: false},
+  R_PCIE_REFCLK_N: {pcbX: 16.78, pcbY: 100.03435, offBoard: false},
+  R_PCIE_PERST: {pcbX: 16.43435, pcbY: 102.68, offBoard: false},
+  R_PCIE_CLKREQ: {pcbX: 18.43435, pcbY: 104.98, offBoard: false},
+  R_PCIE_CLKREQ_PU: {pcbX: 18.434355, pcbY: 106.58, offBoard: false},
   // Four top-side TX pairs in the left strip, beside slot B14/B15 through B27/B28.
   // Anchors use courtyard lower-left corners; centers share X=3 mm and 1.2 mm P/N pitch.
   C_TX0_P: {pcbX: 2.0799, pcbY: 98.4408, offBoard: false},
@@ -79,13 +90,13 @@ export const pcbGroupPlacements = {
   "SLOT_DECOUPLING/C133_PLACEMENT": {pcbX: 0, pcbY: 3.5}, // Second 12 V bypass.
   "SLOT_DECOUPLING/C131_PLACEMENT": {pcbX: 0, pcbY: 0}, // A9/A10, 3.3 V.
   // Bulk capacitors sit side by side on the same centerline, outside the card zone.
-  "SLOT_DECOUPLING/C134_PLACEMENT": {pcbX: 3.2, pcbY: 4.94},
-  "SLOT_DECOUPLING/C135_PLACEMENT": {pcbX: 17.1, pcbY: 6.74},
+  "SLOT_DECOUPLING/C134_PLACEMENT": {pcbX: 3.2, pcbY: 7.94},
+  "SLOT_DECOUPLING/C135_PLACEMENT": {pcbX: 17.1, pcbY: 9.74},
   SLOT_POWER: {pcbX: 25.0, pcbY: 53.0, pcbRotation: 180, offBoard: false}, // Tuck the slot switches under the bucks toward the bridge; output capacitors stay at the slot.
 
   USB: {pcbX: 44.2, pcbY: 91.7, pcbRotation: 90, offBoard: false}, // Upper-right; cutout opens onto the right edge.
-  USB4_LANES: {pcbX: 40.2, pcbY: 92.7653302, offBoard: false}, // Four symmetric pair cells behind USB-C.
-  USB_VBUS_SENSE: {pcbX: 35.834355, pcbY: 98.68, offBoard: false}, // Top-side filter column near bridge G1, clear of the USB4 lane groups.
+  USB4_LANES: {pcbX: 40.2, pcbY: 92.5653302, offBoard: false}, // Top-side banks, with bottom escapes returning before the ESD pads.
+  USB_VBUS_SENSE: {pcbX: 37.434355, pcbY: 98.78, offBoard: false}, // Top-side filter outside the coupled USB4 corridors.
   ATX: {pcbX: 0, pcbY: 0, offBoard: false}, // Courtyard meets the bottom/left board edges.
   R_PSU_ON: {pcbX: 47.50435, pcbY: 23.28, offBoard: false}, // Below the PSU LED near ATX, with clearance for rework.
   // Local buck layouts keep VIN bypassing and the SW/inductor loops compact.
@@ -93,7 +104,7 @@ export const pcbGroupPlacements = {
   VCCL_BUCK_INPUT: {pcbX: 21.995002, pcbY: 72.0, offBoard: false},
   VDD_BUCK_INPUT: {pcbX: 30.995002, pcbY: 72.0, offBoard: false},
   BUCK_ENABLE: {pcbX: 34, pcbY: 62, offBoard: false}, // Clear the slot-power switch and discharge resistor below the monitor.
-  PSU_CONTROL: {pcbX: 39.5, pcbY: 24, offBoard: false}, // Above ATX beside the right-edge PSU indicator.
+  PSU_CONTROL: {pcbX: 39.5, pcbY: 22.11, offBoard: false}, // Bypass below VCC, clear of the SOT-23 courtyard; driver and resistors retain their positions.
 } satisfies Record<string, PcbGroupPlacement>;
 
 let renderedPlacementGroups: PcbPlacementGroups | undefined;
@@ -124,6 +135,10 @@ const pcbPartElements = new Set([
 // before placement checks, routing, or CAD generation. This also includes loose
 // schematic sections, which do not have a native <group> element.
 function bottomLeftGroupLayout() {
+  let usb4Phase: AutoroutingPhase | undefined;
+  let pciePhase: AutoroutingPhase | undefined;
+  let usb2Phase: AutoroutingPhase | undefined;
+  let clockPhase: AutoroutingPhase | undefined;
   const members = new Map<string, Set<string>>();
   const nativeGroups = new Map<string, Group>();
   const looseOffsets: PcbPlacementGroups["looseOffsets"] = {};
@@ -146,6 +161,10 @@ function bottomLeftGroupLayout() {
           .map(([name, group]) => [name, group.pcb_group_id!])),
       };
       applyPcbGroupPlacements(json, pcbGroupPlacements, renderedPlacementGroups);
+      if (usb4Phase) prepareUsb4Routing(board, usb4Phase);
+      if (pciePhase) preparePcieConnectorRouting(board, pciePhase);
+      if (usb2Phase) prepareUsb2Routing(board, usb2Phase);
+      if (clockPhase) prepareBridgeClockRouting(board, clockPhase);
       // Omit footprint outlines, but retain board artwork and the bridge's A1 corner marker.
       // Keep text, circular pin markers, and placement courtyards.
       const {db} = board.root!;
@@ -165,9 +184,11 @@ function bottomLeftGroupLayout() {
       originalCadRender();
       if (board.root!.pcbDisabled) return;
       const {db} = board.root!;
-      for (const graphic of flamingoSilkscreen({pcbX: 42, pcbY: 49, pcbRotation: 130})) db.pcb_silkscreen_graphic.insert(graphic);
-      // Companion badge between the PSU_OK LED and flamingo, in board coordinates.
-      for (const graphic of tsMarkSilkscreen({pcbX: 44.5, pcbY: 36.5, pcbRotation: 90})) db.pcb_silkscreen_graphic.insert(graphic);
+      if (showSilkscreenArtwork) {
+        for (const graphic of flamingoSilkscreen({pcbX: 42, pcbY: 49, pcbRotation: 130})) db.pcb_silkscreen_graphic.insert(graphic);
+        // Companion badge between the PSU_OK LED and flamingo, in board coordinates.
+        for (const graphic of tsMarkSilkscreen({pcbX: 44.5, pcbY: 36.5, pcbRotation: 90})) db.pcb_silkscreen_graphic.insert(graphic);
+      }
       for (const text of [...db.pcb_silkscreen_text.list()]) {
         const graphics = outlineSilkscreenText(text);
         for (const graphic of graphics) db.pcb_silkscreen_graphic.insert(graphic);
@@ -175,7 +196,11 @@ function bottomLeftGroupLayout() {
       }
     };
   };
-  return {addPart, nativeGroups, looseOffsets, attachBoard};
+  return {addPart, nativeGroups, looseOffsets, attachBoard,
+    attachUsb4Phase: (phase: AutoroutingPhase | null) => { if (phase) usb4Phase = phase; },
+    attachUsb2Phase: (phase: AutoroutingPhase | null) => { if (phase) usb2Phase = phase; },
+    attachClockPhase: (phase: AutoroutingPhase | null) => { if (phase) clockPhase = phase; },
+    attachPciePhase: (phase: AutoroutingPhase | null) => { if (phase) pciePhase = phase; }};
 }
 
 // Resolve pure component functions to apply group positions from this file only.
@@ -268,6 +293,10 @@ function placePcbGroups(
   return cloneElement(node, {
     ...groupProps,
     ...(node.type === "board" ? {pcbRelative: true, ref: layout.attachBoard} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "USB4_FIXED" ? {ref: layout.attachUsb4Phase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "PCIE_TX_CONNECTOR" ? {ref: layout.attachPciePhase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "USB2_FIXED" ? {ref: layout.attachUsb2Phase} : {}),
+    ...(node.type === "autoroutingphase" && props.name === "BRIDGE_CLOCKS" ? {ref: layout.attachClockPhase} : {}),
     ...(props.children === undefined ? {} : {children}),
   });
 }
@@ -285,14 +314,19 @@ export default function Board() {
   return placePcbGroups(
     <board
       {...jlcpcbBoardRules}
+      autorouter={{...jlcpcbBoardRules.autorouter, allowViaInPad: true}}
+      isViaInPadAllowed={true}
+      enableViaStitching={true} viaStitchPitch={0.7}
       // Top view in millimeters: +X right, +Y up. ATX remains on the bottom edge.
       // Original outline, without added M3 mounting holes or screw keepouts.
       width="52.5mm"
       height="123.62mm"
       boardAnchorAlignment="bottom_left"
       boardAnchorPosition={{x: 0, y: 0}}
-      routingDisabled={true}
+      routeRemaining={false}
       layers={6}
+      // Nominal order thickness. The selected JLC06161H-3313 fabrication
+      // recipe and its 1.54 mm calculator value are in manufacturing/stackup/.
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
@@ -300,6 +334,49 @@ export default function Board() {
       <silkscreentext text="rev 1" pcbX={48.9} pcbY={36.5} pcbRotation={90} fontSize={0.8}
         layer="top" anchorAlignment="center"/>
       <net name="GND"/>
+      {/* Nominal 0.21 mm via drill-edge clearance. The emitted-polygon check
+          enforces 0.20 mm, including the polygon approximation of apertures. */}
+      <copperpour name="GND_L2" connectsTo="net.GND" layer="inner1" clearance="0.2mm" padMargin={.16} cutoutMargin={.215} boardEdgeMargin="0.2mm"/>
+      <copperpour name="GND_L5" connectsTo="net.GND" layer="inner4" clearance="0.2mm" padMargin={.16} cutoutMargin={.215} boardEdgeMargin="0.2mm"/>
+      {usbGuardBands.flatMap(band=>band.layers.map(layer=><Fragment key={`usb-shield-${layer}-${band.name}`}><copperpour
+        name={`USB_SHIELD_${layer}_${band.name}`} connectsTo="net.GND" layer={layer}
+        clearance={0.8} traceMargin={0.8} padMargin={0.1} boardEdgeMargin={0.1} useThermalReliefs={false}
+        outline={band.outline}/></Fragment>))}
+      {usbShieldFences.flat().filter((p,i,all)=>all.findIndex(q=>q.x===p.x&&q.y===p.y)===i)
+        .filter(p=>!(p.x===40.5&&p.y===102.8||p.x===40.9&&p.y===95.7)).map(({x,y},i)=><Fragment key={`usb-fence-${i}`}>
+        <via name={`USB_SHIELD_FENCE_${i}`} pcbX={x} pcbY={y} fromLayer="top" toLayer="bottom"
+          holeDiameter={.2} outerDiameter={.3} connectsTo="net.GND"/>
+      </Fragment>)}
+      <autoroutingphase name="USB4_FIXED" phaseIndex={0}
+        minTraceWidth={usb4Rules.neckWidth}
+        connections={usb4RoutedContacts.flatMap(({name, ball}) => [`ASM2464PDX.${ball}`, `C_USB_${name}.pin1`])}
+        pcbTracePaths={[]}/>
+      <PcieConnectorRouting/>
+      <PsuStatusRouting/>
+      <Usb2Routing/>
+      <BridgeClockRouting/>
+      {/* Local return vias bridge the two GND references beside row transitions. */}
+      {[[42.65, 100.74475],
+        [40.9, 95.7], [40.2, 97.9], [40.5, 102.8],
+        [45.875, 99.75], [45.875, 101.65], [45.875, 97.75], [45.2, 95.8]].map(([x, y], i) =>
+        <Fragment key={`usb-return-${i}`}><via name={`USB4_GND_RETURN_${i}`} pcbX={x} pcbY={y}
+          fromLayer="top" toLayer="bottom" holeDiameter={0.2} outerDiameter={0.35} connectsTo="net.GND"/></Fragment>)}
+      {/* Filled/capped GND vias flank the fine-pitch USB4 launches on both columns. */}
+      {[98.3200065, 99.2400065, 100.1600065, 101.0800065, 102.0000065].flatMap((y, row) =>
+        [33.64, 34.1].filter(x => x === 33.64 || row !== 1 && row !== 3).map((x, column) => <Fragment key={`usb-bga-return-${row}-${column}`}><via
+          name={`USB4_BGA_GND_${row}_${column}`} pcbX={x} pcbY={y}
+          fromLayer="top" toLayer="bottom" holeDiameter={usb4Rules.bgaViaHole}
+          outerDiameter={usb4Rules.bgaViaDiameter} connectsTo="net.GND"/></Fragment>))}
+      {usb4RoutedContacts.map(({name, ball, contact}) => <Fragment key={`route-${name}`}>
+        <trace name={`USB4_${name}_PHY_A`} from={`ASM2464PDX.${ball}`} to={`D_USB_${name}.pin1`}
+          routingPhaseIndex={0} {...usb4TraceRules}/>
+        <trace name={`USB4_${name}_PHY_B`} from={`D_USB_${name}.pin1`} to={`C_USB_${name}.pin2`}
+          routingPhaseIndex={0} {...usb4TraceRules}/>
+        <trace name={`USB4_${name}_CON_A`} from={`C_USB_${name}.pin1`} to={`R_USB_${name}.pin1`}
+          routingPhaseIndex={0} {...usb4TraceRules}/>
+        <trace name={`USB4_${name}_CON_B`} from={`R_USB_${name}.pin1`} to={`USBC.${contact}`}
+          routingPhaseIndex={0} {...usb4TraceRules}/>
+      </Fragment>)}
       <net name="GNDA" connectsTo={["net.GND"]}/>
       <net name="VDD"/>
       <net name="VCCH"/>
@@ -340,6 +417,7 @@ export default function Board() {
             <net
               name={`ASM_P${direction}${polarity}${lane}`}
               connectsTo={[`.ASM2464PDX > .P${direction}${polarity}${lane}`]}
+              routingPhaseIndex={1} nominalTraceWidth={pcieConnectorRules.width}
             />
           </Fragment>
         ))
@@ -439,7 +517,7 @@ export default function Board() {
           ))}
           <RC0402FR_0712K1L
             name="R_RST_N"
-            pcbX={3.8} pcbY={8.1}
+            pcbX={3.5} pcbY={11}
             schSectionName="BRIDGE_CHIP"
             schX={6}
             schY={-2.3}
@@ -449,7 +527,7 @@ export default function Board() {
           {/* Match the reference design: hold TEST_EN low during normal operation. */}
           <resistor
             name="R_TEST_EN"
-            pcbX={7} pcbY={-3}
+            pcbX={9.3} pcbY={9}
             schSectionName="BRIDGE_CHIP"
             resistance="4.7k"
             footprint="0402"
@@ -541,21 +619,15 @@ export default function Board() {
           <netlabel inline net="GND" connection="C_SPI_VCC.pin2"/>
           <group name="OSCILLATOR" schX={10.75} schY={-2.85} pcbRelative>
             <XXCBCLNANF_25M
-              name="XCLK" pcbX={0} pcbY={0}
+              name="XCLK" pcbX={0} pcbY={0} pcbRotation={270} layer="top"
+              connections={{pin2:"net.GND",pin4:"net.GND"}}
               schSectionName="BRIDGE_OSCILLATOR"
               schX={0}
               schY={0}
               loadCapacitance="10pF"
-              connections={{
-                pin1: "net.ASM_XI",
-                pin2: "net.GND",
-                pin3: "net.ASM_XO",
-                pin4: "net.GND",
-              }}
             />
-            <TCC0402COG100J500AT name="C1" pcbX={-3.3} pcbY={-1} schSectionName="BRIDGE_OSCILLATOR"
-              schX={3} schY={0} schOrientation="vertical"
-              connections={{pin1: "net.ASM_XI", pin2: "net.ASM_XO"}}/>
+            <TCC0402COG100J500AT name="C1" pcbX={-3.3} pcbY={-1.6} layer="top" schSectionName="BRIDGE_OSCILLATOR"
+              schX={3} schY={0} schOrientation="vertical"/>
             <netlabel inline net="ASM_XI" connection="C1.pin1"/>
             <netlabel inline net="ASM_XO" connection="C1.pin2"/>
           </group>
@@ -690,14 +762,10 @@ export default function Board() {
             <A_0402WGF0000TCE
               schSectionName="PCIE_CONTROL"
               name={`R_PCIE_REFCLK_${polarity}`}
-              layer="top" pcbRotation={180}
+              layer="top" pcbRotation={270}
               pcbStyle={{silkscreenTextVisibility: "hidden"}}
               schX={-9.2}
               schY={-0.6 - index * 0.8}
-              connections={{
-                pin1: `net.ASM_REFCLK_${polarity}0`,
-                pin2: `.PCIe > .REFCLK_${polarity}`,
-              }}
             />
             <netlabel inline
               net={`ASM_REFCLK_${polarity}0`}
@@ -743,7 +811,7 @@ export default function Board() {
           net="ASM_WAKE_N"
           connection="PCIe.WAKE_N"
         />
-        {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map((polarity, index) => (
+        {[0, 1, 2, 3].flatMap(lane => (["P", "N"] as const).map(polarity => (
           <Fragment key={`PCIE_RX${lane}_${polarity}`}>
             <netlabel inline
               net={`ASM_PRX${polarity}${lane}`}
@@ -766,9 +834,6 @@ export default function Board() {
               pcbRotation={0}
               layer="top"
               pcbStyle={{silkscreenTextVisibility: "hidden"}}
-              connections={{
-                pin2: `.PCIe > .TX${lane}_${polarity}`,
-              }}
             />
             <netlabel inline
               net={`ASM_PTX${polarity}${lane}`}
@@ -842,8 +907,6 @@ export default function Board() {
             A1: "net.GND", A12: "net.GND", B1: "net.GND", B12: "net.GND",
             A4: "net.USB_VBUS", A9: "net.USB_VBUS", B4: "net.USB_VBUS", B9: "net.USB_VBUS",
             A5: ".ASM2464PDX > .CC1", B5: ".ASM2464PDX > .CC2",
-            A6: ".ASM2464PDX > .UDP", B6: ".ASM2464PDX > .UDP",
-            A7: ".ASM2464PDX > .UDM", B7: ".ASM2464PDX > .UDM",
             A8: ".ASM2464PDX > .SBU1", B8: ".ASM2464PDX > .SBU2",
             // These nets connect through Usb4Lanes to the corresponding bridge pins.
             A2: "net.USB_TX1_P", A3: "net.USB_TX1_N",

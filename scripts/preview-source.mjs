@@ -4,6 +4,7 @@ import {join, relative} from "node:path";
 import ts from "typescript";
 
 const inputs = ["index.circuit.tsx", "components", "imports", "lib", "models", "assets", "patches", "scripts",
+  "manufacturing", "jlcpcb-clearance-rules.json",
   "package.json", "bun.lock", "tsconfig.json", "tscircuit.config.json", "tscircuit.config.ts"];
 
 function literal(node) {
@@ -92,5 +93,7 @@ export function canReusePlacement(cache, input) {
   return cache?.version === 1 && cache.translationOnly === true && input.placements !== null
     && cache.sourceHash === input.sourceHash
     && placementLayoutKey(cache.placements) === placementLayoutKey(input.placements)
-    && !cache.circuitJson.some(e => e.type === "pcb_trace" || e.type === "pcb_via");
+    // Pours contain derived clearances around moved pads and holes. Translating
+    // components alone cannot rebuild those plane openings.
+    && !cache.circuitJson.some(e => ["pcb_trace", "pcb_via", "pcb_copper_pour"].includes(e.type));
 }

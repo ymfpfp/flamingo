@@ -1,5 +1,5 @@
 {
-  "revision": "1.0",
+  "revision": "1.6",
   "footprint": {
     "circularLandDiameterMm": 0.2,
     "circularSolderMaskMarginMm": 0.025,
@@ -9,7 +9,14 @@
     "oblongWidthMm": 0.1778
   },
   "escape": {
-    "innerArrayNets": ["GND", "GNDA", "VCCH", "VCCA33", "VCCL", "VDD"],
+    "innerArrayNets": [
+      "GND",
+      "GNDA",
+      "VCCH",
+      "VCCA33",
+      "VCCL",
+      "VDD"
+    ],
     "outerEscapeTraceWidthMm": 0.0762,
     "innerDogboneOffsetMm": 0.325,
     "viaCopperDiameterMm": 0.25,
@@ -22,5 +29,231 @@
   },
   "vendorAcceptance": {
     "received": false
+  },
+  "usb4Escape": {
+    "signalLayersByPair": {
+      "TX1": "bottom",
+      "TX2": "top",
+      "RX1": "top",
+      "RX2": "bottom"
+    },
+    "referenceLayers": {
+      "top": "inner1",
+      "bottom": "inner4"
+    },
+    "viaDrillMm": 0.15,
+    "viaCopperDiameterMm": 0.25,
+    "innerSignalViaInPadBalls": [
+      "T2",
+      "Y2"
+    ],
+    "groundViaInPadBalls": [
+      "N1",
+      "N2",
+      "R2",
+      "U1",
+      "U2",
+      "W2",
+      "AA1",
+      "AA2"
+    ],
+    "fill": "epoxy filled and copper capped",
+    "connectorViaDrillMm": 0.2,
+    "connectorViaCopperDiameterMm": 0.4,
+    "note": "The 0.25 mm via copper expands the effective top copper at the 0.20 mm inner signal lands and the selected ground lands. Existing mask/paste openings are retained as a candidate only. Vendor DFM/DFA must approve the combined land, filled/capped via, mask and stencil construction before fabrication.",
+    "componentLayer": "top",
+    "returnViaDrillMm": 0.2,
+    "returnViaCopperDiameterMm": 0.4,
+    "directTopNeck": {
+      "pairs": [
+        "RX1",
+        "TX2"
+      ],
+      "widthMm": 0.0762,
+      "matchedLengthPerConductorMm": 0.955269,
+      "padToTraceClearanceMm": 0.1,
+      "vendorAcceptanceReceived": false
+    },
+    "signalViaCountsPerConductor": {
+      "TX1": 2,
+      "TX2": 2,
+      "RX1": 2,
+      "RX2": 2
+    },
+    "viaGuidance": {
+      "source": "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf",
+      "page": 3,
+      "table": "USB4 20Gbps",
+      "text": "VIA hole Max. <=2",
+      "scopeInterpretation": "signal vias per conductor",
+      "userImposedLimit": 2,
+      "status": "All four pairs meet the two-via maximum on each complete conductor. Channel SI review remains pending."
+    }
+  },
+  "usb2Escape": {
+    "source": "ASMedia PCB Guideline R1.0 page 3, USB2.0 UDP/N",
+    "signalViaInPadBalls": ["M2"],
+    "connectorViaInPadContacts": ["A7", "B6", "B7"],
+    "bgaViaCopperDiameterMm": 0.25,
+    "bgaViaDrillMm": 0.15,
+    "connectorViaCopperDiameterMm": 0.3,
+    "connectorViaDrillMm": 0.2,
+    "maximumSignalViasPerConductor": 4,
+    "filledAndCapped": true,
+    "vendorAcceptanceReceived": false
+  },
+  "usbShielding": {
+    "outerLayers": ["top", "bottom"],
+    "surfaceCopperStyle": "authored constant-width guard bands",
+    "nominalGuardOutlineWidthsMm": [0.5, 0.6],
+    "signalTraceToShieldClearanceMm": 0.8,
+    "asmedia8hMinimumMm": 0.7952,
+    "authoredFenceMaximumPitchMm": 1,
+    "nativeStitchGridMm": 0.7,
+    "stitchViaCopperDiameterMm": 0.3,
+    "stitchViaDrillMm": 0.2,
+    "innerGroundPourPadMarginMm": 0.16,
+    "nominalSignalViaDrillToGroundCopperMm": 0.21,
+    "requiredSignalViaDrillToGroundCopperMm": 0.2,
+    "note": "Authored guard outlines replace the rectangular surface flood. Native pour solving clips them to pad, trace and cutout clearances. Check emitted connected copper for ground attachment, fence-via contact, inner drill clearances, and at least 0.45 mm between USB-region via drills and plated mounting-slot drills. Fixed BGA and component/connector launches remain separate final SI regions. Filled/capped ground vias can touch shunt ground lands; include these in the combined assembly review."
+  },
+  "usb4CapacitorDeviation": {
+    "guideRequirement": "220 nF TX / 330 nF RX, 0201 X7R",
+    "prototypeSelection": "0201 X5R, GRM033R61E224KE01D / GRM033R61E334KE15D",
+    "acceptedByUser": true,
+    "reconfirmedOn": "2026-10-19",
+    "note": "Retain the accepted 0201 X5R parts. This is an explicit prototype deviation from the ASMedia dielectric requirement; it does not establish effective capacitance or channel compliance."
+  },
+  "pcieTxEscape": {
+    "revision": "1.2",
+    "signalViaCopperDiameterMm": 0.25,
+    "signalViaDrillMm": 0.15,
+    "capacitorViaCopperDiameterMm": 0.3,
+    "capacitorViaDrillMm": 0.2,
+    "signalViaInPadBalls": [
+      "R20",
+      "U21",
+      "AA17",
+      "AA15"
+    ],
+    "groundViaLand": "V9",
+    "groundViaOffsetMm": {
+      "x": -0.05,
+      "y": -0.08
+    },
+    "fill": "epoxy filled and copper capped",
+    "surfaceTraceWidthMm": 0.1234,
+    "pairGapMm": 0.1001,
+    "signalViasPerConductor": 2,
+    "vendorAcceptanceReceived": false,
+    "note": "Constant-offset bottom trunks retain nominal pair geometry. Local top/bottom escapes balance planar length. The AA15 filled/capped land via frees the direct top RX3 escape; TX3 starts coupling on its northeast launch. Filled/capped signal and ground land vias require combined land/mask/stencil DFM review. Geometry does not establish electrical delay or 3D channel SI.",
+    "additionalGroundViaInPadBalls": [
+      "Y18",
+      "AA16"
+    ]
+  },
+  "pcieRxEscape": {
+    "revision": "1.1",
+    "signalLayersByPair": {
+      "RX0": [
+        "top",
+        "bottom"
+      ],
+      "RX1": [
+        "top",
+        "bottom"
+      ],
+      "RX2": [
+        "top",
+        "bottom"
+      ],
+      "RX3": [
+        "top"
+      ]
+    },
+    "referenceLayers": {
+      "top": "inner1",
+      "bottom": "inner4"
+    },
+    "surfaceTraceWidthMm": 0.1234,
+    "pairGapMm": 0.1001,
+    "signalViaInPadBalls": [
+      "N20",
+      "W20",
+      "AA19"
+    ],
+    "partialSignalLandViaBall": "N21",
+    "groundViaInPadBalls": [
+      "V21"
+    ],
+    "bgaViaCopperDiameterMm": 0.25,
+    "bgaViaDrillMm": 0.15,
+    "returnToTopViaCopperDiameterMm": 0.3,
+    "returnToTopViaDrillMm": 0.2,
+    "fill": "epoxy filled and copper capped",
+    "signalViaCountsPerConductor": {
+      "RX0": 2,
+      "RX1": 2,
+      "RX2": 2,
+      "RX3": 0
+    },
+    "directTopNeck": {
+      "pair": "RX3",
+      "widthMm": 0.0762,
+      "positiveLengthMm": 0.794155,
+      "negativeLengthMm": 1.164454,
+      "padToTraceClearanceMm": 0.1,
+      "note": "The different neck lengths compensate drawn length at the coupled 90 degree exit. This is not electrical-delay matching."
+    },
+    "maxPlanarSkewMm": 0.025,
+    "vendorAcceptanceReceived": false,
+    "note": "Native saved constant-offset trunks target 85 ohms on the selected symmetric outer stackup. Short BGA necks, pad flares, vias and nearby copper remain launch discontinuities for final SI review."
+  },
+  "bridgeClocks": {
+    "source": "ASMedia PCB Guideline R1.0, page 5",
+    "targetDifferentialOhms": 85,
+    "guideTolerancePercent": 15,
+    "surfaceTraceWidthMm": 0.1234,
+    "pairGapMm": 0.1001,
+    "crystalMaximumCopperLengthMm": 12.7,
+    "crystalSignalLayers": ["top"],
+    "crystalSignalViasPerConductor": 0,
+    "crystalCaseGroundViaInPadPins": ["pin2", "pin4"],
+    "crystalCaseViaCopperDiameterMm": 0.3,
+    "crystalCaseViaDrillMm": 0.2,
+    "crystalCaseViaFill": "epoxy filled and copper capped",
+    "refclkMaximumConnectorCopperLengthMm": 177.8,
+    "refclkMaximumPlanarSkewMm": 0.127,
+    "refclkSignalViasPerConductor": 2,
+    "refclkViaCopperDiameterMm": 0.3,
+    "refclkViaDrillMm": 0.2,
+    "refclkViaInPadParts": ["R_PCIE_REFCLK_P.pin1", "R_PCIE_REFCLK_N.pin1"],
+    "refclkViaFill": "epoxy filled and copper capped",
+    "topBgaNeckTraces": ["CLOCK_XO_BRIDGE", "CLOCK_REFCLK_N_PHY"],
+    "neckWidthMm": 0.0762,
+    "componentLayer": "top",
+    "vendorAcceptanceReceived": false,
+    "fullChannelSiVerified": false,
+    "note": "Coupled sections retain nominal 85 ohm geometry and more than 8h foreign copper spacing. The short BGA necks, component flares and REFCLK vias remain launch discontinuities for final SI review. Filled/capped case and REFCLK land vias require combined land/mask/stencil review. The XI/XO table gives no explicit skew or via-count limit. Crystal startup and frequency require oscillator review and hardware measurements."
+  },
+  "pcieRoutingIsolation": {
+    "source": "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf",
+    "page": 5,
+    "rule": "S1 > 8h",
+    "outerDielectricMm": 0.0994,
+    "minimumForeignCopperGapMm": 0.7952,
+    "scope": "Coupled TX/RX outer-layer routing, including foreign pads, ground vias and traces",
+    "launchRegionsMm": {
+      "bottomAfterBgaVia": 3,
+      "viaOrCapacitor": 1,
+      "slotPad": 2,
+      "topBgaEscapeProjectMaximum": 3.2
+    },
+    "launchQualification": "Fabrication DRC applies throughout. Fixed pad/via launches require final 3D SI review; no 8h or impedance qualification is claimed for the excluded launch regions.",
+    "bypassPlacement": "All components on top. Fast VDD bypasses below the bridge, with larger bypasses and bulk capacitors in clear top-side pockets; quantities and values unchanged",
+    "componentLayer": "top",
+    "twoSidedAssemblyRequired": false,
+    "powerRoutingAndPdnReviewComplete": false,
+    "fullChannelSiVerified": false
   }
 }

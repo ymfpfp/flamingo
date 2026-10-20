@@ -37,6 +37,14 @@ for (const component of components) {
 }
 const net = port => root(port.source_port_id);
 
+test("USB2 keeps both receptacle rows connected with the correct polarity",()=>{
+  for(const [bridge,contacts] of [["UDP",["A6","B6"]],["UDM",["A7","B7"]]]){
+    for(const contact of contacts) assert.equal(net(port("ASM2464PDX",bridge)),net(port("USBC",contact)));
+  }
+  assert.notEqual(net(port("ASM2464PDX","UDP")),net(port("ASM2464PDX","UDM")));
+  assert.notEqual(net(port("ASM2464PDX","UDP")),net(port("USBC","A1")));
+});
+
 // Independent physical-contact mapping from ASMedia ASM2464PDX_TI_R03 sheet 3
 // and the revision 0.3 BGA pinout. This catches lane and polarity swaps.
 const contacts = [

@@ -7,7 +7,7 @@ import {bridgeDecouplingPlacement} from "lib/bridge-decoupling-placement";
 // Keep the reference's values and quantities on our 1.13V VDD rail.
 // The existing 22uF regulator output capacitor is additional, matching C79
 // on reference sheet 4. Check TPS62903 stability with the combined bank.
-// Top-side placement follows the left edge of the VDD supply region.
+// Top-only bypass placement preserves the PCIe outer-layer isolation corridors.
 const banks = [
   {refs: [1, 9, 15, 22, 24, 28, 32, 36, 40, 42, 44], Capacitor: CL05A225KO5NQNC},
   {refs: [4, 12, 18], Capacitor: CL21A106KAYNNNE},

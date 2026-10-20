@@ -9,7 +9,7 @@ export function UsbVbusSense() {
       <schematicsection name="USB_VBUS_SENSE" displayName="USB VBUS Sense"/>
       <resistor
         name="R_VBUS_TOP"
-        pcbX={0} pcbY={2.9} pcbRotation={180} layer="top"
+        pcbX={0} pcbY={5} pcbRotation={180} layer="top"
         resistance="4.7k"
         tolerance="1%"
         footprint="0402"
@@ -23,7 +23,7 @@ export function UsbVbusSense() {
       />
       <A_0402WGF1002TCE
         name="R_VBUS_BOTTOM"
-        pcbX={0} pcbY={1.4} pcbRotation={0} layer="top"
+        pcbX={0} pcbY={3.8} pcbRotation={0} layer="top"
         schSectionName="USB_VBUS_SENSE"
         schX={0} schY={-1.1}
         schOrientation="vertical"

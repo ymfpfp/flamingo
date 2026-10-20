@@ -4,10 +4,14 @@ import {fileURLToPath} from "node:url";
 import {spawn} from "node:child_process";
 import {canReusePlacement, readPreviewInput} from "./preview-source.mjs";
 import {updatePlacementPreview} from "./placement-preview.ts";
+import {prepare3dViewer} from "./prepare-3d-viewer.mjs";
+import {cachePreviewModels} from "./preview-model-cache.mjs";
 
 const projectDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const previewDir = join(projectDir, "dist", "preview");
 const cacheFile = join(projectDir, "dist", "placement-preview-cache.json");
+const originalViewer = process.env.FLAMINGO_3D_ORIGINAL === "1";
+const viewerBundle = originalViewer ? undefined : prepare3dViewer(join(projectDir, "dist", "viewer"));
 const portIndex = process.argv.indexOf("--port");
 const port = portIndex < 0 ? "3020" : process.argv[portIndex + 1];
 if (!/^\d+$/.test(port ?? "") || Number(port) < 1 || Number(port) > 65535) throw new Error("Invalid preview port");
@@ -83,7 +87,11 @@ async function refresh() {
       }
       if (stopped) return;
       if (readPreviewInput(projectDir).inputKey !== input.inputKey) { dirty = true; continue; }
-      atomicWrite(join(previewDir, "circuit.json"), JSON.stringify(viewerJson(json)));
+      const view = viewerJson(json);
+      const cachedView = originalViewer ? view : await cachePreviewModels(view, previewDir);
+      if (stopped) return;
+      if (readPreviewInput(projectDir).inputKey !== input.inputKey) { dirty = true; continue; }
+      atomicWrite(join(previewDir, "circuit.json"), JSON.stringify(cachedView));
       lastInputKey = input.inputKey;
     } while (dirty && !stopped);
   } catch (error) {
@@ -127,7 +135,8 @@ try {
     if (existsSync(join(projectDir, "models"))) cpSync(join(projectDir, "models"), join(previewDir, "models"), {recursive: true});
     console.log("Edit pcbGroupPlacements in index.circuit.tsx. X/Y moves reuse the circuit and schematic.");
     viewer = spawn(process.execPath, [join(projectDir, "node_modules", ".bin", "tsci"), "dev", "circuit.json", "--port", port], {
-      cwd: previewDir, stdio: "inherit",
+      cwd: previewDir, stdio: "inherit", env: {...process.env,
+        ...(viewerBundle ? {RUNFRAME_STANDALONE_FILE_PATH: viewerBundle} : {})},
     });
     viewer.on("error", error => { console.error(error); process.exitCode = 1; stop(); });
     viewer.on("exit", code => { process.exitCode = code ?? 0; stop(); });

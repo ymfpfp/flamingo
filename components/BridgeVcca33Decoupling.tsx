@@ -5,7 +5,7 @@ import {bridgeDecouplingPlacement} from "lib/bridge-decoupling-placement";
 
 // ASMedia ASM2464PDX_TI_R03, sheet 3: R4 feeds VCCA33 from VCC33_SYS.
 // C7 and C8 decouple the analog side of that link to GND.
-// Top-side placement keeps the feed and bypass capacitors beside H5.
+// The fast bypass stays beside H5; the bulk capacitor clears the USB corridor.
 export function BridgeVcca33Decoupling() {
   return (
     <group name="VCCA33_DECOUPLING" schX={9.6} schY={7}>
@@ -51,7 +51,7 @@ export function BridgeVcca33Decoupling() {
         schX={0} schY={-2} fontSize={0.18} anchor="center"
       />
       <schematictext
-        text="Place the feed and capacitors beside H5 on the top side."
+        text="Keep the feed and 220nF beside H5; bulk is below USB4."
         schX={0} schY={-2.5} fontSize={0.18} anchor="center"
       />
     </group>

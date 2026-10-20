@@ -1,0 +1,177 @@
+{
+  "manufacturer": "JLCPCB",
+  "code": "JLC06161H-3313",
+  "status": "selected for the prototype",
+  "reviewedOn": "2026-10-18",
+  "nominalOrderThicknessMm": 1.6,
+  "calculatorFinishedThicknessMm": 1.54,
+  "finishedThicknessTolerancePercent": 10,
+  "surfaceFinish": "ENIG",
+  "solderMaskColor": "green",
+  "outerCopperOz": 1,
+  "innerCopperOz": 0.5,
+  "copperLayers": [
+    {
+      "number": 1,
+      "tscircuitLayer": "top",
+      "thicknessMm": 0.035,
+      "role": "USB4, PCIe, reference clock and local component connections"
+    },
+    {
+      "number": 2,
+      "tscircuitLayer": "inner1",
+      "thicknessMm": 0.0152,
+      "role": "continuous GND plane"
+    },
+    {
+      "number": 3,
+      "tscircuitLayer": "inner2",
+      "thicknessMm": 0.0152,
+      "role": "power regions"
+    },
+    {
+      "number": 4,
+      "tscircuitLayer": "inner3",
+      "thicknessMm": 0.0152,
+      "role": "power regions"
+    },
+    {
+      "number": 5,
+      "tscircuitLayer": "inner4",
+      "thicknessMm": 0.0152,
+      "role": "continuous GND plane"
+    },
+    {
+      "number": 6,
+      "tscircuitLayer": "bottom",
+      "thicknessMm": 0.035,
+      "role": "USB4 escapes, PCIe TX bridge sections and control signals, referenced to L5"
+    }
+  ],
+  "dielectrics": [
+    {
+      "betweenLayers": [
+        1,
+        2
+      ],
+      "material": "3313 prepreg",
+      "calculatorMaterialLabel": "3313 RC57% 4.2mil",
+      "thicknessMm": 0.0994,
+      "designDk": 4.1
+    },
+    {
+      "betweenLayers": [
+        2,
+        3
+      ],
+      "material": "FR-4 core",
+      "thicknessMm": 0.55,
+      "designDk": 4.6
+    },
+    {
+      "betweenLayers": [
+        3,
+        4
+      ],
+      "material": "2116 prepreg",
+      "calculatorMaterialLabel": "2116 RC54% 4.9mil",
+      "thicknessMm": 0.1088,
+      "designDk": 4.16
+    },
+    {
+      "betweenLayers": [
+        4,
+        5
+      ],
+      "material": "FR-4 core",
+      "thicknessMm": 0.55,
+      "designDk": 4.6
+    },
+    {
+      "betweenLayers": [
+        5,
+        6
+      ],
+      "material": "3313 prepreg",
+      "calculatorMaterialLabel": "3313 RC57% 4.2mil",
+      "thicknessMm": 0.0994,
+      "designDk": 4.1
+    }
+  ],
+  "solderMaskModel": {
+    "aboveSubstrateMm": 0.03048,
+    "aboveTraceMm": 0.01524,
+    "betweenTracesMm": 0.03048,
+    "designDk": 3.8,
+    "source": "JLCPCB published impedance parameters"
+  },
+  "impedanceProfiles": [
+    {
+      "name": "USB4 and PCIe surface pairs",
+      "status": "manufacturer calculator geometry applied to saved surface routes; full SI validation pending",
+      "targetOhms": 85,
+      "requestedFabricationTolerancePercent": 10,
+      "model": "Differential Pair (Non coplanar), with solder mask",
+      "signalLayer": "top",
+      "referenceLayer": "inner1",
+      "inputPairGapMm": 0.1,
+      "calculatedTraceWidthMm": 0.1234,
+      "calculatedPairGapMm": 0.1001,
+      "calculatorSearchTolerancePercent": 0.5,
+      "note": "The calculator search tolerance is not the fabrication tolerance. Nearby top copper requires a coplanar model or sufficient separation. BGA necks and pad launches require separate review.",
+      "evidence": "calculator-85ohm.png",
+      "calculatorGuideTraceModel": {
+        "outerCopperThicknessMm": 0.04064,
+        "topWidthReductionFromBaseMm": 0.01778,
+        "note": "The calculator guide uses 1.6 mil outer trace copper and a 0.7 mil top-to-base width reduction. The stackup illustration lists nominal outer foil as 0.035 mm. Preserve this distinction in independent EM analysis."
+      }
+    },
+    {
+      "name": "USB4 bottom surface pairs",
+      "status": "nominal geometry mirrored from the top calculator model using the symmetric L5-L6 construction",
+      "targetOhms": 85,
+      "requestedFabricationTolerancePercent": 10,
+      "model": "Differential Pair (Non coplanar), with solder mask",
+      "signalLayer": "bottom",
+      "referenceLayer": "inner4",
+      "inputPairGapMm": 0.1,
+      "calculatedTraceWidthMm": 0.1234,
+      "calculatedPairGapMm": 0.1001,
+      "calculatorSearchTolerancePercent": 0.5,
+      "note": "The outer copper, 0.0994 mm dielectric and solder-mask model are nominally symmetric. The top calculator geometry is reused for L6 referenced to L5. Nearby bottom copper, via launches and pad transitions need separate SI review. This is not an independent field-solver result.",
+      "evidence": "calculator-85ohm.png",
+      "calculatorGuideTraceModel": {
+        "outerCopperThicknessMm": 0.04064,
+        "topWidthReductionFromBaseMm": 0.01778,
+        "note": "The calculator guide uses 1.6 mil outer trace copper and a 0.7 mil top-to-base width reduction. The stackup illustration lists nominal outer foil as 0.035 mm. Preserve this distinction in independent EM analysis."
+      }
+    }
+  ],
+  "laminate": {
+    "grade": "FR-4",
+    "exactProduct": null,
+    "lossTangentAt10GHz": null,
+    "copperRoughness": null,
+    "lossBudgetVerified": false,
+    "note": "The JLCPCB calculator guide specifies NP-155F for 4-8 layers and requires the corresponding material at ordering. Specify this family and obtain the exact core/prepreg variant. The stackup code alone does not guarantee a production assignment. The linked supplier sheets do not specify Df at 10 GHz.",
+    "calculatorModelFamily": "Nan Ya Plastics NP-155F",
+    "requiredFamily": "Nan Ya Plastics NP-155F",
+    "requestedTgC": 155,
+    "exactVariant": null,
+    "allowUnreviewedSubstitution": false,
+    "researchFile": "manufacturing/stackup/laminate-research.json"
+  },
+  "implementation": {
+    "boardNominalThicknessMm": 1.6,
+    "nativeDielectricStackupConfigured": false,
+    "note": "The circuit declares six copper layers and nominal board thickness. This file records the fabrication recipe. It does not configure dielectric thicknesses in the router or establish field-solver validation."
+  },
+  "sources": [
+    "https://jlcpcb.com/impedance",
+    "https://jlcpcb.com/pcb-impedance-calculator",
+    "https://jlcpcb.com/help/article/multi-layer-pcb-standard-laminated-structures",
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf",
+    "https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator",
+    "https://jlcpcb.com/certifications"
+  ]
+}
