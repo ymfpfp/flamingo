@@ -15,7 +15,7 @@ export const pcieRxContacts = [
 ] as const;
 export const pcieRxReturns = [
   {x: 15.6, y: 97.2}, {x: 15.95, y: 95.6},
-  {x: 19.85, y: 99.6}, {x: 18.85, y: 101.55}, {x: 19.5, y: 103.0},
+  {x: 19.88, y: 100.0, diameter: 0.25, hole: 0.15}, {x: 18.85, y: 101.55, retired: true}, {x: 19.5, y: 103.0},
 ] as const;
 export const pcieRxBgaReturns = [{x: 24.9, y: 100.6200074}] as const;
 

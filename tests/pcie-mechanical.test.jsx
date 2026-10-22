@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {checkPcieMechanicalZones, getPcieMechanicalZones, updatePcieMechanicalZones} from "../lib/pcie-mechanical";
+import {checkPcieConnectorKeepout, getPcieConnectorKeepout, updatePcieConnectorKeepout} from "../lib/pcie-mechanical";
 
 const fixture = () => [
   {type: "pcb_board", pcb_board_id: "board", center: {x: 0, y: 0}, width: 400, height: 400,
@@ -17,57 +17,53 @@ function part(json, x, y, layer = "top") {
     width: 1, height: 1, rotation: 0, layer});
 }
 
-test("CEM front, card and anti-misinsertion dimensions use the XKB datum", () => {
-  const zones = getPcieMechanicalZones(fixture()).zones;
-  const front = zones.find(z => z.name === "cem-front");
-  assert.ok(Math.abs(front.minX + 86.95) < 1e-9);
-  assert.ok(Math.abs(front.maxX + 71.7) < 1e-9);
-  const key = zones.find(z => z.name === "cem-key");
-  assert.equal(key.maxX, -44.5);
-  assert.ok(Math.abs(key.maxX - key.minX - 10.3) < 1e-9);
-  assert.equal(key.maxY - key.minY, 2.5);
-  assert.deepEqual(zones.find(z => z.name === "xkb-body").polygon,
+test("connector keepout covers the XKB assembly envelope", () => {
+  assert.deepEqual(getPcieConnectorKeepout(fixture()).polygon,
     [{x: -46, y: -5.1}, {x: 46, y: -5.1}, {x: 46, y: 4.6}, {x: -46, y: 4.6}]);
 });
 
-test("270-degree board placement clips the front zone outside the 55 x 120 board", () => {
+test("connector keepout rotates with the slot and clips to the board", () => {
   const json = fixture();
   Object.assign(json[0], {center: {x: 27.5, y: 60}, width: 55, height: 120});
   Object.assign(json[2], {center: {x: 8.344986, y: 69.2408656}, rotation: 270});
-  const zones = getPcieMechanicalZones(json).zones;
-  assert.equal(zones.some(z => z.name === "cem-front"), false);
-  const key = zones.find(z => z.name === "cem-key");
-  assert.ok(Math.abs(Math.min(...key.polygon.map(p => p.y)) - 113.7408656) < 1e-7);
-  assert.equal(Math.max(...key.polygon.map(p => p.y)), 120);
-  assert.ok(Math.abs(Math.max(...key.polygon.map(p => p.x)) - 9.594986) < 1e-7);
-  for (const zone of zones) for (const point of zone.polygon) {
+  const {polygon} = getPcieConnectorKeepout(json);
+  assert.ok(Math.abs(Math.min(...polygon.map(p => p.x)) - 3.244986) < 1e-7);
+  assert.ok(Math.abs(Math.min(...polygon.map(p => p.y)) - 23.2408656) < 1e-7);
+  assert.ok(Math.abs(Math.max(...polygon.map(p => p.x)) - 12.944986) < 1e-7);
+  assert.ok(Math.abs(Math.max(...polygon.map(p => p.y)) - 115.2408656) < 1e-7);
+  // Move the connector until its envelope crosses the top board edge.
+  json[2].center.y += 10;
+  const clipped = getPcieConnectorKeepout(json).polygon;
+  assert.equal(Math.max(...clipped.map(p => p.y)), 120);
+  for (const point of clipped) {
     assert.ok(point.x >= -1e-8 && point.x <= 55 + 1e-8 && point.y >= -1e-8 && point.y <= 120 + 1e-8);
   }
 });
 
-test("mechanical rules reject bodies, enforce each height, and report unknown heights", () => {
-  for (const [x, y, limit] of [[0, 0, 0], [-80, -20, 5.08], [0, -20, 15.24], [-49, 0, 6.35]]) {
+test("only components inside the connector keepout cause errors", () => {
+  const inside = fixture();
+  part(inside, 0, 0);
+  assert.equal(checkPcieConnectorKeepout(inside)[0].rule, "pcie_component_keepout");
+  for (const [x, y] of [[-80, -20], [0, -20], [-49, 0]]) {
     const json = fixture();
     part(json, x, y);
-    assert.equal(checkPcieMechanicalZones(json, {TEST: limit + 0.01})[0].severity, "error");
-    assert.equal(checkPcieMechanicalZones(json, {TEST: limit}).length, limit === 0 ? 1 : 0);
-    if (limit) assert.equal(checkPcieMechanicalZones(json)[0].rule, "pcie_height_unreviewed");
+    assert.deepEqual(checkPcieConnectorKeepout(json), []);
   }
   const bottom = fixture();
   part(bottom, 0, 0, "bottom");
-  assert.deepEqual(checkPcieMechanicalZones(bottom), []);
+  assert.deepEqual(checkPcieConnectorKeepout(bottom), []);
 });
 
 test("annotations are idempotent and never block copper or change connector bounds", () => {
   const json = fixture();
   const connector = structuredClone(json[2]);
-  updatePcieMechanicalZones(json);
+  updatePcieConnectorKeepout(json);
   const first = structuredClone(json);
-  updatePcieMechanicalZones(json);
+  updatePcieConnectorKeepout(json);
   assert.deepEqual(json, first);
   assert.deepEqual(json[2], connector);
   assert.equal(json.some(e => e.type === "pcb_keepout"), false);
-  assert.equal(json.filter(e => e.type === "pcb_note_path").length, 4);
+  assert.equal(json.filter(e => e.type === "pcb_note_path").length, 1);
 });
 
 test("via proxies beneath the connector do not represent assembled bodies", () => {
@@ -75,7 +71,7 @@ test("via proxies beneath the connector do not represent assembled bodies", () =
   json.push({type: "pcb_component", pcb_component_id: "via-proxy",
     source_component_id: "source_manually_placed_via_test", center: {x: 0, y: 0},
     width: 0.4, height: 0.4, rotation: 0, layer: "top"});
-  assert.deepEqual(checkPcieMechanicalZones(json), []);
+  assert.deepEqual(checkPcieConnectorKeepout(json), []);
   part(json, 0, 0);
-  assert.equal(checkPcieMechanicalZones(json, {TEST: 1})[0].rule, "pcie_component_keepout");
+  assert.equal(checkPcieConnectorKeepout(json)[0].rule, "pcie_component_keepout");
 });

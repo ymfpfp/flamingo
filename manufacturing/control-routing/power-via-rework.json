@@ -1,0 +1,419 @@
+{
+  "authorized": true,
+  "scope": "Local power stitching-via relocation authorized by the user",
+  "preservePcieAndUsbRoutes": true,
+  "preserveComponents": true,
+  "componentLayer": "top",
+  "changesFile": "dist/control-routing/controls17/power-via-moves.json",
+  "validationBoard": "dist/control-routing/controls17/final.circuit.json",
+  "powerConnectivityAndFabricationPassed": true,
+  "loadQualification": "Remains deferred; this validates connectivity and geometric clearances.",
+  "localFeedChange": {
+    "trace": "VCCH_R_SPI_WP_pin1_TRACE",
+    "purpose": "Give the existing WP pull-up a local power via and free the HOLD signal corridor",
+    "widthMm": 0.4,
+    "via": [
+      25.067184,
+      91
+    ],
+    "padMm": 0.4,
+    "holeMm": 0.2,
+    "newLocalPowerRegion": "VCCH_FLASH_WP_LOCAL"
+  },
+  "changes": [
+    {
+      "name": "PDN_VDD_PARALLEL_34_91_6",
+      "net": "VDD",
+      "before": [
+        34,
+        91.6
+      ],
+      "after": [
+        40.5,
+        84
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VDD_PARALLEL_34_92_2",
+      "net": "VDD",
+      "before": [
+        34,
+        92.2
+      ],
+      "after": [
+        41.1,
+        84
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VDD_PARALLEL_34_6_91_6",
+      "net": "VDD",
+      "before": [
+        34.6,
+        91.6
+      ],
+      "after": [
+        41.7,
+        84
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VDD_PARALLEL_34_6_92_2",
+      "net": "VDD",
+      "before": [
+        34.6,
+        92.2
+      ],
+      "after": [
+        40.5,
+        84.6
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VCCL_PARALLEL_0_2",
+      "net": "VCCL",
+      "before": [
+        24.8,
+        92.1
+      ],
+      "after": [
+        25.6,
+        83.6
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VCCL_PARALLEL_1_2",
+      "net": "VCCL",
+      "before": [
+        25.4,
+        92.1
+      ],
+      "after": [
+        25,
+        83.6
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VCCL_PARALLEL_0_0",
+      "net": "VCCL",
+      "before": [
+        24.8,
+        90.9
+      ],
+      "after": [
+        24.4,
+        83.6
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VCCL_PARALLEL_1_0",
+      "net": "VCCL",
+      "before": [
+        25.4,
+        90.9
+      ],
+      "after": [
+        25.6,
+        84.1
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VDD_PARALLEL_35_2_91_6",
+      "net": "VDD",
+      "before": [
+        35.2,
+        91.6
+      ],
+      "after": [
+        41.1,
+        84.6
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VDD_PARALLEL_35_2_92_2",
+      "net": "VDD",
+      "before": [
+        35.2,
+        92.2
+      ],
+      "after": [
+        41.7,
+        84.6
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VCCL_PARALLEL_0_1",
+      "net": "VCCL",
+      "before": [
+        24.8,
+        91.5
+      ],
+      "after": [
+        24.4,
+        84.1
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_VCCL_PARALLEL_1_1",
+      "net": "VCCL",
+      "before": [
+        25.4,
+        91.5
+      ],
+      "after": [
+        25,
+        84.1
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "VCCH_C_VCCA33_8_pin1",
+      "net": "VCCA33",
+      "before": [
+        34.9637,
+        95.4201004
+      ],
+      "after": [
+        35.15,
+        95
+      ],
+      "pad": 0.4,
+      "hole": 0.2
+    },
+    {
+      "name": "PDN_C_VDD_34_pin1",
+      "net": "VDD",
+      "before": [
+        33.8,
+        90.0299
+      ],
+      "after": [
+        33.58,
+        89.2
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_C_VDD_34_pin2",
+      "net": "GND",
+      "before": [
+        33.8,
+        90.8701
+      ],
+      "after": [
+        33.58,
+        91
+      ],
+      "pad": 0.25,
+      "hole": 0.15
+    },
+    {
+      "name": "VCCH_R_RST_pin1",
+      "net": "VCCH",
+      "before": [
+        44.5372,
+        112.5
+      ],
+      "after": [
+        45.9328,
+        68.6
+      ],
+      "pad": 0.4,
+      "hole": 0.2
+    },
+    {
+      "name": "VCCH_R_SPI_CS_pin1",
+      "net": "VCCH",
+      "before": [
+        30.365631999999998,
+        91.59845540000006
+      ],
+      "after": [
+        46.75,
+        79.8
+      ],
+      "pad": 0.3,
+      "hole": 0.15
+    },
+    {
+      "name": "PDN_C_VCCL_37_pin1",
+      "before": [
+        31.770100000000006,
+        104.3
+      ],
+      "after": [
+        31.4201,
+        106.7
+      ],
+      "pad": 0.4,
+      "hole": 0.2,
+      "afterPad": 0.4,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "PDN_C_VCCL_17_pin1",
+      "before": [
+        30.1201,
+        106.7
+      ],
+      "after": [
+        29.5201,
+        106.7
+      ],
+      "pad": 0.4,
+      "hole": 0.2,
+      "afterPad": 0.4,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "PDN_C_VCCL_10_pin1",
+      "before": [
+        27.920100000000005,
+        106.7
+      ],
+      "after": [
+        27.6201,
+        106.7
+      ],
+      "pad": 0.4,
+      "hole": 0.2,
+      "afterPad": 0.4,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "VBUS_RAW_A4",
+      "before": [
+        44.699999,
+        97.7448829999999
+      ],
+      "after": [
+        44.31,
+        97.67
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "afterPad": 0.25,
+      "afterHole": 0.15,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "VBUS_RAW_DIVIDER",
+      "before": [
+        39.15,
+        105.215
+      ],
+      "after": [
+        39.15,
+        105.315
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "afterPad": 0.3,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    }
+  ],
+  "traceChanges": [
+    {
+      "name": "VCCH_R_SPI_WP_pin1_TRACE",
+      "before": "0edd92438490b5fc56a4e2aed0a265201157097ebc0333237e81c432d56c9473",
+      "after": "fcbefb1097d505a1c3060a236422b1b3bc59233627160e465c7632cc60db3042"
+    },
+    {
+      "name": "VCCH_W25Q32JVSSIQ_pin8_TRACE",
+      "before": "8178581c68ff4417d28d7847d2f6339ffe2d24ea7951a84a643a04fad7837302",
+      "after": "6408704ed8f926cde012e6a7be1a5e933ad0d9c72d6dbfdeab2accec1efb7e34"
+    },
+    {
+      "name": "VCCH_C_VCCA33_8_pin1_TRACE",
+      "before": "c57b8c1568ad23181cd1bdc6cdc0a02bc8d04a49520ac52a4951fd319ae1f210",
+      "after": "3dde2e0db58ca3bd7b7f1a255148bf37e385e7aa1bf69b1954861c30866bb996"
+    },
+    {
+      "name": "VCCH_R_VCCA33_4_pin2_TRACE",
+      "before": "d972bafc03ce876d06126e985159fb22455c121683a2cbaf3b9eb564e89b4c28",
+      "after": "aa062bd71bd5082ec03bf6e93f501e25ee534901873c7dea9e488906a2f50449"
+    },
+    {
+      "name": "PDN_C_VDD_34_pin1_TRACE",
+      "before": "abc40ee0ad37e8f5037f06cb0a1e885a5a6f40917793436a8c8d366dbd2cabf0",
+      "after": "bfda86400393cfff04593f38cfe63a81567958ccf0a9e78cd2b71888b1e27168",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "PDN_C_VDD_34_pin2_TRACE",
+      "before": "b9399e2b6d0d28e5def5b0f038ac520f2629da07062096528d552c7238efa1e2",
+      "after": "069d7ca57302c03a62d214894c891c269c35b97a0b705d2697b8ca90327fb1d0",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "VCCH_R_RST_pin1_TRACE",
+      "before": "f47086530fd2be6df757b62514d6ae6bfdc5e16230ede9d6c2e0bc0722ecedc6",
+      "after": "75554845cc8fdf13636916e548b388c3f097fea2857796b0fec426db521fb0b9",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "VCCH_R_SPI_CS_pin1_TRACE",
+      "before": "d3ab75fc6482a704347655b8b3a2f999bbc7c3204f515f38e6830a82af4de66c",
+      "after": "9d15aa1f7ecc2d98bbefedbbc78f9a42cdccd69a4a221aaefc903b229e442fc4",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "VCCH_C_VCCH_14_pin1_TRACE",
+      "before": "2232a52e374f65c9133cfd4aa23b8cf3acf51ffdfbc894402b24299c24748b8b",
+      "after": "533c632e6db8e85bcf28f029e7562bd09facc92bcdd3964edf04c8910592f8b7",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "VCCH_C_VCCH_14_pin2_TRACE",
+      "before": "f9d06245ef33b7cbb1549a6173c05ad86b834302fc2c698b7b73117a6162c950",
+      "after": "70f382e734aea2e4e6d4ff6d2407aa0fb01c7547b0419ba5dab10cd6a130614a",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    }
+  ],
+  "flashFeedRelocation": {
+    "name": "VCCH_W25Q32JVSSIQ_pin8",
+    "before": [
+      28.7,
+      87.4160115
+    ],
+    "after": [
+      26.4,
+      84
+    ],
+    "widthMm": 0.4,
+    "padMm": 0.4,
+    "holeMm": 0.2,
+    "reason": "Shorten the local flash supply launch and open the SPI body corridor",
+    "plane": "VCCH_FLASH_VCC_0"
+  },
+  "validationSha256": "81d411246a2e54bddcecde69552d62f5703d28bcc5bd72d4f1207d355d6936db",
+  "validationBoardSha256": "81d411246a2e54bddcecde69552d62f5703d28bcc5bd72d4f1207d355d6936db"
+}

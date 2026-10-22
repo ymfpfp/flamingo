@@ -40,7 +40,7 @@ export function isPcieRxNeckSegment(portNames: string[], a: {x: number; y: numbe
 }
 
 export function isClockNeckSegment(name:string,a:{x:number;y:number;layer:string},b:typeof a){
-  const x=name==="CLOCK_XO_BRIDGE"?32.72:name==="CLOCK_REFCLK_N_PHY"?30.65:NaN;
+  const x=name==="CLOCK_XO_BRIDGE"?32.49:name==="CLOCK_REFCLK_N_PHY"?30.65:NaN;
   const inside=(p:typeof a)=>p.layer==="top"&&p.x>=x-1e-5&&p.x<=x+.23001&&p.y>=101.5&&p.y<=102.35001;
   return inside(a)&&inside(b);
 }

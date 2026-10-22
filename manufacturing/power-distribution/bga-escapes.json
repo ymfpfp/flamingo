@@ -6,32 +6,20 @@
       {
         "route_type": "wire",
         "x": 34.1,
-        "y": 101.08000740000006,
-        "width": 0.1,
-        "layer": "top"
+        "y": 101.0800074,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.800000000000004,
-        "y": 101.08000740000006,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 31.11000000000002,
-        "y": 100.39000740000007,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 31.14000000000001,
-        "y": 100.31000740000003,
-        "width": 0.1,
-        "layer": "top"
+        "x": 33.64,
+        "y": 101.0800065,
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "USB4_BGA_GND_3_0.top",
+    "exactPadContacts": false
   },
   {
     "name": "PDN_BGA_K2",
@@ -60,32 +48,19 @@
       {
         "route_type": "wire",
         "x": 33.64,
-        "y": 97.4000074,
+        "y": 97.40000740000005,
         "width": 0.1,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 34.13,
-        "y": 97.4000074,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.82,
-        "y": 96.7100074,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.9,
-        "y": 96.7,
+        "x": 33.64,
+        "y": 96.94000740000006,
         "width": 0.1,
         "layer": "top"
       }
-    ]
+    ],
+    "toSelector": "ASM2464PDX.K2"
   },
   {
     "name": "PDN_BGA_Y3",
@@ -128,32 +103,19 @@
       {
         "route_type": "wire",
         "x": 32.75,
-        "y": 94.1500074,
+        "y": 94.15000740000005,
         "width": 0.1,
         "layer": "top"
       },
       {
         "route_type": "wire",
         "x": 32.75,
-        "y": 96.10000740000005,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 33.89999999999999,
-        "y": 97.25000740000004,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.359999999999985,
-        "y": 97.25000740000004,
+        "y": 94.80000740000006,
         "width": 0.1,
         "layer": "top"
       }
-    ]
+    ],
+    "toSelector": "ASM2464PDX.E4"
   },
   {
     "name": "PDN_BGA_E4",
@@ -189,32 +151,19 @@
       {
         "route_type": "wire",
         "x": 32.75,
-        "y": 95.4500074,
+        "y": 95.45000740000005,
         "width": 0.1,
         "layer": "top"
       },
       {
         "route_type": "wire",
         "x": 32.75,
-        "y": 96.10000740000005,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 33.89999999999999,
-        "y": 97.25000740000004,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.359999999999985,
-        "y": 97.25000740000004,
+        "y": 94.80000740000006,
         "width": 0.1,
         "layer": "top"
       }
-    ]
+    ],
+    "toSelector": "ASM2464PDX.E4"
   },
   {
     "name": "PDN_BGA_H4",
@@ -229,19 +178,13 @@
       },
       {
         "route_type": "wire",
-        "x": 33.89999999999999,
-        "y": 97.25000740000004,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.359999999999985,
-        "y": 97.25000740000004,
+        "x": 32.75,
+        "y": 96.75000740000004,
         "width": 0.1,
         "layer": "top"
       }
-    ]
+    ],
+    "toSelector": "ASM2464PDX.J4"
   },
   {
     "name": "PDN_BGA_J4",
@@ -283,26 +226,13 @@
       },
       {
         "route_type": "wire",
-        "x": 34.13,
-        "y": 97.40000740000005,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.819999999999986,
-        "y": 96.71000740000007,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 34.9,
-        "y": 96.7,
+        "x": 32.75,
+        "y": 96.75000740000004,
         "width": 0.1,
         "layer": "top"
       }
-    ]
+    ],
+    "toSelector": "ASM2464PDX.J4"
   },
   {
     "name": "PDN_BGA_N4",
@@ -487,26 +417,28 @@
     "route": [
       {
         "route_type": "wire",
-        "x": 32.26,
-        "y": 101.54000740000005,
-        "width": 0.1,
-        "layer": "top"
+        "x": 32.34,
+        "y": 101.5400074,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.110000000000007,
-        "y": 100.39000740000007,
-        "width": 0.1,
-        "layer": "top"
+        "x": 32.34,
+        "y": 101.2,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.14000000000001,
-        "y": 100.31000740000003,
-        "width": 0.1,
-        "layer": "top"
+        "x": 33.64,
+        "y": 101.0800065,
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "USB4_BGA_GND_3_0.top",
+    "exactPadContacts": true
   },
   {
     "name": "PDN_BGA_AA5",
@@ -514,33 +446,42 @@
     "route": [
       {
         "route_type": "wire",
-        "x": 32.26,
-        "y": 102.00000740000004,
-        "width": 0.1,
-        "layer": "top"
+        "x": 32.28,
+        "y": 101.85,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 32.26,
-        "y": 101.54000740000006,
-        "width": 0.1,
-        "layer": "top"
+        "x": 32.28,
+        "y": 101.62,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.110000000000007,
-        "y": 100.39000740000007,
-        "width": 0.1,
-        "layer": "top"
+        "x": 32.34,
+        "y": 101.5400074,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.14000000000001,
-        "y": 100.31000740000003,
-        "width": 0.1,
-        "layer": "top"
+        "x": 32.34,
+        "y": 101.2,
+        "layer": "top",
+        "width": 0.1
+      },
+      {
+        "route_type": "wire",
+        "x": 33.64,
+        "y": 101.0800065,
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "USB4_BGA_GND_3_0.top",
+    "exactPadContacts": true
   },
   {
     "name": "PDN_BGA_D5",
@@ -855,18 +796,27 @@
       {
         "route_type": "wire",
         "x": 32.1,
-        "y": 100.65000740000005,
-        "width": 0.1,
-        "layer": "top"
+        "y": 100.56,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.14000000000001,
-        "y": 100.31000740000003,
-        "width": 0.1,
-        "layer": "top"
+        "x": 31.49,
+        "y": 100.56,
+        "layer": "top",
+        "width": 0.1
+      },
+      {
+        "route_type": "wire",
+        "x": 31.14,
+        "y": 100.3100074,
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "PDN_BGA_P4.top",
+    "exactPadContacts": true
   },
   {
     "name": "PDN_BGA_J6",
@@ -908,19 +858,21 @@
     "route": [
       {
         "route_type": "wire",
-        "x": 31.45,
-        "y": 100.65000740000005,
-        "width": 0.1,
-        "layer": "top"
+        "x": 31.49,
+        "y": 100.56,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.14000000000001,
-        "y": 100.31000740000003,
-        "width": 0.1,
-        "layer": "top"
+        "x": 31.14,
+        "y": 100.3100074,
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "PDN_BGA_P4.top",
+    "exactPadContacts": true
   },
   {
     "name": "PDN_BGA_F8",
@@ -983,25 +935,20 @@
       {
         "route_type": "wire",
         "x": 30.8,
-        "y": 100.65000740000005,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 31.14,
-        "y": 100.6200074,
-        "width": 0.1,
-        "layer": "top"
+        "y": 100.56,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
         "x": 31.14,
         "y": 100.3100074,
-        "width": 0.1,
-        "layer": "top"
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "PDN_BGA_P4.top",
+    "exactPadContacts": true
   },
   {
     "name": "PDN_BGA_Y9",
@@ -1009,33 +956,28 @@
     "route": [
       {
         "route_type": "wire",
-        "x": 30.42,
-        "y": 101.54000740000005,
-        "width": 0.1,
-        "layer": "top"
+        "x": 30.45,
+        "y": 101.46,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 30.42,
-        "y": 101.08000740000007,
-        "width": 0.1,
-        "layer": "top"
+        "x": 30.45,
+        "y": 100.8,
+        "layer": "top",
+        "width": 0.1
       },
       {
         "route_type": "wire",
-        "x": 31.109999999999996,
-        "y": 100.39000740000007,
-        "width": 0.1,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 31.14000000000001,
-        "y": 100.31000740000003,
-        "width": 0.1,
-        "layer": "top"
+        "x": 31.14,
+        "y": 100.3100074,
+        "layer": "top",
+        "width": 0.1
       }
-    ]
+    ],
+    "toSelector": "PDN_BGA_P4.top",
+    "exactPadContacts": true
   },
   {
     "name": "PDN_BGA_L9",

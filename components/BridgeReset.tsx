@@ -14,7 +14,7 @@ export function BridgeReset() {
         schX={0}
         schY={2}
         schOrientation="vertical"
-        pcbX={-3.5} pcbY={1.5} pcbRotation={0}
+        pcbX={3.2} pcbY={-5.2} pcbRotation={180}
         connections={{pin1: "net.VCCH", pin2: "net.ASM_RST_N"}}
       />
       <CL05A105KA5NQNC
@@ -25,7 +25,7 @@ export function BridgeReset() {
         schX={0}
         schY={-1}
         schOrientation="vertical"
-        pcbX={-3.5} pcbY={-0.8} pcbRotation={0}
+        pcbX={3.2} pcbY={-1.1} pcbRotation={0}
         connections={{pin1: "net.ASM_RST_N", pin2: "net.GND"}}
       />
       <TS_1088_AR02016

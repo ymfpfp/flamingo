@@ -1,6 +1,6 @@
 import {readFile, mkdir, writeFile} from "node:fs/promises";
-import {circuitGraph} from "../lib/schematic-audit.mjs";
-import {qualifySlotPower} from "../lib/power-qualification.mjs";
+import {circuitGraph} from "../lib/circuit-graph.mjs";
+import {qualifySlotPower} from "../tests/audits/power-qualification.mjs";
 
 const path = process.argv.slice(2).find(arg => !arg.startsWith("--")) ?? "dist/index/circuit.json";
 const json = JSON.parse(await readFile(path, "utf8"));

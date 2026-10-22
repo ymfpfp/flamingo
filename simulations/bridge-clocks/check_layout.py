@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'simulations/pcie-tx'))
 from copper_geometry import copper_objects
 
-def audit(j):
+def audit(j, isolation_regions=None):
     if isinstance(j,dict):j=j['circuitJson']
     sources={e['source_trace_id']:e for e in j if e['type']=='source_trace'}
     traces={sources.get(t.get('source_trace_id'),{}).get('name'):t for t in j if t['type']=='pcb_trace'}
@@ -60,6 +60,8 @@ def audit(j):
                     checked+=ds;mingap=min(mingap,d);maxgap=max(maxgap,d)
                     if d<gap-.0002 or d>pitch/math.cos(math.pi/8)-width+.0002:bad+=ds
                 shape=section.buffer(width/2,quad_segs=16)
+                if isolation_regions is not None:
+                    isolation_regions.append({'name':names[i],'traceId':t['pcb_trace_id'],'layer':layer,'requiredGapMm':required,'shape':shape})
                 for o in obstacles:
                     if layer not in o['layers']:continue
                     distance=shape.distance(o['shape'])

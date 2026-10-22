@@ -1,0 +1,417 @@
+{
+  "authorized": true,
+  "scope": "User-authorized local ground taps, redundant ground-via retirement, guard stitching and shunt-ground return relocation; fixed PCIe/USB signal copper and assembly",
+  "changes": [
+    {
+      "name": "PDN_BGA_L2_TRACE",
+      "before": "134aa393b5c635471b7dec9f04cf9d4dd487fee9d8419ae231620bb27a4233c3",
+      "after": "efb3a4b2e9aeed98a45c1a224e5e37f809e66142d42ad4198ba3757ed9d8d5e8"
+    },
+    {
+      "name": "PDN_BGA_D4_TRACE",
+      "before": "3814a44931f4c618eab28b7b18f910cf091be91bb22a4197fb98d7e86140f16f",
+      "after": "5781bcd2272c2c8bdb86c52d1b7bbed64a69a97a1a9058280a9c8d0b15a2ed70"
+    },
+    {
+      "name": "PDN_BGA_F4_TRACE",
+      "before": "dd7577c6b38900e868451091ae41ca3f8eb4c714f37eaa5309c48187d1f58b86",
+      "after": "62420d90539a8acae88d2efc7158e3b5d2f132871a860a74ec253748e33591f1"
+    },
+    {
+      "name": "PDN_BGA_H4_TRACE",
+      "before": "f179861322bb2fc0b8113a5077d0dfc9f4779b28042db57cf622b67161bb47eb",
+      "after": "c1d2644959e289f98d702f8d4ffd000e29b569b168ae049ca98b2c1661d2c0a6"
+    },
+    {
+      "name": "PDN_BGA_L4_TRACE",
+      "before": "053565160251515e312587ed9c788bec11f42809e85ea94e2a38cf02e8454363",
+      "after": "7b11c4207beb4d503d1b42d8e3fdf12e029481767ea2af2ffa5ae4be63e909c7"
+    },
+    {
+      "name": "PDN_C_VDD_30_pin2_TRACE",
+      "before": "ebb683b7028c14432db85461da515183c99c7da79430bb975b95462883d7d15b",
+      "after": "0ed05e4101f932bc5c6cb547ee1cf9e2bf7f6093c9d710bc468b55906f7b0da7"
+    },
+    {
+      "name": "GRET_D_USB_RX1_P_CONTACT",
+      "before": "9651be0dbea59ed1a93525542671486d3e1f3152a6b3ef57da6a547b8805dafb",
+      "after": "6098431d9ec82bc60d991857912e26f66706a923bb55f9b98955b01ae5917f6b",
+      "reason": "The existing short ground contact follows its authorized 0.1 mm fence-via move"
+    },
+    {
+      "name": "GRET_R_USB_TX1_P_CONTACT",
+      "before": "ed044fe80aecf9eb135521f230a8628363731c0f8bb74d1ed1f923821a41aa6e",
+      "after": "075cb07a44e8b442611c511968852541822c7b685618119f565b1f51c99bb5c5",
+      "reason": "User-authorized local ground return rerouting to clear SBU1; emitted-copper validation required"
+    },
+    {
+      "name": "GRET_R_USB_RX1_N_CONTACT",
+      "before": "1fb00c64119078a9e9ebb3310082512f7cc63d176b2a79eabdedfa071c743884",
+      "after": "0f02ac56cad2f545e1490632314aef2408641bc16317be5c9ffada3ef30236d2",
+      "reason": "User-authorized local ground return rerouting to clear SBU1; emitted-copper validation required"
+    },
+    {
+      "name": "GRET_C_RST_CONTACT",
+      "before": "616a85943cf0b9ac81109b514b7d5c6555520628c053ca56bbe255eee6091bc3",
+      "after": "3260a30d91d32f5b537955f425b28d2def651bb9826425ed5e69b889cf9b171c",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "GRET_SW_RESET_CONTACT",
+      "before": "71dfa654b0d2a063517f6e7490c3acae9128c59ee12cbeedc5501dbb6a39e6fb",
+      "after": "d0f351fb0f9b469f50431a516fab4f85e731606faa258b51b67de97e6821c569",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "VBUS_GND_A1_CONTACT",
+      "before": "dcd801e361b61a8af35e0d75fcefdc34174a106f64ac8a15746617c8369f142c",
+      "after": "dc6b6bf97f8f2bdeda683ebc31c3665b2f8bb70291c3937e03161ce2ae7aac22",
+      "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
+    },
+    {
+      "name": "PDN_BGA_W1_TRACE",
+      "before": "e0a6495fddf7f00d910dc5df5e18bf30ef0873b02fa2015e3c355e51f370df1b",
+      "after": "2dab65ba8ec1d4b05db0d03e4c7e29ef890143ec847cedabc3098699cde6e78d",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    },
+    {
+      "name": "PDN_BGA_Y5_TRACE",
+      "before": "d7a77c139924c3791f92adb04e393138de21ddedc75a671911fcb885b26a2433",
+      "after": "36185db6f9c06298c723642b91e29d2ddde4b62515fc03a139e06d9aa251d0e5",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    },
+    {
+      "name": "PDN_BGA_Y9_TRACE",
+      "before": "bb1c897cb583babd59d60c3b8c8855af01b80aa6de01f82b2a9a7fec835dbb9d",
+      "after": "898f75985de252c3acc2998edeceb96dba5f208d446440863584ba39090f917c",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    },
+    {
+      "name": "PDN_BGA_V6_TRACE",
+      "before": "d8360d2db6d10f64c335e7cc340a0cdbf5e23fc25ab041a5923f77cbcc298881",
+      "after": "713bacab7ae748384370662f00945f05c09a36c9c82bafb467e3c1acc62237a6",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    },
+    {
+      "name": "PDN_BGA_V8_TRACE",
+      "before": "8e36c3ec3b7d7067a46b9fcedd4d2ecfc7b50628e952700948fc1c77b2ad87eb",
+      "after": "b4d5bc97ced6bc161db670c6ecdb982cbdb722347b56428917e7ffe18198110f",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    },
+    {
+      "name": "PDN_BGA_V5_TRACE",
+      "before": "cdca8bd24772f4d7b66cf54226ed96e02156cbf9028381ee6db5716bf18225ab",
+      "after": "3aaec6674a53ce491277bfdf7c576c79ff4dcf755df790a31a94d2aa870137db",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    },
+    {
+      "name": "PDN_BGA_AA5_TRACE",
+      "before": "3c5da18ed9d175fb0c0f1f8f51792d5ea571a23b5626aa301555264a36c4be87",
+      "after": "7fa5cba1776b8f61047e0eee60438853187d441559cb3c12581938021c20dbd9",
+      "reason": "Permitted local grounded-pin retap for the CC2 escape; exact emitted copper requires full validation"
+    }
+  ],
+  "retiredVias": [
+    {
+      "x": 34.359999999999985,
+      "y": 97.25000740000004,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "hole": 0.15,
+      "pad": 0.25
+    },
+    {
+      "x": 30.95,
+      "y": 91.6,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "hole": 0.15,
+      "pad": 0.25
+    },
+    {
+      "x": 35.9,
+      "y": 95.5,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "hole": 0.2,
+      "pad": 0.3
+    },
+    {
+      "x": 34.9,
+      "y": 96.7,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "hole": 0.2,
+      "pad": 0.3
+    },
+    {
+      "x": 18.85,
+      "y": 101.55,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "hole": 0.2,
+      "pad": 0.3,
+      "reason": "Local clock-request crossing; nearby replacement return supports both unchanged PCIe RX1 signal vias"
+    },
+    {
+      "x": 45.875,
+      "y": 97.75,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "pad": 0.35,
+      "hole": 0.2,
+      "reason": "Retire the redundant connector return; the relocated A1 ground barrel supplies both unchanged RX1 transitions within 1 mm"
+    },
+    {
+      "x": 45.2,
+      "y": 95.8,
+      "layers": [
+        "top",
+        "inner1",
+        "inner2",
+        "inner3",
+        "inner4",
+        "bottom"
+      ],
+      "pad": 0.35,
+      "hole": 0.2,
+      "reason": "Retire redundant RX1 return to preserve the slot-power copper core; relocated A1 ground barrel serves both unchanged RX1 signal transitions within 1 mm"
+    }
+  ],
+  "assemblyPreserved": true,
+  "preservePcieAndUsb": true,
+  "relocatedVias": [
+    {
+      "name": "USB4 south guard end stitch",
+      "before": [
+        40.3,
+        92.9
+      ],
+      "after": [
+        40.3,
+        93
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "reason": "Restore actual surface guard contact after the MOSI native pour refill; 0.1 mm local relocation"
+    },
+    {
+      "name": "USB2_GND_RETURN_2 same-location CC clearance shrink",
+      "before": [
+        43.4,
+        98.2
+      ],
+      "after": [
+        43.9,
+        98.1
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation",
+      "afterPad": 0.25,
+      "afterHole": 0.15
+    },
+    {
+      "name": "TX1 shunt ground return",
+      "before": [
+        43.5,
+        95.55
+      ],
+      "after": [
+        41.85,
+        95.55
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "reason": "User-authorized local ground work for the manually routed SBU1 corridor"
+    },
+    {
+      "name": "RX1 shunt ground return",
+      "before": [
+        43.4,
+        95.033108
+      ],
+      "after": [
+        41.3,
+        95.55
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "reason": "User-authorized local ground work for the manually routed SBU1 corridor"
+    },
+    {
+      "name": "PCIe RX1 transition return",
+      "before": [
+        19.85,
+        99.6
+      ],
+      "after": [
+        19.88,
+        100
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "afterPad": 0.25,
+      "afterHole": 0.15,
+      "reason": "User-authorized local ground rerouting; unchanged PCIe RX1 vias remain within 1 mm of plated ground return"
+    },
+    {
+      "name": "Reset capacitor return",
+      "before": [
+        45.99,
+        110.2
+      ],
+      "after": [
+        46.52,
+        72.7
+      ],
+      "pad": 0.3,
+      "hole": 0.2
+    },
+    {
+      "name": "Reset button return",
+      "before": [
+        49.8,
+        108.8151
+      ],
+      "after": [
+        43.63,
+        71.6151
+      ],
+      "pad": 0.3,
+      "hole": 0.2
+    },
+    {
+      "name": "USB A1 connector return",
+      "before": [
+        45.2,
+        96.244759
+      ],
+      "after": [
+        45.45,
+        96.244759
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "afterPad": 0.25,
+      "afterHole": 0.15,
+      "reason": "Keep both unchanged RX1 signal transitions within 1 mm while clearing the SBU2 connector launch"
+    },
+    {
+      "name": "C_VCCL_37 ground via-in-pad",
+      "before": [
+        30.929900000000004,
+        104.3
+      ],
+      "after": [
+        30.5799,
+        106.7
+      ],
+      "pad": 0.4,
+      "hole": 0.2,
+      "afterPad": 0.4,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "C_VCCL_17 ground via-in-pad",
+      "before": [
+        29.279900000000005,
+        106.7
+      ],
+      "after": [
+        28.679900000000004,
+        106.7
+      ],
+      "pad": 0.4,
+      "hole": 0.2,
+      "afterPad": 0.4,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "C_VCCL_10 ground via-in-pad",
+      "before": [
+        27.079900000000002,
+        106.7
+      ],
+      "after": [
+        26.779899999999998,
+        106.7
+      ],
+      "pad": 0.4,
+      "hole": 0.2,
+      "afterPad": 0.4,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "USB shield fence38.7",
+      "before": [
+        38.7,
+        105.45
+      ],
+      "after": [
+        38.7,
+        105.55
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "afterPad": 0.3,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    },
+    {
+      "name": "USB shield fence39.6",
+      "before": [
+        39.6,
+        105.45
+      ],
+      "after": [
+        39.6,
+        105.55
+      ],
+      "pad": 0.3,
+      "hole": 0.2,
+      "afterPad": 0.3,
+      "afterHole": 0.2,
+      "reason": "Permitted CC local rework; exact emitted copper requires full reference, power and fabrication validation"
+    }
+  ]
+}

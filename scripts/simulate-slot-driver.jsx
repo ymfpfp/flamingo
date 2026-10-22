@@ -2,7 +2,7 @@ import {readFile, mkdir, writeFile} from "node:fs/promises";
 import {createHash} from "node:crypto";
 import {Circuit} from "tscircuit";
 import {createElement} from "react";
-import {circuitGraph} from "../lib/schematic-audit.mjs";
+import {circuitGraph} from "../lib/circuit-graph.mjs";
 import {createEngine} from "../simulations/power-reset/engine.mjs";
 import {OriginalGateDriver} from "../simulations/slot-power/OriginalGateDriver";
 import {valueAt, crossing} from "../simulations/power-reset/analyze.mjs";

@@ -5,7 +5,7 @@ import {RootCircuit} from "tscircuit";
 import {runAllNetlistChecks, runAllPlacementChecks, runAllRoutingChecks} from "@tscircuit/checks";
 import {convertCircuitJsonToPcbSvg} from "circuit-to-svg";
 import {Resvg} from "@resvg/resvg-js";
-import FixedRoutingExample, {savedEscape} from "../examples/fixed-routing.circuit";
+import FixedRoutingExample, {savedEscape} from "./fixtures/fixed-routing.circuit";
 
 async function render(props) {
   const circuit = new RootCircuit({platform: {partsEngineDisabled: true}});

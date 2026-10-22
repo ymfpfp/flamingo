@@ -1,17 +1,11 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {Circuit} from "tscircuit";
-import {cloneElement} from "react";
-import Board from "../index.circuit";
-import {auditCircuit, circuitGraph, electricalMargins} from "../lib/schematic-audit.mjs";
+import {boardFixture} from "./board-fixture.mjs";
+import {auditCircuit, electricalMargins} from "./audits/schematic-audit.mjs";
+import {circuitGraph} from "../lib/circuit-graph.mjs";
 import bridgePins from "./fixtures/asm2464pdx-pin-map.json";
 
-const circuit = new Circuit();
-circuit.pcbDisabled = true;
-circuit.schematicDisabled = true;
-circuit.add(cloneElement(Board(), {partsEngineDisabled: true}));
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 const g = circuitGraph(json, {zeroOhm: true});
 const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-12, `${a} != ${b}`);
 
@@ -32,14 +26,14 @@ test("SPI flash physical pins, pull-ups, bypassing, and reset-capable programmin
   const flash = "W25Q32JVSSIQ", bridge = "ASM2464PDX";
   for (const [flashPin, ball, headerPin] of [[1, "A2", 4], [2, "A4", 7], [5, "A3", 6], [6, "A5", 5]]) {
     assert.equal(g.net(flash, `pin${flashPin}`), g.net(bridge, ball));
-    assert.equal(g.net("SPI_PROG", `pin${headerPin}`), g.net(bridge, ball));
+    assert.equal(g.net("SPI", `pin${headerPin}`), g.net(bridge, ball));
   }
   const ground = g.net("ATX", "pin3"), supply = g.net("ATX", "pin1");
   assert.equal(g.net(flash, "pin4"), ground);
   assert.equal(g.net(flash, "pin8"), supply);
-  assert.equal(g.net("SPI_PROG", "pin1"), g.net(bridge, "H1"));
-  assert.equal(g.net("SPI_PROG", "pin2"), ground);
-  assert.equal(g.net("SPI_PROG", "pin3"), supply);
+  assert.equal(g.net("SPI", "pin1"), g.net(bridge, "H1"));
+  assert.equal(g.net("SPI", "pin2"), ground);
+  assert.equal(g.net("SPI", "pin3"), supply);
   for (const [resistor, pin] of [["R_SPI_CS", 1], ["R_SPI_WP", 3], ["R_SPI_HOLD", 7]]) {
     assert.equal(g.component(resistor).resistance, 10000);
     assert.equal(g.net(resistor, "pin1"), supply);

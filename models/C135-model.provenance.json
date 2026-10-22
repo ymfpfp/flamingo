@@ -32,9 +32,6 @@
     "C135-CP_Elec_6.3x7.7.wrl": {
       "sha256": "517ae434f7cff09879eb518100af96f4a8bcd70a6a8c63d6299c6b90de3d04c4"
     },
-    "C135-CP_Elec_6.3x7.7.step": {
-      "sha256": "c2a2efc3a0562b25c21f2b732dd2d6f0c3ff67148e12d40edff0e8fbdf71989b"
-    },
     "C135-CP_Elec_6.3x7.7.glb": {
       "sha256": "80dc1f863ead7eadd2c0510ab5a677d94babb055ab6fd1e2ade995071dd7fe01"
     }
@@ -42,5 +39,13 @@
   "validation": [
     "Measured GLB bounds through circuit-json-to-gltf loader.",
     "Reviewed standalone and mounted 3D previews."
-  ]
+  ],
+  "removed_files": {
+    "C135-CP_Elec_6.3x7.7.step": {
+      "sha256": "c2a2efc3a0562b25c21f2b732dd2d6f0c3ff67148e12d40edff0e8fbdf71989b",
+      "retained_locally": false,
+      "removed_on": "2026-10-20",
+      "removal_reason": "Unused STEP alternative. The current board uses the GLB model; regeneration uses the retained VRML source."
+    }
+  }
 }

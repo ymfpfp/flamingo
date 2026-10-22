@@ -4,17 +4,12 @@ import {Circuit} from "tscircuit";
 import {Children} from "react";
 import {APXJ6R3ARA561MF80GFootprint} from "../imports/APXJ6R3ARA561MF80G";
 import {A_25SVPK470M} from "../imports/A_25SVPK470M";
-import {A_2N7002K_7} from "../imports/A_2N7002K_7";
+import {Sot23Nmos} from "../imports/Sot23Nmos";
 import {NX3008NBK_215} from "../imports/NX3008NBK_215";
-import Board from "../index.circuit";
+import {boardFixture} from "./board-fixture.mjs";
 import bridgePinMap from "./fixtures/asm2464pdx-pin-map.json";
 
-const circuit = new Circuit();
-circuit.pcbDisabled = true;
-circuit.schematicDisabled = true;
-circuit.add(Board());
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 const components = json.filter(element => element.type === "source_component");
 const ports = json.filter(element => element.type === "source_port");
 const component = name => {
@@ -57,7 +52,7 @@ const rails = [
 test("replacement driver preserves the original physical gate, source and drain lands", async () => {
   const c = new Circuit(); c.schematicDisabled = true;
   c.add(<board routingDisabled partsEngineDisabled>
-    <A_2N7002K_7 name="OLD" pcbX={-5} pcbY={0}/>
+    <Sot23Nmos name="OLD" pcbX={-5} pcbY={0}/>
     <NX3008NBK_215 name="NEW" pcbX={5} pcbY={0}/>
   </board>);
   await c.renderUntilSettled();

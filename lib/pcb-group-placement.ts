@@ -1,6 +1,7 @@
 import type {AnyCircuitElement} from "circuit-json";
 import {getBoundsOfPcbElements, repositionPcbComponentTo, transformPCBElements} from "@tscircuit/circuit-json-util";
-import {updatePcieMechanicalZones} from "./pcie-mechanical";
+import {updatePcieConnectorKeepout} from "./pcie-mechanical";
+import componentRework from "../manufacturing/control-routing/component-rework.json";
 
 export type PcbGroupPlacement = {
   pcbX: number;
@@ -18,8 +19,7 @@ export type PcbPlacementGroups = {
   looseOffsets: Record<string, {x: number; y: number}>;
 };
 
-// Used by both the full circuit render and the cached placement preview.
-// Reapply absolute anchors to a fresh copy of the cache to avoid accumulated drift.
+// Align rendered component/courtyard bounds to the requested group anchors.
 export function applyPcbGroupPlacements(
   json: AnyCircuitElement[],
   placements: Record<string, PcbGroupPlacement>,
@@ -100,6 +100,17 @@ export function applyPcbGroupPlacements(
       }
     }
   }
+  // Apply explicit, user-authorized individual moves after group alignment.
+  // Moving a support part must not recenter every member of its old group.
+  for (const change of componentRework.changes) {
+    const part = parts.get(sources.get(change.name)!);
+    if (!componentRework.authorized || !part || change.after.layer !== "top" || part.layer !== "top")
+      throw new Error(`Invalid top-side component move: ${change.name}`);
+    const delta = ((part.rotation - change.after.rotation) % 360 + 360) % 360;
+    if (Math.min(delta, 360-delta) > 1e-6)
+      throw new Error(`Set the recorded rotation in the component source: ${change.name}`);
+    move([part], change.after.center.x - part.center.x, change.after.center.y - part.center.y);
+  }
   for (const [name, id] of Object.entries(groups.nativeGroupIds)) {
     const group = json.find(e => e.type === "pcb_group" && e.pcb_group_id === id);
     if (!group) throw new Error(`No rendered PCB group for ${name}`);
@@ -118,5 +129,5 @@ export function applyPcbGroupPlacements(
       display_offset_y: `${placements[name].pcbY}mm`,
     });
   }
-  updatePcieMechanicalZones(json);
+  updatePcieConnectorKeepout(json);
 }

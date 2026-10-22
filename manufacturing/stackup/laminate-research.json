@@ -54,7 +54,10 @@
       "limitations": "Typical supplier values at 1 GHz. These are not 10 GHz values, exact 3313 pressed-prepreg guarantees, or a production material assignment."
     },
     {
-      "path": "datasheets/laminates/kb-6165f-jlcpcb.pdf",
+      "formerLocalPath": "datasheets/laminates/kb-6165f-jlcpcb.pdf",
+      "retainedLocally": false,
+      "removedOn": "2026-10-20",
+      "removalReason": "Unselected laminate alternative. The current stackup requires Nan Ya NP-155F; source URL, hash and comparison values remain for provenance.",
       "url": "https://rs.jlcpcb.com/static/file/kb-6165f-datasheet.pdf",
       "pages": 2,
       "sha256": "5a48ca2a54a6c0bb7cf9284a4d7f27a4707b13d003eafe68b2a279a458823a40",
@@ -76,7 +79,10 @@
       "limitations": "Typical supplier values at 1 GHz. These are not 10 GHz values, exact 3313 pressed-prepreg guarantees, or a production material assignment."
     },
     {
-      "path": "datasheets/laminates/s1000-2m-jlcpcb.pdf",
+      "formerLocalPath": "datasheets/laminates/s1000-2m-jlcpcb.pdf",
+      "retainedLocally": false,
+      "removedOn": "2026-10-20",
+      "removalReason": "Unselected laminate alternative. The current stackup requires Nan Ya NP-155F; source URL, hash and comparison values remain for provenance.",
       "url": "https://rs.jlcpcb.com/static/file/s1000-2m-tg170-datasheet.pdf",
       "pages": 2,
       "sha256": "0c4500a47d576164416986170a55ebca315a9ba8e98f886616acc5bead83b5f8",

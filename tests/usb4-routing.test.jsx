@@ -1,18 +1,13 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {RootCircuit} from "tscircuit";
 import {runAllNetlistChecks, runAllPlacementChecks, checkTracesAreContiguous, checkPcbTraceViaCounts} from "@tscircuit/checks";
-import Board from "../index.circuit";
-import {auditUsb4Routing, usb4GeometryForDrc} from "../lib/usb4-routing-audit";
-import {runJlcpcbDrc, checkJlcpcbDimensions} from "../lib/jlcpcb-drc";
+import {boardFixture} from "./board-fixture.mjs";
+import {auditUsb4Routing, usb4GeometryForDrc} from "./audits/usb4-routing-audit";
+import {runJlcpcbDrc, checkJlcpcbDimensions} from "./audits/jlcpcb-drc";
 import {getUsb4BgaJoinX} from "../lib/usb4-routing";
-import {auditUsb2Routing} from "../lib/usb2-routing-audit";
+import {auditUsb2Routing} from "./audits/usb2-routing-audit";
 
-const circuit = new RootCircuit({platform: {partsEngineDisabled: true}});
-circuit.schematicDisabled = true;
-circuit.add(Board());
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 const usbSources = json.filter(e => e.type === "source_trace" && e.name?.startsWith("USB4_"));
 const pcb = json.filter(e => e.type === "pcb_trace");
 

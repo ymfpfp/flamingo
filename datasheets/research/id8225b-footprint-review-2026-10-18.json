@@ -1,7 +1,7 @@
 {
   "checked_on": "2026-10-18",
   "part": "ID8225B-ADA60R",
-  "component_file": "imports/ID8225B_ADA60R.tsx",
+  "component_file": null,
   "footprint_string": "sot23_6",
   "conclusion": "Package family and reference pin map match. Exact iD8225B mechanical dimensions remain unverified.",
   "public_full_datasheet_found": false,
@@ -129,5 +129,6 @@
     "buck_input_tests_passed": 6
   },
   "remaining_evidence": "iDESYN dimensioned A60 outline or written confirmation of the exact part and land pattern.",
-  "component_sha256": "77c5fd93941abdc159c570aba344b7964afe9310e5fb14abf4e004b1f7296412"
+  "component_sha256": "77c5fd93941abdc159c570aba344b7964afe9310e5fb14abf4e004b1f7296412",
+  "former_component_file": "imports/ID8225B_ADA60R.tsx"
 }

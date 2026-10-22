@@ -64,7 +64,7 @@
     {
       "manufacturer_part_number": "TPS62130RGTR",
       "manufacturer": "Texas Instruments",
-      "component_file": "imports/TPS62130RGTR.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "documents": [
@@ -79,7 +79,8 @@
           "removal_reason": "Superseded by TPS62903RPJR in the current board."
         }
       ],
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged.",
+      "former_component_file": "imports/TPS62130RGTR.tsx"
     },
     {
       "manufacturer_part_number": "TCC0402COG100J500AT",
@@ -199,7 +200,7 @@
     {
       "manufacturer_part_number": "XL-1608SURC-06",
       "manufacturer": "Xinglight",
-      "component_file": "imports/XL_1608SURC_06.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "documents": [
@@ -212,7 +213,8 @@
           "former_local_filename": "XL-1608SURC-06.pdf",
           "retained_locally": false
         }
-      ]
+      ],
+      "former_component_file": "imports/XL_1608SURC_06.tsx"
     },
     {
       "manufacturer_part_number": "RC0402FR-0712K1L",
@@ -615,7 +617,7 @@
     {
       "manufacturer_part_number": "2N7002K-7",
       "manufacturer": "Diodes Incorporated",
-      "component_file": "imports/A_2N7002K_7.tsx",
+      "component_file": "imports/Sot23Nmos.tsx",
       "placed_on_board": false,
       "board_references": [],
       "documents": [
@@ -909,7 +911,7 @@
     {
       "manufacturer_part_number": "SLW5040S2R2MST",
       "manufacturer": "Sunltech Tech",
-      "component_file": "imports/SLW5040S2R2MST.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {
@@ -937,7 +939,8 @@
         "notes": "Extended part. Supplier snapshot only; no order placed."
       },
       "footprint_notes": "Exact EasyEDA footprint imported with tsci import --jlcpcb --use-exact-footprint C206346. Two non-polarized pads, 4 mm center spacing, approximately 2.124 x 4.220 mm lands.",
-      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained."
+      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained.",
+      "former_component_file": "imports/SLW5040S2R2MST.tsx"
     },
     {
       "manufacturer_part_number": "CL21A226MAYNNNE",
@@ -978,7 +981,7 @@
     {
       "manufacturer_part_number": "RT0402BRD07137KL",
       "manufacturer": "Yageo",
-      "component_file": "imports/RT0402BRD07137KL.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {
@@ -1018,12 +1021,13 @@
         "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
         "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
       },
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged.",
+      "former_component_file": "imports/RT0402BRD07137KL.tsx"
     },
     {
       "manufacturer_part_number": "RT0402BRD07100KL",
       "manufacturer": "Yageo",
-      "component_file": "imports/RT0402BRD07100KL.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {
@@ -1053,12 +1057,13 @@
         "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
         "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
       },
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged.",
+      "former_component_file": "imports/RT0402BRD07100KL.tsx"
     },
     {
       "manufacturer_part_number": "ARG02BTC4122",
       "manufacturer": "Viking",
-      "component_file": "imports/ARG02BTC4122.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {
@@ -1090,7 +1095,8 @@
         "use": "TPS62130 output feedback divider. Bottom returns to the same GND net as AGND.",
         "availability": "Import resolved exact part and model; live JLC stock was not established by CLI search."
       },
-      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged."
+      "replacement_note": "Replaced by the TPS62903 circuit and its new feedback dividers on 2026-10-15. Historical source metadata remains in this index. Unused imports are unchanged.",
+      "former_component_file": "imports/ARG02BTC4122.tsx"
     },
     {
       "manufacturer_part_number": "TPS62903RPJR",
@@ -1232,7 +1238,7 @@
     {
       "manufacturer_part_number": "0402 ±1% 21K",
       "manufacturer": "VO",
-      "component_file": "imports/VO_0402_1pct_21K.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {
@@ -1284,7 +1290,8 @@
         ],
         "placed_on_board": false,
         "board_references": []
-      }
+      },
+      "former_component_file": "imports/VO_0402_1pct_21K.tsx"
     },
     {
       "manufacturer_part_number": "TPS389001DSER",
@@ -1551,7 +1558,7 @@
     {
       "manufacturer_part_number": "PCR1E471MCL1GS",
       "manufacturer": "Nichicon",
-      "component_file": "imports/PCR1E471MCL1GS.tsx",
+      "component_file": null,
       "board_references": [],
       "product_url": "https://www.nichicon.com/en-us/part/pcr1e471mcl1gs/769/",
       "placed_on_board": false,
@@ -1573,7 +1580,8 @@
           "retained_locally": false,
           "removal_reason": "Slot bulk capacitor replaced by Panasonic 25SVPK470M."
         }
-      ]
+      ],
+      "former_component_file": "imports/PCR1E471MCL1GS.tsx"
     },
     {
       "manufacturer_part_number": "APXJ6R3ARA561MF80G",
@@ -1691,7 +1699,7 @@
     {
       "manufacturer_part_number": "TPS259824LNRGER",
       "manufacturer": "Texas Instruments",
-      "component_file": "imports/TPS259824LNRGER.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://www.ti.com/lit/ds/symlink/tps25982.pdf",
@@ -1705,12 +1713,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/TPS259824LNRGER.tsx"
     },
     {
       "manufacturer_part_number": "TPS24720RGTT",
       "manufacturer": "Texas Instruments",
-      "component_file": "imports/TPS24720RGTT.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://www.ti.com/lit/ds/symlink/tps24720.pdf",
@@ -1724,12 +1733,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/TPS24720RGTT.tsx"
     },
     {
       "manufacturer_part_number": "IXTA80N075L2",
       "manufacturer": "IXYS / Littelfuse",
-      "component_file": "imports/IXTA80N075L2.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://astrolkwx.com/wp-content/uploads/IXTP80N075L2_datasheet.pdf",
@@ -1743,12 +1753,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/IXTA80N075L2.tsx"
     },
     {
       "manufacturer_part_number": "WSL25123L000FEA",
       "manufacturer": "Vishay",
-      "component_file": "imports/SlotPowerPassives.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://www.vishay.com/docs/30100/wsl.pdf",
@@ -1762,12 +1773,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/SlotPowerPassives.tsx"
     },
     {
       "manufacturer_part_number": "GRM31C5C1H224JE02L",
       "manufacturer": "Murata",
-      "component_file": "imports/GRM31C5C1H224JE02L.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM31C5C1H224JE02-01A.pdf",
@@ -1781,12 +1793,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/GRM31C5C1H224JE02L.tsx"
     },
     {
       "manufacturer_part_number": "C2012C0G1H153JT000N",
       "manufacturer": "TDK",
-      "component_file": "imports/C2012C0G1H153JT000N.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://www.rxelectronics.es/datasheet/f3/C2012Y5V1H105Z-0.85.pdf",
@@ -1800,12 +1813,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/C2012C0G1H153JT000N.tsx"
     },
     {
       "manufacturer_part_number": "SMBJ13A",
       "manufacturer": "Littelfuse",
-      "component_file": "imports/SMBJ13A.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://www.datasheets.com/littelfuse/smbj12a/datasheet.pdf",
@@ -1819,12 +1833,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/SMBJ13A.tsx"
     },
     {
       "manufacturer_part_number": "SS54",
       "manufacturer": "MDD",
-      "component_file": "imports/SS54.tsx",
+      "component_file": null,
       "documents": [
         {
           "source_url": "https://media.onzuu.com/static/datasheets/mdd/ss54.pdf",
@@ -1838,7 +1853,8 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/SS54.tsx"
     },
     {
       "manufacturer_part_number": "XGL4020-102MEC",
@@ -1864,7 +1880,7 @@
     {
       "manufacturer_part_number": "RC0402FR-07300RL",
       "manufacturer": "YAGEO",
-      "component_file": "imports/RC0402FR_07300RL.tsx",
+      "component_file": null,
       "documents": [
         {
           "file": "RC0402FR-0712K1L.pdf",
@@ -1876,7 +1892,8 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/RC0402FR_07300RL.tsx"
     },
     {
       "manufacturer_part_number": "RC0402FR-078K87L",
@@ -1902,7 +1919,7 @@
     {
       "manufacturer_part_number": "RC0402FR-0710RL",
       "manufacturer": "YAGEO",
-      "component_file": "imports/SlotPowerPassives.tsx",
+      "component_file": null,
       "documents": [
         {
           "file": "RC0402FR-0712K1L.pdf",
@@ -1914,12 +1931,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/SlotPowerPassives.tsx"
     },
     {
       "manufacturer_part_number": "RC0402FR-0751R1L",
       "manufacturer": "YAGEO",
-      "component_file": "imports/SlotPowerPassives.tsx",
+      "component_file": null,
       "documents": [
         {
           "file": "RC0402FR-0712K1L.pdf",
@@ -1931,12 +1949,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/SlotPowerPassives.tsx"
     },
     {
       "manufacturer_part_number": "RC0402FR-071K43L",
       "manufacturer": "YAGEO",
-      "component_file": "imports/SlotPowerPassives.tsx",
+      "component_file": null,
       "documents": [
         {
           "file": "RC0402FR-0712K1L.pdf",
@@ -1948,12 +1967,13 @@
         }
       ],
       "placed_on_board": false,
-      "board_references": []
+      "board_references": [],
+      "former_component_file": "imports/SlotPowerPassives.tsx"
     },
     {
       "manufacturer_part_number": "RT8059GJ5",
       "manufacturer": "Richtek",
-      "component_file": "imports/RT8059GJ5.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {
@@ -1972,12 +1992,13 @@
           "removal_reason": "Evaluated VCCL regulator replaced by TPS62903RPJR."
         }
       ],
-      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained."
+      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained.",
+      "former_component_file": "imports/RT8059GJ5.tsx"
     },
     {
       "manufacturer_part_number": "ID8225B-ADA60R",
       "manufacturer": "iDESYN",
-      "component_file": "imports/ID8225B_ADA60R.tsx",
+      "component_file": null,
       "placed_on_board": false,
       "board_references": [],
       "supplier_part_numbers": {},
@@ -1992,7 +2013,8 @@
           "removal_reason": "Evaluated VDD regulator replaced by TPS62903RPJR."
         }
       ],
-      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained."
+      "replacement_note": "Historical selection. Replaced by the revised TPS62903 circuits on 2026-10-18; sources retained.",
+      "former_component_file": "imports/ID8225B_ADA60R.tsx"
     },
     {
       "manufacturer_part_number": "DMN3732U-7",
@@ -3100,7 +3122,7 @@
     "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending"
   },
   "document_cleanup": {
-    "checked_on": "2026-10-18",
+    "checked_on": "2026-10-20",
     "removed_documents": [
       {
         "former_local_filename": "TPS62130RGTR.pdf",
@@ -3251,6 +3273,22 @@
         "reason": "Evaluated VDD regulator replaced by TPS62903RPJR.",
         "retained_locally": false,
         "removed_on": "2026-10-18"
+      },
+      {
+        "former_local_filename": "laminates/kb-6165f-jlcpcb.pdf",
+        "sha256": "5a48ca2a54a6c0bb7cf9284a4d7f27a4707b13d003eafe68b2a279a458823a40",
+        "source_url": "https://rs.jlcpcb.com/static/file/kb-6165f-datasheet.pdf",
+        "reason": "Unselected laminate alternative. The current stackup requires Nan Ya NP-155F; source URL, hash and comparison values remain for provenance.",
+        "retained_locally": false,
+        "removed_on": "2026-10-20"
+      },
+      {
+        "former_local_filename": "laminates/s1000-2m-jlcpcb.pdf",
+        "sha256": "0c4500a47d576164416986170a55ebca315a9ba8e98f886616acc5bead83b5f8",
+        "source_url": "https://rs.jlcpcb.com/static/file/s1000-2m-tg170-datasheet.pdf",
+        "reason": "Unselected laminate alternative. The current stackup requires Nan Ya NP-155F; source URL, hash and comparison values remain for provenance.",
+        "retained_locally": false,
+        "removed_on": "2026-10-20"
       }
     ],
     "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata. Superseded component PDFs retain source URLs and hashes only."

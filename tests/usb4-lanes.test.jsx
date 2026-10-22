@@ -1,14 +1,8 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {Circuit} from "tscircuit";
-import Board from "../index.circuit";
+import {boardFixture} from "./board-fixture.mjs";
 
-const circuit = new Circuit();
-circuit.pcbDisabled = true;
-circuit.schematicDisabled = true;
-circuit.add(Board());
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 const components = json.filter(element => element.type === "source_component");
 const ports = json.filter(element => element.type === "source_port");
 const traces = json.filter(element => element.type === "source_trace");

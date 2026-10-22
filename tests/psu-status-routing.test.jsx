@@ -1,16 +1,11 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {RootCircuit} from "tscircuit";
 import {runAllNetlistChecks, runAllPlacementChecks, checkTracesAreContiguous} from "@tscircuit/checks";
-import Board from "../index.circuit";
+import {boardFixture} from "./board-fixture.mjs";
 import {psuStatusRoutes, psuStatusTraceWidth} from "../components/PsuStatusRouting";
-import {runJlcpcbDrc} from "../lib/jlcpcb-drc";
+import {runJlcpcbDrc} from "./audits/jlcpcb-drc";
 
-const circuit = new RootCircuit({platform: {partsEngineDisabled: true}});
-circuit.schematicDisabled = true;
-circuit.add(Board());
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 
 test("PWR_OK, its independent 5 V LED branch, and local ground returns have top-layer copper", async () => {
   for (const {name} of psuStatusRoutes) {

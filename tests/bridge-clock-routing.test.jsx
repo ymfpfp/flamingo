@@ -1,19 +1,11 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {RootCircuit} from "tscircuit";
-import Board from "../index.circuit";
-import {auditBridgeClockRouting} from "../lib/bridge-clock-routing-audit";
+import {boardFixture} from "./board-fixture.mjs";
+import {auditBridgeClockRouting} from "./audits/bridge-clock-routing-audit";
 
-let json;
-if(process.env.CLOCK_AUDIT_FIXTURE){
-  const raw=await Bun.file(process.env.CLOCK_AUDIT_FIXTURE).json();json=raw.circuitJson??raw;
-}else{
-  const circuit=new RootCircuit({platform:{partsEngineDisabled:true}});
-  circuit.add(Board());await circuit.renderUntilSettled();json=circuit.getCircuitJson();
-}
-const sourceNames=new Map(json.filter(e=>e.type==="source_trace").map(e=>[e.source_trace_id,e.name]));
-const clockTrace=(j,name)=>j.find(e=>e.type==="pcb_trace"&&sourceNames.get(e.source_trace_id)===name);
-
+const json = boardFixture(process.env.CLOCK_AUDIT_FIXTURE ?? process.env.BOARD_TEST_FIXTURE ?? "dist/board.circuit.json");
+const sourceNames = new Map(json.filter(e => e.type === "source_trace").map(e => [e.source_trace_id, e.name]));
+const clockTrace = (j, name) => j.find(e => e.type === "pcb_trace" && sourceNames.get(e.source_trace_id) === name);
 test("bridge clocks retain polarity, crystal limits, matched REFCLK and top assembly",()=>{
   const audit=auditBridgeClockRouting(json);
   assert.ok(audit.passed,audit.failures.join("\n"));

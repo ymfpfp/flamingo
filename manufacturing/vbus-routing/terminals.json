@@ -2,11 +2,11 @@
   {
     "name": "VBUS_RAW_A4",
     "selector": "USBC.A4",
-    "x": 44.699999,
-    "y": 97.7448829999999,
+    "x": 44.31,
+    "y": 97.67,
     "net": "USB_VBUS",
-    "copperDiameter": 0.3,
-    "drillDiameter": 0.2
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15
   },
   {
     "name": "VBUS_RAW_A9",
@@ -39,7 +39,7 @@
     "name": "VBUS_RAW_DIVIDER",
     "selector": "R_VBUS_TOP.pin1",
     "x": 39.15,
-    "y": 105.215,
+    "y": 105.315,
     "net": "USB_VBUS",
     "copperDiameter": 0.3,
     "drillDiameter": 0.2
@@ -74,11 +74,11 @@
   {
     "name": "VBUS_GND_A1",
     "selector": "USBC.A1",
-    "x": 45.2,
-    "y": 96.2447589999999,
+    "x": 45.45,
+    "y": 96.244759,
     "net": "GND",
-    "copperDiameter": 0.3,
-    "drillDiameter": 0.2
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15
   },
   {
     "name": "VBUS_GND_A12",

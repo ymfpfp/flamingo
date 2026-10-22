@@ -1,0 +1,13 @@
+{
+  "authorized": true,
+  "authorization": "User approved fabrication clearances at fixed-pad launches for CC1/CC2; retain ASMedia 8 mil width and 15 mil trace-to-trace spacing",
+  "nets": ["ASM_CC1", "ASM_CC2"],
+  "maximumDistanceFromTerminalMm": 1,
+  "fixedPads": "Only pads belonging to the terminating bridge or USB-C connector inside the bounded launch region",
+  "launchVias": "Fabrication copper clearances within the bounded launch region; full-stack drill and protected high-speed isolation checks remain mandatory",
+  "traceToTraceClearanceMm": 0.381,
+  "minimumTraceWidthMm": 0.2032,
+  "allowTraceToTraceExceptions": false,
+  "allowHighSpeedIsolationExceptions": false,
+  "allowDrillClearanceExceptions": false
+}

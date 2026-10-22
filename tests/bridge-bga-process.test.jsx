@@ -4,7 +4,7 @@ import {Circuit} from "tscircuit";
 import Review from "../manufacturing/bridge-bga/footprint-review.circuit";
 import process from "../manufacturing/bridge-bga/process.json";
 import reference from "./fixtures/asm2464pdx-pin-map.json";
-import {reviewBridgeBga} from "../lib/bridge-bga-review.mjs";
+import {reviewBridgeBga} from "./audits/bridge-bga-review.mjs";
 const circuit=new Circuit();circuit.schematicDisabled=true;circuit.add(Review());await circuit.renderUntilSettled();
 const json=circuit.getCircuitJson();
 

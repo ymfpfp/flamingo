@@ -26,7 +26,7 @@ stack=json.loads(stack_path.read_text());(OUT/'stackup.json').write_text(json.du
 geometry,routes=load_geometry(OUT/'input.circuit.json')
 (OUT/'geometry.json').write_text(json.dumps(geometry,indent=2))
 audit=json.loads(subprocess.check_output(['bun','-e',
-    'import {auditPcieTxRouting} from "./lib/pcie-tx-routing-audit";const j=JSON.parse(await Bun.file(process.argv[1]).text());console.log(JSON.stringify(auditPcieTxRouting(j.circuitJson??j)));',
+    'import {auditPcieTxRouting} from "./tests/audits/pcie-tx-routing-audit";const j=JSON.parse(await Bun.file(process.argv[1]).text());console.log(JSON.stringify(auditPcieTxRouting(j.circuitJson??j)));',
     str(OUT/'input.circuit.json')],cwd=ROOT,text=True))
 if not audit['passed']:raise ValueError(audit['failures'])
 (OUT/'routing-audit.json').write_text(json.dumps(audit,indent=2))

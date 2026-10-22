@@ -26,23 +26,23 @@
   {
     "name": "GRET_C_RST",
     "selector": "C_RST.pin2",
-    "x": 45.99,
-    "y": 110.2,
+    "x": 46.52,
+    "y": 72.7,
     "copperDiameter": 0.3,
     "drillDiameter": 0.2
   },
   {
     "name": "GRET_SW_RESET",
     "selector": "SW_RESET.pin2",
-    "x": 49.8,
-    "y": 108.8151,
+    "x": 43.63,
+    "y": 71.6151,
     "copperDiameter": 0.3,
     "drillDiameter": 0.2
   },
   {
     "name": "GRET_R_USB_TX1_P",
     "selector": "R_USB_TX1_P.pin2",
-    "x": 43.5,
+    "x": 41.85,
     "y": 95.55,
     "copperDiameter": 0.3,
     "drillDiameter": 0.2
@@ -74,8 +74,8 @@
   {
     "name": "GRET_R_USB_RX1_N",
     "selector": "R_USB_RX1_N.pin2",
-    "x": 43.4,
-    "y": 95.033108,
+    "x": 41.3,
+    "y": 95.55,
     "copperDiameter": 0.3,
     "drillDiameter": 0.2
   },
@@ -118,7 +118,7 @@
     "name": "USB_SHIELD_FENCE_6",
     "selector": "D_USB_RX1_P.pin2",
     "x": 40.3,
-    "y": 92.9,
+    "y": 93.0,
     "copperDiameter": 0.3,
     "drillDiameter": 0.2,
     "existing": true
@@ -148,6 +148,15 @@
     "y": 105.45,
     "copperDiameter": 0.3,
     "drillDiameter": 0.2,
+    "existing": true
+  },
+  {
+    "name": "USB2_GND_RETURN_2",
+    "selector": "R_USB_TX1_N.pin2",
+    "x": 43.9,
+    "y": 98.1,
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15,
     "existing": true
   }
 ]

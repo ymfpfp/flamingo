@@ -13,10 +13,10 @@ const hp=(width+gap)/2,k=Math.SQRT2-1;
 export const bridgeClockRules={width,gap,neckWidth:.0762,crystalMaxLength:12.7,
   refclkMaxLength:177.8,refclkMaxSkew:.127,viaDiameter:.3,viaHole:.2} as const;
 export const bridgeClockConnections=[
-  {name:"CLOCK_XI_BRIDGE",from:"ASM2464PDX.XI",to:"C1.pin1"},
-  {name:"CLOCK_XO_BRIDGE",from:"ASM2464PDX.XO",to:"C1.pin2"},
-  {name:"CLOCK_XI_XTAL",from:"C1.pin1",to:"XCLK.pin1"},
-  {name:"CLOCK_XO_XTAL",from:"C1.pin2",to:"XCLK.pin3"},
+  {name:"CLOCK_XI_BRIDGE",from:"ASM2464PDX.XI",to:"C1.pin2"},
+  {name:"CLOCK_XO_BRIDGE",from:"ASM2464PDX.XO",to:"C1.pin1"},
+  {name:"CLOCK_XI_XTAL",from:"C1.pin2",to:"XCLK.pin3"},
+  {name:"CLOCK_XO_XTAL",from:"C1.pin1",to:"XCLK.pin1"},
   {name:"CLOCK_REFCLK_P_PHY",from:"ASM2464PDX.REFCLK_P0",to:"R_PCIE_REFCLK_P.pin1"},
   {name:"CLOCK_REFCLK_N_PHY",from:"ASM2464PDX.REFCLK_N0",to:"R_PCIE_REFCLK_N.pin1"},
   {name:"CLOCK_REFCLK_P_CON",from:"R_PCIE_REFCLK_P.pin2",to:"PCIe.REFCLK_P"},
@@ -65,22 +65,24 @@ export function prepareBridgeClockRouting(board:Board,phase:AutoroutingPhase){
     paths.push({connection,route:route.map(p=>({...p,...applyToPoint(transform,{x:Number(p.x),y:Number(p.y)})}))});
   };
   const xi=pos("ASM2464PDX.XI"),xo=pos("ASM2464PDX.XO");
-  const ci=pos("C1.pin1"),co=pos("C1.pin2"),cMid=(ci.x+co.x)/2;
-  const incoming=[{x:33,y:103.7},{x:33,y:104.6}];
-  const xiStart=offsetPairCenterline(incoming,hp)[0];
-  const xoStart=offsetPairCenterline(incoming,-hp)[0];
-  const xiTop=[w(xi),w({x:xi.x,y:xiStart.y-xiStart.x+xi.x}),w(xiStart)];
-  const xoNeck={x:xo.x+.23,y:102.35};
-  const xoTop=[w(xo,"top",.0762),w({x:xo.x+.23,y:xo.y+.23},"top",.0762),
-    w(xoNeck,"top",.0762),w(xoNeck),w({x:xoStart.x,y:102.35+xoStart.x-xoNeck.x}),w(xoStart)];
+  // The capacitor and crystal signal terminals are nonpolar. Exchanging their
+  // assignments keeps the same parallel resonator circuit and fixed placement,
+  // while letting the inner XO ball escape left of XI and freeing REXT.
+  const ci=pos("C1.pin2"),co=pos("C1.pin1"),cMid=(ci.x+co.x)/2;
+  const incoming=[{x:32.605,y:102.35},{x:32.605,y:103.2},{x:33,y:103.595},{x:33,y:104.6}];
+  const xiStart=offsetPairCenterline(incoming,-hp)[0];
+  const xoNeck={x:xo.x-.23,y:102.35};
+  const xiTop=[w(xi),w({x:xiStart.x,y:xi.y+Math.abs(xiStart.x-xi.x)})];
+  const xoTop=[w(xo,"top",.0762),w({x:xo.x-.23,y:xo.y+.23},"top",.0762),
+    w(xoNeck,"top",.0762),w(xoNeck)];
   for(const i of [0,1]){
-    const cap=i===0?ci:co,pair=offsetPairCenterline(incoming,i===0?hp:-hp),last=pair[pair.length-1];
+    const cap=i===0?ci:co,pair=offsetPairCenterline(incoming,i===0?-hp:hp),last=pair[pair.length-1];
     add(i===0?"ASM2464PDX.XI":"ASM2464PDX.XO",[...(i===0?xiTop:xoTop),...pair.map(p=>w(p)),
       w({x:cap.x,y:last.y+Math.abs(cap.x-last.x)}),w(cap)]);
   }
   const crystalLine=[{x:cMid,y:106.4},{x:cMid,y:106.5},{x:cMid+.4,y:106.9},{x:33.7,y:106.9}];
   for(const [i,pin] of ["pin1","pin3"].entries()){
-    const cap=i===0?ci:co,end=pos(`XCLK.${pin}`),points=offsetPairCenterline(crystalLine,i===0?hp:-hp);
+    const cap=i===0?co:ci,end=pos(`XCLK.${pin}`),points=offsetPairCenterline(crystalLine,i===0?hp:-hp);
     const start=points[0],last=points[points.length-1];
     const flare=[{x:end.x-Math.abs(end.y-last.y),y:last.y},end];
     const departure={x:cap.x,y:cap.y+.65};

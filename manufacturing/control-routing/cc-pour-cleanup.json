@@ -1,0 +1,58 @@
+[
+  {
+    "pcb_keepout_id": "CC1_FLOATING_CLEANUP_0",
+    "layers": [
+      "inner3"
+    ],
+    "center": {
+      "x": 29.12475525717145,
+      "y": 106.47027595957391
+    },
+    "width": 0.35333577514894543,
+    "height": 0.33499797688637045,
+    "reason": "Remove isolated power copper between CC clearance and via antipads",
+    "measuredUnconnectedAreaMm2": 0.02937424890358795
+  },
+  {
+    "pcb_keepout_id": "CC1_FLOATING_CLEANUP_1",
+    "layers": [
+      "inner3"
+    ],
+    "center": {
+      "x": 34.650000000000006,
+      "y": 104.43124474534571
+    },
+    "width": 0.09261026001387052,
+    "height": 0.13831050930855326,
+    "reason": "Remove isolated power copper between CC clearance and via antipads",
+    "measuredUnconnectedAreaMm2": 0.0048441402981322
+  },
+  {
+    "pcb_keepout_id": "CC1_FLOATING_CLEANUP_2",
+    "layers": [
+      "inner3"
+    ],
+    "center": {
+      "x": 37.83401066812054,
+      "y": 104.7224549090663
+    },
+    "width": 0.10964259398926401,
+    "height": 0.06570981813257504,
+    "reason": "Remove isolated power copper between CC clearance and via antipads",
+    "measuredUnconnectedAreaMm2": 0.0029939346568095054
+  },
+  {
+    "pcb_keepout_id": "CC1_FLOATING_CLEANUP_3",
+    "layers": [
+      "inner3"
+    ],
+    "center": {
+      "x": 38.34270803190281,
+      "y": 104.71693722493745
+    },
+    "width": 0.06307999403595943,
+    "height": 0.054674449874895004,
+    "reason": "Remove isolated power copper between CC clearance and via antipads",
+    "measuredUnconnectedAreaMm2": 0.0007276261012176676
+  }
+]

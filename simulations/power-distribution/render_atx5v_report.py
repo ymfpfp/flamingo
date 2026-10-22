@@ -12,7 +12,7 @@ from shapely.geometry import box,Point
 from check_layout import model,ROOT
 
 OUT=ROOT/'dist/atx5v-routing'
-file=Path(sys.argv[1]) if len(sys.argv)>1 else ROOT/'dist/pcie-tx-routing/preview-build.json'
+file=Path(sys.argv[1]) if len(sys.argv)>1 else ROOT/'dist/board.circuit.json'
 raw=file.read_bytes();sha=hashlib.sha256(raw).hexdigest()
 layout=json.loads((OUT/'layout-audit.json').read_text());dc=json.loads((OUT/'dc-audit.json').read_text())
 assert layout['passed'] and dc['passed'] and layout['sourceSha256']==sha and dc['sourceSha256']==sha
@@ -64,6 +64,6 @@ body{{background:#f5f7fb;color:#17324c;font:16px/1.55 system-ui,sans-serif;margi
 <h2>Validation</h2><p>Fabrication clearances, netlist, component placement, schematic placement and trace continuity pass. The copper check finds no floating 5 V power regions. Native shorts and PCB style checks pass. Existing PCIe, USB, clock, buck and bridge-power checks pass.</p>
 <p>The L4 branches reserve small areas near the lower power-region edges. The separate VCCL/VDD 3 A / 8 mV screen remains unchanged and open. Other board connections still need routing.</p>
 <h2 class="open">Electrical qualification remains open</h2><p>This is a layout and conductor-resistance review. Connector/cable loss, ground-return loss, input ripple, load transients, startup, fault protection, temperatures and manufacturer process acceptance require separate qualification.</p>
-<p><a href="layout-audit.json">Physical copper audit</a> · <a href="dc-audit.json">Input DC screen</a> · <a href="preview-refresh.log">Preview validation log</a> · <a href="../../manufacturing/atx5v-routing/requirements.json">Requirements</a> · <a href="../vcch-routing/report.html">Bridge 3.3 V review</a></p>
+<p><a href="layout-audit.json">Physical copper audit</a> · <a href="dc-audit.json">Input DC screen</a> · <a href="../validation/board.json">Board validation</a> · <a href="../../manufacturing/atx5v-routing/requirements.json">Requirements</a> · <a href="../vcch-routing/report.html">Bridge 3.3 V review</a></p>
 <small>Board-build SHA-256: <code>{html.escape(sha)}</code></small></main></html>'''
 (OUT/'report.html').write_text(page);print(OUT/'report.html')

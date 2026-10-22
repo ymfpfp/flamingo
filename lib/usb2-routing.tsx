@@ -27,9 +27,9 @@ export function Usb2Routing(){return <>
       The saved paired paths and emitted-copper audit enforce USB2 geometry. */}
   {/* These returns contact both ground planes. The former fourth stitching
       via at (47.4,98.75) was isolated inside the connector copper keepout. */}
-  {[{x:34.9,y:96.7},{x:41.8,y:98.1},{x:43.4,y:98.2}].map((p,i)=><Fragment key={i}>
-    <via name={`USB2_GND_RETURN_${i}`} pcbX={p.x} pcbY={p.y} fromLayer="top" toLayer="bottom"
-      holeDiameter={.2} outerDiameter={.3} connectsTo="net.GND"/>
+  {[{x:41.8,y:98.1,i:1},{x:43.9,y:98.1,i:2}].map((p)=><Fragment key={p.i}>
+    <via name={`USB2_GND_RETURN_${p.i}`} pcbX={p.x} pcbY={p.y} fromLayer="top" toLayer="bottom"
+      holeDiameter={p.i===2?.15:.2} outerDiameter={p.i===2?.25:.3} connectsTo="net.GND"/>
   </Fragment>)}
 </>}
 

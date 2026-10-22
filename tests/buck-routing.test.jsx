@@ -1,14 +1,11 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {RootCircuit} from "tscircuit";
-import Board from "../index.circuit";
-import {auditBuckRouting} from "../lib/buck-routing-audit";
+import {boardFixture} from "./board-fixture.mjs";
+import {auditBuckRouting} from "./audits/buck-routing-audit";
 
-let json;
-if(process.env.BUCK_AUDIT_FIXTURE){const j=await Bun.file(process.env.BUCK_AUDIT_FIXTURE).json();json=j.circuitJson??j;}
-else{const circuit=new RootCircuit({platform:{partsEngineDisabled:true}});circuit.add(Board());await circuit.renderUntilSettled();json=circuit.getCircuitJson();}
-const names=new Map(json.filter(e=>e.type==="source_trace").map(e=>[e.source_trace_id,e.name]));
-const trace=(j,name)=>j.find(e=>e.type==="pcb_trace"&&names.get(e.source_trace_id)===name);
+const json = boardFixture(process.env.BUCK_AUDIT_FIXTURE ?? process.env.BOARD_TEST_FIXTURE ?? "dist/board.circuit.json");
+const names = new Map(json.filter(e => e.type === "source_trace").map(e => [e.source_trace_id, e.name]));
+const trace = (j, name) => j.find(e => e.type === "pcb_trace" && names.get(e.source_trace_id) === name);
 test("both buck circuits have complete local routes and retain the bridge voltage and LC selections",()=>{
   const a=auditBuckRouting(json);assert.ok(a.passed,a.failures.join("\n"));
   assert.equal(a.records.length,41);

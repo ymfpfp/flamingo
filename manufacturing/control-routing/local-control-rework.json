@@ -1,0 +1,74 @@
+{
+  "authorized": true,
+  "scope": "User-approved local control rerouting, including FLASH_WP/HDDPC, SPI branches, UART escapes and presence detect; strict spacing, exact PCIe/USB signal copper and all assembled placements fixed",
+  "traceChanges": [
+    {
+      "name": "SP_HDDPC_TRUNK",
+      "before": "6a60fd10e5c6a95ce9800d3119f14558139cc64f550a6b6748ed13c24ce395ae",
+      "after": "8033e2924f1838b0c7453436f51955b46f7a406de426a0d85e728f2015c43b4c"
+    },
+    {
+      "name": "VBUS_RAW_LOWER",
+      "before": "3593afd205a4de8f5922dd4a3b66abfdfb5cc36de3f60722d5925b67aa00d183",
+      "after": "79a6b388d57adca73d662fa0ad31a404c62755ccd18c3ce579f7c5c9d2c77894",
+      "reason": "Permitted local raw-VBUS reroute for the CC1 launch; preserve USB signal copper and validate VBUS spacing"
+    },
+    {
+      "name": "VBUS_RAW_A4_CONTACT",
+      "before": "1e0427cb1ff024e39a980db8d16a5d21a6170c3ef56d47bffdf0274e383cffc4",
+      "after": "cc0a034221dc10f224c1e2aae48b57cfefe8f973ac4e902a71135852c44d4381",
+      "reason": "Permitted local raw-VBUS reroute for the CC1 launch; preserve USB signal copper and validate VBUS spacing"
+    },
+    {
+      "name": "VBUS_RAW_B4_CONTACT",
+      "before": "d685ce161e607b8de108c24b867e86cc14fabe54dde37a8a534c8fe731182100",
+      "after": "6158a193cc0387fcf03a3a8e891db4e8bb46fa0e621311991b49c7945ec755b6",
+      "reason": "Permitted local raw-VBUS reroute for the CC1 launch; preserve USB signal copper and validate VBUS spacing"
+    },
+    {
+      "name": "VBUS_RAW_CONNECTOR",
+      "before": "178135de4c8f705ebd86d145f4230fae6e96d68c7dc7b5fbbace7b938bbba8fd",
+      "after": "bad214fa5b8b80f36def0660eada0aa2e87abc82e86bb2d5e3586acbd7cde060",
+      "reason": "Permitted local raw-VBUS reroute for the CC1 launch; preserve USB signal copper and validate VBUS spacing"
+    },
+    {
+      "name": "VBUS_RAW_DIVIDER_CONTACT",
+      "before": "d40d4e46bba8d13fb515941e0c5aaf26f133486d75cc82e18825e9502b64a2b6",
+      "after": "38cc8d981e522c57bfedbe2579d5c29df897c661553c64f30a85f1522bc029fb",
+      "reason": "Permitted local raw-VBUS reroute for the CC1 launch; preserve USB signal copper and validate VBUS spacing"
+    },
+    {
+      "name": "VBUS_RAW_TO_DIVIDER",
+      "before": "754fef162d64430fe6e56abf337bd41a14f85fd53896ed7a47d54ec9d6cef3ca",
+      "after": "31184d495faddaae0a1db48981371db1b2c2358d540c6034e8e39074b30727c5",
+      "reason": "Permitted local raw-VBUS reroute for the CC1 launch; preserve USB signal copper and validate VBUS spacing"
+    }
+  ],
+  "replacedTraces": [
+    {
+      "name": "CONTROL_FLASH_WP_0",
+      "before": "d6a7bac70c36cf8e3d8119d5975bc98b3596757f9eb44a8427e752ff7061f367",
+      "replacements": [
+        {
+          "name": "CONTROL_FLASH_WP_SECTION_0",
+          "after": "b2a930be9dfa9b89a7f7ba983d0740342015990254d008f71f6650388d2fbafc"
+        },
+        {
+          "name": "CONTROL_FLASH_WP_SECTION_1",
+          "after": "572ed97ca1275a1aa670f035c8535bcbf32204c56dccb6300477f5114230043f"
+        },
+        {
+          "name": "CONTROL_FLASH_WP_SECTION_2",
+          "after": "7c62bfa87a1cf2c45f23822a666b1b99ce57506642a8a8f84c912af6f69624cc"
+        }
+      ]
+    }
+  ],
+  "changes": [
+    "FLASH_WP loop replaced by two through vias and three surface sections inside the flash area",
+    "HDDPC L4 local trunk jogs left to clear control escape barrels",
+    "The newly routed HOLD line and short MOSI section adjusted to clear the revised flash paths and clock via",
+    "FLASH_WP and MOSI flash branches adjusted to create a fabrication-safe manual WAKE path"
+  ],
+  "noLaunchExceptions": true
+}

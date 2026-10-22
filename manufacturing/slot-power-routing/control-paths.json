@@ -365,6 +365,20 @@
       },
       {
         "route_type": "wire",
+        "x": 23.8,
+        "y": 94.02,
+        "layer": "inner3",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
+        "x": 23.8,
+        "y": 92.0,
+        "layer": "inner3",
+        "width": 0.25
+      },
+      {
+        "route_type": "wire",
         "x": 24.3,
         "y": 91.5,
         "layer": "inner3",

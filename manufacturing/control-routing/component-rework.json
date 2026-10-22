@@ -1,0 +1,182 @@
+{
+  "authorized": true,
+  "scope": "User-authorized top-side support component moves for remaining control routes; preserve PCIe/USB signal copper and verify placement, references, power and fabrication",
+  "changes": [
+    {
+      "name": "R_RST",
+      "before": {
+        "name": "R_RST",
+        "center": {
+          "x": 44.97,
+          "y": 112.5
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_RST",
+        "center": {
+          "x": 45.5,
+          "y": 68.6
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Move the low-speed reset network beside its header; keep PCIe/USB signal geometry and all fast bypass placement fixed"
+    },
+    {
+      "name": "C_RST",
+      "before": {
+        "name": "C_RST",
+        "center": {
+          "x": 44.97,
+          "y": 110.2
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_RST",
+        "center": {
+          "x": 45.5,
+          "y": 72.7
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Move the low-speed reset network beside its header; keep PCIe/USB signal geometry and all fast bypass placement fixed"
+    },
+    {
+      "name": "SW_RESET",
+      "before": {
+        "name": "SW_RESET",
+        "center": {
+          "x": 48.47,
+          "y": 111
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "SW_RESET",
+        "center": {
+          "x": 42.3,
+          "y": 73.8
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Move the low-speed reset network beside its header; keep PCIe/USB signal geometry and all fast bypass placement fixed"
+    },
+    {
+      "name": "C_VCCH_14",
+      "before": {
+        "center": {
+          "x": 36,
+          "y": 84.5
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "C_VCCH_14"
+      },
+      "after": {
+        "center": {
+          "x": 36,
+          "y": 83.7
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "C_VCCH_14"
+      },
+      "reason": "Local support placement for the chip-select path; fast bypasses and PCIe/USB signal copper stay fixed"
+    },
+    {
+      "name": "R_SPI_CS",
+      "before": {
+        "center": {
+          "x": 29.5,
+          "y": 90.3000074
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "R_SPI_CS"
+      },
+      "after": {
+        "center": {
+          "x": 45.5,
+          "y": 79.19
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "R_SPI_CS"
+      },
+      "reason": "Local support placement for the chip-select path; fast bypasses and PCIe/USB signal copper stay fixed"
+    },
+    {
+      "name": "C_VCCL_37",
+      "before": {
+        "name": "C_VCCL_37",
+        "center": {
+          "x": 31.350000000000005,
+          "y": 104.3
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_37",
+        "center": {
+          "x": 31.0,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    },
+    {
+      "name": "C_VCCL_17",
+      "before": {
+        "name": "C_VCCL_17",
+        "center": {
+          "x": 29.700000000000003,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_17",
+        "center": {
+          "x": 29.1,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    },
+    {
+      "name": "C_VCCL_10",
+      "before": {
+        "name": "C_VCCL_10",
+        "center": {
+          "x": 27.500000000000004,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_10",
+        "center": {
+          "x": 27.2,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    }
+  ]
+}

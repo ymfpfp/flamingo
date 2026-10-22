@@ -32,7 +32,7 @@ The retained vendor-model files are research material.
 The following description records the retired simulation. Its command is no longer available.
 
 The runner reads the actual compiled BOM from `dist/index/circuit.json`.
-It applies the calculations in `lib/power-qualification.mjs` to two tscircuit behavioral switch models.
+It applies the calculations in `tests/audits/power-qualification.mjs` to two tscircuit behavioral switch models.
 The pinned ngspice engine runs 12 combinations: supply ±5% and nominal, idle/full rail stress load, and 0/1,000 µF added card capacitance.
 Each output must settle within 60 ms. The separate analytical checks compare 12 V startup against its minimum fault timer.
 Results, generated SPICE decks, and simulation Circuit JSON appear in `dist/slot-power/`.

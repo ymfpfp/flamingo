@@ -1,18 +1,13 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {RootCircuit} from "tscircuit";
 import {checkTracesAreContiguous, checkPcbTraceViaCounts, runAllNetlistChecks, runAllPlacementChecks} from "@tscircuit/checks";
-import Board from "../index.circuit";
+import {boardFixture} from "./board-fixture.mjs";
 import {pcieConnectorRules} from "../lib/pcie-connector-routing";
-import {checkJlcpcbDimensions, runJlcpcbDrc} from "../lib/jlcpcb-drc";
-import {auditPcieTxRouting} from "../lib/pcie-tx-routing-audit";
-import {auditPcieRxRouting} from "../lib/pcie-rx-routing-audit";
+import {checkJlcpcbDimensions, runJlcpcbDrc} from "./audits/jlcpcb-drc";
+import {auditPcieTxRouting} from "./audits/pcie-tx-routing-audit";
+import {auditPcieRxRouting} from "./audits/pcie-rx-routing-audit";
 
-const circuit = new RootCircuit({platform: {partsEngineDisabled: true}});
-circuit.schematicDisabled = true;
-circuit.add(Board());
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 
 test("assembly is top-only and the DRC rejects a bottom-side component", () => {
   const components = json.filter(e => e.type === "pcb_component"

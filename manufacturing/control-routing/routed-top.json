@@ -1,0 +1,60 @@
+[
+  {
+    "name": "CONTROL_PCIE_PERST_N_0",
+    "net": "PCIE_PERST_N",
+    "from": "PCIe.PERST_N",
+    "to": "R_PCIE_PERST.pin2",
+    "width": 0.127,
+    "points": [
+      [
+        16.30639739999976,
+        103.86080260000024
+      ]
+    ],
+    "source": "tscircuit native Pipeline 9; independent physical screen passed"
+  },
+  {
+    "name": "CONTROL_PCIE_CLKREQ_N_0",
+    "net": "PCIE_CLKREQ_N",
+    "from": "R_PCIE_CLKREQ_PU.pin2",
+    "to": "R_PCIE_CLKREQ.pin2",
+    "width": 0.127,
+    "points": [
+      [
+        18.967183999999996,
+        105.50018399999999
+      ]
+    ],
+    "source": "tscircuit native Pipeline 9; independent physical screen passed"
+  },
+  {
+    "name": "CONTROL_PCIE_CLKREQ_N_1",
+    "net": "PCIE_CLKREQ_N",
+    "from": "PCIe.CLKREQ_N",
+    "to": "R_PCIE_CLKREQ.pin2",
+    "width": 0.127,
+    "points": [
+      [
+        12.252136445442622,
+        100.95904628230507
+      ],
+      [
+        14.185899596976913,
+        102.72721534764274
+      ],
+      [
+        18.198837059974,
+        102.60023992506763
+      ],
+      [
+        18.4216571193024,
+        102.84805552607607
+      ],
+      [
+        18.344770697563206,
+        104.8543908489765
+      ]
+    ],
+    "source": "tscircuit native Pipeline 9; independent physical screen passed"
+  }
+]

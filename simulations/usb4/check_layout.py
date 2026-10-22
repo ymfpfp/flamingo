@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'simulations/pcie-tx'))
 from copper_geometry import copper_objects
 
-def audit(j):
+def audit(j, isolation_regions=None):
     if isinstance(j,dict): j=j['circuitJson']
     stack=json.loads((ROOT/'manufacturing/stackup/JLC06161H-3313.json').read_text())
     profile=stack['impedanceProfiles'][0]
@@ -81,6 +81,8 @@ def audit(j):
                     if trunk.is_empty:
                         excluded.append({'name':name,'layer':layer,'lengthMm':line.length,'reason':'Fixed component courtyard launch envelope'})
                         continue
+                    if isolation_regions is not None:
+                        isolation_regions.append({'name':name,'traceId':t['pcb_trace_id'],'layer':layer,'requiredGapMm':local_required,'shape':trunk})
                     local=[o for o in obstacles if layer in o['layers']]
                     closest=min(local,key=lambda o:trunk.distance(o['shape']))
                     bad=[{'object':o['label'],'gapMm':trunk.distance(o['shape'])} for o in local

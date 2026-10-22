@@ -2,14 +2,9 @@ import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
 import {SN74AHCT1G14DBVR} from "../imports/SN74AHCT1G14DBVR";
-import Board from "../index.circuit";
+import {boardFixture} from "./board-fixture.mjs";
 
-const circuit = new Circuit();
-circuit.pcbDisabled = true;
-circuit.schematicDisabled = true;
-circuit.add(Board());
-await circuit.renderUntilSettled();
-const json = circuit.getCircuitJson();
+const json = boardFixture();
 const components = json.filter(e => e.type === "source_component");
 const ports = json.filter(e => e.type === "source_port");
 const component = name => {

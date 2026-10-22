@@ -3,162 +3,212 @@
     "name": "GRET_R_RST_N_CONTACT",
     "from": "R_RST_N.pin2",
     "to": "GRET_R_RST_N.top",
-    "select": "R_RST_N.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": []
   },
   {
     "name": "GRET_R_TEST_EN_CONTACT",
     "from": "R_TEST_EN.pin2",
     "to": "GRET_R_TEST_EN.top",
-    "select": "R_TEST_EN.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": []
   },
   {
     "name": "GRET_W25Q32JVSSIQ_CONTACT",
     "from": "W25Q32JVSSIQ.pin4",
     "to": "GRET_W25Q32JVSSIQ.top",
-    "select": "W25Q32JVSSIQ.pin4",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": []
   },
   {
     "name": "GRET_C_RST_CONTACT",
     "from": "C_RST.pin2",
     "to": "GRET_C_RST.top",
-    "select": "C_RST.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": []
   },
   {
     "name": "GRET_SW_RESET_CONTACT",
     "from": "SW_RESET.pin2",
     "to": "GRET_SW_RESET.top",
-    "select": "SW_RESET.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": []
   },
   {
     "name": "GRET_R_USB_TX1_P_CONTACT",
     "from": "R_USB_TX1_P.pin2",
     "to": "GRET_R_USB_TX1_P.top",
-    "select": "R_USB_TX1_P.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": [
+      [
+        43.1,
+        95.55
+      ]
+    ]
   },
   {
     "name": "GRET_R_USB_TX2_P_CONTACT",
     "from": "R_USB_TX2_P.pin2",
     "to": "GRET_R_USB_TX2_P.top",
-    "select": "R_USB_TX2_P.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": [
+      [
+        42.9999977,
+        101.77786
+      ]
+    ]
   },
   {
     "name": "GRET_R_USB_TX2_N_CONTACT",
     "from": "R_USB_TX2_N.pin2",
     "to": "GRET_R_USB_TX2_N.top",
-    "select": "R_USB_TX2_N.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": [
+      [
+        42.99999769999993,
+        99.71164
+      ]
+    ]
   },
   {
     "name": "GRET_R_USB_RX1_P_CONTACT",
     "from": "R_USB_RX1_P.pin2",
     "to": "GRET_R_USB_RX1_P.top",
-    "select": "R_USB_RX1_P.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": [
+      [
+        43.2,
+        92.96689170000002
+      ]
+    ]
   },
   {
     "name": "GRET_R_USB_RX1_N_CONTACT",
     "from": "R_USB_RX1_N.pin2",
     "to": "GRET_R_USB_RX1_N.top",
-    "select": "R_USB_RX1_N.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": []
   },
   {
     "name": "GRET_R_USB_RX2_N_CONTACT",
     "from": "R_USB_RX2_N.pin2",
     "to": "GRET_R_USB_RX2_N.top",
-    "select": "R_USB_RX2_N.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": [
+      [
+        43.5,
+        102.7668917
+      ]
+    ]
   },
   {
     "name": "GRET_D_USB_TX1_N_CONTACT",
     "from": "D_USB_TX1_N.pin2",
     "to": "USB_SHIELD_FENCE_29.top",
-    "select": "D_USB_TX1_N.pin2",
     "layer": "top",
     "width": 0.2,
-    "phase": 18
+    "points": [
+      [
+        40.7,
+        97.74005030000006
+      ]
+    ]
   },
   {
     "name": "GRET_D_USB_TX2_P_CONTACT",
     "from": "D_USB_TX2_P.pin2",
     "to": "USB_SHIELD_FENCE_34.top",
-    "select": "D_USB_TX2_P.pin2",
     "layer": "top",
     "width": 0.2,
-    "phase": 18
+    "points": [
+      [
+        40.6300497,
+        101.3
+      ]
+    ]
   },
   {
     "name": "GRET_D_USB_TX2_N_CONTACT",
     "from": "D_USB_TX2_N.pin2",
     "to": "USB_SHIELD_FENCE_32.top",
-    "select": "D_USB_TX2_N.pin2",
     "layer": "top",
     "width": 0.2,
-    "phase": 18
+    "points": [
+      [
+        40.72994970000002,
+        99.3
+      ]
+    ]
   },
   {
     "name": "GRET_D_USB_RX1_P_CONTACT",
     "from": "D_USB_RX1_P.pin2",
     "to": "USB_SHIELD_FENCE_6.top",
-    "select": "D_USB_RX1_P.pin2",
     "layer": "top",
     "width": 0.2,
-    "phase": 18
+    "points": [
+      [
+        40.400049699999926,
+        92.9
+      ]
+    ]
   },
   {
     "name": "GRET_D_USB_RX1_N_CONTACT",
     "from": "D_USB_RX1_N.pin2",
     "to": "USB4_GND_RETURN_1.top",
-    "select": "D_USB_RX1_N.pin2",
     "layer": "top",
     "width": 0.2,
-    "phase": 18
+    "points": [
+      [
+        40.9,
+        95.30005030000007
+      ]
+    ]
   },
   {
     "name": "GRET_D_USB_RX2_P_CONTACT",
     "from": "D_USB_RX2_P.pin2",
     "to": "USB_SHIELD_FENCE_10.top",
-    "select": "D_USB_RX2_P.pin2",
     "layer": "top",
     "width": 0.2,
-    "phase": 18
+    "points": [
+      [
+        40.5,
+        104.8500497
+      ]
+    ]
   },
   {
     "name": "GRET_R_USB_RX2_P_CONTACT",
     "from": "R_USB_RX2_P.pin2",
     "to": "USB_SHIELD_FENCE_13.top",
-    "select": "R_USB_RX2_P.pin2",
     "layer": "top",
     "width": 0.25,
-    "phase": 18
+    "points": [
+      [
+        43.2,
+        105.13310770000001
+      ]
+    ]
+  },
+  {
+    "name": "GRET_R_USB_TX1_N_CONTACT",
+    "from": "R_USB_TX1_N.pin2",
+    "to": "USB2_GND_RETURN_2.top",
+    "layer": "top",
+    "width": 0.2,
+    "points": []
   }
 ]

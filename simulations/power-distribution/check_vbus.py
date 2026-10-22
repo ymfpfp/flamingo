@@ -41,7 +41,8 @@ def audit(raw):
    p=port(part,pin);connected=bool(source&contact(p));rows.append({'name':part+'.'+pin,'connected':connected})
    if root(p['source_port_id'])!=n or not connected:failures.append(part+'.'+pin+': no physical '+net+' path')
   records.append({'net':net,'terminals':rows})
- if len({nets[n] for n in ['USB_VBUS','USB_VBUS_SENSE','GND','V5V','V5VSB','VCCH']})!=6:failures.append('VBUS sensing or ATX rails are unexpectedly joined')
+ separate=['USB_VBUS','USB_VBUS_SENSE','GND','V5V','VCCH']+(['V5VSB'] if 'V5VSB' in nets else [])
+ if len({nets[n] for n in separate})!=len(separate):failures.append('VBUS sensing or ATX rails are unexpectedly joined')
  components={c['name']:c for c in sc.values()}
  if components['R_VBUS_TOP']['resistance']!=4700 or components['R_VBUS_BOTTOM']['resistance']!=10000 or abs(components['C_VBUS_SENSE']['capacitance']-1e-6)>1e-12:failures.append('ASMedia divider/filter values changed')
  # Check actual wire copper against foreign copper on its physical layer.

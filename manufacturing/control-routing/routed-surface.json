@@ -1,0 +1,3928 @@
+[
+  {
+    "net": "PCIE_PRESENT_N",
+    "nativeCandidate": "dist/control-routing/controls17-planned/trials/PCIE_PRESENT_N.json",
+    "viaCount": 3,
+    "vias": [
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_VIA_0",
+        "x": 18.44,
+        "y": 64.86,
+        "diameter": 0.3,
+        "hole": 0.2,
+        "connectsTo": "R_PCIE_PRESENT.pin2"
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_VIA_1",
+        "x": 21.4972,
+        "y": 64.86,
+        "diameter": 0.3,
+        "hole": 0.2,
+        "connectsTo": "R_PCIE_PRESENT.pin2"
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_VIA_2",
+        "x": 8.46,
+        "y": 64.638,
+        "diameter": 0.3,
+        "hole": 0.2,
+        "connectsTo": "R_PCIE_PRESENT.pin2"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_0",
+        "from": "R_PCIE_PRESENT_PU.pin2",
+        "to": "CONTROL_PCIE_PRESENT_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            18.44,
+            64.86
+          ],
+          [
+            18.44,
+            64.86
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_1",
+        "from": "CONTROL_PCIE_PRESENT_N_VIA_0.bottom",
+        "to": "CONTROL_PCIE_PRESENT_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            18.44,
+            64.86
+          ],
+          [
+            21.4972,
+            64.86
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_2",
+        "from": "CONTROL_PCIE_PRESENT_N_VIA_1.top",
+        "to": "R_PCIE_PRESENT.pin2",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            21.4972,
+            64.86
+          ],
+          [
+            21.4972,
+            64.86
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_3",
+        "from": "PCIe.PRSNT2_X8_N",
+        "to": "CONTROL_PCIE_PRESENT_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            6.74504400000007,
+            64.86088060000024
+          ],
+          [
+            8.178403728558086,
+            64.86088060000024
+          ],
+          [
+            8.402231499689114,
+            64.63705282886922
+          ],
+          [
+            8.459052828869211,
+            64.63705282886922
+          ],
+          [
+            8.46,
+            64.638
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_4",
+        "from": "CONTROL_PCIE_PRESENT_N_VIA_2.bottom",
+        "to": "CONTROL_PCIE_PRESENT_N_VIA_0.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            8.46,
+            64.638
+          ],
+          [
+            9.860974573515307,
+            63.2370254264847
+          ],
+          [
+            18.37859733141256,
+            63.2370254264847
+          ],
+          [
+            18.37859733141256,
+            64.79859733141257
+          ],
+          [
+            18.44,
+            64.86
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_5",
+        "from": "CONTROL_PCIE_PRESENT_N_VIA_0.top",
+        "to": "R_PCIE_PRESENT_PU.pin2",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            18.44,
+            64.86
+          ],
+          [
+            18.44,
+            64.86
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_6",
+        "from": "PCIe.PRSNT2_X4_N",
+        "to": "PCIe.PRSNT2_X1_N",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            6.745044000000073,
+            81.86084660000024
+          ],
+          [
+            7.802075948788769,
+            81.86084660000024
+          ],
+          [
+            9.352667818230927,
+            83.4114384694424
+          ],
+          [
+            9.352667818230927,
+            94.41393767545641
+          ],
+          [
+            7.967989802524198,
+            95.79861569116314
+          ],
+          [
+            6.807246908837184,
+            95.79861569116314
+          ],
+          [
+            6.745044000000076,
+            95.86081860000024
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_7",
+        "from": "PCIe.PRSNT2_X8_N",
+        "to": "PCIe.PRSNT2_X4_N",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            6.74504400000007,
+            64.86088060000024
+          ],
+          [
+            7.7609081037519285,
+            64.86088060000024
+          ],
+          [
+            10.047716816736836,
+            67.14768931298515
+          ],
+          [
+            10.047716816736836,
+            79.58689946090149
+          ],
+          [
+            7.883760968456958,
+            81.75085530918138
+          ],
+          [
+            6.855035290818941,
+            81.75085530918138
+          ],
+          [
+            6.745044000000073,
+            81.86084660000024
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_PCIE_PRESENT_N_SECTION_8",
+        "from": "PCIe.PRSNT2_X16_N",
+        "to": "PCIe.PRSNT2_X8_N",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            6.745044000000064,
+            31.86094660000024
+          ],
+          [
+            5.595299264624015,
+            31.86094660000024
+          ],
+          [
+            5.347702098137302,
+            32.10854376648695
+          ],
+          [
+            5.347702098137302,
+            64.64156216476572
+          ],
+          [
+            5.51676182571681,
+            64.81062189234522
+          ],
+          [
+            6.694785292345052,
+            64.81062189234522
+          ],
+          [
+            6.74504400000007,
+            64.86088060000024
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_PRESENT_N",
+    "nativeCandidate": "dist/control-routing/controls17/asm-present-staging.json",
+    "viaCount": 4,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_PRESENT_N_VIA_0",
+        "x": 33.525,
+        "y": 63.525,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO2"
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_VIA_1",
+        "x": 35.088,
+        "y": 88.2,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO2"
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_VIA_2",
+        "x": 35.3,
+        "y": 93,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO2"
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_VIA_3",
+        "x": 34.1,
+        "y": 93.26000740000005,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO2"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_PRESENT_N_SECTION_0",
+        "from": "R_PCIE_PRESENT.pin1",
+        "to": "CONTROL_ASM_PRESENT_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            22.3628,
+            64.86
+          ],
+          [
+            23.966384425531857,
+            63.25641557446814
+          ],
+          [
+            32.9482876659017,
+            63.25641557446814
+          ],
+          [
+            33.25641557446814,
+            63.25641557446814
+          ],
+          [
+            33.525,
+            63.525
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_SECTION_1",
+        "from": "CONTROL_ASM_PRESENT_N_VIA_0.bottom",
+        "to": "CONTROL_ASM_PRESENT_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            33.525,
+            63.525
+          ],
+          [
+            35.45211430525019,
+            65.45211430525019
+          ],
+          [
+            36.92432872223567,
+            65.45211430525019
+          ],
+          [
+            37.3457467995117,
+            65.03069622797416
+          ],
+          [
+            38.747207556352905,
+            65.03069622797416
+          ],
+          [
+            39.26028897764344,
+            65.5437776492647
+          ],
+          [
+            39.26028897764344,
+            73.03956244941658
+          ],
+          [
+            34.84179867121378,
+            77.45805275584624
+          ],
+          [
+            34.6,
+            77.468
+          ],
+          [
+            34.35,
+            77.468
+          ],
+          [
+            34.1,
+            77.468
+          ],
+          [
+            33.9,
+            77.468
+          ],
+          [
+            33.7,
+            77.468
+          ],
+          [
+            33.5,
+            77.468
+          ],
+          [
+            33.3,
+            77.468
+          ],
+          [
+            33.1,
+            77.468
+          ],
+          [
+            30.859412696660378,
+            75.22741269666038
+          ],
+          [
+            30.859412696660378,
+            73.16134236618203
+          ],
+          [
+            29.76804959805814,
+            73.16134236618203
+          ],
+          [
+            28.92438600094225,
+            74.00500596329792
+          ],
+          [
+            28.92438600094225,
+            81.26260985847163
+          ],
+          [
+            33.66192937752892,
+            86.0001532350583
+          ],
+          [
+            33.66192937752892,
+            87.17512205953749
+          ],
+          [
+            34.241495805673324,
+            87.75468848768189
+          ],
+          [
+            34.64268848768189,
+            87.75468848768189
+          ],
+          [
+            35.05772620077223,
+            88.16972620077223
+          ],
+          [
+            35.088,
+            88.2
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_SECTION_2",
+        "from": "CONTROL_ASM_PRESENT_N_VIA_1.top",
+        "to": "CONTROL_ASM_PRESENT_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            35.088,
+            88.2
+          ],
+          [
+            35.66498487404383,
+            88.77698487404383
+          ],
+          [
+            35.66498487404383,
+            90.7011301065023
+          ],
+          [
+            35.66498487404383,
+            90.93097071589017
+          ],
+          [
+            35.7,
+            91.2
+          ],
+          [
+            35.7,
+            92.55
+          ],
+          [
+            35.7,
+            93.3
+          ],
+          [
+            35.3,
+            93.3
+          ],
+          [
+            35.3,
+            93
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_SECTION_3",
+        "from": "CONTROL_ASM_PRESENT_N_VIA_2.bottom",
+        "to": "CONTROL_ASM_PRESENT_N_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            35.3,
+            93
+          ],
+          [
+            34.1,
+            93.2600074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PRESENT_N_SECTION_4",
+        "from": "CONTROL_ASM_PRESENT_N_VIA_3.top",
+        "to": "ASM2464PDX.GPIO2",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            34.1,
+            93.26000740000005
+          ],
+          [
+            34.1,
+            93.26000740000005
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "TEST_EN",
+    "nativeCandidate": "dist/control-routing/controls17/joint-test-rext-candidates.json",
+    "viaCount": 4,
+    "vias": [
+      {
+        "name": "CONTROL_TEST_EN_VIA_0",
+        "x": 24.9,
+        "y": 96.02000740000005,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.TEST_EN"
+      },
+      {
+        "name": "CONTROL_TEST_EN_VIA_1",
+        "x": 11.55,
+        "y": 96.05,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.TEST_EN"
+      },
+      {
+        "name": "CONTROL_TEST_EN_VIA_2",
+        "x": 12.375,
+        "y": 99.796,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.TEST_EN"
+      },
+      {
+        "name": "CONTROL_TEST_EN_VIA_3",
+        "x": 38.29,
+        "y": 106.40000740000005,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.TEST_EN"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_TEST_EN_SECTION_0",
+        "from": "ASM2464PDX.TEST_EN",
+        "to": "CONTROL_TEST_EN_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            24.9,
+            96.02000740000005
+          ],
+          [
+            24.9,
+            96.02000740000005
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_TEST_EN_SECTION_1",
+        "from": "CONTROL_TEST_EN_VIA_0.bottom",
+        "to": "CONTROL_TEST_EN_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            24.9,
+            96.02000740000005
+          ],
+          [
+            24.5,
+            96.0200074
+          ],
+          [
+            23.7,
+            95.21565503226654
+          ],
+          [
+            17.044939714300025,
+            95.21565503226654
+          ],
+          [
+            16.81744726707475,
+            94.98816258504127
+          ],
+          [
+            15.38997227197678,
+            94.98816258504127
+          ],
+          [
+            14.328798225847855,
+            96.04933663117019
+          ],
+          [
+            11.580869295143664,
+            96.04933663117019
+          ],
+          [
+            11.550663368829806,
+            96.04933663117019
+          ],
+          [
+            11.55,
+            96.05
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_TEST_EN_SECTION_2",
+        "from": "CONTROL_TEST_EN_VIA_1.top",
+        "to": "CONTROL_TEST_EN_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            11.55,
+            96.05
+          ],
+          [
+            10.992097721977041,
+            96.60790227802296
+          ],
+          [
+            10.992097721977041,
+            98.31666515606834
+          ],
+          [
+            11.020001199776864,
+            98.31666515606834
+          ],
+          [
+            12.37798966129656,
+            99.67465361758804
+          ],
+          [
+            12.37798966129656,
+            99.79301033870345
+          ],
+          [
+            12.375,
+            99.796
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_TEST_EN_SECTION_3",
+        "from": "CONTROL_TEST_EN_VIA_2.bottom",
+        "to": "CONTROL_TEST_EN_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            12.375,
+            99.796
+          ],
+          [
+            12.375,
+            106.17377057757216
+          ],
+          [
+            13.34141622752879,
+            107.14018680510095
+          ],
+          [
+            13.390552751526194,
+            107.18932332909836
+          ],
+          [
+            18.318845069985688,
+            107.18932332909836
+          ],
+          [
+            19.112039524435065,
+            106.39612887464898
+          ],
+          [
+            20.48604624535576,
+            106.39612887464898
+          ],
+          [
+            21.469230935859933,
+            107.37931356515315
+          ],
+          [
+            30.3,
+            107.37931356515315
+          ],
+          [
+            30.3,
+            109.4
+          ],
+          [
+            36.2,
+            109.4
+          ],
+          [
+            36.2,
+            107.37931356515315
+          ],
+          [
+            37.1984060034594,
+            107.37931356515315
+          ],
+          [
+            37.310693834846894,
+            107.37931356515315
+          ],
+          [
+            38.29,
+            106.40000740000005
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_TEST_EN_SECTION_4",
+        "from": "CONTROL_TEST_EN_VIA_3.top",
+        "to": "R_TEST_EN.pin1",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            38.29,
+            106.40000740000005
+          ],
+          [
+            38.29,
+            106.40000740000005
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "REXT",
+    "nativeCandidate": "dist/control-routing/controls17/joint-test-rext-candidates.json",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_REXT_VIA_0",
+        "x": 34.70768319231411,
+        "y": 103.302,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.REXT"
+      },
+      {
+        "name": "CONTROL_REXT_VIA_1",
+        "x": 32.5672,
+        "y": 108.4000074,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.REXT"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_REXT_SECTION_0",
+        "from": "ASM2464PDX.REXT",
+        "to": "CONTROL_REXT_VIA_0.top",
+        "width": 0.254,
+        "layer": "top",
+        "points": [
+          [
+            33.18,
+            102.0000074
+          ],
+          [
+            33.18,
+            102.4
+          ],
+          [
+            34.3,
+            103.302
+          ],
+          [
+            34.70768319231411,
+            103.302
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_REXT_SECTION_1",
+        "from": "CONTROL_REXT_VIA_0.bottom",
+        "to": "CONTROL_REXT_VIA_1.bottom",
+        "width": 0.254,
+        "layer": "bottom",
+        "points": [
+          [
+            34.70768319231411,
+            103.302
+          ],
+          [
+            34.70768319231411,
+            103.302
+          ],
+          [
+            34.71426605467002,
+            103.30858286235592
+          ],
+          [
+            34.71426605467002,
+            103.30956702449224
+          ],
+          [
+            35.183036952839785,
+            103.7468816948903
+          ],
+          [
+            35.262169555677836,
+            103.7343633384593
+          ],
+          [
+            35.43533141050455,
+            103.79226772962592
+          ],
+          [
+            35.61468055397404,
+            103.87832586532629
+          ],
+          [
+            35.574613562682416,
+            104.04384182796177
+          ],
+          [
+            35.575745510563294,
+            104.63241772773995
+          ],
+          [
+            33.36384422788754,
+            106.87627016373148
+          ],
+          [
+            32.5672,
+            107.67291439161902
+          ],
+          [
+            32.5672,
+            108.4000074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_REXT_SECTION_2",
+        "from": "CONTROL_REXT_VIA_1.top",
+        "to": "R_RST_N.pin1",
+        "width": 0.254,
+        "layer": "top",
+        "points": [
+          [
+            32.5672,
+            108.4000074
+          ],
+          [
+            32.5672,
+            108.4000074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_PERST0_N",
+    "nativeCandidate": "dist/control-routing/controls17/perst-candidate.json",
+    "viaCount": 6,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_PERST0_N_VIA_0",
+        "x": 24.9,
+        "y": 95.5600074,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.PERST0"
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_VIA_1",
+        "x": 11.35,
+        "y": 95.55,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.PERST0"
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_VIA_2",
+        "x": 10.4,
+        "y": 100.3,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.PERST0"
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_VIA_3",
+        "x": 11.9,
+        "y": 102.3,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.PERST0"
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_VIA_4",
+        "x": 15.5,
+        "y": 103.1,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.PERST0"
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_VIA_5",
+        "x": 17.8328,
+        "y": 103.2,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.PERST0"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_0",
+        "from": "ASM2464PDX.PERST0",
+        "to": "CONTROL_ASM_PERST0_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            24.9,
+            95.5600074
+          ],
+          [
+            24.9,
+            95.5600074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_1",
+        "from": "CONTROL_ASM_PERST0_N_VIA_0.bottom",
+        "to": "CONTROL_ASM_PERST0_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            24.9,
+            95.5600074
+          ],
+          [
+            24.4,
+            95.0600074
+          ],
+          [
+            24.1,
+            95.0600074
+          ],
+          [
+            23.855,
+            94.8150074
+          ],
+          [
+            17.21,
+            94.8150074
+          ],
+          [
+            16.98,
+            94.5850074
+          ],
+          [
+            15.2,
+            94.5850074
+          ],
+          [
+            14.135,
+            95.6500074
+          ],
+          [
+            11.35,
+            95.6500074
+          ],
+          [
+            11.35,
+            95.55
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_2",
+        "from": "CONTROL_ASM_PERST0_N_VIA_1.top",
+        "to": "CONTROL_ASM_PERST0_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            11.35,
+            95.55
+          ],
+          [
+            10.4,
+            96.5
+          ],
+          [
+            10.4,
+            100.3
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_3",
+        "from": "CONTROL_ASM_PERST0_N_VIA_2.bottom",
+        "to": "CONTROL_ASM_PERST0_N_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            10.4,
+            100.3
+          ],
+          [
+            11.9,
+            100.3
+          ],
+          [
+            11.9,
+            102.3
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_4",
+        "from": "CONTROL_ASM_PERST0_N_VIA_3.top",
+        "to": "CONTROL_ASM_PERST0_N_VIA_4.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            11.9,
+            102.3
+          ],
+          [
+            11.9,
+            103.1
+          ],
+          [
+            15.5,
+            103.1
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_5",
+        "from": "CONTROL_ASM_PERST0_N_VIA_4.bottom",
+        "to": "CONTROL_ASM_PERST0_N_VIA_5.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            15.5,
+            103.1
+          ],
+          [
+            14.9,
+            102.5
+          ],
+          [
+            14.9,
+            101
+          ],
+          [
+            18.4,
+            101
+          ],
+          [
+            18.4,
+            102.6328
+          ],
+          [
+            17.8328,
+            103.2
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_PERST0_N_SECTION_6",
+        "from": "CONTROL_ASM_PERST0_N_VIA_5.top",
+        "to": "R_PCIE_PERST.pin1",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            17.8328,
+            103.2
+          ],
+          [
+            17.8328,
+            103.2
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "FLASH_HOLD",
+    "nativeCandidate": "dist/control-routing/controls17/hold-candidate.json",
+    "viaCount": 0,
+    "vias": [],
+    "segments": [
+      {
+        "name": "CONTROL_FLASH_HOLD_SECTION_0",
+        "from": "W25Q32JVSSIQ.HOLD",
+        "to": "R_SPI_HOLD.pin2",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.169908,
+            85.9650074
+          ],
+          [
+            26.3,
+            85.9650074
+          ],
+          [
+            27.03,
+            86.6950074
+          ],
+          [
+            27.03,
+            90.2628234
+          ],
+          [
+            27.067184,
+            90.3000074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_SPI_MISO",
+    "nativeCandidate": "dist/control-routing/controls17/joint-spi-candidates.json",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_SPI_MISO_VIA_0",
+        "x": 33.55,
+        "y": 91.52,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DI"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MISO_VIA_1",
+        "x": 33.7,
+        "y": 85.34,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DI"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_SPI_MISO_SECTION_0",
+        "from": "ASM2464PDX.SPI_DI",
+        "to": "CONTROL_ASM_SPI_MISO_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            32.72,
+            92.8000074
+          ],
+          [
+            32.72,
+            91.91
+          ],
+          [
+            33.11,
+            91.52
+          ],
+          [
+            33.55,
+            91.52
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MISO_SECTION_1",
+        "from": "CONTROL_ASM_SPI_MISO_VIA_0.bottom",
+        "to": "SPI.MISO",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            33.55,
+            91.52
+          ],
+          [
+            35.4,
+            91.52
+          ],
+          [
+            35.8,
+            91.12
+          ],
+          [
+            35.8,
+            90.85
+          ],
+          [
+            43,
+            90.85
+          ],
+          [
+            46,
+            87.8
+          ],
+          [
+            47.48,
+            87.8
+          ],
+          [
+            48.47,
+            86.81
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MISO_SECTION_2",
+        "from": "SPI.MISO",
+        "to": "CONTROL_ASM_SPI_MISO_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            48.47,
+            86.81
+          ],
+          [
+            47,
+            85.34
+          ],
+          [
+            33.7,
+            85.34
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MISO_SECTION_3",
+        "from": "CONTROL_ASM_SPI_MISO_VIA_1.top",
+        "to": "W25Q32JVSSIQ.MISO",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            33.7,
+            85.34
+          ],
+          [
+            30,
+            85.34
+          ],
+          [
+            29.8,
+            85.54
+          ],
+          [
+            29.8,
+            85.9650074
+          ],
+          [
+            32.230092,
+            85.9650074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_SPI_CLK",
+    "nativeCandidate": "dist/control-routing/controls17/clk-candidate.json",
+    "viaCount": 5,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_SPI_CLK_VIA_0",
+        "x": 30.95,
+        "y": 91.6,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CLK"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_VIA_1",
+        "x": 25.169908,
+        "y": 87.2350074,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CLK"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_VIA_2",
+        "x": 26.1,
+        "y": 86.895,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CLK"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_VIA_3",
+        "x": 27.5,
+        "y": 86.895,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CLK"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_VIA_4",
+        "x": 33.7,
+        "y": 83.8,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CLK"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_0",
+        "from": "ASM2464PDX.SPI_CLK",
+        "to": "CONTROL_ASM_SPI_CLK_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            32.26,
+            92.8000074
+          ],
+          [
+            32.26,
+            92.3
+          ],
+          [
+            31.56,
+            91.6
+          ],
+          [
+            30.95,
+            91.6
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_1",
+        "from": "CONTROL_ASM_SPI_CLK_VIA_0.bottom",
+        "to": "CONTROL_ASM_SPI_CLK_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            30.95,
+            91.6
+          ],
+          [
+            30.95,
+            91.46
+          ],
+          [
+            30.3,
+            90.9386
+          ],
+          [
+            30.3,
+            86.42
+          ],
+          [
+            24.5,
+            86.42
+          ],
+          [
+            24.5,
+            87.2350074
+          ],
+          [
+            25.169908,
+            87.2350074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_2",
+        "from": "CONTROL_ASM_SPI_CLK_VIA_1.top",
+        "to": "W25Q32JVSSIQ.CLK",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.169908,
+            87.2350074
+          ],
+          [
+            25.169908,
+            87.2350074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_3",
+        "from": "W25Q32JVSSIQ.CLK",
+        "to": "CONTROL_ASM_SPI_CLK_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.169908,
+            87.2350074
+          ],
+          [
+            26.1,
+            87.2350074
+          ],
+          [
+            26.1,
+            86.895
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_4",
+        "from": "CONTROL_ASM_SPI_CLK_VIA_2.bottom",
+        "to": "CONTROL_ASM_SPI_CLK_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            26.1,
+            86.895
+          ],
+          [
+            27.5,
+            86.895
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_5",
+        "from": "CONTROL_ASM_SPI_CLK_VIA_3.top",
+        "to": "CONTROL_ASM_SPI_CLK_VIA_4.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            27.5,
+            86.895
+          ],
+          [
+            27.5,
+            83.8
+          ],
+          [
+            33.7,
+            83.8
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CLK_SECTION_6",
+        "from": "CONTROL_ASM_SPI_CLK_VIA_4.bottom",
+        "to": "SPI.CLK",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            33.7,
+            83.8
+          ],
+          [
+            34.2,
+            83.3
+          ],
+          [
+            34.2,
+            82.9
+          ],
+          [
+            43,
+            82.9
+          ],
+          [
+            44.17,
+            81.73
+          ],
+          [
+            48.47,
+            81.73
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_SPI_MOSI",
+    "nativeCandidate": "Manually authored MOSI/SBU corridor rework; fresh verification pending",
+    "viaCount": 10,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_VIA_0",
+        "x": 34.2,
+        "y": 92.02,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_VIA_1",
+        "x": 46,
+        "y": 84.8,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_VIA_2",
+        "x": 46,
+        "y": 85.9,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_VIA_3",
+        "x": 33.7,
+        "y": 87.9,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_VIA_4",
+        "x": 27.9,
+        "y": 87.95,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_VIA_5",
+        "x": 25.169908,
+        "y": 87.94,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_0",
+        "x": 35.2,
+        "y": 92.02,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_1",
+        "x": 35.2,
+        "y": 89.55,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_2",
+        "x": 42.2,
+        "y": 88.3,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_3",
+        "x": 46.2,
+        "y": 88.5,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_DO"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_0",
+        "from": "ASM2464PDX.SPI_DO",
+        "to": "CONTROL_ASM_SPI_MOSI_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            33.18,
+            92.8000074
+          ],
+          [
+            33.18,
+            92.02
+          ],
+          [
+            34.2,
+            92.02
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_SECTION_0",
+        "from": "CONTROL_ASM_SPI_MOSI_VIA_0.bottom",
+        "to": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_0.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            34.2,
+            92.02
+          ],
+          [
+            35.2,
+            92.02
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_SECTION_1",
+        "from": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_0.top",
+        "to": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_1.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            35.2,
+            92.02
+          ],
+          [
+            35.2,
+            89.55
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_SECTION_2",
+        "from": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_1.bottom",
+        "to": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_2.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            35.2,
+            89.55
+          ],
+          [
+            35.5,
+            89.65
+          ],
+          [
+            40,
+            89.65
+          ],
+          [
+            40.3,
+            90.4
+          ],
+          [
+            42.2,
+            90.4
+          ],
+          [
+            42.2,
+            88.3
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_SECTION_3",
+        "from": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_2.top",
+        "to": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_3.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            42.2,
+            88.3
+          ],
+          [
+            44.2,
+            88.3
+          ],
+          [
+            46.2,
+            88.5
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_REWORK_SECTION_4",
+        "from": "CONTROL_ASM_SPI_MOSI_REWORK_VIA_3.bottom",
+        "to": "SPI.MOSI",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            46.2,
+            88.5
+          ],
+          [
+            47,
+            90.5
+          ],
+          [
+            50.3,
+            90.5
+          ],
+          [
+            50.3,
+            84.27
+          ],
+          [
+            48.47,
+            84.27
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_2",
+        "from": "SPI.MOSI",
+        "to": "CONTROL_ASM_SPI_MOSI_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            48.47,
+            84.27
+          ],
+          [
+            46,
+            84.27
+          ],
+          [
+            46,
+            84.8
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_3",
+        "from": "CONTROL_ASM_SPI_MOSI_VIA_1.top",
+        "to": "CONTROL_ASM_SPI_MOSI_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            46,
+            84.8
+          ],
+          [
+            46,
+            85.9
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_4",
+        "from": "CONTROL_ASM_SPI_MOSI_VIA_2.bottom",
+        "to": "CONTROL_ASM_SPI_MOSI_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            46,
+            85.9
+          ],
+          [
+            43,
+            85.9
+          ],
+          [
+            39,
+            88.2
+          ],
+          [
+            35.8,
+            88.2
+          ],
+          [
+            35.2,
+            88.8
+          ],
+          [
+            34.6,
+            88.8
+          ],
+          [
+            33.7,
+            87.9
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_5",
+        "from": "CONTROL_ASM_SPI_MOSI_VIA_3.top",
+        "to": "CONTROL_ASM_SPI_MOSI_VIA_4.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            33.7,
+            87.9
+          ],
+          [
+            33.7,
+            86.6
+          ],
+          [
+            28.7,
+            86.6
+          ],
+          [
+            28.7,
+            87
+          ],
+          [
+            27.9,
+            87.6
+          ],
+          [
+            27.9,
+            87.95
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_6",
+        "from": "CONTROL_ASM_SPI_MOSI_VIA_4.bottom",
+        "to": "CONTROL_ASM_SPI_MOSI_VIA_5.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            27.9,
+            87.95
+          ],
+          [
+            25.169908,
+            87.94
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_MOSI_SECTION_7",
+        "from": "CONTROL_ASM_SPI_MOSI_VIA_5.top",
+        "to": "W25Q32JVSSIQ.MOSI",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.169908,
+            87.94
+          ],
+          [
+            25.169908,
+            88.5050074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "FLASH_WP",
+    "nativeCandidate": "dist/control-routing/controls17/flash-rework-candidates.json",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_FLASH_WP_VIA_0",
+        "x": 26.63,
+        "y": 87.49,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "W25Q32JVSSIQ.WP"
+      },
+      {
+        "name": "CONTROL_FLASH_WP_VIA_1",
+        "x": 29.6,
+        "y": 87.5,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "W25Q32JVSSIQ.WP"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_FLASH_WP_SECTION_0",
+        "from": "R_SPI_WP.pin2",
+        "to": "CONTROL_FLASH_WP_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.932816,
+            90.3000074
+          ],
+          [
+            26.067184,
+            89.6
+          ],
+          [
+            26.63,
+            89.037184
+          ],
+          [
+            26.63,
+            87.49
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_FLASH_WP_SECTION_1",
+        "from": "CONTROL_FLASH_WP_VIA_0.bottom",
+        "to": "CONTROL_FLASH_WP_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            26.63,
+            87.49
+          ],
+          [
+            27.5,
+            87.5
+          ],
+          [
+            29.6,
+            87.5
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_FLASH_WP_SECTION_2",
+        "from": "CONTROL_FLASH_WP_VIA_1.top",
+        "to": "W25Q32JVSSIQ.WP",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            29.6,
+            87.5
+          ],
+          [
+            32.230092,
+            87.2350074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_UART_TX",
+    "nativeCandidate": "dist/control-routing/controls17/uart-tx-current.json",
+    "viaCount": 4,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_UART_TX_VIA_0",
+        "x": 31.952,
+        "y": 61.617,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_TX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_VIA_1",
+        "x": 12.507,
+        "y": 62.745,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_TX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_VIA_2",
+        "x": 10.300969892813757,
+        "y": 91.999,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_TX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_VIA_3",
+        "x": 24.8,
+        "y": 91.85,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_TX"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_UART_TX_SECTION_0",
+        "from": "UART.TX",
+        "to": "R_UART_TX.pin2",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            48.47,
+            63.95
+          ],
+          [
+            48.47,
+            63.92764381000389
+          ],
+          [
+            47.298,
+            62.755643810003896
+          ],
+          [
+            47.298,
+            62.398
+          ],
+          [
+            47.298,
+            62.148
+          ],
+          [
+            47.298,
+            61.898
+          ],
+          [
+            47.298,
+            61.648
+          ],
+          [
+            47.298,
+            61.398
+          ],
+          [
+            47.298,
+            61.198
+          ],
+          [
+            47.298,
+            60.998
+          ],
+          [
+            47.298,
+            60.748
+          ],
+          [
+            47.298,
+            60.698
+          ],
+          [
+            47.298,
+            60.648
+          ],
+          [
+            47.298,
+            60.598
+          ],
+          [
+            47.298,
+            60.548
+          ],
+          [
+            47.298,
+            60.498
+          ],
+          [
+            47.298,
+            60.448
+          ],
+          [
+            47.298,
+            60.398
+          ],
+          [
+            47.298,
+            60.348
+          ],
+          [
+            47.298,
+            60.298
+          ],
+          [
+            47.298,
+            60.248
+          ],
+          [
+            47.298,
+            60.198
+          ],
+          [
+            47.298,
+            60.148
+          ],
+          [
+            47.298,
+            60.099
+          ],
+          [
+            47.299,
+            60.049
+          ],
+          [
+            47.299,
+            59.999
+          ],
+          [
+            47.3,
+            59.95
+          ],
+          [
+            47.303,
+            59.902
+          ],
+          [
+            47.314,
+            59.855
+          ],
+          [
+            47.367,
+            59.798
+          ],
+          [
+            47.367,
+            59.748
+          ],
+          [
+            47.96,
+            59.19
+          ],
+          [
+            47.96,
+            58.87
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_SECTION_1",
+        "from": "UART.TX",
+        "to": "CONTROL_ASM_UART_TX_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            48.47,
+            63.95
+          ],
+          [
+            42.108144627644826,
+            57.58814462764483
+          ],
+          [
+            36.605286635522944,
+            57.58814462764483
+          ],
+          [
+            35.85272869359239,
+            56.835586685714276
+          ],
+          [
+            34.667481424366,
+            56.835586685714276
+          ],
+          [
+            34.64715243952512,
+            56.835586685714276
+          ],
+          [
+            33.316,
+            57.038
+          ],
+          [
+            33.316,
+            57.2877816230606
+          ],
+          [
+            33.316,
+            60.30297040577785
+          ],
+          [
+            32.000189489848665,
+            61.618780915929186
+          ],
+          [
+            31.95378091592919,
+            61.618780915929186
+          ],
+          [
+            31.952,
+            61.617
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_SECTION_2",
+        "from": "CONTROL_ASM_UART_TX_VIA_0.bottom",
+        "to": "CONTROL_ASM_UART_TX_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            31.952,
+            61.617
+          ],
+          [
+            30.806418057309326,
+            62.76258194269067
+          ],
+          [
+            12.681941250993338,
+            62.76258194269067
+          ],
+          [
+            12.524581942690675,
+            62.76258194269067
+          ],
+          [
+            12.507,
+            62.745
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_SECTION_3",
+        "from": "CONTROL_ASM_UART_TX_VIA_1.top",
+        "to": "CONTROL_ASM_UART_TX_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            12.507,
+            62.745
+          ],
+          [
+            11.3,
+            63.952
+          ],
+          [
+            11.3,
+            91
+          ],
+          [
+            10.301,
+            91.999
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_SECTION_4",
+        "from": "CONTROL_ASM_UART_TX_VIA_2.bottom",
+        "to": "CONTROL_ASM_UART_TX_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            10.300969892813757,
+            91.999
+          ],
+          [
+            11.187752174437964,
+            92.32
+          ],
+          [
+            16.176217718375796,
+            92.32
+          ],
+          [
+            16.5,
+            91.75
+          ],
+          [
+            23.6,
+            91.75
+          ],
+          [
+            23.8,
+            91.9175
+          ],
+          [
+            24.7,
+            91.9175
+          ],
+          [
+            24.8,
+            91.85
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_TX_SECTION_5",
+        "from": "CONTROL_ASM_UART_TX_VIA_3.top",
+        "to": "ASM2464PDX.UART_TX",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            24.8,
+            91.85
+          ],
+          [
+            24.5,
+            91.96
+          ],
+          [
+            24.5,
+            93.2600074
+          ],
+          [
+            24.9,
+            93.2600074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_UART_RX",
+    "nativeCandidate": "dist/control-routing/controls17/rx-far-native2/results.json",
+    "viaCount": 5,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_UART_RX_VIA_0",
+        "x": 33.558,
+        "y": 62.448,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_RX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_VIA_1",
+        "x": 26.705,
+        "y": 61.828,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_RX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_VIA_2",
+        "x": 10.8,
+        "y": 62.3,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_RX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_VIA_3",
+        "x": 10.8,
+        "y": 90.5,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_RX"
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_VIA_4",
+        "x": 25.36,
+        "y": 91.85,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.UART_RX"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_UART_RX_SECTION_0",
+        "from": "UART.RX",
+        "to": "CONTROL_ASM_UART_RX_VIA_0.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            48.47,
+            66.49000000000001
+          ],
+          [
+            43.904778738726144,
+            61.924778738726154
+          ],
+          [
+            36.86107452339074,
+            61.924778738726154
+          ],
+          [
+            36.6618879556122,
+            62.123965306504694
+          ],
+          [
+            33.944315097994476,
+            62.123965306504694
+          ],
+          [
+            33.88203469349531,
+            62.123965306504694
+          ],
+          [
+            33.558,
+            62.448
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_SECTION_1",
+        "from": "CONTROL_ASM_UART_RX_VIA_0.top",
+        "to": "CONTROL_ASM_UART_RX_VIA_1.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            33.558,
+            62.448
+          ],
+          [
+            27.391666013314666,
+            62.448
+          ],
+          [
+            26.803527403238153,
+            61.85986138992349
+          ],
+          [
+            26.736861389923483,
+            61.85986138992349
+          ],
+          [
+            26.705,
+            61.828
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_SECTION_2",
+        "from": "CONTROL_ASM_UART_RX_VIA_1.bottom",
+        "to": "CONTROL_ASM_UART_RX_VIA_2.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            26.705,
+            61.828
+          ],
+          [
+            26.109037414319232,
+            61.23203741431924
+          ],
+          [
+            11.955656787713268,
+            61.23203741431924
+          ],
+          [
+            11.867962585680761,
+            61.23203741431924
+          ],
+          [
+            10.8,
+            62.3
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_SECTION_3",
+        "from": "CONTROL_ASM_UART_RX_VIA_2.top",
+        "to": "CONTROL_ASM_UART_RX_VIA_3.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            10.8,
+            62.3
+          ],
+          [
+            10.8,
+            90.5
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_SECTION_4",
+        "from": "CONTROL_ASM_UART_RX_VIA_3.bottom",
+        "to": "CONTROL_ASM_UART_RX_VIA_4.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            10.8,
+            90.5
+          ],
+          [
+            10.8,
+            91.473
+          ],
+          [
+            11.3,
+            91.973
+          ],
+          [
+            12.6,
+            91.973
+          ],
+          [
+            12.6,
+            90.5
+          ],
+          [
+            26,
+            90.5
+          ],
+          [
+            26,
+            91.54
+          ],
+          [
+            25.36,
+            91.85
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_UART_RX_SECTION_5",
+        "from": "CONTROL_ASM_UART_RX_VIA_4.top",
+        "to": "ASM2464PDX.UART_RX",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.36,
+            91.85
+          ],
+          [
+            25.36,
+            92.36
+          ],
+          [
+            24.9,
+            92.36
+          ],
+          [
+            24.9,
+            92.8000074
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_SBU1",
+    "nativeCandidate": "Authored SBU1 draft; fresh refill verification pending",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_SBU1_VIA_0",
+        "x": 34.27,
+        "y": 96.9400074,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SBU1"
+      },
+      {
+        "name": "CONTROL_ASM_SBU1_VIA_1",
+        "x": 43.9,
+        "y": 99.7,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SBU1"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_SBU1_SECTION_0",
+        "from": "ASM2464PDX.SBU1",
+        "to": "CONTROL_ASM_SBU1_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            34.1,
+            96.9400074
+          ],
+          [
+            34.27,
+            96.9400074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SBU1_SECTION_1",
+        "from": "CONTROL_ASM_SBU1_VIA_0.bottom",
+        "to": "CONTROL_ASM_SBU1_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            34.27,
+            96.9400074
+          ],
+          [
+            35.35,
+            96.9400074
+          ],
+          [
+            35.8,
+            96.3
+          ],
+          [
+            35.8,
+            93.43
+          ],
+          [
+            38,
+            93.43
+          ],
+          [
+            38,
+            92.15
+          ],
+          [
+            41,
+            92.15
+          ],
+          [
+            41.5,
+            92.65
+          ],
+          [
+            42.6,
+            92.65
+          ],
+          [
+            42.6,
+            93.15
+          ],
+          [
+            43,
+            93.55
+          ],
+          [
+            43,
+            94.7
+          ],
+          [
+            43.59,
+            95.4
+          ],
+          [
+            43.59,
+            97
+          ],
+          [
+            43.42,
+            97.17
+          ],
+          [
+            43.42,
+            99.22
+          ],
+          [
+            43.9,
+            99.7
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SBU1_SECTION_2",
+        "from": "CONTROL_ASM_SBU1_VIA_1.top",
+        "to": "USBC.A8",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            43.9,
+            99.7
+          ],
+          [
+            44.6,
+            99.7
+          ],
+          [
+            44.949999,
+            99.744879
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_CLKREQ_N",
+    "nativeCandidate": "Manual surface crossing; fresh native pour refill and emitted-copper audit required",
+    "viaCount": 4,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_VIA_0",
+        "x": 25.86,
+        "y": 92.25,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO8"
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_VIA_1",
+        "x": 19.89,
+        "y": 92.25,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO8"
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_VIA_2",
+        "x": 19.89,
+        "y": 99.47,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO8"
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_VIA_3",
+        "x": 19,
+        "y": 101.4,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO8"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_SECTION_0",
+        "from": "ASM2464PDX.GPIO8",
+        "to": "CONTROL_ASM_CLKREQ_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            25.82,
+            92.8000074
+          ],
+          [
+            25.86,
+            92.25
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_SECTION_1",
+        "from": "CONTROL_ASM_CLKREQ_N_VIA_0.bottom",
+        "to": "CONTROL_ASM_CLKREQ_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            25.86,
+            92.25
+          ],
+          [
+            19.89,
+            92.25
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_SECTION_2",
+        "from": "CONTROL_ASM_CLKREQ_N_VIA_1.top",
+        "to": "CONTROL_ASM_CLKREQ_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            19.89,
+            92.25
+          ],
+          [
+            19.89,
+            99.47
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_SECTION_3",
+        "from": "CONTROL_ASM_CLKREQ_N_VIA_2.bottom",
+        "to": "CONTROL_ASM_CLKREQ_N_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            19.89,
+            99.47
+          ],
+          [
+            19.3,
+            99.47
+          ],
+          [
+            19,
+            99.75
+          ],
+          [
+            19,
+            101.4
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CLKREQ_N_SECTION_4",
+        "from": "CONTROL_ASM_CLKREQ_N_VIA_3.top",
+        "to": "R_PCIE_CLKREQ.pin1",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            19,
+            101.4
+          ],
+          [
+            19,
+            103.5
+          ],
+          [
+            19.8328,
+            104.3328
+          ],
+          [
+            19.8328,
+            105.5
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_WAKE_N",
+    "nativeCandidate": "dist/control-routing/controls17/wake-wp-mosi9-candidates.json",
+    "viaCount": 6,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_WAKE_N_VIA_0",
+        "x": 28.5,
+        "y": 88.25,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO22"
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_VIA_1",
+        "x": 29,
+        "y": 88.25,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO22"
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_VIA_2",
+        "x": 29.2,
+        "y": 87.05,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO22"
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_VIA_3",
+        "x": 28.05,
+        "y": 86.9,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO22"
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_VIA_4",
+        "x": 27.98,
+        "y": 84.26,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO22"
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_VIA_5",
+        "x": 5.3,
+        "y": 103.8608026,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.GPIO22"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_0",
+        "from": "ASM2464PDX.GPIO22",
+        "to": "CONTROL_ASM_WAKE_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            28.58,
+            92.8000074
+          ],
+          [
+            28.5,
+            92.7200074
+          ],
+          [
+            28.5,
+            88.25
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_1",
+        "from": "CONTROL_ASM_WAKE_N_VIA_0.bottom",
+        "to": "CONTROL_ASM_WAKE_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            28.5,
+            88.25
+          ],
+          [
+            29,
+            88.25
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_2",
+        "from": "CONTROL_ASM_WAKE_N_VIA_1.top",
+        "to": "CONTROL_ASM_WAKE_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            29,
+            88.25
+          ],
+          [
+            29.2,
+            87.05
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_3",
+        "from": "CONTROL_ASM_WAKE_N_VIA_2.bottom",
+        "to": "CONTROL_ASM_WAKE_N_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            29.2,
+            87.05
+          ],
+          [
+            28.05,
+            86.9
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_4",
+        "from": "CONTROL_ASM_WAKE_N_VIA_3.top",
+        "to": "CONTROL_ASM_WAKE_N_VIA_4.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            28.05,
+            86.9
+          ],
+          [
+            27.98,
+            84.26
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_5",
+        "from": "CONTROL_ASM_WAKE_N_VIA_4.bottom",
+        "to": "CONTROL_ASM_WAKE_N_VIA_5.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            27.98,
+            84.26
+          ],
+          [
+            27.98,
+            83
+          ],
+          [
+            10.3,
+            83
+          ],
+          [
+            0.45,
+            83
+          ],
+          [
+            0.45,
+            103.8608026
+          ],
+          [
+            5.3,
+            103.8608026
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_WAKE_N_SECTION_6",
+        "from": "CONTROL_ASM_WAKE_N_VIA_5.top",
+        "to": "PCIe.WAKE_N",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            5.3,
+            103.8608026
+          ],
+          [
+            6.745044,
+            103.8608026
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_SPI_CS_N",
+    "nativeCandidate": "dist/control-routing/controls17/cs-final-stage.json",
+    "viaCount": 4,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_VIA_0",
+        "x": 33.64,
+        "y": 92.6,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CS"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_VIA_1",
+        "x": 37.9,
+        "y": 91.7,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CS"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_VIA_2",
+        "x": 33.7,
+        "y": 84.7,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CS"
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_VIA_3",
+        "x": 45.932816,
+        "y": 79.19,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SPI_CS"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_0",
+        "from": "ASM2464PDX.SPI_CS",
+        "to": "CONTROL_ASM_SPI_CS_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            33.64,
+            92.8000074
+          ],
+          [
+            33.64,
+            92.6
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_1",
+        "from": "CONTROL_ASM_SPI_CS_N_VIA_0.bottom",
+        "to": "CONTROL_ASM_SPI_CS_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            33.64,
+            92.6
+          ],
+          [
+            34,
+            92.5
+          ],
+          [
+            35.7,
+            92.5
+          ],
+          [
+            35.9,
+            92.3
+          ],
+          [
+            37.3,
+            92.3
+          ],
+          [
+            37.9,
+            91.7
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_2",
+        "from": "CONTROL_ASM_SPI_CS_N_VIA_1.top",
+        "to": "W25Q32JVSSIQ.N_CS",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            37.9,
+            91.7
+          ],
+          [
+            37.9,
+            88.2
+          ],
+          [
+            39.525,
+            88.2
+          ],
+          [
+            39.525,
+            85.02
+          ],
+          [
+            34.01,
+            85.02
+          ],
+          [
+            34.01,
+            84.6950074
+          ],
+          [
+            32.230092,
+            84.6950074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_3",
+        "from": "W25Q32JVSSIQ.N_CS",
+        "to": "CONTROL_ASM_SPI_CS_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            32.230092,
+            84.6950074
+          ],
+          [
+            33.7,
+            84.7
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_4",
+        "from": "CONTROL_ASM_SPI_CS_N_VIA_2.bottom",
+        "to": "SPI.CS_N",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            33.7,
+            84.7
+          ],
+          [
+            33.15,
+            84.15
+          ],
+          [
+            33.15,
+            83.25
+          ],
+          [
+            34.1,
+            82.3
+          ],
+          [
+            43,
+            82.3
+          ],
+          [
+            46.11,
+            79.19
+          ],
+          [
+            48.47,
+            79.19
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_5",
+        "from": "R_SPI_CS.pin2",
+        "to": "CONTROL_ASM_SPI_CS_N_VIA_3.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            45.932816,
+            79.19
+          ],
+          [
+            45.932816,
+            79.19
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SPI_CS_N_SECTION_6",
+        "from": "CONTROL_ASM_SPI_CS_N_VIA_3.bottom",
+        "to": "SPI.CS_N",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            45.932816,
+            79.19
+          ],
+          [
+            46.11,
+            79.19
+          ],
+          [
+            48.47,
+            79.19
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_SBU2",
+    "nativeCandidate": "dist/control-routing/controls17/sbu2-v9-route.json",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_SBU2_VIA_0",
+        "x": 35.2,
+        "y": 94.3,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SBU2"
+      },
+      {
+        "name": "CONTROL_ASM_SBU2_VIA_1",
+        "x": 45.83,
+        "y": 97.715,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.SBU2"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_SBU2_SECTION_0",
+        "from": "ASM2464PDX.SBU2",
+        "to": "CONTROL_ASM_SBU2_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            34.1,
+            96.4800074
+          ],
+          [
+            34.62,
+            96.4800074
+          ],
+          [
+            34.62,
+            94.3
+          ],
+          [
+            35.2,
+            94.3
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SBU2_SECTION_1",
+        "from": "CONTROL_ASM_SBU2_VIA_0.inner3",
+        "to": "CONTROL_ASM_SBU2_VIA_1.inner3",
+        "width": 0.127,
+        "layer": "inner3",
+        "points": [
+          [
+            35.2,
+            94.3
+          ],
+          [
+            35.7,
+            94.6
+          ],
+          [
+            35.7,
+            96.1
+          ],
+          [
+            38.8,
+            96.1
+          ],
+          [
+            39.5,
+            95.3
+          ],
+          [
+            39.9,
+            95.1
+          ],
+          [
+            42.7,
+            95
+          ],
+          [
+            44.1,
+            95.6
+          ],
+          [
+            44.5,
+            96.5
+          ],
+          [
+            44.7,
+            97
+          ],
+          [
+            45.4,
+            97.7
+          ],
+          [
+            45.83,
+            97.715
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_SBU2_SECTION_2",
+        "from": "CONTROL_ASM_SBU2_VIA_1.top",
+        "to": "USBC.B8",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            45.83,
+            97.715
+          ],
+          [
+            45.83,
+            97.994819
+          ],
+          [
+            46.600237,
+            97.994819
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_RST_N",
+    "nativeCandidate": "dist/control-routing/controls17/reset27-complete.json",
+    "viaCount": 4,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_RST_N_VIA_0",
+        "x": 34.1,
+        "y": 96.0200074,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.RST"
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_VIA_1",
+        "x": 34.7,
+        "y": 93.8,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.RST"
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_VIA_2",
+        "x": 35.2,
+        "y": 87.72,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.RST"
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_VIA_3",
+        "x": 39.97,
+        "y": 86.85,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.RST"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_0",
+        "from": "ASM2464PDX.RST",
+        "to": "CONTROL_ASM_RST_N_VIA_0.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            34.1,
+            96.0200074
+          ],
+          [
+            34.1,
+            96.0200074
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_1",
+        "from": "CONTROL_ASM_RST_N_VIA_0.bottom",
+        "to": "CONTROL_ASM_RST_N_VIA_1.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            34.1,
+            96.0200074
+          ],
+          [
+            33.44,
+            96.0200074
+          ],
+          [
+            33.44,
+            93.8
+          ],
+          [
+            34.7,
+            93.8
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_2",
+        "from": "CONTROL_ASM_RST_N_VIA_1.top",
+        "to": "CONTROL_ASM_RST_N_VIA_2.top",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            34.7,
+            93.8
+          ],
+          [
+            34.7,
+            91.8
+          ],
+          [
+            34.05,
+            91.4
+          ],
+          [
+            34.05,
+            89.45
+          ],
+          [
+            34.45,
+            89.05
+          ],
+          [
+            34.45,
+            87.72
+          ],
+          [
+            35.2,
+            87.72
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_3",
+        "from": "CONTROL_ASM_RST_N_VIA_2.bottom",
+        "to": "CONTROL_ASM_RST_N_VIA_3.bottom",
+        "width": 0.127,
+        "layer": "bottom",
+        "points": [
+          [
+            35.2,
+            87.72
+          ],
+          [
+            38.95,
+            87.72
+          ],
+          [
+            38.95,
+            86.85
+          ],
+          [
+            39.97,
+            86.85
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_4",
+        "from": "CONTROL_ASM_RST_N_VIA_3.top",
+        "to": "SPI.RST_N",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            39.97,
+            86.85
+          ],
+          [
+            39.97,
+            86.5
+          ],
+          [
+            45,
+            86.5
+          ],
+          [
+            45,
+            80.4
+          ],
+          [
+            44.4,
+            79.8
+          ],
+          [
+            44.4,
+            78.6
+          ],
+          [
+            45,
+            78
+          ],
+          [
+            45,
+            71.57
+          ],
+          [
+            48.47,
+            71.57
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_5",
+        "from": "SPI.RST_N",
+        "to": "C_RST.pin1",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            48.47,
+            71.57
+          ],
+          [
+            45,
+            71.57
+          ],
+          [
+            45,
+            72.7
+          ],
+          [
+            45.0799,
+            72.7
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_6",
+        "from": "SPI.RST_N",
+        "to": "SW_RESET.pin1",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            48.47,
+            71.57
+          ],
+          [
+            45,
+            71.57
+          ],
+          [
+            45,
+            75.9849
+          ],
+          [
+            42.3,
+            75.9849
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_RST_N_SECTION_7",
+        "from": "SPI.RST_N",
+        "to": "R_RST.pin2",
+        "width": 0.127,
+        "layer": "top",
+        "points": [
+          [
+            48.47,
+            71.57
+          ],
+          [
+            45,
+            71.57
+          ],
+          [
+            45,
+            71.57
+          ],
+          [
+            45,
+            68.6
+          ],
+          [
+            45.0672,
+            68.6
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_CC2",
+    "nativeCandidate": "/private/tmp/cc2-contact-extension-candidate.json",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_CC2_VIA_0",
+        "x": 31.2,
+        "y": 101.05,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.CC2"
+      },
+      {
+        "name": "CONTROL_ASM_CC2_VIA_1",
+        "x": 46.91,
+        "y": 99.59,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.CC2"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_CC2_SECTION_0",
+        "from": "ASM2464PDX.CC2",
+        "to": "CONTROL_ASM_CC2_VIA_0.top",
+        "width": 0.2032,
+        "layer": "top",
+        "points": [
+          [
+            31.735,
+            101.475
+          ],
+          [
+            31.735,
+            101.22
+          ],
+          [
+            31.2,
+            101.05
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CC2_SECTION_1",
+        "from": "CONTROL_ASM_CC2_VIA_0.inner2",
+        "to": "CONTROL_ASM_CC2_VIA_1.inner2",
+        "width": 0.2032,
+        "layer": "inner2",
+        "points": [
+          [
+            31.2,
+            101.05
+          ],
+          [
+            32.7,
+            101.05
+          ],
+          [
+            32.7,
+            102.7
+          ],
+          [
+            33,
+            103
+          ],
+          [
+            33,
+            107.2
+          ],
+          [
+            37.1,
+            107.2
+          ],
+          [
+            37.5,
+            107.6
+          ],
+          [
+            49.6,
+            107.6
+          ],
+          [
+            49.6,
+            103.9
+          ],
+          [
+            46.954,
+            103.9
+          ],
+          [
+            46.954,
+            102.5
+          ],
+          [
+            46.922,
+            102.4
+          ],
+          [
+            46.922,
+            99.7
+          ],
+          [
+            46.91,
+            99.59
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CC2_SECTION_2",
+        "from": "CONTROL_ASM_CC2_VIA_1.top",
+        "to": "USBC.B5",
+        "width": 0.2032,
+        "layer": "top",
+        "points": [
+          [
+            46.91,
+            99.59
+          ],
+          [
+            46.89,
+            99.59
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "net": "ASM_CC1",
+    "nativeCandidate": "/private/tmp/cc1-south-wing8-route.json",
+    "viaCount": 2,
+    "vias": [
+      {
+        "name": "CONTROL_ASM_CC1_VIA_0",
+        "x": 31.85,
+        "y": 104.4,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.CC1"
+      },
+      {
+        "name": "CONTROL_ASM_CC1_VIA_1",
+        "x": 44.72,
+        "y": 98.18,
+        "diameter": 0.25,
+        "hole": 0.15,
+        "connectsTo": "ASM2464PDX.CC1"
+      }
+    ],
+    "segments": [
+      {
+        "name": "CONTROL_ASM_CC1_SECTION_0",
+        "from": "ASM2464PDX.CC1",
+        "to": "CONTROL_ASM_CC1_VIA_0.top",
+        "width": 0.2032,
+        "layer": "top",
+        "points": [
+          [
+            31.8,
+            102.16
+          ],
+          [
+            31.86,
+            102.4
+          ],
+          [
+            31.85,
+            104.4
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CC1_SECTION_1",
+        "from": "CONTROL_ASM_CC1_VIA_0.inner3",
+        "to": "CONTROL_ASM_CC1_VIA_1.inner3",
+        "width": 0.2032,
+        "layer": "inner3",
+        "points": [
+          [
+            31.85,
+            104.4
+          ],
+          [
+            32.6,
+            104.4
+          ],
+          [
+            32.6,
+            104.99
+          ],
+          [
+            36.8,
+            104.99
+          ],
+          [
+            36.8,
+            104.2
+          ],
+          [
+            38.8,
+            104.2
+          ],
+          [
+            38.8,
+            104.5
+          ],
+          [
+            39.5,
+            104.75
+          ],
+          [
+            39.8,
+            104.81
+          ],
+          [
+            41.8,
+            104.81
+          ],
+          [
+            41.8,
+            99
+          ],
+          [
+            43.8,
+            99
+          ],
+          [
+            44,
+            99
+          ],
+          [
+            44.72,
+            98.28
+          ],
+          [
+            44.72,
+            98.18
+          ]
+        ]
+      },
+      {
+        "name": "CONTROL_ASM_CC1_SECTION_2",
+        "from": "CONTROL_ASM_CC1_VIA_1.top",
+        "to": "USBC.A5",
+        "width": 0.2032,
+        "layer": "top",
+        "points": [
+          [
+            44.72,
+            98.18
+          ],
+          [
+            44.7,
+            98.18
+          ]
+        ]
+      }
+    ]
+  }
+]

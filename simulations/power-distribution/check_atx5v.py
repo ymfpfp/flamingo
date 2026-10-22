@@ -46,7 +46,9 @@ def audit(raw):
     top=unary_union([o['shape'] for o in copper if o.get('trace') in contactSources])
     topGap=min((top.distance(o['shape']) for o in copper if 'top' in o['layers'] and o['net']!=n),default=None)
     if topGap is not None and topGap<.1-1e-5:failures.append('5 V top contact copper gap below 0.1 mm')
-    if n in {nets['V5VSB'],nets['USB_VBUS']}:failures.append('Main ATX 5 V has merged with standby or USB VBUS')
+    # The unused ATX standby rail is omitted from the current source netlist.
+    separate=[nets['USB_VBUS']]+([nets['V5VSB']] if 'V5VSB' in nets else [])
+    if n in separate:failures.append('Main ATX 5 V has merged with standby or USB VBUS')
     return dict(passed=not failures,failures=failures,terminals=terminals,connectedTerminals=sum(t['connected'] for t in terminals),
         floatingCopperMm2=floating,minimumL4PowerGapMm=minimumGap,minimumTopContactGapMm=topGap,continuous15MilCore=widthPass,
         scope='Physical continuity from all five ATX 5 V contacts to every 5 V load, through plated barrels and existing local VIN copper. L4 spacing, minimum-width core, floating copper and local contact clearance.')

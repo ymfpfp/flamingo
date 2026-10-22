@@ -19,10 +19,10 @@ export function PcieConnectorRouting() {
     <bus name="PCIE_RX_SURFACE"
       connections={pcieRxContacts.flatMap(({positive, negative}) => [positive, negative].map(ball => `ASM2464PDX.${ball}`))}
       pcbAllowedLayers={["top", "bottom"]} preferredLayer="top" pcbTraceWidth={pcieConnectorRules.width}/>
-    {[...pcieTxBridgeReturns, ...pcieTxCapReturns, ...pcieRxReturns].map(({x, y}, i) =>
-      <Fragment key={i}><via name={`PCIE_TX_GND_RETURN_${i}`} pcbX={x} pcbY={y}
-        fromLayer="top" toLayer="bottom" holeDiameter={pcieTxViaRules.hole}
-        outerDiameter={pcieTxViaRules.diameter} connectsTo="net.GND"/></Fragment>)}
+    {[...pcieTxBridgeReturns, ...pcieTxCapReturns, ...pcieRxReturns].map((site, i) => "retired" in site ? null :
+      <Fragment key={i}><via name={`PCIE_TX_GND_RETURN_${i}`} pcbX={site.x} pcbY={site.y}
+        fromLayer="top" toLayer="bottom" holeDiameter={"hole" in site ? site.hole : pcieTxViaRules.hole}
+        outerDiameter={"diameter" in site ? site.diameter : pcieTxViaRules.diameter} connectsTo="net.GND"/></Fragment>)}
     {[...pcieTxBgaReturns, ...pcieRxBgaReturns].map(({x, y}, i) => <Fragment key={`bga-return-${i}`}>
       <via name={`PCIE_TX_BGA_GND_${i}`} pcbX={x} pcbY={y} fromLayer="top" toLayer="bottom"
         holeDiameter={pcieTxViaRules.bgaHole} outerDiameter={pcieTxViaRules.bgaDiameter} connectsTo="net.GND"/>

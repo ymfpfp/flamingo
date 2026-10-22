@@ -8,16 +8,16 @@ import {BridgeClockRouting, prepareBridgeClockRouting} from "lib/bridge-clock-ro
 import {BuckRouting,prepareBuckRouting} from "lib/buck-routing";
 import {PowerDistribution,preparePowerDistribution} from "lib/power-distribution";
 import {VcchRouting,prepareVcchRouting} from "lib/vcch-routing";
-import {Atx5vRouting,prepareAtx5vRouting} from "lib/atx5v-routing";
+import {Atx5vRouting} from "lib/atx5v-routing";
 import {SlotPowerRouting,prepareSlotPowerRouting} from "lib/slot-power-routing";
-import {VbusRouting,prepareVbusRouting} from "lib/vbus-routing";
-import {GroundReturns,prepareGroundReturns} from "lib/ground-returns";
+import {VbusRouting} from "lib/vbus-routing";
+import {GroundReturns} from "lib/ground-returns";
 import {usbGuardBands, usbShieldFences} from "lib/usb-shielding";
 import {pcieConnectorRules, preparePcieConnectorRouting} from "lib/pcie-connector-routing";
 import {usb4Rules, usb4TraceRules} from "lib/high-speed-rules";
-import {outlineSilkscreenText} from "lib/silkscreen-font";
-import {flamingoSilkscreen} from "lib/flamingo-silkscreen";
-import {tsMarkSilkscreen} from "lib/ts-mark-silkscreen";
+import {BoardArtwork} from "components/BoardArtwork";
+import {ControlRouting, controlNetProperties, type ControlAutorouting} from "components/ControlRouting";
+import {ControlSupportRoutes} from "components/ControlSupportRoutes";
 import {BridgeReset} from "components/BridgeReset";
 import {BridgeVcca33Decoupling} from "components/BridgeVcca33Decoupling";
 import {BridgeVcchDecoupling} from "components/BridgeVcchDecoupling";
@@ -47,9 +47,6 @@ import {W25Q32JVSSIQ} from "imports/W25Q32JVSSIQ";
 import {X1618WVS_164_9TV30} from "imports/X1618WVS_164_9TV30";
 import {XXCBCLNANF_25M} from "imports/XXCBCLNANF_25M";
 
-// Set false to temporarily hide both logos without changing their placements.
-const showSilkscreenArtwork = true;
-
 // Coordinates place the bottom-left of each group's footprint/courtyard bounds.
 // Set offBoard: false when placing a group to enable its board-boundary checks.
 // Root coordinates are board coordinates; / keys offset a subgroup within its parent.
@@ -61,7 +58,7 @@ export const pcbGroupPlacements = {
   R_UART_TX: {pcbX: 47.54, pcbY: 58.4, pcbRotation: 180, offBoard: false}, // Continue the UART column, 2.54 mm below GND.
   LED_PSU_OK: {pcbX: 47.81655, pcbY: 28.05055, pcbRotation: 90, offBoard: false}, // Right-edge indicator beside its ATX control circuit.
   BRIDGE_SPI: {pcbX: 46.7, pcbY: 69.8, pcbRotation: 90, offBoard: false}, // Beside flash; same column as UART with 5.08 mm between their nearest holes.
-  BRIDGE_RESET: {pcbX: 44.00435, pcbY: 107.9501, offBoard: false}, // Right-edge reset access immediately above USB-C; RC parts sit left of the button.
+  BRIDGE_RESET: {pcbX: 40.6, pcbY: 68.08, offBoard: false}, // Reset RC and button beside the SPI header; all parts stay on top.
 
   // Top-only bypass banks leave the PCIe surface corridors clear.
   VCCH_DECOUPLING: {pcbX: 34.045, pcbY: 83.575, offBoard: false},
@@ -114,12 +111,6 @@ export const pcbGroupPlacements = {
   PSU_CONTROL: {pcbX: 39.5, pcbY: 22.11, offBoard: false}, // Bypass below VCC, clear of the SOT-23 courtyard; driver and resistors retain their positions.
 } satisfies Record<string, PcbGroupPlacement>;
 
-let renderedPlacementGroups: PcbPlacementGroups | undefined;
-export function getRenderedPlacementGroups(): PcbPlacementGroups {
-  if (!renderedPlacementGroups) throw new Error("Render the board before reading placement groups");
-  return renderedPlacementGroups;
-}
-
 function groupPlacement(name: string): PcbGroupPlacement {
   const placement = (pcbGroupPlacements as Record<string, PcbGroupPlacement>)[name];
   if (!placement) throw new Error(`Add ${name} to pcbGroupPlacements`);
@@ -141,7 +132,7 @@ const pcbPartElements = new Set([
 // Align actual rendered geometry after tscircuit's local layouts have finished,
 // before placement checks, routing, or CAD generation. This also includes loose
 // schematic sections, which do not have a native <group> element.
-function bottomLeftGroupLayout() {
+function bottomLeftGroupLayout(controlRoutingEnabled = false) {
   let usb4Phase: AutoroutingPhase | undefined;
   let pciePhase: AutoroutingPhase | undefined;
   let usb2Phase: AutoroutingPhase | undefined;
@@ -149,10 +140,7 @@ function bottomLeftGroupLayout() {
   const buckPhases:AutoroutingPhase[]=[];
   let pdnPhase:AutoroutingPhase|undefined;
   let vcchPhase:AutoroutingPhase|undefined;
-  let atx5vPhase:AutoroutingPhase|undefined;
   const slotPowerPhases:AutoroutingPhase[]=[];
-  const vbusPhases:AutoroutingPhase[]=[];
-  let groundReturnsPhase:AutoroutingPhase|undefined;
   const members = new Map<string, Set<string>>();
   const nativeGroups = new Map<string, Group>();
   const looseOffsets: PcbPlacementGroups["looseOffsets"] = {};
@@ -167,7 +155,7 @@ function bottomLeftGroupLayout() {
       original();
       if (board.root!.pcbDisabled) return;
       const json = board.root!.db.toArray();
-      renderedPlacementGroups = {
+      const renderedPlacementGroups: PcbPlacementGroups = {
         looseOffsets,
         members: Object.fromEntries([...members].map(([name, parts]) => [name, [...parts]])),
         nativeGroupIds: Object.fromEntries([...nativeGroups]
@@ -182,10 +170,7 @@ function bottomLeftGroupLayout() {
       for(const phase of buckPhases)prepareBuckRouting(board,phase);
       if(pdnPhase)preparePowerDistribution(board,pdnPhase);
       if(vcchPhase)prepareVcchRouting(board,vcchPhase);
-      if(atx5vPhase)prepareAtx5vRouting(board,atx5vPhase);
       for(const phase of slotPowerPhases)prepareSlotPowerRouting(board,phase);
-      for(const phase of vbusPhases)prepareVbusRouting(board,phase);
-      if(groundReturnsPhase)prepareGroundReturns(board,groundReturnsPhase);
       // Omit footprint outlines, but retain board artwork and the bridge's A1 corner marker.
       // Keep text, circular pin markers, and placement courtyards.
       const {db} = board.root!;
@@ -199,35 +184,16 @@ function bottomLeftGroupLayout() {
         if (element.type === "pcb_silkscreen_line") db.pcb_silkscreen_line.delete(element.pcb_silkscreen_line_id);
       }
     };
-    // Convert resolved labels after placement and automatic text adjustment.
-    const originalCadRender = board.doInitialCadModelRender.bind(board);
-    board.doInitialCadModelRender = () => {
-      originalCadRender();
-      if (board.root!.pcbDisabled) return;
-      const {db} = board.root!;
-      if (showSilkscreenArtwork) {
-        for (const graphic of flamingoSilkscreen({pcbX: 42, pcbY: 49, pcbRotation: 130})) db.pcb_silkscreen_graphic.insert(graphic);
-        // Companion badge between the PSU_OK LED and flamingo, in board coordinates.
-        for (const graphic of tsMarkSilkscreen({pcbX: 44.5, pcbY: 36.5, pcbRotation: 90})) db.pcb_silkscreen_graphic.insert(graphic);
-      }
-      for (const text of [...db.pcb_silkscreen_text.list()]) {
-        const graphics = outlineSilkscreenText(text);
-        for (const graphic of graphics) db.pcb_silkscreen_graphic.insert(graphic);
-        db.pcb_silkscreen_text.delete(text.pcb_silkscreen_text_id);
-      }
-    };
+
   };
-  return {addPart, nativeGroups, looseOffsets, attachBoard,
+  return {addPart, nativeGroups, looseOffsets, attachBoard, controlRoutingEnabled,
     attachUsb4Phase: (phase: AutoroutingPhase | null) => { if (phase) usb4Phase = phase; },
     attachUsb2Phase: (phase: AutoroutingPhase | null) => { if (phase) usb2Phase = phase; },
     attachClockPhase: (phase: AutoroutingPhase | null) => { if (phase) clockPhase = phase; },
     attachBuckPhase:(phase:AutoroutingPhase|null)=>{if(phase&&!buckPhases.includes(phase))buckPhases.push(phase);},
     attachPdnPhase:(phase:AutoroutingPhase|null)=>{if(phase)pdnPhase=phase;},
     attachVcchPhase:(phase:AutoroutingPhase|null)=>{if(phase)vcchPhase=phase;},
-    attachAtx5vPhase:(phase:AutoroutingPhase|null)=>{if(phase)atx5vPhase=phase;},
     attachSlotPowerPhase:(phase:AutoroutingPhase|null)=>{if(phase)slotPowerPhases.push(phase);},
-    attachVbusPhase:(phase:AutoroutingPhase|null)=>{if(phase)vbusPhases.push(phase);},
-    attachGroundReturnsPhase:(phase:AutoroutingPhase|null)=>{if(phase)groundReturnsPhase=phase;},
     attachPciePhase: (phase: AutoroutingPhase | null) => { if (phase) pciePhase = phase; }};
 }
 
@@ -320,6 +286,7 @@ function placePcbGroups(
     : Children.map(props.children as ReactNode, child => placePcbGroups(child, context, loosePartCounts, layout));
   return cloneElement(node, {
     ...groupProps,
+    ...(node.type === "net" && layout.controlRoutingEnabled ? controlNetProperties(String(props.name)) : {}),
     ...(node.type === "board" ? {pcbRelative: true, ref: layout.attachBoard} : {}),
     ...(node.type === "autoroutingphase" && props.name === "USB4_FIXED" ? {ref: layout.attachUsb4Phase} : {}),
     ...(node.type === "autoroutingphase" && props.name === "PCIE_TX_CONNECTOR" ? {ref: layout.attachPciePhase} : {}),
@@ -328,10 +295,7 @@ function placePcbGroups(
     ...(node.type === "autoroutingphase" && ["BUCK_POWER","BUCK_SENSE","BUCK_ENABLE_LOCAL","BUCK_MONITOR_LOCAL"].includes(String(props.name)) ? {ref: layout.attachBuckPhase} : {}),
     ...(node.type === "autoroutingphase" && props.name === "PDN_CONTACTS" ? {ref: layout.attachPdnPhase} : {}),
     ...(node.type === "autoroutingphase" && props.name === "VCCH_CONTACTS" ? {ref: layout.attachVcchPhase} : {}),
-    ...(node.type === "autoroutingphase" && props.name === "ATX5V_CONTACTS" ? {ref: layout.attachAtx5vPhase} : {}),
-    ...(node.type === "autoroutingphase" && ["SLOT_POWER_CONTACTS","SLOT_POWER_CONTROL","SLOT_POWER_LOCAL_CONTROL"].includes(String(props.name)) ? {ref: layout.attachSlotPowerPhase} : {}),
-    ...(node.type === "autoroutingphase" && String(props.name).startsWith("VBUS_SENSING_") ? {ref: layout.attachVbusPhase} : {}),
-    ...(node.type === "autoroutingphase" && props.name === "GROUND_RETURNS" ? {ref: layout.attachGroundReturnsPhase} : {}),
+    ...(node.type === "autoroutingphase" && ["SLOT_POWER_CONTROL","SLOT_POWER_LOCAL_CONTROL"].includes(String(props.name)) ? {ref: layout.attachSlotPowerPhase} : {}),
     ...(props.children === undefined ? {} : {children}),
   });
 }
@@ -345,11 +309,12 @@ const unusedPcieSideband = [
   "RSVD_A19", "RSVD_A32", "RSVD_A33", "RSVD_A50", "RSVD_B82",
 ] as const;
 
-export default function Board() {
+export default function Board({controlAutorouting, omitControlNets=[]}: {controlAutorouting?: ControlAutorouting; omitControlNets?: string[]} = {}) {
   return placePcbGroups(
     <board
       {...jlcpcbBoardRules}
-      autorouter={{...jlcpcbBoardRules.autorouter, allowViaInPad: true}}
+      autorouter={{...jlcpcbBoardRules.autorouter, allowViaInPad: true,
+        ...(controlAutorouting ? {algorithmFn: controlAutorouting.remainingAlgorithm} : {})}}
       isViaInPadAllowed={true}
       enableViaStitching={true} viaStitchPitch={0.7}
       // Top view in millimeters: +X right, +Y up. ATX remains on the bottom edge.
@@ -358,28 +323,34 @@ export default function Board() {
       height="123.62mm"
       boardAnchorAlignment="bottom_left"
       boardAnchorPosition={{x: 0, y: 0}}
-      routeRemaining={false}
+      routeRemaining={Boolean(controlAutorouting)}
       layers={6}
       // Nominal order thickness. The selected JLC06161H-3313 fabrication
       // recipe and its 1.54 mm calculator value are in manufacturing/stackup/.
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
-      {/* Converted to the same Iosevka Term outlines as the component labels. */}
+      <BoardArtwork/>
       <silkscreentext text="rev 1" pcbX={48.9} pcbY={36.5} pcbRotation={90} fontSize={0.8}
         layer="top" anchorAlignment="center"/>
       <net name="GND"/>
-      {/* Nominal 0.21 mm via drill-edge clearance. The emitted-polygon check
-          enforces 0.20 mm, including the polygon approximation of apertures. */}
-      <copperpour name="GND_L2" connectsTo="net.GND" layer="inner1" clearance="0.2mm" padMargin={.16} cutoutMargin={.215} boardEdgeMargin="0.2mm"/>
+      {/* The emitted-polygon check enforces 0.20 mm to drill/cutout edges.
+          L2 uses a 0.204 mm cutout margin to support the CC2 connector escape. */}
+      <copperpour name="GND_L2" connectsTo="net.GND" layer="inner1" clearance="0.2mm" padMargin={.16} cutoutMargin={.204} boardEdgeMargin="0.2mm"/>
       <copperpour name="GND_L5" connectsTo="net.GND" layer="inner4" clearance="0.2mm" padMargin={.16} cutoutMargin={.215} boardEdgeMargin="0.2mm"/>
+      {/* Preserve the larger circular-hole margin at the two ATX locating pegs.
+          Their polygon approximation needs more allowance than the USB cutout. */}
+      {[2.9248994,49.1249594].map(x=><Fragment key={`atx-l2-hole-${x}`}>
+        <keepout shape="circle" layer="inner1" pcbX={x} pcbY={6.769926}
+          radius={1.499997+.22} allowTraces allowPlacements/>
+      </Fragment>)}
       {usbGuardBands.flatMap(band=>band.layers.map(layer=><Fragment key={`usb-shield-${layer}-${band.name}`}><copperpour
         name={`USB_SHIELD_${layer}_${band.name}`} connectsTo="net.GND" layer={layer}
         clearance={0.8} traceMargin={0.8} padMargin={0.1} boardEdgeMargin={0.1} useThermalReliefs={false}
         outline={band.outline}/></Fragment>))}
       {usbShieldFences.flat().filter((p,i,all)=>all.findIndex(q=>q.x===p.x&&q.y===p.y)===i)
         .filter(p=>!(p.x===40.5&&p.y===102.8||p.x===40.9&&p.y===95.7)).map(({x,y},i)=><Fragment key={`usb-fence-${i}`}>
-        <via name={`USB_SHIELD_FENCE_${i}`} pcbX={x} pcbY={y} fromLayer="top" toLayer="bottom"
+        <via name={`USB_SHIELD_FENCE_${i+1}`} pcbX={x} pcbY={y} fromLayer="top" toLayer="bottom"
           holeDiameter={.2} outerDiameter={.3} connectsTo="net.GND"/>
       </Fragment>)}
       <autoroutingphase name="USB4_FIXED" phaseIndex={0}
@@ -400,7 +371,7 @@ export default function Board() {
       {/* Local return vias bridge the two GND references beside row transitions. */}
       {[[42.65, 100.74475],
         [40.9, 95.7], [40.2, 97.9], [40.5, 102.8],
-        [45.875, 99.75], [45.875, 101.65], [45.875, 97.75], [45.2, 95.8]].map(([x, y], i) =>
+        [45.875, 99.75], [45.875, 101.65], [45.875, 97.75], [45.2, 95.8]].map(([x, y], i) => i >= 6 ? null :
         <Fragment key={`usb-return-${i}`}><via name={`USB4_GND_RETURN_${i}`} pcbX={x} pcbY={y}
           fromLayer="top" toLayer="bottom" holeDiameter={0.2} outerDiameter={0.35} connectsTo="net.GND"/></Fragment>)}
       {/* Filled/capped GND vias flank the fine-pitch USB4 launches on both columns. */}
@@ -428,7 +399,6 @@ export default function Board() {
       <net name="VCCH_SENSE"/>
 
       <net name="V5V"/>
-      <net name="V5VSB"/>
       <net name="V12V"/>
       <net name="ATX_PWR_OK"/>
       <net name="SLOT_3V3"/>
@@ -670,8 +640,8 @@ export default function Board() {
             />
             <TCC0402COG100J500AT name="C1" pcbX={-3.3} pcbY={-1.6} layer="top" schSectionName="BRIDGE_OSCILLATOR"
               schX={3} schY={0} schOrientation="vertical"/>
-            <netlabel inline net="ASM_XI" connection="C1.pin1"/>
-            <netlabel inline net="ASM_XO" connection="C1.pin2"/>
+            <netlabel inline net="ASM_XO" connection="C1.pin1"/>
+            <netlabel inline net="ASM_XI" connection="C1.pin2"/>
           </group>
         </group>
         <BridgeReset/>
@@ -972,7 +942,8 @@ export default function Board() {
           schSectionName="ATX_START"
           schX={-4}
           schY={0}
-          noConnect={["pin14", "pin20"]}
+          // This board uses the main rails; the standby output has no load.
+          noConnect={["pin9", "pin14", "pin20"]}
           connections={{
             pin1: "net.VCCH",
             pin2: "net.VCCH",
@@ -981,7 +952,6 @@ export default function Board() {
             pin4: "net.V5V",
             pin6: "net.V5V",
             pin8: "net.ATX_PWR_OK",
-            pin9: "net.V5VSB",
             pin21: "net.V5V",
             pin22: "net.V5V",
             pin23: "net.V5V",
@@ -1016,6 +986,11 @@ export default function Board() {
         <PsuControl/>
         <PsuOkLed/>
       </schematicsheet>
-    </board>
+      <ControlSupportRoutes omitNets={omitControlNets}/>
+      {controlAutorouting && <ControlRouting routing={controlAutorouting}/>}
+    </board>,
+    undefined,
+    {},
+    bottomLeftGroupLayout(Boolean(controlAutorouting)),
   ) as ReactElement;
 }

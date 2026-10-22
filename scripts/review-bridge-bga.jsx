@@ -2,7 +2,7 @@ import {Circuit} from "tscircuit";
 import {createElement} from "react";
 import {mkdir,writeFile,readFile} from "node:fs/promises";
 import {convertCircuitJsonToPcbSvg} from "circuit-to-svg";
-import {reviewBridgeBga} from "../lib/bridge-bga-review.mjs";
+import {reviewBridgeBga} from "../tests/audits/bridge-bga-review.mjs";
 import BridgeFootprintReview from "../manufacturing/bridge-bga/footprint-review.circuit";
 const c=new Circuit();c.schematicDisabled=true;c.add(createElement(BridgeFootprintReview));await c.renderUntilSettled();
 const j=c.getCircuitJson();

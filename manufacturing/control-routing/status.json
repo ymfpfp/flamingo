@@ -1,0 +1,419 @@
+{
+  "complete": true,
+  "requestedPassComplete": true,
+  "requestedNets": 2,
+  "completedThisPass": 2,
+  "newlyAppliedNets": [
+    "ASM_CC1",
+    "ASM_CC2"
+  ],
+  "appliedNets": [
+    "PCIE_PRESENT_N",
+    "ASM_PRESENT_N",
+    "TEST_EN",
+    "REXT",
+    "ASM_PERST0_N",
+    "FLASH_HOLD",
+    "ASM_SPI_MISO",
+    "ASM_SPI_CLK",
+    "ASM_SPI_MOSI",
+    "FLASH_WP",
+    "ASM_UART_TX",
+    "ASM_UART_RX",
+    "ASM_SBU1",
+    "ASM_CLKREQ_N",
+    "ASM_WAKE_N",
+    "ASM_SPI_CS_N",
+    "ASM_SBU2",
+    "ASM_RST_N",
+    "ASM_CC2",
+    "ASM_CC1",
+    "PCIE_PERST_N",
+    "PCIE_CLKREQ_N"
+  ],
+  "remainingNets": [],
+  "deferredNets": [],
+  "sourceSha256": "81d411246a2e54bddcecde69552d62f5703d28bcc5bd72d4f1207d355d6936db",
+  "board": "dist/control-routing/controls17/final.circuit.json",
+  "localReworkAuthorized": true,
+  "clearancePolicy": "Configured ASMedia/project widths and trace spacing; user-approved fabrication clearances only in bounded CC fixed-pad launch regions",
+  "componentLayer": "top",
+  "localPowerReworkApproval": "Approved by the user; local power stitching and flash-feed vias were relocated and their planes revalidated",
+  "localControlReworkApproval": "User-authorized local control rerouting and exact recorded top-side component moves; strict clearances and fixed PCIe/USB signal copper",
+  "authorizedComponentMoves": [
+    {
+      "name": "R_RST",
+      "before": {
+        "name": "R_RST",
+        "center": {
+          "x": 44.97,
+          "y": 112.5
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_RST",
+        "center": {
+          "x": 45.5,
+          "y": 68.6
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Move the low-speed reset network beside its header; keep PCIe/USB signal geometry and all fast bypass placement fixed"
+    },
+    {
+      "name": "C_RST",
+      "before": {
+        "name": "C_RST",
+        "center": {
+          "x": 44.97,
+          "y": 110.2
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_RST",
+        "center": {
+          "x": 45.5,
+          "y": 72.7
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Move the low-speed reset network beside its header; keep PCIe/USB signal geometry and all fast bypass placement fixed"
+    },
+    {
+      "name": "SW_RESET",
+      "before": {
+        "name": "SW_RESET",
+        "center": {
+          "x": 48.47,
+          "y": 111
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "SW_RESET",
+        "center": {
+          "x": 42.3,
+          "y": 73.8
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Move the low-speed reset network beside its header; keep PCIe/USB signal geometry and all fast bypass placement fixed"
+    },
+    {
+      "name": "C_VCCH_14",
+      "before": {
+        "center": {
+          "x": 36,
+          "y": 84.5
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "C_VCCH_14"
+      },
+      "after": {
+        "center": {
+          "x": 36,
+          "y": 83.7
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "C_VCCH_14"
+      },
+      "reason": "Local support placement for the chip-select path; fast bypasses and PCIe/USB signal copper stay fixed"
+    },
+    {
+      "name": "R_SPI_CS",
+      "before": {
+        "center": {
+          "x": 29.5,
+          "y": 90.3000074
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "R_SPI_CS"
+      },
+      "after": {
+        "center": {
+          "x": 45.5,
+          "y": 79.19
+        },
+        "rotation": 0,
+        "layer": "top",
+        "name": "R_SPI_CS"
+      },
+      "reason": "Local support placement for the chip-select path; fast bypasses and PCIe/USB signal copper stay fixed"
+    },
+    {
+      "name": "C_VCCL_37",
+      "before": {
+        "name": "C_VCCL_37",
+        "center": {
+          "x": 31.350000000000005,
+          "y": 104.3
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_37",
+        "center": {
+          "x": 31,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    },
+    {
+      "name": "C_VCCL_17",
+      "before": {
+        "name": "C_VCCL_17",
+        "center": {
+          "x": 29.700000000000003,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_17",
+        "center": {
+          "x": 29.1,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    },
+    {
+      "name": "C_VCCL_10",
+      "before": {
+        "name": "C_VCCL_10",
+        "center": {
+          "x": 27.500000000000004,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_10",
+        "center": {
+          "x": 27.2,
+          "y": 106.7
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    }
+  ],
+  "powerLoadQualification": {
+    "qualified": false,
+    "results": [
+      {
+        "rail": "VCCL",
+        "currentA": 3,
+        "copperTemperatureC": 80,
+        "maximumDropMV": 15.340359748830991,
+        "screeningUpperDropMV": 20.20592595740931
+      },
+      {
+        "rail": "VDD",
+        "currentA": 3,
+        "copperTemperatureC": 80,
+        "maximumDropMV": 17.31472666424182,
+        "screeningUpperDropMV": 21.56988037104284
+      }
+    ]
+  },
+  "slotPowerLoadScreen": {
+    "status": "screen-completed; qualification-open",
+    "results": [
+      {
+        "rail": "V12V",
+        "currentA": 5.5,
+        "coarse": {
+          "gridMm": 0.2,
+          "meshNodes": 20206,
+          "dropMV": 74.87084620215835,
+          "terminalsMV": {
+            "Q_SLOT_12V.pin1": 74.80797796186395,
+            "Q_SLOT_12V.pin2": 74.87084620215835,
+            "Q_SLOT_12V.pin3": 74.80707701766502
+          }
+        },
+        "fine": {
+          "gridMm": 0.12,
+          "meshNodes": 54300,
+          "dropMV": 77.27670431263702,
+          "terminalsMV": {
+            "Q_SLOT_12V.pin1": 77.27007413544762,
+            "Q_SLOT_12V.pin2": 77.27670431263702,
+            "Q_SLOT_12V.pin3": 77.19139641649483
+          }
+        },
+        "withMeshAllowanceMV": 96.59588039079628
+      },
+      {
+        "rail": "SLOT_12V",
+        "currentA": 5.5,
+        "coarse": {
+          "gridMm": 0.2,
+          "meshNodes": 33741,
+          "dropMV": 283.36269204644833,
+          "terminalsMV": {
+            "PCIe.A2": 280.6434025801746,
+            "PCIe.A3": 281.16558017827265,
+            "PCIe.B1": 282.49643811673207,
+            "PCIe.B2": 283.0473791069789,
+            "PCIe.B3": 283.36269204644833
+          }
+        },
+        "fine": {
+          "gridMm": 0.12,
+          "meshNodes": 92730,
+          "dropMV": 263.54181871170107,
+          "terminalsMV": {
+            "PCIe.A2": 260.84977202144574,
+            "PCIe.A3": 261.403626105269,
+            "PCIe.B1": 262.74025838329106,
+            "PCIe.B2": 263.25063866230636,
+            "PCIe.B3": 263.54181871170107
+          }
+        },
+        "withMeshAllowanceMV": 349.2481467243736
+      },
+      {
+        "rail": "VCCH",
+        "currentA": 3,
+        "coarse": {
+          "gridMm": 0.2,
+          "meshNodes": 69411,
+          "dropMV": 25.95482436698514,
+          "terminalsMV": {
+            "Q_SLOT_3V3.pin1": 25.95482436698514,
+            "Q_SLOT_3V3.pin2": 25.401360136418155,
+            "Q_SLOT_3V3.pin3": 24.51487227894602
+          }
+        },
+        "fine": {
+          "gridMm": 0.12,
+          "meshNodes": 191389,
+          "dropMV": 25.336021654165638,
+          "terminalsMV": {
+            "Q_SLOT_3V3.pin1": 25.336021654165638,
+            "Q_SLOT_3V3.pin2": 24.73317752108014,
+            "Q_SLOT_3V3.pin3": 23.69219847108292
+          }
+        },
+        "withMeshAllowanceMV": 32.28882978052655
+      },
+      {
+        "rail": "SLOT_3V3",
+        "currentA": 3,
+        "coarse": {
+          "gridMm": 0.2,
+          "meshNodes": 22244,
+          "dropMV": 62.45431317559106,
+          "terminalsMV": {
+            "PCIe.A9": 62.40590003587949,
+            "PCIe.A10": 62.45431317559106,
+            "PCIe.B8": 58.17156557225202
+          }
+        },
+        "fine": {
+          "gridMm": 0.12,
+          "meshNodes": 60984,
+          "dropMV": 62.41569240908826,
+          "terminalsMV": {
+            "PCIe.A9": 62.38867203990643,
+            "PCIe.A10": 62.41569240908826,
+            "PCIe.B8": 58.20958468830207
+          }
+        },
+        "withMeshAllowanceMV": 78.05823627786313
+      }
+    ],
+    "channels": [
+      {
+        "rail": "12V",
+        "currentA": 5.5,
+        "conductorUpperDropMV": 445.84402711516987,
+        "mosfetDrop25CMaxRdsMV": 71.5,
+        "mosfetDissipation25CMaxRdsW": 0.39325
+      },
+      {
+        "rail": "3V3",
+        "currentA": 3,
+        "conductorUpperDropMV": 110.34706605838969,
+        "mosfetDrop25CMaxRdsMV": 29.4,
+        "mosfetDissipation25CMaxRdsW": 0.0882
+      }
+    ],
+    "copperTemperatureC": 80,
+    "viaPlatingAssumedMm": 0.02,
+    "sourceFile": "dist/board.circuit.json",
+    "sourceSha256": "81d411246a2e54bddcecde69552d62f5703d28bcc5bd72d4f1207d355d6936db",
+    "scope": "Actual top/L3/L4 copper and via barrels; equal current per physical switch-source pad and slot-power contact. Input and output solved separately; MOSFET 25 C maximum-Rds loss stated separately. Assumed 5.5 A / 3 A individual rail envelopes are not simultaneous permission to exceed the 75 W combined card budget.",
+    "limitations": "No voltage pass/fail inferred from unknown ATX source/cable loss or unknown bridge VCCH consumption. No ground-return, package lead resistance, hot MOSFET, thermal, startup, fault, AC or SOA qualification; fixed source voltages and equal pad currents are model assumptions."
+  },
+  "slotPowerRoutingChange": {
+    "baseline": {
+      "board": "dist/control-routing/cc-routing/pre-cc-final-baseline.circuit.json",
+      "sourceSha256": "ec04fdf55c97199d46bf4f8c99be83f4feec4834dcce17e5bb5bc3f0c8c336df",
+      "traceCount": 625,
+      "rail": "SLOT_12V",
+      "currentA": 5.5,
+      "gridMm": 0.12,
+      "meshNodes": 92684,
+      "dropMV": 216.5323612330372,
+      "terminalsMV": {
+        "PCIe.A2": 213.8403145452463,
+        "PCIe.A3": 214.3941686288778,
+        "PCIe.B1": 215.73080090443736,
+        "PCIe.B2": 216.24118118356114,
+        "PCIe.B3": 216.5323612330372
+      }
+    },
+    "native3": {
+      "board": "dist/control-routing/controls17/final.circuit.json",
+      "sourceSha256": "81d411246a2e54bddcecde69552d62f5703d28bcc5bd72d4f1207d355d6936db",
+      "traceCount": 631,
+      "rail": "SLOT_12V",
+      "currentA": 5.5,
+      "gridMm": 0.12,
+      "meshNodes": 92730,
+      "dropMV": 263.54181871170107,
+      "terminalsMV": {
+        "PCIe.A2": 260.84977202144574,
+        "PCIe.A3": 261.403626105269,
+        "PCIe.B1": 262.74025838329106,
+        "PCIe.B2": 263.25063866230636,
+        "PCIe.B3": 263.54181871170107
+      }
+    },
+    "deltaMV": 47.009457478663876,
+    "deltaPercent": 21.710130167597075,
+    "equivalentAddedConductorResistanceMilliOhm": 8.547174087029795
+  },
+  "latestRequestedNets": [
+    "ASM_CC1",
+    "ASM_CC2"
+  ],
+  "latestCompletedNets": [
+    "ASM_CC1",
+    "ASM_CC2"
+  ],
+  "report": "dist/control-routing/controls17/report.html"
+}

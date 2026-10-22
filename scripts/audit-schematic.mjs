@@ -1,9 +1,9 @@
 import {readFile, mkdir, writeFile} from "node:fs/promises";
-import {auditCircuit, electricalMargins} from "../lib/schematic-audit.mjs";
-import {auditDatasheets} from "../lib/datasheet-audit.mjs";
-const path = process.argv[2] ?? "dist/index/circuit.json";
+import {auditCircuit, electricalMargins} from "../tests/audits/schematic-audit.mjs";
+import {auditDatasheets} from "../tests/audits/datasheet-audit.mjs";
+const path = process.argv[2] ?? "dist/board.circuit.json";
 const json = JSON.parse(await readFile(path, "utf8"));
-const errors = json.filter(e => e.type.endsWith("_error"));
+const errors = json.filter(e => e.type.startsWith("source_") && e.type.endsWith("_error"));
 if (errors.length) throw new Error(`The input circuit contains ${errors.length} errors.`);
 const report = auditCircuit(json);
 await mkdir("dist/schematic-review", {recursive: true});

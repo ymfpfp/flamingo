@@ -1,0 +1,38 @@
+{
+  "authorized": true,
+  "scope": "Local XI/XO launches and symmetric passive signal-pin assignment",
+  "changes": [
+    {
+      "name": "CLOCK_XI_BRIDGE",
+      "before": "b1e0b33af5aaa6d05239d2343716d01327e32b309efa59f93391fc5670e79c12",
+      "after": "14191c8a61e8439a2cfe02252587c75ceb8d30773a8168b99690878275de87c2"
+    },
+    {
+      "name": "CLOCK_XO_BRIDGE",
+      "before": "2017d8967a745fa2bad35118fe1c08a3ad763e58aceb61c5e0a4dfe622de78d5",
+      "after": "bb2063e782e5593f7d56f7b67c27f065b10d41b5eec73e24cccbb19f948ab252"
+    },
+    {
+      "name": "CLOCK_XI_XTAL",
+      "before": "f6c455225ef09756af526718fc3fd570c5e6eee4d11f4134ea2e2c3774ee61d4",
+      "after": "22553ddd6b73e72a656c5d0d17ec9497c6cbe4c2d6cdec601a77901cf28216f3"
+    },
+    {
+      "name": "CLOCK_XO_XTAL",
+      "before": "22553ddd6b73e72a656c5d0d17ec9497c6cbe4c2d6cdec601a77901cf28216f3",
+      "after": "f6c455225ef09756af526718fc3fd570c5e6eee4d11f4134ea2e2c3774ee61d4"
+    }
+  ],
+  "assemblyPreserved": true,
+  "clockViasAdded": 0,
+  "passivePinSwap": {
+    "C1": [
+      "pin1",
+      "pin2"
+    ],
+    "XCLK": [
+      "pin1",
+      "pin3"
+    ]
+  }
+}

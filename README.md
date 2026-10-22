@@ -14,7 +14,7 @@ The PCB configuration now specifies six layers and a thickness of 1.6 mm.
 The bridge footprint and assembly process are candidates pending vendor acceptance.
 The board outline is 52.5 × 123.62 mm.
 The PCIe courtyard has 5 mm of space from ATX below and about 5 mm from the top and left edges.
-Automatic packing supplies preliminary positions for the other components, and routing is disabled.
+Fixed groups define component placements. Reviewed high-speed and power routes are present; other signals still need routing.
 Hardware operation and throughput remain unmeasured.
 
 [index.circuit.tsx](index.circuit.tsx) contains five schematic sheets:
@@ -37,11 +37,10 @@ bun install --frozen-lockfile
 
 | Command | Purpose |
 | --- | --- |
-| `bun run dev` | Open the cached PCB placement preview |
-| `bun run dev:full` | Open the source editor and full tscircuit development viewer |
+| `bun run dev` | Open the native tscircuit server and viewer |
 | `bun run build` | Build the circuit from the selected local part definitions |
 | `bun run build:supplier` | Check the optional supplier-enabled build; a USB cutout placement error remains open |
-| `bun test ./tests` | Run the circuit tests |
+| `bun run test` | Build once and run the circuit tests |
 | `bun run typecheck` | Run the TypeScript check |
 | `bun run check:bga` | Audit the isolated bridge copper, mask, paste and local escape geometry |
 | `bun run check:drc` | Build fresh PCB geometry and run the local JLCPCB checks |
@@ -51,6 +50,11 @@ bun install --frozen-lockfile
 | `bun run check:slot-power` | Screen the original switches and report remaining startup checks |
 | `bun run sim:slot-driver` | Check selected driver RC loading and compare the previous drivers |
 | `bun run sim:check` | Run the scenarios and fail when electrical findings remain |
+| `bun run setup:controls` | Prepare native-router jobs for the 22 remaining control/support nets and screen full-width top launches |
+| `bun run route:controls` | Run native automatic multilayer routing with automatic escapes/vias; write separate candidates without applying them |
+| `bun run check:controls:native` | Build the source with native control phases and `routeRemaining=true`; capture the rules reaching each solver without generating copper |
+| `bun run route:controls:native` | Run those native source phases with mandatory physical checks; save separate diagnostics and leave the source routes unchanged |
+| `bun run test:controls` | Check the prepared control-routing fixture and reject changed existing copper or bottom-side components |
 | `bun run audit:schematic` | Build the board and audit connectivity, BOM coverage, ratings, and datasheet hashes |
 | `bun run snapshot` | Run the snapshot checks |
 | `bun run snapshot:update` | Update the snapshots |
@@ -58,6 +62,38 @@ bun install --frozen-lockfile
 The tests cover bridge pins and footprints, ground connectivity, buck circuits, USB4, VBUS sensing, PCIe, and slot power.
 Passing tests do not establish complete PCB connectivity, signal integrity, or hardware operation.
 The SPICE tests require `bun run sim:setup` before their first run.
+
+Control-routing setup uses the existing SI Python environment with Shapely.
+Set `PCIE_SI_PYTHON` to that environment's Python executable before running `setup:controls`.
+Run setup before routing trials; `route:controls --net=FLASH_WP` selects one net.
+The setup report is `dist/control-routing/report.html`.
+The policy is in `lib/control-routing-config.mjs`; it covers 22 nets and 36 explicit branches.
+`components/ControlRouting.tsx` assigns each net a native phase with its width,
+edge clearance, via dimensions, and fabrication limits. The native adapter uses
+only top and bottom for signals and fixes all existing copper as obstacles.
+Length limits, ground-reference continuity, impedance, and six-layer via
+clearances require separate acceptance checks; the router does not verify them.
+The native pass rejects any remaining net that lacks an explicit policy.
+`check:controls:native` writes its inputs and summary to `dist/control-routing/native/`.
+These checks do not finalize routing. The strict REXT launch currently has no
+legal escape with the existing clock and PCIe copper held fixed.
+The REXT-deferred pass attempted all other 21 nets. Flash WP, slot PERST# and
+slot CLKREQ# now have checked native routes in `components/ControlSupportRoutes.tsx`.
+The other 18 remain open. CC1, CC2 and SBU1 have local launch conflicts under
+the fixed-copper and literal-clearance rules. See `dist/control-routing/controls21/report.html`.
+It locks the existing 520 traces, 536 vias, 97 pours, and all 153 assembled component placements on top.
+That lock checks the starting board; a final build may add checked via-clearance cutouts while preserving pour outlines and connectivity.
+Signals may use top/bottom copper with L2/L5 ground references; L3/L4 stay reserved for power.
+No launch-width or clearance exceptions are enabled.
+The native Pipeline 9 multilayer router selects escape directions, via positions, surface changes and net topology.
+Direct-top launch warnings are advisory; they do not exclude nets or require a manual fanout stage.
+Surface pours use a verified conservative 0.05 mm rectangle cover that preserves openings and omits no copper.
+The router sees the two physical signal surfaces; the board still has six copper layers.
+Existing traces become fixed obstacles before the routing solver runs, so preloaded-trace repair cannot move them.
+Every via must span the complete copper stack; the command never publishes partial routes.
+SPI programming-header topology, the project SBU rule, single-ended impedance, full-stack via clearance, and reference continuity remain acceptance checks.
+Routing trial exit code 2 means that a full, accepted board has not been produced.
+The current PCB preview remains unchanged by both commands.
 
 ### Connector placement
 
@@ -76,80 +112,36 @@ The board origin is its bottom-left corner. Positive X points right, and positiv
 Keys with `/` place a subgroup relative to its parent.
 `pcbRotation` specifies counterclockwise degrees. `offBoard: true` permits a group outside the board during placement.
 
-The first preview creates a full build. Later X/Y edits reuse the rendered circuit and schematic.
-Each move updates pads, courtyards, group bounds, and 3D models, then repeats the placement checks.
-The preview reads the original cache for each move to prevent accumulated coordinate drift.
-Generated preview files remain in `dist/`. `index.circuit.tsx` remains the circuit source.
+`bun run dev` uses the native tscircuit server and viewer.
+Each source change rebuilds the circuit.
+`bun run build:json` writes `dist/board.circuit.json` for tests and external tools.
+`bun run dev -- --port 3023` selects a different preview port.
 
-Rotations, grid changes, board dimensions, footprints, connections, and other source changes trigger a full build.
-Expressions in the placement map also use a full build. The cached path requires literal numeric X/Y values and disabled routing.
-Routed geometry always uses a full build. A failed update reports an error in the viewer and retains the previous full build.
-`bun run dev:full` retains the original source editor and full rebuild behavior.
-`bun run dev --port 3023` selects a different preview port.
+### Board validation
 
-### 3D preview performance
+`bun run check:board` builds the board once and runs the native checks, routing audits, and physical copper checks.
+The command writes one board artifact and a report in `dist/validation/board.json`.
+`bun run check:board -- dist/board.circuit.json` checks an existing build.
+The individual `check:usb`, `check:pcie`, and power commands select a scope in the same validation program.
+`--require-routed` also requires all remaining connections to have copper.
+The separate PDN load screen reports its open qualification result.
 
-The preview caches remote component models in `dist/preview/models/remote/`.
-The first run downloads each model once. Later runs use these local files.
-A failed download retains the remote URL.
+`manufacturing/layout-baseline.json` records the fixed top assembly and copper outside the local routes migrated during cleanup.
+The validator compares this baseline by connection name and geometry, independent of generated trace IDs.
+Compilation keeps source and placement diagnostics. The validator runs the copper checks once.
+The local routes use native fixed paths and retain endpoint, width, layer, clearance, and physical connectivity checks.
 
-The preview combines identical opaque materials and reuses shadows during camera movement.
-Scene changes refresh the shadows. Component geometry, colors, dimensions, and placement stay the same.
-The canvas uses a maximum pixel ratio of 1.5. Board surface textures use a maximum of one megapixel per layer.
-These limits reduce display detail at extreme zoom.
+The silkscreen uses the native font and SVG graphics in `assets/artwork/`.
 
-The preview generates its viewer bundle in `dist/viewer/` through the documented CLI override.
-It does not edit installed packages.
-An incompatible viewer update stops preparation with an error.
-`FLAMINGO_3D_ORIGINAL=1 bun run dev` uses the original viewer and remote model URLs.
+### PCIe connector keepout
 
-The profiler requires Playwright and Chrome.
-`PLAYWRIGHT_MODULE` can point to an existing Playwright module.
+`lib/pcie-mechanical.ts` reserves the XKB connector assembly envelope: 92 mm along the slot and 9.70 mm across it.
+The dimensions cover the housing, hold-down lands, and signal lands in [the connector drawing](datasheets/X1618WVS-164-9TV30.pdf), pages 1–2.
+The keepout moves and rotates with the connector and clips to the board edges, after placement changes.
+The PCB notes layer shows its outline and label.
 
-1. Run `bun run dev`.
-2. Run `bun run profile:3d -- --url http://localhost:3020/#file=circuit.json --label optimized`.
-3. Open the reports and screenshots in `dist/3d-profile/`.
-
-The reports include model-ready time, tab-reopen time, rotation frame time, CPU profiles, and geometry counts.
-The profiler uses a 1280 × 900 viewport with a pixel ratio of 2.
-
-### PCIe mechanical zones
-
-`lib/pcie-mechanical.ts` defines the XKB assembly keepout and the CEM component height zones.
-The PCB view shows their boundaries and a color legend on the PCB notes layer.
-These notes do not appear on the manufactured silkscreen.
-The zones move with the PCIe connector, including cached placement updates.
-The board outline clips each zone.
-
-| Zone | Basis | Restriction |
-| --- | --- | --- |
-| XKB assembly | 89 mm housing, 8.80 mm body width, 92 mm hold-down span, 9.20 mm signal land span | No other components on the connector side |
-| CEM card area | CEM Figure 86, adapted to the XKB housing boundary | 15.24 mm maximum component height |
-| CEM front strip | CEM Figure 86, from -10.16 mm to +5.09 mm relative to the chassis mounting datum | 5.08 mm maximum component height |
-| CEM anti-misinsertion feature | 2.50 mm width, centered on the slot, for 10.30 mm ahead of the XKB housing | 6.35 mm maximum component height |
-
-The XKB source is [the connector drawing](datasheets/X1618WVS-164-9TV30.pdf), pages 1-2.
-The CEM source is [Revision 4.0, Version 0.9](https://whycan.com/files/members/1761/PCIe_CEM_SPEC_R4_V9_12072018_NCB.pdf), Figures 33 and 86, pages 90 and 158.
-This public CEM copy is a draft.
-Its microATX illustration supplies the reference envelope, not a required microATX outline for this board.
-Datum A coincides with the first locator axis, 1.65 mm after A11.
-The key center precedes that axis by 0.15 mm.
-The transverse height envelope extends to the actual XKB housing boundary on row A.
-
-At the current connector position, the 5.08 mm strip lies beyond the top board edge.
-Its definition remains available for later connector positions.
-The XKB drawing has no retention latch.
-A different connector or an added retention mechanism requires a new mechanical review.
-
-The placement checks reject components inside the XKB assembly keepout.
-`bun run check:drc` also compares reviewed maximum component heights with the CEM limits.
-Unknown heights produce `pcie_height_unreviewed` warnings.
-`pcieComponentHeightsMm` records reviewed heights by manufacturer part number.
-The current ATX header uses a conservative 10 mm limit from its Molex drawing.
-This limit covers the bare header, not the attached cable.
-The checks use component and courtyard bounds and apply only on the connector side of the board.
-Copper traces, vias, and ground pours remain available in these mechanical zones.
-Card coolers, cables, supports, and enclosure clearances still require an assembly review.
+Placement checks and `bun run check:drc` reject other components whose bodies or courtyards overlap the keepout on the connector side.
+Traces, vias, and copper pours remain allowed beneath the connector.
 
 ### Power/reset simulation
 
@@ -203,7 +195,7 @@ The general width does not establish a current rating for power distribution.
 The local checks cover circular bridge pads, trace widths, via dimensions, placement, and copper clearances.
 Existing traces receive clearance checks even before routing is complete.
 The routed command also checks missing connections.
-Each command writes `dist/jlcpcb-drc.json` and exits with code 1 for detected errors.
+Each command writes `dist/validation/drc.json` and exits with code 1 for detected errors.
 To inspect an existing Circuit JSON file, run `bun run check:drc path/to/circuit.json`.
 
 The bridge candidate has 196 circular lands at 0.20 mm diameter, meeting JLCPCB's published ENIG minimum.
@@ -531,7 +523,7 @@ The isolation check reports top BGA pad-to-via escapes separately, with a 3.2 mm
 It also excludes the first 3 mm after each BGA via on bottom, 1 mm at a via/capacitor, and 2 mm at the slot.
 These regions retain fabrication clearance checks. Their pad pitch prevents a uniform 8h gap, so final launch/via SI remains open.
 The result establishes the checked coupled-route layout rules; it does not establish full PCIe compliance or factory DFM acceptance.
-Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun scripts/refresh-pcie-preview.mjs` to rebuild and validate the visible board preview.
+Run `PCIE_SI_PYTHON=/path/to/si-venv/bin/python bun run check:board` to build and validate the board.
 
 ## Programming access
 

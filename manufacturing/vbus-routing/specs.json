@@ -3,189 +3,337 @@
     "name": "VBUS_RAW_A4_CONTACT",
     "from": "USBC.A4",
     "to": "VBUS_RAW_A4.top",
-    "select": "USBC.A4",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        44.46,
+        97.67
+      ],
+      [
+        44.31,
+        97.67
+      ]
+    ],
+    "exactPadContacts": true
   },
   {
     "name": "VBUS_RAW_A9_CONTACT",
     "from": "USBC.A9",
     "to": "VBUS_RAW_A9.top",
-    "select": "USBC.A9",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": []
   },
   {
     "name": "VBUS_RAW_B4_CONTACT",
     "from": "USBC.B4",
     "to": "VBUS_RAW_B4.top",
-    "select": "USBC.B4",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        46.45,
+        100.07
+      ],
+      [
+        46.29,
+        100.075
+      ]
+    ],
+    "exactPadContacts": true
   },
   {
     "name": "VBUS_RAW_B9_CONTACT",
     "from": "USBC.B9",
     "to": "VBUS_RAW_B9.top",
-    "select": "USBC.B9",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        46.520544000000086,
+        97.415
+      ]
+    ]
   },
   {
     "name": "VBUS_RAW_DIVIDER_CONTACT",
     "from": "R_VBUS_TOP.pin1",
     "to": "VBUS_RAW_DIVIDER.top",
-    "select": "R_VBUS_TOP.pin1",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        39.15,
+        104.53999999999989
+      ]
+    ]
   },
   {
     "name": "VBUS_SENSE_DIVIDER_CONTACT",
     "from": "R_VBUS_TOP.pin2",
     "to": "VBUS_SENSE_DIVIDER.top",
-    "select": "R_VBUS_TOP.pin2",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        38.1,
+        104.50999999999989
+      ]
+    ]
   },
   {
     "name": "VBUS_SENSE_CAP_CONTACT",
     "from": "C_VBUS_SENSE.pin1",
     "to": "VBUS_SENSE_CAP.top",
-    "select": "C_VBUS_SENSE.pin1",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": []
   },
   {
     "name": "VBUS_SENSE_BRIDGE_CONTACT",
     "from": "ASM2464PDX.G1",
     "to": "VBUS_SENSE_BRIDGE.top",
-    "select": "ASM2464PDX.G1",
     "layer": "top",
     "width": 0.127,
-    "phase": 15
+    "points": []
   },
   {
     "name": "VBUS_GND_A1_CONTACT",
     "from": "USBC.A1",
     "to": "VBUS_GND_A1.top",
-    "select": "USBC.A1",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": []
   },
   {
     "name": "VBUS_GND_A12_CONTACT",
     "from": "USBC.A12",
     "to": "VBUS_GND_A12.top",
-    "select": "USBC.A12",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": []
   },
   {
     "name": "VBUS_GND_B1_CONTACT",
     "from": "USBC.B1",
     "to": "VBUS_GND_B1.top",
-    "select": "USBC.B1",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": []
   },
   {
     "name": "VBUS_GND_B12_CONTACT",
     "from": "USBC.B12",
     "to": "USB_SHIELD_FENCE_18.top",
-    "select": "USBC.B12",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        45.5,
+        94.89458599999992
+      ]
+    ]
   },
   {
     "name": "VBUS_GND_DIVIDER_CONTACT",
     "from": "R_VBUS_BOTTOM.pin2",
     "to": "USB_SHIELD_FENCE_37.top",
-    "select": "R_VBUS_BOTTOM.pin2",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        38.7,
+        102.96718399999989
+      ]
+    ]
   },
   {
     "name": "VBUS_DIVIDER",
     "from": "R_VBUS_TOP.pin2",
     "to": "R_VBUS_BOTTOM.pin1",
-    "select": "R_VBUS_TOP.pin2",
     "layer": "top",
     "width": 0.15,
-    "phase": 16
+    "points": [
+      [
+        37.9671840000001,
+        104.222816
+      ]
+    ]
   },
   {
     "name": "VBUS_RAW_UPPER",
     "from": "VBUS_RAW_A9.inner2",
     "to": "VBUS_RAW_B4.inner2",
-    "select": "VBUS_RAW_B4.inner2",
     "layer": "inner2",
     "width": 0.15,
-    "phase": 16
+    "points": [
+      [
+        44.519988999999995,
+        100.06474099999991
+      ],
+      [
+        44.519988999999995,
+        99.06663702604385
+      ],
+      [
+        44.81663602604384,
+        98.76999
+      ],
+      [
+        46.12351597395614,
+        98.76999
+      ],
+      [
+        46.17022699999999,
+        98.81670102604386
+      ],
+      [
+        46.17022699999999,
+        99.09251699999996
+      ],
+      [
+        46.18001,
+        99.10229999999996
+      ],
+      [
+        46.18001,
+        99.39482233047033
+      ],
+      [
+        46.33001,
+        99.54482233047034
+      ],
+      [
+        46.33001,
+        100.03499
+      ]
+    ]
   },
   {
     "name": "VBUS_RAW_LOWER",
     "from": "VBUS_RAW_A4.inner2",
     "to": "VBUS_RAW_B9.inner2",
-    "select": "VBUS_RAW_B9.inner2",
     "layer": "inner2",
     "width": 0.15,
-    "phase": 16
+    "points": [
+      [
+        44.31,
+        98.7
+      ],
+      [
+        45.6,
+        98.7
+      ],
+      [
+        45.6,
+        98.20501
+      ],
+      [
+        46.063471313015384,
+        98.20501
+      ],
+      [
+        46.33001,
+        97.93847131301538
+      ],
+      [
+        46.33001,
+        97.45501
+      ]
+    ]
   },
   {
     "name": "VBUS_RAW_CONNECTOR",
     "from": "VBUS_RAW_A9.inner2",
     "to": "VBUS_RAW_A4.inner2",
-    "select": "VBUS_RAW_A9.inner2",
     "layer": "inner2",
     "width": 0.15,
-    "phase": 17
+    "points": [
+      [
+        44.31,
+        99.854752
+      ],
+      [
+        44.31,
+        97.67
+      ]
+    ]
   },
   {
     "name": "VBUS_RAW_TO_DIVIDER",
     "from": "VBUS_RAW_DIVIDER.inner2",
     "to": "VBUS_RAW_A9.inner2",
-    "select": "VBUS_RAW_DIVIDER.inner2",
     "layer": "inner2",
     "width": 0.15,
-    "phase": 16
+    "points": [
+      [
+        39.345009999999995,
+        105.01999
+      ],
+      [
+        40.15359665207473,
+        105.01999
+      ],
+      [
+        44.699999,
+        100.47358765207474
+      ]
+    ]
   },
   {
     "name": "VBUS_FILTER",
     "from": "VBUS_SENSE_DIVIDER.inner2",
     "to": "VBUS_SENSE_CAP.inner2",
-    "select": "VBUS_SENSE_DIVIDER.inner2",
     "layer": "inner2",
     "width": 0.15,
-    "phase": 16
+    "points": [
+      [
+        38.1,
+        103.27594701302198
+      ],
+      [
+        36.369989999999994,
+        101.54593701302197
+      ],
+      [
+        36.369989999999994,
+        99.82188402604395
+      ],
+      [
+        36.89187402604394,
+        99.3
+      ]
+    ]
   },
   {
     "name": "VBUS_TO_BRIDGE",
     "from": "VBUS_SENSE_CAP.inner2",
     "to": "VBUS_SENSE_BRIDGE.inner2",
-    "select": "VBUS_SENSE_BRIDGE.inner2",
     "layer": "inner2",
     "width": 0.15,
-    "phase": 16
+    "points": [
+      [
+        37.97990000000011,
+        99.17177402604406
+      ],
+      [
+        34.3681333739561,
+        95.56000740000005
+      ]
+    ]
   },
   {
     "name": "VBUS_GND_CAP_CONTACT",
     "from": "C_VBUS_SENSE.pin2",
     "to": "USB_SHIELD_FENCE_26.top",
-    "select": "C_VBUS_SENSE.pin2",
     "layer": "top",
     "width": 0.15,
-    "phase": 15
+    "points": [
+      [
+        38.95,
+        99.42989999999989
+      ]
+    ]
   }
 ]

@@ -287,26 +287,20 @@
     "route": [
       {
         "route_type": "wire",
-        "x": 32.400000000000006,
-        "y": 90.87010000000001,
-        "layer": "top",
-        "width": 0.15
+        "x": 32.4,
+        "y": 90.8701,
+        "width": 0.15,
+        "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 31.6701,
-        "y": 91.6,
-        "layer": "top",
-        "width": 0.15
-      },
-      {
-        "route_type": "wire",
-        "x": 30.95,
-        "y": 91.6,
-        "layer": "top",
-        "width": 0.15
+        "x": 33.5,
+        "y": 90.8701,
+        "width": 0.15,
+        "layer": "top"
       }
-    ]
+    ],
+    "toSelector": "C_VDD_34.pin2"
   },
   {
     "name": "PDN_C_VDD_34_pin1",
@@ -321,8 +315,8 @@
       },
       {
         "route_type": "wire",
-        "x": 33.8,
-        "y": 90.0299,
+        "x": 33.58,
+        "y": 89.2,
         "layer": "top",
         "width": 0.15
       }
@@ -341,8 +335,8 @@
       },
       {
         "route_type": "wire",
-        "x": 33.8,
-        "y": 90.87010000000001,
+        "x": 33.58,
+        "y": 91.0,
         "layer": "top",
         "width": 0.15
       }

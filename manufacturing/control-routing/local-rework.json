@@ -1,0 +1,26 @@
+{
+  "authorized": true,
+  "scope": "Targeted ground, clock, approved local power and FLASH_WP/HDDPC control rework; PCIe/USB signal copper and component positions stay fixed",
+  "preserveMainPcieAndUsbRoutes": true,
+  "componentLayer": "top",
+  "clearancePolicy": "Keep the stricter all-copper spacing",
+  "allowLaunchClearanceExceptions": false,
+  "applied": true,
+  "candidateDirectory": "dist/control-routing/local-rework",
+  "completionBlockedByFixedPadSpacing": [
+    "ASM_CC1",
+    "ASM_CC2"
+  ],
+  "changes": [
+    "Five bridge ground taps and retired shared H4 via",
+    "C_VDD_30 ground tap to adjacent grounded C_VDD_34 and retired old via",
+    "Local crystal clock launch rerouting with symmetric passive pin assignments",
+    "Relocated local VCCL/VDD power stitching vias",
+    "Shortened the local flash supply feed and separated the WP pull-up supply contact",
+    "Moved one ground-fence stitch 0.1 mm to retain native-refilled guard contact",
+    "FLASH_WP loop replaced by checked surface sections and two full-stack vias",
+    "HDDPC local L4 trunk moved away from control escape barrels"
+  ],
+  "localPowerReworkApproval": "Approved by user: local power-via relocation with power-plane revalidation",
+  "localControlReworkApproval": "Approved by user: local FLASH_WP/HDDPC trace rerouting with strict clearance and existing PCIe/USB signal and component preservation"
+}

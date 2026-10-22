@@ -122,6 +122,14 @@ diff --git a/dist/index.js b/dist/index.js
      const plan = plansByPhaseIndex.get(phase._parsedProps.phaseIndex ?? null);
      if (!plan) continue;
      plan.autoroutingPhase = phase;
+@@ -120462,6 +120480,6 @@
+     const manualSourceTraceIds = new Set(
+       this.getDescendants().filter(
+-        (child) => child instanceof Trace && !child.getSubcircuit()._isInflatedFromCircuitJson && Boolean(child._parsedProps.pcbPath?.length)
++        (child) => child instanceof Trace && !child.getSubcircuit()._isInflatedFromCircuitJson && Boolean(child._parsedProps.pcbPath?.length || child._parsedProps.pcbPaths?.length)
+       ).map((trace) => trace.source_trace_id)
+     );
+     const manualPcbTraceIds = new Set(
 @@ -123695,7 +123713,10 @@
          if (!next) continue;
          const start = getRouteEndpoint(routePoint, "end");

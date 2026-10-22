@@ -1,5 +1,6 @@
 import {Fragment} from "react";
-import {psuStatusRoutes, psuStatusTraceWidth} from "./PsuStatusRouting";
+import {FixedTrace} from "./FixedTrace";
+import {psuStatusRoutes} from "./PsuStatusRouting";
 import {A_0402WGF1001TCE} from "imports/A_0402WGF1001TCE";
 import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
 import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
@@ -65,9 +66,8 @@ export function PsuControl() {
         connections={{pin1: "net.V5V"}}
       />
       <netlabel inline net="V5V" connection="R_PSU_LED.pin1"/>
-      {psuStatusRoutes.map(({name, from, to}) => <Fragment key={name}>
-        <trace name={name} from={from} to={to} routingPhaseIndex={2}
-          width={psuStatusTraceWidth} maxViaCount={0}/>
+      {psuStatusRoutes.map(route => <Fragment key={route.name}>
+        <FixedTrace {...route}/>
       </Fragment>)}
       <schematictext text="PWR_OK high: driver sinks LED current" schX={-1.5} schY={-3.8} fontSize={0.18} anchor="left"/>
     </group>

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
-import {checkJlcpcbDimensions, runJlcpcbDrc} from "../lib/jlcpcb-drc";
+import {checkJlcpcbDimensions, runJlcpcbDrc} from "./audits/jlcpcb-drc";
 import {jlcpcbBoardRules} from "../lib/jlcpcb-rules";
 import {Footprint} from "../imports/ASM2464PDX";
 
@@ -81,6 +81,15 @@ test("via drill spacing applies before routing exists", async () => {
   const second = {...via, pcb_via_id: "second", x: 0.3};
   const report = await runJlcpcbDrc([...base, via, second]);
   assert.ok(report.findings.some(f => f.rule === "pcb_via_clearance_error"));
+});
+
+test("routed DRC uses the separate via/pad target without lowering pad/pad spacing", async () => {
+  for(const [x,violates] of [[.37,false],[.34,true]]){
+    const via={type:"pcb_via",pcb_via_id:"via",x,y:0,hole_diameter:.15,
+      outer_diameter:.25,layers:["top","bottom"]};
+    const report=await runJlcpcbDrc([...base,pad("A",0),via,trace(.1,3)],{requireRouted:true});
+    assert.equal(report.findings.some(f=>f.rule==="pcb_pad_pad_clearance_error"),violates);
+  }
 });
 
 test("an unrouted or failed build cannot establish fabrication readiness", async () => {
