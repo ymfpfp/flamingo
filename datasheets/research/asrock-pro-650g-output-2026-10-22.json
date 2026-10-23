@@ -1,0 +1,69 @@
+{
+  "checkedOnLocal": "2026-10-22",
+  "model": "ASRock PRO-650G",
+  "sourceURL": "https://www.clearesult.com/80plus/sites/80plus/files/manufacturer-certificate/ASRock_PRO-650G_650W_SOCE%207300.2_Report.pdf",
+  "sourceTitle": "80 PLUS Verification and Testing Report, ID 7300.2",
+  "inputACV": 115,
+  "inputFrequencyHz": 60,
+  "scope": "Reported steady-load terminal measurements from a certification test, not unit-to-unit statistics, a transient minimum, or a guaranteed board-input voltage.",
+  "boardSourceSha256": "9def10ba83e6e78940f9c7dc779d518978ee63a6c8b59751ffa6443998303bc1",
+  "boardDCModelLoadA": 5.5,
+  "boardCopperPlus25CMosfetDropV": 0.17082661034709046,
+  "slotMinimumScreenV": 11.04,
+  "cases": [
+    {
+      "psuLoadFraction": 0.05,
+      "measuredOutputW": 32.55,
+      "measured12VTerminalV": 12.0,
+      "measured12VLoadA": 2.29,
+      "conditionalBoardSlotPadV": null,
+      "conditionalMarginV": null,
+      "psu12VLoadCanIncludeFullBoardScreen": false,
+      "note": "This PSU test point has less than 5.5 A total 12 V load; do not combine it with the full 5.5 A board-drop case."
+    },
+    {
+      "psuLoadFraction": 0.1,
+      "measuredOutputW": 65.09,
+      "measured12VTerminalV": 12.0,
+      "measured12VLoadA": 4.58,
+      "conditionalBoardSlotPadV": null,
+      "conditionalMarginV": null,
+      "psu12VLoadCanIncludeFullBoardScreen": false,
+      "note": "This PSU test point has less than 5.5 A total 12 V load; do not combine it with the full 5.5 A board-drop case."
+    },
+    {
+      "psuLoadFraction": 0.2,
+      "measuredOutputW": 130.09,
+      "measured12VTerminalV": 11.99,
+      "measured12VLoadA": 9.16,
+      "conditionalBoardSlotPadV": 11.81917338965291,
+      "conditionalMarginV": 0.7791733896529109,
+      "psu12VLoadCanIncludeFullBoardScreen": true
+    },
+    {
+      "psuLoadFraction": 0.5,
+      "measuredOutputW": 324.35,
+      "measured12VTerminalV": 11.95,
+      "measured12VLoadA": 22.9,
+      "conditionalBoardSlotPadV": 11.77917338965291,
+      "conditionalMarginV": 0.73917338965291,
+      "psu12VLoadCanIncludeFullBoardScreen": true
+    },
+    {
+      "psuLoadFraction": 1.0,
+      "measuredOutputW": 647.13,
+      "measured12VTerminalV": 11.92,
+      "measured12VLoadA": 45.8,
+      "conditionalBoardSlotPadV": 11.74917338965291,
+      "conditionalMarginV": 0.7091733896529107,
+      "psu12VLoadCanIncludeFullBoardScreen": true
+    }
+  ],
+  "limitations": [
+    "The measured test loads include multiple PSU rails and are not GPU-only loads.",
+    "The certificate reports cumulative 12 V output; individual 24-pin cable/contact voltages are not established.",
+    "Subtracting board DC loss assumes the reported terminal voltage reaches the board feed pads. Extra wiring/contact/ground loss and hot MOSFET increase remain excluded.",
+    "No probability of reaching 11.20 V can be inferred from these selected steady-state load measurements.",
+    "No model-specific dynamic voltage excursion data were found in this research."
+  ]
+}

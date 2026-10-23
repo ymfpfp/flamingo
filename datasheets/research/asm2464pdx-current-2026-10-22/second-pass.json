@@ -1,0 +1,111 @@
+{
+  "checkedOnLocal": "2026-10-22",
+  "scope": "Second pass for publicly documented ASM2464PDX supply currents",
+  "laterPlanningDecision": {
+    "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+    "summary": "User accepted 1 A VCCL, 3 A VDD and 0.10 A combined VCCH/VCCA33. The public JITx values remain source evidence, not the accepted load file or a verified chip-current specification."
+  },
+  "conclusion": {
+    "measuredOrGuaranteedPdxRailCurrentsFound": false,
+    "additionalEvidence": "A public JITx PDX project explicitly uses output-current constraints of 1.0 A +/-50% for its 1.9 V converter and 2.0 A +/-20% for its 1.13 V converter.",
+    "limitation": "These are author-selected power-supply design constraints, not measurements, ASMedia specifications, typical currents, or guaranteed chip-current bounds.",
+    "assumptionsOrCircuitChanged": false
+  },
+  "publicDesign": {
+    "sourceUrl": "https://github.com/Johnsel/JITx-ASM2464PDX_design_30_1/blob/ee14353028f991b36331e53e67473b6e5097f737/power.stanza",
+    "repository": "Johnsel/JITx-ASM2464PDX_design_30_1",
+    "commit": "ee14353028f991b36331e53e67473b6e5097f737",
+    "path": "power.stanza",
+    "gitBlobSha": "ccfb71595a5878578093af003bccdbae22dac867",
+    "localSnapshot": "Johnsel_PDX_power.stanza",
+    "outputs": [
+      {
+        "rail": "VDD",
+        "voltageV": 1.13,
+        "iOutConstraintA": 2,
+        "tolerancePercent": 20,
+        "arithmeticIntervalA": [
+          1.6,
+          2.4
+        ],
+        "regulator": "TPS62932DRL"
+      },
+      {
+        "rail": "VCCL",
+        "voltageV": 1.9,
+        "iOutConstraintA": 1,
+        "tolerancePercent": 50,
+        "arithmeticIntervalA": [
+          0.5,
+          1.5
+        ],
+        "regulator": "TPS62932DRL"
+      },
+      {
+        "rail": "3.3 V shared",
+        "voltageV": 3.3,
+        "iOutConstraintA": 3,
+        "tolerancePercent": 30,
+        "limitation": "Shared supply in the enclosure design; not bridge-only VCCH/VCCA33 consumption."
+      }
+    ],
+    "relatedVersion": "Johnsel/JITx-ASM2464PDX_design_29_1 uses the same current constraints; it is not independent corroboration.",
+    "interpretation": "The constraints provide context for supply sizing. They do not validate a conservative chip-current budget."
+  },
+  "additionalRepositoriesInspected": [
+    "openchips/ASM2464PDX_v2",
+    "Johnsel/JITx-ASM2464PDX_design_29_1",
+    "Johnsel/JITx-ASM2464PDX_design_30_1",
+    "AleksaBjelogrlic/ASM2464PD-RE",
+    "canmi21/ASM2464PD",
+    "TheNeg0t1ator/ASM2464PD-EGPU",
+    "mewmix/asm2464-enclosure",
+    "tinygrad/asm2464pd-firmware"
+  ],
+  "additionalSourcesWithoutRailMeasurements": [
+    {
+      "url": "https://www.purplelec.com/blogs-detail/asm2464",
+      "finding": "Actual measurement title refers to transfer performance; no electrical current characterization found."
+    },
+    {
+      "url": "https://www.mobile01.com/topicdetail.php?f=495&t=7178122",
+      "finding": "USB4 host/device throughput comparisons; no rail current measurements found."
+    },
+    {
+      "url": "https://patents.google.com/patent/CN224109839U/zh",
+      "finding": "PDX PXIe-backplane design description; no quantitative PDX current specification found."
+    },
+    {
+      "url": "https://www.igorslab.de/handheld-mit-turbolader-lenovo-legion-go-mit-egpu-und-monitor-als-echter-gaming-pc/2/",
+      "finding": "Firsthand PDX UT3G build description; no isolated bridge rail measurements found in examined pages."
+    },
+    {
+      "url": "https://www.bilibili.com/opus/903915119180775431",
+      "finding": "Text identifies ASMedia application-guide diagrams but gives no current figures. Embedded images could not be retrieved with the web tool and were not used as evidence."
+    }
+  ],
+  "searchCoverage": {
+    "languages": [
+      "English",
+      "Simplified Chinese",
+      "Traditional Chinese",
+      "Japanese",
+      "German",
+      "Russian"
+    ],
+    "topics": [
+      "current draw",
+      "current consumption",
+      "power consumption",
+      "rail names",
+      "reference designs",
+      "datasheet revisions",
+      "enclosures",
+      "eGPU boards",
+      "public circuit source",
+      "firmware projects"
+    ],
+    "absenceClaim": "No retrieved source establishes measured or guaranteed PDX currents per rail; this does not establish that no such document exists."
+  }
+}
+

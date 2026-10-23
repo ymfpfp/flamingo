@@ -1,0 +1,17 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createEngine} from '../power-reset/engine.mjs';
+const m=(await readFile('simulations/slot-power/vendor/DMP2008UFG.spice.txt','utf8')).replace(/\r/g,'').replace(/^\.SIMULATOR DEFAULT\s*$/gmi,'').replace('IS=1E-15 N=10)','IS=1E-15)').replace('Rta 30 23 1E-20','Rta 30 23 1E-6');
+const e=await createEngine();const conditions=[{gateV:4.5,currentA:12,maxRdsOhm:.008},{gateV:2.5,currentA:10,maxRdsOhm:.0098},{gateV:1.8,currentA:9.3,maxRdsOhm:.013}];
+const deck='DMP2008UFG forward-channel sanity check\n.temp 25\n'+conditions.map((c,i)=>`VS${i} s${i} 0 5\nVG${i} s${i} g${i} ${c.gateV}\nID${i} d${i} 0 ${c.currentA}\nX${i} d${i} g${i} s${i} DMP2008UFG\nB${i} ds${i} 0 V={V(s${i},d${i})}`).join('\n')+'\n'+m+'\n.tran 1u 20u\n.save v(ds0) v(ds1) v(ds2)\n.end\n';
+const graphs=(await e.simulate(deck)).simulationResultCircuitJson;
+const dc=conditions.map((c,i)=>{const wave=graphs.find(q=>q.name===`ds${i}`);return {...c,modelRdsOhm:wave.voltage_levels.at(-1)/c.currentA};});
+const report=JSON.parse(await readFile('dist/slot-power/capacitor-startup/report.json','utf8'));
+const i=report.results.findIndex(r=>r.bank==='new-2x330uF'&&r.peakSwitchCurrentA===report.checks.maximumNewPeakCurrentA),c=report.results[i];
+const d=await readFile(`dist/slot-power/capacitor-startup/${c.bank}-${c.supplyV}-${c.cardCapacitanceUF}-${c.load}-${c.timing}-${c.bulkCapacitanceFactor}C.cir`,'utf8');
+const fine=(await e.simulate(d.replace('.tran 5u 30m 0 5u','.tran 2.5u 30m 0 2.5u'))).simulationResultCircuitJson;
+const peak=n=>Math.max(...fine.find(q=>q.name===n).voltage_levels);
+const convergence={coarseStepUS:5,fineStepUS:2.5,coarsePeakCurrentA:c.peakSwitchCurrentA,finePeakCurrentA:peak('imon'),coarsePeakPowerW:c.peakSwitchPowerW,finePeakPowerW:peak('pmon')};
+convergence.peakCurrentDifferencePercent=100*(convergence.finePeakCurrentA/convergence.coarsePeakCurrentA-1);
+convergence.peakPowerDifferencePercent=100*(convergence.finePeakPowerW/convergence.coarsePeakPowerW-1);
+const result={dc,convergence,passed:dc.every(c=>c.modelRdsOhm>0&&c.modelRdsOhm<c.maxRdsOhm)&&Math.abs(convergence.peakCurrentDifferencePercent)<1&&Math.abs(convergence.peakPowerDifferencePercent)<1,note:'Checks plausibility and timestep sensitivity of the adapted typical model; does not validate production corners or startup SOA.'};
+await writeFile('dist/slot-power/capacitor-startup/model-validation.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;

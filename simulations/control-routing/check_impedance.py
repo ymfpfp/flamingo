@@ -64,7 +64,7 @@ def audit(raw, jobs, stack):
 
 if __name__ == '__main__':
     board, jobs, output = map(Path, sys.argv[1:4])
-    stack = ROOT / 'manufacturing/stackup/JLC06161H-3313.json'
+    stack = ROOT / 'manufacturing/stackup/selected.json'
     result = audit(json.loads(board.read_text()), json.loads(jobs.read_text()), json.loads(stack.read_text()))
     result.update(sourceSha256=hashlib.sha256(board.read_bytes()).hexdigest(),
                   stackupSha256=hashlib.sha256(stack.read_bytes()).hexdigest(),

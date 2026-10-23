@@ -6,7 +6,7 @@ const fixture=process.env.VBUS_AUDIT_FIXTURE??process.env.BOARD_TEST_FIXTURE??'d
 if(fixture){
  const raw=await Bun.file(fixture).json(),j=raw.circuitJson??raw;
  test('VBUS build preserves previous copper and every assembled top placement',()=>{
-  const a=auditVbusRouting(j);assert.ok(a.passed,a.failures.join('\n'));assert.equal(a.assembledComponentsOnTop,153);assert.equal(a.newVias,11);
+  const a=auditVbusRouting(j);assert.ok(a.passed,a.failures.join('\n'));assert.equal(a.assembledComponentsOnTop,154);assert.equal(a.newVias,11);
  });
  test('VBUS audit rejects a missing sense route and a component moved to bottom',()=>{
   const s=j.find(e=>e.type==='source_trace'&&e.name==='VBUS_TO_BRIDGE');

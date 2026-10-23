@@ -1,6 +1,6 @@
 import type {FanoutTracePath} from "@tscircuit/props";
 import {offsetPairCenterline, pcieTxViaRules} from "./pcie-tx-routing";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json";
+import stackup from "../manufacturing/stackup/selected.json";
 import {traceWidthsMm} from "./trace-width-rules";
 
 type Point = {x: number; y: number};
@@ -80,8 +80,16 @@ export function createPcieRxRoutes(position: (selector: string) => Point): Fanou
       const endFlare = [{x: ends[i].x + 1.2, y: ends[i].y}, ends[i]];
       let route: FanoutTracePath["route"];
       if (lane === 3) {
-        route = [...top[i].slice(0, -1).map(p => wire(p, "top", pcieRxNeckWidth)),
-          wire(top[i][top[i].length - 1]), ...tp[i].map(p => wire(p)), ...endFlare.map(p => wire(p))];
+        // Keep equal narrow arclengths without widening beside the BGA pads.
+        const matchedNeckLength = top[0].slice(1).reduce((length, p, j) =>
+          length + Math.hypot(p.x - top[0][j].x, p.y - top[0][j].y), 0);
+        const nDogboneLength = Math.hypot(top[1][1].x - top[1][0].x, top[1][1].y - top[1][0].y);
+        const launch = i === 0
+          ? [...top[i].slice(0, -1).map(p => wire(p, "top", pcieRxNeckWidth)), wire(top[i][top[i].length - 1])]
+          : [wire(top[i][0], "top", pcieRxNeckWidth), wire(top[i][1], "top", pcieRxNeckWidth),
+            wire({x: top[i][1].x, y: top[i][1].y + matchedNeckLength - nDogboneLength}),
+            ...top[i].slice(2).map(p => wire(p))];
+        route = [...launch, ...tp[i].map(p => wire(p)), ...endFlare.map(p => wire(p))];
       } else {
         const bv = top[i][top[i].length - 1], start = bp[i][0];
         const launch = lane === 0 ? [{x: start.x, y: bv.y - Math.abs(start.x - bv.x)}, start]

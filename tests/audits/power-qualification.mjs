@@ -1,3 +1,5 @@
+import mosfetLimits from "../../simulations/slot-power/mosfet-limits.json";
+
 /** Conservative on-state RC envelope: do not extrapolate the 10 mA Rds test
  * to the larger initial current demand. This is not a transistor/card model.
  */
@@ -14,7 +16,7 @@ function gateNetworkTimeMs(supplyV, targetV, seriesOhm, pullupOhm, gateCapF) {
   return seconds * 1000;
 }
 
-/** Screen the original P-channel switches using the actual compiled BOM.
+/** Screen the selected P-channel switches using the actual compiled BOM.
  * These calculations do not model a MOSFET transfer curve or establish startup SOA.
  */
 export function qualifySlotPower(g, {extraCardCapacitanceUF = 1000} = {}) {
@@ -23,19 +25,20 @@ export function qualifySlotPower(g, {extraCardCapacitanceUF = 1000} = {}) {
   const c = name => g.component(name).capacitance;
   const lowVoltageDriver = ["12V", "3V3"].every(suffix => g.component(`Q_SLOT_DRV_${suffix}`).manufacturer_part_number === "NX3008NBK,215");
   const configurations = [
-    {suffix: "12V", supplyV: 12, currentA: 5.5, bulk: "C134", ceramics: ["C132", "C133"],
-      rds25Ohm: 0.013, rdsTestGateV: 10, vdsRatingV: 30, vgsRatingV: 25, thresholdV: [1.7, 3],
-      thermalReferenceCPerW: 75},
-    {suffix: "3V3", supplyV: 3.3, currentA: 3, bulk: "C135", ceramics: ["C131"],
-      rds25Ohm: 0.0098, rdsTestGateV: 2.5, vdsRatingV: 20, vgsRatingV: 8, thresholdV: [0.4, 1],
-      thermalReferenceCPerW: 137},
-  ];
+    {suffix: "12V", supplyV: 12, currentA: 5.5, bulk: ["C134"], ceramics: ["C132", "C133"]},
+    {suffix: "3V3", supplyV: 3.3, currentA: 3, bulk: ["C135", "C136"], ceramics: ["C131"]},
+  ].map(p => {
+    const part = g.component(`Q_SLOT_${p.suffix}`).manufacturer_part_number;
+    if (!mosfetLimits[part]) throw new Error(`No slot MOSFET limits recorded for ${part}`);
+    return {...p, ...mosfetLimits[part]};
+  });
   const rails = configurations.map(p => {
     const series = r(`R_SLOT_GATE_${p.suffix}`), pullup = r(`R_SLOT_OFF_${p.suffix}`);
     const gateC = c(`C_SLOT_GATE_${p.suffix}`), bleeder = r(`R_SLOT_DISCHARGE_${p.suffix}`);
-    const localC = c(p.bulk) + p.ceramics.reduce((sum, name) => sum + c(name), 0);
+    const bulkC = p.bulk.reduce((sum, name) => sum + c(name), 0);
+    const localC = bulkC + p.ceramics.reduce((sum, name) => sum + c(name), 0);
     // Explicit tolerance/temperature sensitivity; added card capacitance is effective.
-    const maxC = c(p.bulk) * 1.2 * 1.2 + p.ceramics.reduce((sum, name) => sum + c(name), 0) * 1.1 * 1.15
+    const maxC = bulkC * 1.2 * 1.2 + p.ceramics.reduce((sum, name) => sum + c(name), 0) * 1.1 * 1.15
       + extraCardCapacitanceUF * 1e-6;
     const maxV = p.supplyV * 1.05;
     // Ideal fully-on driver: these are optimistic gate-drive timing references.

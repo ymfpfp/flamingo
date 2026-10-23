@@ -103,14 +103,14 @@
       },
       "after": {
         "center": {
-          "x": 45.5,
+          "x": 42.9,
           "y": 79.19
         },
         "rotation": 0,
         "layer": "top",
         "name": "R_SPI_CS"
       },
-      "reason": "Local support placement for the chip-select path; fast bypasses and PCIe/USB signal copper stay fixed"
+      "reason": "Swap R_SPI_CS with the displaced CS_N silkscreen label; keep the resistor on top and align CS_N with the other SPI labels"
     },
     {
       "name": "C_VCCL_37",
@@ -177,6 +177,21 @@
         "layer": "top"
       },
       "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    }
+  ],
+  "additions": [
+    {
+      "name": "C136",
+      "after": {
+        "name": "C136",
+        "center": {
+          "x": 47.05,
+          "y": 118
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "User-authorized second 330 uF slot bulk capacitor in the upper-right corner, paired with C135."
     }
   ]
 }

@@ -21,7 +21,7 @@ OUT=ROOT/'dist/pcie-si';OUT.mkdir(parents=True,exist_ok=True)
 args=[a for a in sys.argv[1:] if a!='--reuse-cross-sections']
 source=Path(args[0] if args else ROOT/'dist/preview/circuit.json')
 raw=source.read_bytes();(OUT/'input.circuit.json').write_bytes(raw)
-stack_path=ROOT/'manufacturing/stackup/JLC06161H-3313.json'
+stack_path=ROOT/'manufacturing/stackup/selected.json'
 stack=json.loads(stack_path.read_text());(OUT/'stackup.json').write_text(json.dumps(stack,indent=2))
 geometry,routes=load_geometry(OUT/'input.circuit.json')
 (OUT/'geometry.json').write_text(json.dumps(geometry,indent=2))

@@ -2,11 +2,13 @@ import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
 import {Children} from "react";
-import {APXJ6R3ARA561MF80GFootprint} from "../imports/APXJ6R3ARA561MF80G";
+import {ChemiConF61F80Footprint} from "../imports/ChemiConF61F80Footprint";
 import {A_25SVPK470M} from "../imports/A_25SVPK470M";
 import {Sot23Nmos} from "../imports/Sot23Nmos";
 import {NX3008NBK_215} from "../imports/NX3008NBK_215";
 import {boardFixture} from "./board-fixture.mjs";
+import {circuitGraph} from "../lib/circuit-graph.mjs";
+import {qualifySlotPower} from "./audits/power-qualification.mjs";
 import bridgePinMap from "./fixtures/asm2464pdx-pin-map.json";
 
 const json = boardFixture();
@@ -46,7 +48,7 @@ const net = (name, alias) => root(port(name, alias));
 const ground = net("ATX", "pin3");
 const rails = [
   {suffix: "3V3", atx: "pin1", contacts: ["A9", "A10", "B8"], drains: [5], mpn: "DMP2008UFG-7"},
-  {suffix: "12V", atx: "pin10", contacts: ["A2", "A3", "B1", "B2", "B3"], drains: [5, 6, 7, 8], mpn: "AO4407A"},
+  {suffix: "12V", atx: "pin10", contacts: ["A2", "A3", "B1", "B2", "B3"], drains: [5, 6, 7, 8], mpn: "SI4497DY-T1-GE3"},
 ];
 
 test("replacement driver preserves the original physical gate, source and drain lands", async () => {
@@ -86,18 +88,20 @@ test("all bridge ground balls connect to every ATX COM pin", () => {
 test("slot bulk and ceramic capacitors bypass only the switched rails to PSU ground", () => {
   const banks = [
     {rail: "12V", contact: "A2", input: "pin10", capacitance: 470e-6, voltage: 25,
-      mpn: "25SVPK470M", bulk: "C134", ceramics: ["C132", "C133"]},
-    {rail: "3V3", contact: "A9", input: "pin1", capacitance: 560e-6, voltage: 6.3,
-      mpn: "APXJ6R3ARA561MF80G", bulk: "C135", ceramics: ["C131"]},
+      mpn: "25SVPK470M", bulk: ["C134"], ceramics: ["C132", "C133"]},
+    {rail: "3V3", contact: "A9", input: "pin1", capacitance: 330e-6, voltage: 6.3,
+      mpn: "APXF6R3ARA331MF61G", bulk: ["C135", "C136"], ceramics: ["C131"]},
   ];
   for (const {rail, contact, input, capacitance, voltage, mpn, bulk, ceramics} of banks) {
     const output = net("PCIe", contact);
     assert.notEqual(output, net("ATX", input), `${rail}: capacitor bank must be after the switch`);
-    assert.equal(component(bulk).manufacturer_part_number, mpn);
-    assert.ok(Math.abs(component(bulk).capacitance - capacitance) < 1e-12);
-    assert.equal(component(bulk).max_voltage_rating, voltage);
-    assert.equal(net(bulk, "pin1"), output, `${bulk}: positive terminal goes to slot supply`);
-    assert.equal(net(bulk, "pin2"), ground, `${bulk}: negative terminal goes to PSU COM`);
+    for (const name of bulk) {
+      assert.equal(component(name).manufacturer_part_number, mpn);
+      assert.ok(Math.abs(component(name).capacitance - capacitance) < 1e-12);
+      assert.equal(component(name).max_voltage_rating, voltage);
+      assert.equal(net(name, "pin1"), output, `${name}: positive terminal goes to slot supply`);
+      assert.equal(net(name, "pin2"), ground, `${name}: negative terminal goes to PSU COM`);
+    }
     for (const name of ceramics) {
       assert.equal(component(name).manufacturer_part_number, "CL10B104KB8NNNC");
       assert.ok(Math.abs(component(name).capacitance - 100e-9) < 1e-15);
@@ -106,7 +110,17 @@ test("slot bulk and ceramic capacitors bypass only the switched rails to PSU gro
       assert.equal(net(name, "pin2"), ground);
     }
   }
-  assert.equal(components.filter(c => ["C134", "C135", "C131", "C132", "C133"].includes(c.name)).length, 5);
+  assert.equal(components.filter(c => ["C134", "C135", "C136", "C131", "C132", "C133"].includes(c.name)).length, 6);
+});
+
+test("startup screening includes both parallel bulk capacitors", () => {
+  const screening = qualifySlotPower(circuitGraph(json), {extraCardCapacitanceUF: 0});
+  assert.ok(Math.abs(screening.rail3V3.nominalLocalCapacitanceUF - 660.1) < 1e-9);
+  const changed = structuredClone(json);
+  changed.find(e => e.type === "source_component" && e.name === "C136").capacitance = 100e-6;
+  const smaller = qualifySlotPower(circuitGraph(changed), {extraCardCapacitanceUF: 0});
+  assert.ok(screening.rail3V3.capacitorOnlyStartupEnergyJ > smaller.rail3V3.capacitorOnlyStartupEnergyJ);
+  assert.equal(screening.rail12.capacitorOnlyStartupEnergyJ, smaller.rail12.capacitorOnlyStartupEnergyJ);
 });
 
 test("C134 uses Panasonic F12 lands with positive pin 1 on the slot rail", () => {
@@ -130,8 +144,8 @@ test("C134 uses Panasonic F12 lands with positive pin 1 on the slot rail", () =>
   assert.ok(Math.abs(centerDistance + parseFloat(positive.width) - 13.1) < 1e-12);
 });
 
-test("Chemi-Con F80 footprint follows the manufacturer's land dimensions and polarity", () => {
-  const pads = Children.toArray(APXJ6R3ARA561MF80GFootprint().props.children)
+test("Chemi-Con shared F61/F80 footprint follows the manufacturer's land dimensions and polarity", () => {
+  const pads = Children.toArray(ChemiConF61F80Footprint().props.children)
     .filter(element => element.type === "smtpad").map(element => element.props);
   assert.equal(pads.length, 2);
   assert.equal(pads[0].pcbX, -2.7);
@@ -190,11 +204,11 @@ test("each gate has a source-referenced RC network and its own driver series res
     const pullup = `R_SLOT_OFF_${suffix}`;
     const capacitor = `C_SLOT_GATE_${suffix}`;
     gates.add(gate);
-    assert.equal(component(series).resistance, 510);
+    assert.equal(component(series).resistance, suffix === "12V" ? 10000 : 510);
     assert.equal(net(series, "pin1"), net(`Q_SLOT_DRV_${suffix}`, "D"));
     assert.equal(net(series, "pin2"), gate);
     assert.notEqual(net(series, "pin1"), gate, "series resistor is not bypassed");
-    assert.equal(component(pullup).resistance, 100000);
+    assert.equal(component(pullup).resistance, suffix === "12V" ? 10000 : 100000);
     assert.equal(net(pullup, "pin1"), input);
     assert.equal(net(pullup, "pin2"), gate);
     assert.ok(Math.abs(component(capacitor).capacitance - 10e-6) < 1e-12);

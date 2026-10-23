@@ -1,37 +1,86 @@
 {
-  "revision": "1.0",
+  "revision": "1.2",
   "sources": [
     "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6",
     "datasheets/ASM2464PDX_DataSheet_R0_3.pdf power-supply limits and maximum-current TBD entries",
-    "manufacturing/stackup/JLC06161H-3313.json",
+    "datasheets/ASM2464PDX_TI_R03.pdf sheet 4: 1 A VCCL and 3 A VDD supply branches",
+    "simulations/power-dynamics/provisional-loads.json: accepted provisional design budgets",
+    "manufacturing/stackup/selected.json",
     "manufacturing/bridge-bga/process.json",
     "jlcpcb-clearance-rules.json",
     "manufacturing/buck-routing/requirements.json"
   ],
   "componentLayer": "top",
   "bridgeCurrentPlanning": {
-    "basis": "Use the related ASM2464PD as a sizing reference and retain 3 A design loads for the PDX VCCL and VDD rails. Similar current demand is an engineering assumption, not a confirmed PDX specification.",
+    "basis": "Accepted provisional design loads are 1 A VCCL, 3 A VDD and 0.10 A combined VCCH/VCCA33. ASMedia's PDX reference supply sizing informs VCCL and VDD. The 3.3 V allowance is a project assumption. None is a verified PDX current maximum.",
+    "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+    "acceptedLoadReviewFile": "manufacturing/power-distribution/accepted-load-review-2026-10-22.json",
+    "referenceSchematic": "datasheets/ASM2464PDX_TI_R03.pdf sheet 4; supply ratings, not measured chip currents",
+    "pdReferenceStatus": "Historical comparison; superseded as the active design-load basis",
     "referencePart": "ASM2464PD",
     "referenceDocument": "ASMedia ASM2464PD datasheet revision 0.4, May 5, 2023, sections 6.2 and 6.3.12, pages 15 and 18",
     "referenceUrl": "https://device.report/m/1ecf9e4f15ce5a1cffa2d4a31caa79e66efbac09b98459a91df5bddf49091be2.pdf",
-    "referenceMaximumCurrentA": {"VCCH": 0.00945, "VCCL": 0.4557, "VDD": 1.8123},
-    "referenceNominalVoltageV": {"VCCH": 3.3, "VCCL": 1.9, "VDD": 1.05},
-    "pdxAssumedDesignLoadA": {"VCCL": 3, "VDD": 3},
-    "limitations": "The PDX uses a nominal 1.13 V core supply. The PD table does not establish PDX current limits or transient demand. Its VCCH figure varies with GPIO use and gives no separate VCCA33 current. Budget other 3.3 V loads separately. Keep PDX voltage limits and all existing voltage-drop checks; validate startup, ripple, load response and temperatures on prototype hardware."
+    "referenceMaximumCurrentA": {
+      "VCCH": 0.00945,
+      "VCCL": 0.4557,
+      "VDD": 1.8123
+    },
+    "referenceNominalVoltageV": {
+      "VCCH": 3.3,
+      "VCCL": 1.9,
+      "VDD": 1.05
+    },
+    "pdxAssumedDesignLoadA": {
+      "VCCL": 1,
+      "VDD": 3,
+      "VCCH_VCCA33": 0.1
+    },
+    "limitations": "The PDX uses a nominal 1.13 V core supply. The PD table and PDX reference supply ratings do not establish actual load or transients. The combined 100 mA allowance has no verified VCCH/VCCA33 split. Other 3.3 V loads require separate budgets. The VDD budget uses the full 3 A nominal regulator rating. Startup, ripple, load response and temperatures require hardware checks. The separate 3 A conductor screen on both rails and its 8 mV limit remain unchanged. Earlier reports do not validate the accepted budgets.",
+    "distributionFollowUpReviewFile": "manufacturing/power-distribution/vdd-distribution-review-2026-10-22.json"
   },
   "rails": {
-    "VCCL": {"primaryLayer": "inner2", "parallelFeedLayer": "inner3", "bridgeBalls": 17, "bypassCapacitors": 14},
-    "VDD": {"primaryLayer": "inner3", "parallelFeedLayer": "inner2", "bridgeBalls": 40, "bypassCapacitors": 18}
+    "VCCL": {
+      "primaryLayer": "inner2",
+      "parallelFeedLayer": "inner3",
+      "bridgeBalls": 17,
+      "bypassCapacitors": 14
+    },
+    "VDD": {
+      "primaryLayer": "inner3",
+      "parallelFeedLayer": "inner2",
+      "bridgeBalls": 40,
+      "bypassCapacitors": 18,
+      "surfaceFeed": {
+        "layer": "top",
+        "coveredWithSolderMask": true,
+        "mainPadClearanceMm": 0.205,
+        "mainTraceClearanceMm": 0.4,
+        "bgaPadClearanceMm": 0.15,
+        "bgaTraceClearanceMm": 0.2,
+        "bgaPourClearanceMm": 0.2,
+        "existingContactsRetained": true,
+        "addedVias": 0
+      }
+    }
   },
-  "groundReferenceLayers": ["inner1", "inner4"],
+  "groundReferenceLayers": [
+    "inner1",
+    "inner4"
+  ],
   "mainPowerWidthGuidelineMm": 0.381,
   "mainPowerSpacingGuidelineMm": 0.2032,
   "mainPowerRegionClearanceMm": 0.205,
   "localBgaContactMinimumWidthMm": 0.1,
   "localContactNote": "Short BGA and capacitor contacts use fine geometry where the pad pitch prevents a 15 mil track. Broad regions carry the main rail current. The emitted-copper DC screen checks these contacts as part of each supply path.",
   "outerCopperThicknessMm": 0.035,
-  "innerCopperThicknessMm": 0.0152,
-  "vias": {"span": "top to bottom", "minimumCopperDiameterMm": 0.25, "minimumDrillMm": 0.15, "filledAndCapped": true, "blindOrMicrovias": false},
+  "innerCopperThicknessMm": 0.03,
+  "vias": {
+    "span": "top to bottom",
+    "minimumCopperDiameterMm": 0.25,
+    "minimumDrillMm": 0.15,
+    "filledAndCapped": true,
+    "blindOrMicrovias": false
+  },
   "projectDcScreen": {
     "loadEnvelopePerRailA": 3,
     "actualBridgeMaximumCurrentKnown": false,
@@ -50,6 +99,6 @@
     "acPdnQualified": false,
     "thermalQualified": false,
     "regulatorTransientsQualified": false,
-    "note": "The 3 A load is the project screening envelope, not an ASMedia current specification. The current layout exceeds the separate 8 mV project screen; actual-load voltage qualification remains open. Package losses, ground return, capacitor impedance, unequal ball currents, ripple and load steps require separate qualification."
+    "note": "The 3 A load is a project screen, not an ASMedia current specification. The VDD distribution review records 7.924 mV at 3 A and 4.848 mV for VCCL at its 1 A planning load. Both include the unchanged mesh allowance and meet the 8 mV project limit. The retained VCCL 3 A stress screen is 14.545 mV and remains open. Actual-load voltage qualification remains open. Package losses, ground return, capacitor impedance, unequal ball currents, ripple and load steps require separate qualification."
   }
 }

@@ -28,3 +28,12 @@ test("rejects bottom-side components and duplicate or unauthorized move records"
   expect(check(moved, {...rework, authorized: false}).length).toBeGreaterThan(0);
   expect(check(moved, {...rework, changes: [...rework.changes, ...rework.changes]}).length).toBeGreaterThan(0);
 });
+test("accepts only the exact authorized top-side addition and retains the original baseline", () => {
+  const addition = {name: "C136", center: {x: 47.05, y: 118}, rotation: 0, layer: "top"};
+  const authorization = {...rework, additions: [{name: "C136", after: addition}]};
+  expect(check([...moved, addition], authorization)).toEqual([]);
+  expect(check(moved, authorization).length).toBeGreaterThan(0);
+  expect(check([...moved, {...addition, layer: "bottom"}], authorization).length).toBeGreaterThan(0);
+  expect(check([...moved, {...addition, center: {x: 47, y: 118}}], authorization).length).toBeGreaterThan(0);
+  expect(check([...moved, addition], {...authorization, authorized: false}).length).toBeGreaterThan(0);
+});

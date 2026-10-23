@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-22",
+  "sources": [
+    {
+      "file": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4497DY.pdf",
+      "url": "https://www.vishay.com/docs/65748/si4497dy.pdf",
+      "sha256": "4a75c9ef2fe30549247644127245b36c70f7ae69ff5c37ac42a0efd38e683c19"
+    },
+    {
+      "former_local_filename": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4459BDY.pdf",
+      "retained_locally": false,
+      "removed_on": "2026-10-23",
+      "removal_reason": "Unselected MOSFET alternative; SI4497DY-T1-GE3 is used on the board.",
+      "url": "https://www.vishay.com/docs/76759/si4459bdy.pdf",
+      "sha256": "26048ef786d19bfb8ee55c787a011040fafa3a7280720fc0daf742bbb01983bc"
+    },
+    {
+      "file": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4497DY-model.pdf",
+      "url": "https://www.vishay.com/docs/66615/si4497dy.pdf",
+      "sha256": "b242de40d3b869da190260c5e660c258b02d9145971d9cbaf9ef164f766463f4"
+    },
+    {
+      "file": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4497DY-model.zip",
+      "url": "https://www.vishay.com/docs/66616/si4497dy.zip",
+      "sha256": "4865824c2f643abd0a0225fcb36a403284dc6c50ebe3857c47394354b9212029"
+    },
+    {
+      "former_local_filename": "datasheets/research/slot-mosfet-startup-2026-10-22/IPD90P04P4-05.pdf",
+      "retained_locally": false,
+      "removed_on": "2026-10-23",
+      "removal_reason": "Unselected MOSFET alternative; SI4497DY-T1-GE3 is used on the board.",
+      "url": "https://www.infineon.com/assets/row/public/documents/10/49/infineon-ipd90p04p4-05-datasheet-en.pdf",
+      "sha256": "131880b0ed68e74c9667ba94b662ec65382027de08530591402d05f0c6c12939"
+    }
+  ],
+  "selectedModel": {
+    "file": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4497DY-Si4497DY_PS.txt",
+    "origin": "Extracted unmodified from Si4497DY-model.zip; CRLF retained. Runtime compatibility adaptation is recorded separately."
+  },
+  "procurementReferences": [
+    "https://www.digikey.com/en/products/detail/vishay-siliconix/SI4497DY-T1-GE3/2441648",
+    "https://www.lcsc.com/product-detail/C143044.html"
+  ],
+  "procurementNote": "Listings found during research; assembly stock and a purchase are not authorized or qualified."
+}

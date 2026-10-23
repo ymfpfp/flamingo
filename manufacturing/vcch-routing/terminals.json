@@ -37,7 +37,7 @@
     "part": "R_SPI_CS",
     "pin": "pin1",
     "net": "VCCH",
-    "x": 46.75,
+    "x": 42.467184,
     "y": 79.8,
     "selector": "R_SPI_CS.pin1",
     "copperDiameter": 0.3,

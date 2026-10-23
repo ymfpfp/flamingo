@@ -1,0 +1,19 @@
+{
+  "part": "Si4497DY",
+  "sourceUrl": "https://www.vishay.com/docs/65748/si4497dy.pdf",
+  "page": 4,
+  "reference": "TA=25 C; single pulse; maximum junction 150 C. Datasheet reference board is 1in\u00b2 FR4. Actual board thermal impedance is unmeasured.",
+  "method": "Constant-power legs from actual PDF vector strokes; lower envelope over every dash endpoint. Axes x=228.82..383.16 for .01..100 V, y=655.44..517.63 for .01..100 A. 10% further curve-read reserve in analysis. No pulse credit below 1ms.",
+  "constantPowerCurvesW": {
+    "0.001": 490.05232336552814,
+    "0.01": 147.72015942773578,
+    "0.1": 24.76288800121115,
+    "1": 7.118119410581026,
+    "10": 3.6493590185195455,
+    "1000000000000.0": 1.502286003013126
+  },
+  "pulseCurrentCeilingA": 70,
+  "curveReadReserve": 0.9,
+  "rdsBoundaryOhm": 0.0046,
+  "maximumJunctionC": 150
+}

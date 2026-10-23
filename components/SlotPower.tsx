@@ -1,9 +1,10 @@
 import {Fragment} from "react";
-import {AO4407A} from "imports/AO4407A";
+import {SI4497DY_T1_GE3} from "imports/SI4497DY_T1_GE3";
 import {DMP2008UFG_7} from "imports/DMP2008UFG_7";
 import {NX3008NBK_215} from "imports/NX3008NBK_215";
 import {A_0402WGF1001TCE} from "imports/A_0402WGF1001TCE";
 import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
+import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {A_0402WGF5100TCE} from "imports/A_0402WGF5100TCE";
 import {RC1206FR_071KL} from "imports/RC1206FR_071KL";
 import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
@@ -48,7 +49,7 @@ function PowerMosfetSymbol() {
   );
 }
 
-/** ASMedia reference sheet 6, with both main-rail switches populated. */
+/** ASMedia reference sheet 6, with the reviewed Si4497DY / 10k / 10k 12 V substitution. */
 export function SlotPower() {
   return (
     <subcircuit
@@ -75,6 +76,10 @@ export function SlotPower() {
         const cap = `C_SLOT_GATE_${suffix}`;
         const discharge = `R_SLOT_DISCHARGE_${suffix}`;
         const section = `SLOT_POWER_${suffix}`;
+        const SeriesResistor = suffix === "12V" ? A_0402WGF1002TCE : A_0402WGF5100TCE;
+        const OffResistor = suffix === "12V" ? A_0402WGF1002TCE : A_0402WGF1003TCE;
+        // Retain the exact original lands; the 10k import has slightly different pads.
+        const gateResistorFootprint = "smdpads2_p0.8656mm_pw0.5657mm_ph0.54mm_cyw1.9313mm_cyh1.04mm";
         const commonPowerProps = {
           ...slotPowerPlacement(power),
           name: power,
@@ -98,12 +103,12 @@ export function SlotPower() {
             {suffix === "3V3" ? (
               <DMP2008UFG_7 {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"]]}/>
             ) : (
-              <AO4407A {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"], ["pin5", "pin6", "pin7", "pin8"]]}/>
+              <SI4497DY_T1_GE3 {...commonPowerProps} internallyConnectedPins={[["pin1", "pin2", "pin3"], ["pin5", "pin6", "pin7", "pin8"]]}/>
             )}
             <NX3008NBK_215 {...slotPowerPlacement(driver)} name={driver} schSectionName={section} schX={1} schY={y - 2.8}
               connections={{G: "net.ASM_HDDPC", S: "net.GND"}}/>
-            <A_0402WGF5100TCE {...slotPowerPlacement(series)} name={series} schSectionName={section} schX={3.5} schY={y - 2.8}/>
-            <A_0402WGF1003TCE {...slotPowerPlacement(off)} name={off} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>
+            <SeriesResistor {...slotPowerPlacement(series)} name={series} footprint={gateResistorFootprint} schSectionName={section} schX={3.5} schY={y - 2.8}/>
+            <OffResistor {...slotPowerPlacement(off)} name={off} footprint={gateResistorFootprint} schSectionName={section} schX={3.5} schY={y - 1.4} schOrientation="vertical"/>
             {/* Reference nominal value; verify startup current and MOSFET SOA with the card load. */}
             <CL31B106KAHNNNE {...slotPowerPlacement(cap)} name={cap} schSectionName={section} schX={6} schY={y - 1.4} schOrientation="vertical"/>
             <RC1206FR_071KL {...slotPowerPlacement(discharge)} name={discharge} schSectionName={section} schX={9.8} schY={y - 1.4} schOrientation="vertical"/>

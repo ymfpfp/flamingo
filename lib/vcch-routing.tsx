@@ -1,7 +1,6 @@
 import {Fragment} from "react";
 import {FixedTrace} from "../components/FixedTrace";
 import type {AutoroutingPhase,Board,Port} from "tscircuit";
-import {fanoutTracePath} from "@tscircuit/props";
 import {applyToPoint,compose,inverse,translate} from "transformation-matrix";
 import contacts from "../manufacturing/vcch-routing/contacts.json";
 import terminals from "../manufacturing/vcch-routing/terminals.json";
@@ -11,6 +10,12 @@ const tapered=contacts.filter(p=>new Set(p.route.map(q=>q.width)).size>1);
 
 export function VcchRouting(){return <>
   <autoroutingphase name="VCCH_CONTACTS" phaseIndex={9} minTraceWidth={.1} pcbTracePaths={[]}/>
+  {/* Feed the relocated CS pull-up from the header rail below the signal row. */}
+  <trace name="VCCH_SPI_CS_HEADER_FEED" from="VCCH_R_SPI_CS_pin1.bottom" to="SPI.V3V3"
+    width={0.4} maxViaCount={0} pcbPathRelativeTo="USB4_GND_RETURN_0.bottom"
+    pcbPaths={[["VCCH_R_SPI_CS_pin1.bottom",
+      {x:42.467184-42.65,y:78-100.74475},
+      {x:43.817184-42.65,y:76.65-100.74475},"SPI.V3V3"]]}/>
   {contacts.map(p=>{
     const to=`${terminals.find(t=>t.name===p.name)?.viaOwner??p.name}.top`;
     return <Fragment key={p.name}>{tapered.some(q=>q.name===p.name)
@@ -42,6 +47,6 @@ export function prepareVcchRouting(board:Board,phase:AutoroutingPhase){
     if(!port)throw Error(`Missing 3.3 V contact ${p.selector}`);
     const before=port._getGlobalPcbPositionBeforeLayout(),after=port._getGlobalPcbPositionAfterLayout();
     const transform=inverse(compose(translate(after.x-before.x,after.y-before.y),phase.getGroup()!._computePcbGlobalTransformBeforeLayout()));
-    return fanoutTracePath.parse({connection:p.selector,route:p.route.map(q=>({...q,...applyToPoint(transform,q)}))});
-  });
+    return {connection:p.selector,route:p.route.map(q=>({...q,...applyToPoint(transform,q)}))};
+  }) as typeof phase._parsedProps.pcbTracePaths;
 }

@@ -3,7 +3,7 @@ import {argv} from "node:process";
 import reference from "../tests/fixtures/asm2464pdx-pin-map.json" with {type: "json"};
 import process from "../manufacturing/bridge-bga/process.json" with {type: "json"};
 import rules from "../jlcpcb-clearance-rules.json" with {type: "json"};
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json" with {type: "json"};
+import stackup from "../manufacturing/stackup/selected.json" with {type: "json"};
 
 // Inventory and planning measurements only. This does not generate copper routes.
 const input = JSON.parse(readFileSync(argv[2] ?? "dist/bga-planning-cache.json", "utf8"));

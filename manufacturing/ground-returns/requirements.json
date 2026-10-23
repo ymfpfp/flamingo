@@ -6,9 +6,9 @@
     "manufacturing/bridge-bga/process.json"
   ],
   "componentLayer": "top",
-  "assembledComponents": 153,
+  "assembledComponents": 154,
   "remainingGroundPadsBefore": 18,
-  "assembledGroundPads": 286,
+  "assembledGroundPads": 287,
   "contactLayer": "top",
   "referenceLayers": [
     "inner1",
@@ -30,7 +30,7 @@
   "viaProcess": "Epoxy filled and copper capped under the existing board process.",
   "routing": "All native saved ground contacts are retained. This revision removes one unused floating auxiliary via inside the connector copper keepout. All 520 previous trace geometries and all assembled component placements remain fixed.",
   "qualification": "Physical return connectivity and layout only. Reset signals, REXT/TEST_EN signal sides and other unfinished signals remain separate. Final SI, load, startup and thermal qualification remain open.",
-  "assembledGroundCopperLands": 288,
+  "assembledGroundCopperLands": 289,
   "analogGroundPads": 66,
   "validation": "Every GND/GNDA PCB port, every physical pad/plated land, and every ground via must reach both reference planes. Native GND/GNDA port errors must be zero.",
   "removedFloatingGroundVia": {

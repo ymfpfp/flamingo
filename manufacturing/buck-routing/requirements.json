@@ -3,13 +3,13 @@
   "sources": [
     "datasheets/TPS62903RPJR.pdf sections 8.2, 10.1 and 10.2.1",
     "datasheets/ASM2464PDX_DataSheet_R0_3.pdf power-supply limits",
-    "manufacturing/stackup/JLC06161H-3313.json",
+    "manufacturing/stackup/selected.json",
     "jlcpcb-clearance-rules.json"
   ],
   "componentLayer": "top",
   "regulators": ["VCCL_BUCK", "VDD_BUCK"],
   "loadEnvelopePerRegulatorA": 3,
-  "loadEnvelopeBasis": "Conservative PDX design assumption, informed by the related ASM2464PD current table. See manufacturing/power-distribution/requirements.json bridgeCurrentPlanning. The 3 A envelope remains unchanged and is not a confirmed ASMedia PDX maximum.",
+  "loadEnvelopeBasis": "Retained 3 A stress envelope on both converters. Accepted provisional design loads are 1 A VCCL and 3 A VDD. The accepted load file is simulations/power-dynamics/provisional-loads.json. The PDX reference supply sizing informs these loads. Neither the design loads nor this stress envelope are verified chip-current maxima. VDD uses the full nominal regulator rating. Thermal and transient qualification remain open.",
   "actualBridgeCurrentMeasured": false,
   "rails": {
     "VCCL": {"asmediaMinimumV": 1.85, "asmediaMaximumV": 1.95, "feedbackTopOhm": 26100, "feedbackBottomOhm": 12100},

@@ -1,0 +1,90 @@
+{
+  "dateLocal": "2026-10-22",
+  "status": "SLOT_12V width issue resolved; full routed validation passes",
+  "baselineSha256": "738a1657936e4a5d71ee65f6e72f3e669ee344406dfefb433a9628435c01b555",
+  "sourceSha256": "23debe5df44783200a4e0d7f1d5b5920ba292f6c16182fca1d346388e801b2a6",
+  "sourceFile": "dist/slot12v-width-fix/after.circuit.json",
+  "cause": "The REFCLK via clearance and the CC1 moat narrowed the L4 SLOT_12V bypass below the required continuous 0.381 mm core.",
+  "change": {
+    "newRegion": "SP_12V_CC1_WIDENING",
+    "tscircuitLayer": "inner3",
+    "physicalLayer": 4,
+    "outlineBoundsMm": [
+      30.45,
+      103.15,
+      31.6,
+      105.05
+    ],
+    "localPadMarginMm": 0.205,
+    "adjacentVddBoundary": "Local 0.45 mm notch reserves the widening and native power clearance.",
+    "cc1MoatsUnchanged": true,
+    "designRuleLimitsUnchanged": true,
+    "copperDelta": [
+      {
+        "net": "SLOT_12V",
+        "layer": "inner3",
+        "removedMm2": 0.0,
+        "addedMm2": 0.515153871203496,
+        "outsideLocalRepairMm2": 0.0,
+        "allowed": true
+      },
+      {
+        "net": "VDD",
+        "layer": "inner3",
+        "removedMm2": 0.6752297644015295,
+        "addedMm2": 1.7027265251221892e-11,
+        "outsideLocalRepairMm2": 0.0,
+        "allowed": true
+      }
+    ]
+  },
+  "verification": {
+    "fullRoutedValidationPassed": true,
+    "slotPhysicalPassed": true,
+    "slot12VContinuous381MicrometreCore": true,
+    "slot12VMinimumForeignCopperGapMm": 0.20329058952961912,
+    "minimumRequiredInnerCopperGapMm": 0.2032,
+    "controlsPhysicalPassed": true,
+    "controlNetsPassed": 22,
+    "typecheckPassed": true,
+    "schematicAuditPassed": true,
+    "regression": {
+      "pass": 169,
+      "skip": 8,
+      "fail": 0
+    },
+    "shortsPassed": true,
+    "pcbStylePassed": true,
+    "preservation": {
+      "tracesUnchanged": true,
+      "traceCount": 638,
+      "viasUnchanged": true,
+      "viaCount": 637,
+      "allComponentPositionsUnchanged": true,
+      "componentCount": 154,
+      "allAssemblyOnTop": true,
+      "allOtherCopperIncludingGroundReferencesUnchanged": true
+    }
+  },
+  "testMaintenance": "Corrected two stale assertions for the pre-existing matched Y15/AA15 0.25 mm TX3 circles and 76 remaining oblongs. No bridge hardware change.",
+  "remaining": {
+    "pdn3AStressQualified": false,
+    "vccLPlanningBudgetA": 1,
+    "note": "The retained VCCL 3 A / 80 C conductor screen remains above its 8 mV budget. Slot-switch SOA, BGA vendor approval, bridge sourcing and final manufacturing release remain separate open items."
+  },
+  "reports": {
+    "validation": "dist/slot12v-width-fix/validation.json",
+    "slotPhysical": "dist/slot12v-width-fix/slot-layout-audit.json",
+    "preservation": "dist/slot12v-width-fix/preservation.json",
+    "copperChanges": "dist/slot12v-width-fix/copper-changes.json",
+    "controlPhysical": "dist/slot12v-width-fix/control-review/physical.json"
+  },
+  "inputSha256": {
+    "lib/power-distribution.tsx": "a4fb5712fb6c3642e0c06384ca8d2183b869f81e21897ca6445edc931287de92",
+    "lib/slot-power-routing.tsx": "6fdabc1b426eb5d88bc8a1395702271eacf09378758ede071d8a4761c2772146",
+    "manufacturing/slot-power-routing/regions.json": "aef1bfa617e7fd2bc40459473a5896fd9e1f1bd68e0bc0c736fa9091f8eaf352",
+    "manufacturing/slot-power-routing/requirements.json": "93a8b747ee0f579db86a2f794d8ce96ae4631d95db5a690cc89a0ab8a8a8a662",
+    "tests/asm2464pdx.test.jsx": "6f48435562cf3df2f5285c91ba5dfe212823fc42404e2c33491590dec76c3863",
+    "tests/jlcpcb-drc.test.jsx": "0a59cc8563653640aeabe18464bb42b631ae82f712fcc312de2e4d0bc38fab3f"
+  }
+}

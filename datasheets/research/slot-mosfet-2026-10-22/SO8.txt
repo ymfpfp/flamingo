@@ -1,0 +1,71 @@
+                                                                                                      Document No.                  PO-00004
+
+                                                                                                        Version                         L
+
+
+                                               SO8(SOP-8L) PACKAGE OUTLINE
+
+                                                                                                             GAUGE PLANE
+
+                                                  D                                                          SEATING PLANE
+                                                  e                                                                              0.25
+                                     8
+                                                                                                                        L
+
+
+
+
+                    E1     E
+
+
+
+
+                                                                                                                         θ
+                                                                                              hx45°
+                                     1                                                                                       c
+
+
+
+                                     7° (4X)
+
+
+                                                                        A2    A
+                    0.1mm
+
+                                                   b
+                            A1
+
+
+
+    RECOMMENDED LAND PATTERN                                                      DIMENSION IN MM                 DIMENSION IN INCHES
+                                                              SYMBOLS
+                                                                             MIN        NOM      MAX           MIN       NOM        MAX
+                                                                A            1.35       1.65     1.75         0.053      0.065     0.069
+             2.20                                               A1           0.10       0.15     0.25         0.004      0.006     0.010
+                                                                A2           1.25       1.50     1.65         0.049      0.059     0.065
+                                                                b            0.31       0.41     0.51         0.012      0.016     0.020
+                                                                 c           0.17       0.20     0.25         0.007      0.008     0.010
+                                                                D            4.80       4.90     5.00         0.189      0.193     0.197
+                                                                 E           3.80       3.90     4.00         0.150      0.154     0.157
+                                                  5.74
+                                                                E1           5.80       6.00     6.20         0.228      0.236     0.244
+                                                                e                     1.27 BSC                         0.050 BSC
+      2.87                                                      h            0.25       0.30     0.50         0.010      0.012     0.020
+                                                                 L           0.40       0.69     1.27         0.016      0.027     0.050
+                                                                θ             0°         4°        8°           0°         4°        8°
+
+
+                    1.27                        0.80
+                                 0.635                   UNIT: mm
+
+
+
+NOTE
+1. ALL DIMENSIONS ARE IN MILLMETERS.
+2. DIMENSIONS ARE INCLUSIVE OF PLATING.
+3. PACKAGE BODY SIZES EXCLUDE MOLD FLASH AND GATE BURRS.
+   MOLD FLASH AT THE NON-LEAD SIDES SHOULD BE LESS THAN 6 MILS EACH.
+4. DIMENSION L IS MEASURED IN GAUGE PLANE.
+5. CONTROLLING DIMENSION IS MILLIMETER.
+   CONVERTED INCH DIMENSIONS ARE NOT NECESSARILY EXACT.
+

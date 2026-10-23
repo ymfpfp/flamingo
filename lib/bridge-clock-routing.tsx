@@ -4,7 +4,7 @@ import type {FanoutTracePath} from "@tscircuit/props";
 import {applyToPoint, compose, inverse, translate} from "transformation-matrix";
 import {offsetPairCenterline} from "./pcie-tx-routing";
 import {traceWidthsMm} from "./trace-width-rules";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json";
+import stackup from "../manufacturing/stackup/selected.json";
 
 type Point={x:number;y:number};
 type Route=FanoutTracePath["route"];
@@ -23,7 +23,7 @@ export const bridgeClockConnections=[
   {name:"CLOCK_REFCLK_N_CON",from:"R_PCIE_REFCLK_N.pin2",to:"PCIe.REFCLK_N"},
 ] as const;
 export const bridgeClockReturns=[
-  {x:29.3,y:103.3},{x:30.4,y:103.2},
+  {x:29.3,y:103.3},{x:30.4,y:103.4},
   {x:15.55,y:102},{x:17.85,y:102},
   // Filled/capped vias directly ground the two crystal metal-cover lands.
   {x:35.15,y:105.9},{x:36.85,y:108.1},
@@ -93,7 +93,7 @@ export function prepareBridgeClockRouting(board:Board,phase:AutoroutingPhase){
     add(`XCLK.${pin}`,reverse(route));
   }
   const rp=pos("ASM2464PDX.REFCLK_P0"),rn=pos("ASM2464PDX.REFCLK_N0");
-  const midX=30.2,bridgeViaY=103.65;
+  const midX=30.2,bridgeViaY=103.75;
   const refLine=[{x:midX,y:104.3},{x:midX,y:104.4},{x:midX-.4,y:104.8},
     {x:17.3,y:104.8},{x:16.7,y:104.2},{x:16.7,y:102.2}];
   const slots=[pos("PCIe.REFCLK_P"),pos("PCIe.REFCLK_N")],cy=(slots[0].y+slots[1].y)/2;
@@ -111,7 +111,8 @@ export function prepareBridgeClockRouting(board:Board,phase:AutoroutingPhase){
     const start=pair[0],last=pair[pair.length-1];
     const bv={x:i===0?30.8:29.9,y:bridgeViaY};
     const neckX=rn.x-.23,neck={x:neckX,y:102.35};
-    const top=i===0?[w(p),w({x:p.x,y:102.4}),w({x:p.x+extraP,y:102.4+extraP}),
+    const top=i===0?[w(p),w({x:p.x,y:102.4}),
+      ...(extraP>0?[w({x:p.x+extraP,y:102.4+extraP})]:[]),
       w({x:p.x+extraP,y:103.3-extraP}),w({x:bv.x,y:103.3+p.x-bv.x}),w(bv)]
       :[w(p,"top",.0762),w({x:neckX,y:p.y+.23},"top",.0762),w(neck,"top",.0762),w(neck),
         w({x:neckX,y:102.4}),w({x:bv.x,y:102.4+neckX-bv.x}),w(bv)];
@@ -122,11 +123,20 @@ export function prepareBridgeClockRouting(board:Board,phase:AutoroutingPhase){
   };
   // A short 45-degree P launch excursion adds 2*(sqrt(2)-1)*dx. Balance
   // the complete channel here, without a separated single-trace tuning loop.
-  const extraP=(clockCopperLength(phy(1,0))+clockCopperLength(con[1])
+  const requestedExtraP=(clockCopperLength(phy(1,0))+clockCopperLength(con[1])
     -clockCopperLength(phy(0,0))-clockCopperLength(con[0]))/(2*k);
-  if(extraP<0||extraP>.45)throw Error(`Clock escape adjustment outside reserved launch: ${extraP}`);
+  if(!Number.isFinite(requestedExtraP)||requestedExtraP>.45)
+    throw Error(`Clock escape adjustment outside reserved launch: ${requestedExtraP}`);
+  // A negative adjustment means P is already longer. Leave its launch straight
+  // when the complete pair meets the skew limit; a backwards excursion would
+  // violate the reserved geometry and does not implement negative tuning.
+  const extraP=Math.max(0,requestedExtraP),phyRoutes=[phy(0,extraP),phy(1,0)];
+  const skew=Math.abs(clockCopperLength(phyRoutes[0])+clockCopperLength(con[0])
+    -clockCopperLength(phyRoutes[1])-clockCopperLength(con[1]));
+  if(skew>=bridgeClockRules.refclkMaxSkew)
+    throw Error(`Clock REFCLK P/N skew outside ${bridgeClockRules.refclkMaxSkew}mm limit: ${skew}mm`);
   for(const i of [0,1]){
-    add(`ASM2464PDX.REFCLK_${i===0?"P":"N"}0`,phy(i,extraP));
+    add(`ASM2464PDX.REFCLK_${i===0?"P":"N"}0`,phyRoutes[i]);
     add(`PCIe.REFCLK_${i===0?"P":"N"}`,reverse(con[i]));
   }
   phase._parsedProps.pcbTracePaths=paths as typeof phase._parsedProps.pcbTracePaths;

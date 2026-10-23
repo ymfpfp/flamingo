@@ -27,6 +27,42 @@ Hardware operation and throughput remain unmeasured.
 | `usb` | USB-C receptacle, USB4 coupling and ESD protection, and VBUS sensing |
 | `pcie` | PCIe x4 data and control signals, card presence, slot power switches, and slot decoupling |
 
+## Bridge current budgets
+
+The accepted provisional budgets are:
+
+| Rail | Nominal voltage | Design current |
+| --- | --- | --- |
+| VCCL | 1.9 V | 1 A |
+| VDD | 1.13 V | 3 A |
+| VCCH + VCCA33 combined | 3.3 V | 0.10 A |
+
+[provisional-loads.json](simulations/power-dynamics/provisional-loads.json) records these budgets and their sources.
+ASMedia's [PDX reference schematic](datasheets/ASM2464PDX_TI_R03.pdf), sheet 4, specifies 1 A and 3 A supply branches.
+Those supply ratings inform the VCCL and VDD budgets. They do not establish maximum chip currents.
+The combined 100 mA allowance for VCCH and VCCA33 is a project assumption. Its split between the two nets remains unknown.
+Flash, pull-ups, the supervisor, programming power, slot loads, and converter losses require separate allowances.
+
+The [PDX datasheet](datasheets/ASM2464PDX_DataSheet_R0_3.pdf), section 6.3.12, still lists maximum currents as TBD.
+Its later voltage specification sets VDD to 1.13 V, despite older voltage labels in the reference schematic.
+The [research findings](datasheets/research/asm2464pdx-current-2026-10-22/findings.json) retain source details and limitations.
+
+Both TPS62903 regulators retain their 3 A nominal continuous rating.
+The VDD budget uses that full rating. Thermal derating, startup, ripple, and load response remain unqualified.
+The separate conductor screen retains 3 A on both rails and the 8 mV project limit.
+Changing the design budgets does not close that screen's existing findings.
+
+Earlier PD proxy calculations and the 0.6 A / 2.3 A / 50 mA reports are historical comparisons.
+Their results do not validate the accepted budgets. Updated electrical results require new checks with the accepted load file.
+
+The [22 October accepted-load review](manufacturing/power-distribution/accepted-load-review-2026-10-22.json) records the baseline before the VDD distribution change.
+The [power report](dist/conservative-power-review-2026-10-22/report.html) includes the scenarios, parameter sensitivities, numerical controls, and plots.
+VDD transient response remains a prototype check. Multi-rail reset supervision is deferred for Rev 1.
+Slot startup SOA and thermal qualification remain open.
+The baseline regression had 160 passes and 8 skips after two successful timeout retries.
+The [VDD distribution review](manufacturing/power-distribution/vdd-distribution-review-2026-10-22.json) records the later copper improvement.
+Its [report](dist/vdd-distribution-review-2026-10-22/report.html) includes the current checks: 168 tests pass, 8 skip, and none fail.
+
 ## Development
 
 Install dependencies:
@@ -131,7 +167,7 @@ The validator compares this baseline by connection name and geometry, independen
 Compilation keeps source and placement diagnostics. The validator runs the copper checks once.
 The local routes use native fixed paths and retain endpoint, width, layer, clearance, and physical connectivity checks.
 
-The silkscreen uses the native font and SVG graphics in `assets/artwork/`.
+Silkscreen labels use Iosevka Term outlines from `assets/fonts/`; SVG artwork is in `assets/artwork/`.
 
 ### PCIe connector keepout
 
@@ -152,6 +188,12 @@ These 28 simulations do not check converter behavior, bridge firmware, or clocks
 The [original slot-switch review](docs/reviews/original-slot-switch-review-2026-10-18.md) screens conduction loss, gate timing, and startup stress.
 NX3008NBK,215 drivers meet the low-voltage drive selection check. Power-switch startup SOA remains open.
 Earlier protected-switch simulations do not apply.
+
+The [startup and hot-restart SOA review](manufacturing/slot-power-routing/startup-soa-review-2026-10-22.json) recommends a change to the 12 V switching path before Rev 1 fabrication.
+Its [report](dist/slot-startup-soa-2026-10-22/report.html) includes both rails, preheated switches, control cycles, source cycles, and independent output-ramp calculations.
+The 12 V transfer model is approximate. The SOA curves describe manufacturer test boards, and hot derating remains an estimate.
+The 3.3 V startup cases clear the equivalent-pulse estimate. Hot control cycling still needs a faster turn-off path or an operating restriction.
+This review does not change the circuit, BOM, placement, or routing. Hardware qualification remains open.
 
 The eighteen normal-startup sensitivity cases pass, with at least 16.8 ms of modeled reset margin under their stated assumptions.
 The reference RC reset remains the baseline. Actual buck settling and capacitor behavior still require checks.
@@ -198,21 +240,23 @@ The routed command also checks missing connections.
 Each command writes `dist/validation/drc.json` and exits with code 1 for detected errors.
 To inspect an existing Circuit JSON file, run `bun run check:drc path/to/circuit.json`.
 
-The bridge candidate has 196 circular lands at 0.20 mm diameter, meeting JLCPCB's published ENIG minimum.
-Its 77 outer oblongs retain ASMedia's 7 × 13 mil dimensions and AA1 orientation.
+The bridge candidate has 195 circular lands at 0.20 mm diameter and two matching TX3 lands at 0.25 mm diameter.
+Its 76 outer oblongs retain the 7 × 13 mil dimensions and AA1 orientation.
 Mask margins and 1:1 paste apertures are now explicit.
 The proposed 0.06 mm local step stencil has a minimum calculated aperture area ratio of 0.833.
-The [bridge process review](manufacturing/bridge-bga/README.md) records geometry, sources, and a draft vendor request.
+The [bridge process record](manufacturing/bridge-bga/process.json) records the geometry and pending vendor review.
 **Vendor acceptance is pending; the bridge manufacturing gate remains open.**
 ASMedia does not specify a circular land diameter in the available document.
 Changing the circular lands does not establish solder-joint reliability or approve the custom mask/stencil process.
-The selected stackup is [JLC06161H-3313](manufacturing/stackup/JLC06161H-3313.json).
-The nominal order thickness is 1.6 mm. The current manufacturer calculator lists a finished thickness of 1.54 mm ±10%.
+The selected stackup is [JLC061611-3313G](manufacturing/stackup/selected.json).
+The nominal order thickness is 1.6 mm. The selected manufacturer layer dimensions sum to 1.568 mm. The nominal order thickness tolerance is ±10%.
+The published 1 oz inner construction uses 0.030 mm copper. Resistance models use that thickness.
 L1 carries high-speed signals. L2 and L5 are continuous ground planes. L3 and L4 carry power regions.
 L6 carries control signals and selected USB4 and PCIe trace sections.
-The outer dielectric thickness is 0.0994 mm. The outer copper thickness is 0.035 mm. The inner copper thickness is 0.0152 mm.
-The manufacturer calculator gives a 0.1234 mm trace width and 0.1001 mm pair gap for 85 Ω surface differential pairs.
-This result uses a non-coplanar model with solder mask and L2 as the reference plane.
+The outer dielectric thickness is 0.092 mm. The outer copper thickness is 0.035 mm. The inner copper thickness is 0.030 mm.
+The existing 0.1234 mm trace width and 0.1001 mm pair gap remain in use.
+The independent nominal cross-section calculation gives approximately 85.17 Ω on the selected stackup.
+This calculation uses a non-coplanar model with solder mask and L2 as the reference plane.
 Nearby copper, BGA necks, and pad launches require separate checks before these dimensions become routing rules.
 The requested fabrication impedance tolerance is ±10%. The calculator's ±0.5% search tolerance does not specify fabrication accuracy.
 The [calculator guide](https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator) specifies Nan Ya NP-155F for four to eight layers.
@@ -306,7 +350,9 @@ The white `PSU OK` LED indicates ATX `PWR_OK`, not local regulator readiness or 
 
 [SlotPower.tsx](components/SlotPower.tsx) switches the slot 3.3 V and 12 V supplies from bridge `HDDPC`.
 HDDPC high enables both supplies. HDDPC low disables both supplies.
-Both paths use the original P-channel MOSFET switches and source-to-gate RC networks.
+The 12 V path uses Si4497DY-T1-GE3, with 10 kΩ gate-series and source-to-gate pull-up resistors.
+Its 10 µF source-to-gate capacitor, NX3008NBK driver, lands, placement and routing are retained.
+The 3.3 V path retains DMP2008UFG-7 and its 510 Ω / 100 kΩ / 10 µF gate network.
 They have no local current limit, power limit, or fault latch.
 The 75 W combined card budget remains a selection constraint rather than a circuit-enforced limit.
 Independent conduction checks use 5.5 A at 12 V and 3 A at 3.3 V.
@@ -379,6 +425,12 @@ L2 (`inner1`) and L5 (`inner4`) contain GND pours.
 GND vias flank the BGA launches and connector transitions.
 Bridge supply and ground fanout is routed.
 The ATX 12 V feed, switched 12 V/3.3 V slot outputs, HDDPC controls, gate RC networks, discharge resistors and ATX PS_ON link are routed on the fixed top-only assembly. Main power uses L3/L4, with L2/L5 ground references. The physical audit checks every slot power contact and all 69 slot ground contacts. Run `bun run check:slot-routing` against the validated preview, and see `dist/slot-power-routing/report.html` for the copper review and conductor screen. Startup/shutdown SOA, hot MOSFET temperature, actual card loading and fault clearing remain open; the circuit does not actively enforce the 75 W budget.
+
+The [wider-copper review](dist/slot-power-inner-copper-review/report.html) records the new parallel paths and selected 30 µm inner copper.
+At 5.5 A, the 80 °C copper screen decreases from 227.8 to 99.3 mV, including the mesh allowance.
+The unchanged AO4407A adds 71.5 mV at its maximum 25 °C resistance.
+The resulting 170.8 mV screen exceeds the 160 mV budget at an 11.20 V input.
+Contacts, ground return, hot-device resistance and transients require additional margin.
 All 286 assembled ground ports, including 66 GNDA balls, reach both L2/L5 reference planes. The audit also checks all 288 individual copper lands, every ground PCB port and every ground via. An unused auxiliary USB2 ground via was removed from the connector copper keepout; its isolated position caused native GND/GNDA connectivity errors. All 520 prior traces and all top-side component placements are preserved. Run `bun run check:grounds`; see `dist/ground-returns/report.html`. Reset and other unfinished signal wiring remain separate.
 The analog bypass, VBUS filter, and nearby return vias sit outside the coupled USB corridors.
 
@@ -413,7 +465,7 @@ All four PCIe TX pairs now have routes from the bridge through the coupling capa
 The bridge sections use bottom copper, with short top launches and two full-stack signal vias per conductor.
 L5 provides the ground reference. The symmetric outer stackup uses the same 0.1234 mm width and 0.1001 mm pair gap.
 Ground return vias connect L2 and L5 within 1 mm of each signal via.
-The bottom trunks follow constant-offset pairs without individual tuning loops.
+The bottom trunks follow constant-offset pairs. TX3 has short P length compensation within its checked BGA launch region.
 Local BGA escapes balance P/N copper lengths within the 0.025 mm target, including the existing top routes to the slot.
 The bridge vias use 0.25 mm copper and 0.15 mm holes. The capacitor vias use 0.30 mm copper and 0.20 mm holes.
 The filled/capped signal land vias and offset ground land via are recorded in `manufacturing/bridge-bga/process.json`.
@@ -421,7 +473,9 @@ All four PCIe RX pairs also have routes from the slot to the bridge, with no pol
 RX0–2 use short bottom sections and two signal vias per conductor. RX3 stays on top without signal vias.
 The coupled trunks use the same surface width and gap. RX3 uses short 0.0762 mm BGA necks with 0.10 mm pad clearance.
 The necks, pad flares and vias are launch discontinuities. Their geometry does not establish 85 Ω impedance through each transition.
-The TX3 local escape now uses an AA15 land via to make room for RX3. All TX pairs retain matched lengths and coupled trunks.
+TX3 uses identical Y15 and AA15 circular lands, mask openings and filled/capped land vias. Both top escapes are zero.
+The coordinated redesign adjusts TX1/TX2 launches, local ground contacts and REFCLK bridge vias. The PCIe connector copper is unchanged.
+All 12 data channels and the clocks pass the current geometry checks. The [source-bound redesign report](dist/si-channel-review/tx3-coordinated/report.html) records the changes and limits.
 The bridge clocks now have explicit saved routes in `lib/bridge-clock-routing.tsx`.
 The 25 MHz XI/XO traces stay on top and use no signal vias.
 The 10 pF capacitor remains across XI/XO, as shown in the ASMedia reference schematic.
@@ -459,16 +513,18 @@ The `simulations/pcie-tx/check_reference_planes.py` script checks TX/RX trace-wi
 It excludes each route's own via apertures. It does not model the surrounding electromagnetic field or return loss.
 
 ASMedia's PCIe Gen4 table calls for S1 > 8h outside each coupled pair.
-The selected 0.0994 mm outer dielectric gives a minimum isolation gap of 0.7952 mm.
+The selected 0.092 mm outer dielectric gives a minimum isolation gap of 0.736 mm.
 The layout now clears that distance to unrelated copper along the checked TX/RX coupled routes, including ground vias and component lands.
 All assembled components must remain on the top layer. Bottom copper routing and vias are allowed.
 The fabrication DRC rejects bottom-side component placement, and a regression test checks this requirement.
 The VDD and VCCL bypasses occupy top-side pockets outside the PCIe corridors; the fast VDD capacitors sit below the bridge.
 The CLKREQ links and nearby return vias moved clear of the signal corridors. Bypass quantities and values are unchanged.
-VCCL and VDD distribution uses L3/L4 power regions with parallel feed sections.
+VCCL and VDD distribution use L3/L4 power regions with parallel feed sections.
+VDD has a wider L3 feed and additional top copper between its existing contacts.
+The added fill retains all existing routes and vias. Both ground reference planes remain unchanged.
 Top contacts connect all 17 VCCL balls, 40 VDD balls, and 32 bypass capacitors.
 The ground contacts reach the L2/L5 reference planes through full-stack vias.
-All 153 assembled components retain their top placement.
+All 154 assembled components retain their top placement.
 
 The main power regions use at least 0.205 mm clearance against the 8 mil guideline.
 Short BGA contacts use fine traces because the pad pitch prevents a 15 mil track.
@@ -484,7 +540,7 @@ Its L3 region connects H5 and both analog bypass capacitors.
 Local ground contacts connect the bypasses, flash capacitor, and supervisor to L2/L5.
 The supervisor divider midpoint connects both resistors to SENSE through top copper, away from the buck switching loops.
 Five bridge ground stubs use nearby existing returns to free the two supply paths.
-All 260 other trace geometries and all 153 assembled placements remain fixed.
+The VCCH routing stage preserved the existing signal routes and top-side placements.
 
 The new inner branches use at least 0.8 mm authored width and 0.205 mm clearance.
 Short component and BGA escapes retain fine geometry where the pad pitch prevents the general power-track dimensions.
@@ -507,9 +563,12 @@ The DC screen applies 3 A per rail at 80 °C, with equal current per supply ball
 The 8 mV project budget includes a mesh allowance of at least 20 percent.
 The available ASMedia datasheet gives no maximum rail currents, so 3 A remains a project screening envelope.
 The current layout passes the physical copper and clearance checks.
-After the 3.3 V routing, the 3 A estimate gives about 10.4 mV for VCCL and 10.8 mV for VDD.
-With the mesh allowance, these estimates reach 12.8 mV and 13.8 mV.
-Both exceed the project budget, so `check:pdn` returns a failure for this separate screen.
+At the accepted loads, the updated bounds are 4.85 mV for VCCL at 1 A and 7.92 mV for VDD at 3 A.
+Both include the unchanged mesh allowance and meet the 8 mV project limit.
+VDD improves from 12.28 mV, a 35.5 percent reduction.
+VCCL increases from 3.63 mV at 1 A as the inner copper allocation changes.
+The retained VCCL 3 A stress screen is 14.55 mV and remains open.
+The validator records this load qualification separately from the passing layout checks.
 Voltage qualification at the actual bridge load remains open.
 Preview refresh requires all layout checks to pass and records the open load qualification.
 Ground return, package losses, capacitor impedance, regulator transients, and thermal performance require separate qualification.

@@ -67,7 +67,11 @@ export function auditPcieRxRouting(json: AnyCircuitElement[]) {
     const p = conductors.find(c => c.name === `RX${lane}_P`)!, n = conductors.find(c => c.name === `RX${lane}_N`)!;
     const skewMm = Math.abs(p.lengthMm - n.lengthMm);
     if (skewMm > pcieConnectorRules.maxSkew) failures.push(`RX${lane}: excessive P/N skew`);
-    return {lane, positiveLengthMm: p.lengthMm, negativeLengthMm: n.lengthMm, skewMm, viaCountPerConductor: p.viaCount};
+    const neckSkewMm = Math.abs(p.neckLengthMm - n.neckLengthMm);
+    if (lane === 3 && neckSkewMm > 1e-6) failures.push("RX3: BGA neck lengths must match");
+    return {lane, positiveLengthMm: p.lengthMm, negativeLengthMm: n.lengthMm, skewMm,
+      positiveNeckLengthMm: p.neckLengthMm, negativeNeckLengthMm: n.neckLengthMm,
+      neckSkewMm, viaCountPerConductor: p.viaCount};
   });
   const cornerGap = (pcieConnectorRules.width + pcieConnectorRules.gap) / Math.cos(Math.PI / 8) - pcieConnectorRules.width;
   const coupling = conductors.map(c => {

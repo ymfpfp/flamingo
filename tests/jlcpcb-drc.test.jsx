@@ -31,7 +31,7 @@ test("the candidate bridge removes the circular-size error and retains the proce
   await circuit.renderUntilSettled();
   const findings = checkJlcpcbDimensions(circuit.getCircuitJson());
   assert.ok(!findings.some(f => f.rule === "bga_pad_diameter"));
-  assert.equal(findings.find(f => f.rule === "bga_oblong_process_review").elementIds.length, 77);
+  assert.equal(findings.find(f => f.rule === "bga_oblong_process_review").elementIds.length, 76);
 });
 
 test("ordinary routing cannot silently use a 3 mil BGA exception", () => {

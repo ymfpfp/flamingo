@@ -3,13 +3,13 @@
   "sources": [
     "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6: power W:S 15:8 mil, short connections, L3/L4 power and L2/L5 ground",
     "datasheets/ASM2464PDX_TI_R03.pdf sheet 3: VCCH bypass bank and R4/C7/C8 analog feed",
-    "manufacturing/stackup/JLC06161H-3313.json",
+    "manufacturing/stackup/selected.json",
     "jlcpcb-clearance-rules.json",
     "manufacturing/bridge-bga/process.json",
     "datasheets/TPS389001DSET.pdf section 11: low-impedance VDD bypass and no added CT capacitance"
   ],
   "componentLayer": "top",
-  "assembledComponents": 153,
+  "assembledComponents": 154,
   "bridgeBalls": {
     "VCCH": 11,
     "VCCA33": 1
@@ -20,6 +20,11 @@
   },
   "vcchSource": "All four main ATX 3.3 V contacts; includes flash, pull-ups, monitor supply, programming power and all three slot-switch source pads",
   "vcca33Source": "Existing R_VCCA33_4 0 ohm link from VCCH; retains a distinct analog net",
+  "bridgeCurrentPlanning": {
+    "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+    "combinedVCCHAndVCCA33CurrentA": 0.1,
+    "basis": "User accepted a combined 100 mA bridge allowance. The split between VCCH and VCCA33 is unknown. This is a project assumption, not an ASMedia maximum. Flash, pull-ups, supervisor, programming power and slot loads require separate budgets."
+  },
   "powerLayers": [
     "inner2",
     "inner3"
@@ -44,7 +49,11 @@
   "groundRoutingChanges": "D4, D5, F4, K2 and L2 use adjacent existing return vias. F8 and H8 retain the former shared inner ground via sites. Existing signal and buck copper stays fixed.",
   "supervisorSense": {
     "net": "VCCH_SENSE",
-    "terminals": ["R_BUCK_EN_TOP.pin2", "R_BUCK_EN_BOTTOM.pin1", "U_BUCK_EN.SENSE"],
+    "terminals": [
+      "R_BUCK_EN_TOP.pin2",
+      "R_BUCK_EN_BOTTOM.pin1",
+      "U_BUCK_EN.SENSE"
+    ],
     "layer": "top",
     "widthMm": 0.15,
     "maximumBranchLengthMm": 3,
@@ -59,6 +68,6 @@
     "pdxMaximumRailCurrentsKnown": false,
     "hardwareValidated": false,
     "vendorProcessAccepted": false,
-    "note": "The related ASM2464PD current table is a planning reference only; it does not establish PDX rail loads. Voltage at the package, startup, transient response, thermal behavior and final manufacturer acceptance remain open. The existing VCCL/VDD 3 A voltage-drop screen and its 8 mV criterion remain unchanged."
+    "note": "The accepted bridge-only allowance is 100 mA combined for VCCH and VCCA33. It does not establish a PDX current maximum. Earlier 50 mA results do not validate this allowance. Voltage at the package, startup, transient response, thermal behavior and final manufacturer acceptance remain open. The existing VCCL/VDD 3 A voltage-drop screen and its 8 mV criterion remain unchanged."
   }
 }

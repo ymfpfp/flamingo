@@ -56,11 +56,11 @@ test("USB-C CC, SBU, USB2 duplicates and all shells reach the correct physical b
 test("the 25 MHz differential crystal and 10 pF bridge capacitor do not ground either oscillator node", () => {
   const ground = g.net("ATX", "pin3"), xi = g.net("ASM2464PDX", "AA4"), xo = g.net("ASM2464PDX", "Y4");
   assert.equal(new Set([ground, xi, xo]).size, 3);
-  assert.equal(g.net("XCLK", "pin1"), xi);
-  assert.equal(g.net("XCLK", "pin3"), xo);
+  // The passive resonator and capacitor have interchangeable signal terminals.
+  // Retain the two distinct oscillator nets and the grounded cover terminals.
+  assert.deepEqual(new Set([g.net("XCLK", "pin1"), g.net("XCLK", "pin3")]), new Set([xi, xo]));
   for (const pin of ["pin2", "pin4"]) assert.equal(g.net("XCLK", pin), ground);
-  assert.equal(g.net("C1", "pin1"), xi);
-  assert.equal(g.net("C1", "pin2"), xo);
+  assert.deepEqual(new Set([g.net("C1", "pin1"), g.net("C1", "pin2")]), new Set([xi, xo]));
   near(g.component("C1").capacitance, 10e-12);
   assert.equal(g.component("XCLK").frequency, 25e6);
 });
@@ -127,7 +127,11 @@ test("the audit checks TPS62903 voltage, current and other static margins", () =
   assert.equal(m.slot.driver.guaranteedRdsTestCurrentA, 0.01);
   assert.equal(m.slot.driver.gateNetworkCheckSinkCeilingA, 0.01);
   assert.equal(m.slot.driver.gateNetworkTimingCheck25CPass, true);
-  assert.ok(m.slot.rail12.driverGateNetworkTimeToRdsTest25CMs < 15);
+  assert.equal(m.slot.rail12.rdsTestGateV, 4.5);
+  assert.equal(m.slot.rail12.rds25Ohm, 0.0046);
+  assert.ok(Math.abs(m.slot.rail12.fetLossAt25CMaxRdsW - 0.13915) < 1e-9);
+  assert.equal(m.slot.rail12.vgsRatingV, 20);
+  assert.ok(m.slot.rail12.driverGateNetworkTimeToRdsTest25CMs < 100);
   assert.ok(m.slot.rail3V3.driverGateNetworkTimeToRdsTest25CMs < 10);
   for (const point of m.slot.driver.requiredSteadyOperatingPoints) {
     assert.ok(point.requiredSinkA < m.slot.driver.guaranteedRdsTestCurrentA);

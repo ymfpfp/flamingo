@@ -1,0 +1,51 @@
+{
+  "reviewedLocalDate": "2026-10-21",
+  "murataTx": {
+    "part": "GRM033R61E224KE01D",
+    "url": "https://ds.murata.com/simserve/characteristics?ReqType=GetSparameter&partnumbers=GRM033R61E224KE01&modeltype=precise&form=series",
+    "localCache": "dist/si-channel-review/references/GRM033R61E224KE01.s2p",
+    "sha256": "eda06cc692a9700829af3d94e1965e6e5c6f67faead40ae17ce867269fd91c9e",
+    "format": "Touchstone 1, Hz S RI, 50 ohm, series mode",
+    "conditions": "25 C, 0 V, typical",
+    "validMaximumHz": 6000000000.0,
+    "status": "Retrieved exact model; insufficient bandwidth for full Gen3 USB4 assessment"
+  },
+  "murataRx": {
+    "part": "GRM033R61E334KE15D",
+    "status": "No usable model retrieved. The direct part request returned an empty response. No claim that a model does not exist."
+  },
+  "infineon": {
+    "part": "ESD150-B1-W0201",
+    "datasheet": "datasheets/ESD150-B1-W0201.pdf",
+    "status": "Typical capacitance and series inductance only; no S-parameter file retrieved"
+  },
+  "samsung": {
+    "part": "CL05B224KO5NNNC",
+    "url": "https://product.samsungsem.com/mlcc/CL05B224KO5NNN.do",
+    "dataFile": "simulations/power-dynamics/reference-curves.json",
+    "validMaximumHz": 6000000000.0,
+    "status": "Retrieved exact complex 2-port model through 6 GHz. Insufficient bandwidth for full PCIe Gen4 assessment.",
+    "localCache": "dist/si-channel-review/references/CL05B224KO5NNN-series.s2p",
+    "sha256": "8efd94f7ae1221b75f578e7bba95b7a680ad66681ebf2e3c43509042b7b12a94",
+    "format": "Touchstone 1, MHz S RI, 50 ohm, precise series mode",
+    "conditions": "25 C, 0 V, manufacturer model"
+  },
+  "connectors": [
+    {
+      "part": "GT-USB-7087B",
+      "datasheet": "datasheets/GT-USB-7087B.pdf",
+      "manufacturerClaim": "Data transmission rate up to 40 Gbps",
+      "status": "No multiport model retrieved"
+    },
+    {
+      "part": "X1618WVS-164-9TV30",
+      "datasheet": "datasheets/X1618WVS-164-9TV30.pdf",
+      "manufacturerClaim": "PCIe 4.0 family drawing",
+      "status": "No multiport model retrieved"
+    }
+  ],
+  "asmedia": {
+    "part": "ASM2464PDX",
+    "status": "Package and IBIS-AMI models unavailable in the workspace; none found in public-source research"
+  }
+}

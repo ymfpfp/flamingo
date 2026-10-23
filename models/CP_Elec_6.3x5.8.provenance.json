@@ -1,0 +1,34 @@
+{
+  "components": [
+    "C135",
+    "C136"
+  ],
+  "manufacturer_part_number": "APXF6R3ARA331MF61G",
+  "model": "KiCad CP_Elec_6.3x5.8",
+  "scope": "Generic package visualization, not manufacturer-specific CAD. Negative stripe faces pin 2 (+X).",
+  "upstream": "https://raw.githubusercontent.com/KiCad/kicad-packages3D/master/Capacitor_SMD.3dshapes/CP_Elec_6.3x5.8.wrl",
+  "license": "CC-BY-SA-4.0 with KiCad electronic-design exception; see KiCad-LICENSE.md and original model header.",
+  "downloaded_on": "2026-10-22",
+  "conversion": "bun scripts/convert-c135-model.mjs CP_Elec_6.3x5.8.wrl CP_Elec_6.3x5.8.glb",
+  "native_measured_bounds_mm": {
+    "min": [
+      -3.8989,
+      -3.29946,
+      0
+    ],
+    "max": [
+      3.8989,
+      3.29946,
+      5.79882
+    ]
+  },
+  "board_normal": "Y+ in GLB",
+  "files": {
+    "CP_Elec_6.3x5.8.wrl": {
+      "sha256": "c5c5df6f0e5442ac3cbb8d5263a86ff53eb18a652dac1d724c06efd2f34bb0d5"
+    },
+    "CP_Elec_6.3x5.8.glb": {
+      "sha256": "433d0cf65b42aebfec319968fcafbd0c53fe0ba4afa3d2da281d7969d6aff34d"
+    }
+  }
+}

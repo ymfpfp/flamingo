@@ -1,0 +1,29 @@
+{
+  "revision": "1.1",
+  "dateLocal": "2026-10-22",
+  "label": "Agreed provisional PDX design load",
+  "status": "User-agreed engineering assumptions; not measured currents or ASMedia guarantees",
+  "application": "USB4 40 Gb/s bridge with one PCIe Gen4 x4 endpoint",
+  "rails": {
+    "VCCL": {"nominalVoltageV": 1.9, "designCurrentA": 1},
+    "VDD": {"nominalVoltageV": 1.13, "designCurrentA": 3},
+    "VCCH_VCCA33": {"nominalVoltageV": 3.3, "designCurrentA": 0.1, "scope": "Combined bridge-only allowance; flash, pull-ups, supervisor, programming power and slot loads are additional"}
+  },
+  "basis": {
+    "VCCL_VDD": "User accepted budgets of 1 A and 3 A from the PDX reference supply sizing. These are project loads, not measured or guaranteed chip currents.",
+    "VCCH_VCCA33": "User accepted a combined 100 mA project allowance. ASMedia supplies no verified maximum or split for these two nets.",
+    "referenceSchematic": {"file": "datasheets/ASM2464PDX_TI_R03.pdf", "sheet": 4, "url": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PDX/ASM2464PDX_TI_R03.pdf"},
+    "voltageSource": "datasheets/ASM2464PDX_DataSheet_R0_3.pdf section 6.2: retain 1.9 V VCCL and 1.13 V VDD despite older schematic labels."
+  },
+  "supersedes": "Earlier 0.6 A VCCL, 2.3 A VDD and combined 50 mA VCCH/VCCA33 planning case. PD current figures remain historical comparisons.",
+  "retainedRegulatorStressCurrentA": 3,
+  "currentResearchFile": "datasheets/research/asm2464pdx-current-2026-10-22/findings.json",
+  "limitations": [
+    "Idle current, actual current steps and startup demand remain unknown.",
+    "The 100 mA combined 3.3 V allowance does not specify its split between VCCH and VCCA33.",
+    "The 3 A VDD budget uses the full nominal continuous regulator rating. Thermal derating and loaded startup require hardware checks.",
+    "The separate conductor screen retains 3 A on both rails and the 8 mV project limit. Its existing findings remain open.",
+    "Earlier reports use lower loads. Their results do not validate these budgets. New electrical results require new checks.",
+    "Transient sweeps apply assumed 10%, 25%, 50% and 100% steps of the selected design load, in both directions. They do not establish the bridge's actual load spectrum."
+  ]
+}

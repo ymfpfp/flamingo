@@ -1,0 +1,31 @@
+{
+  "checkedOnLocal": "2026-10-22",
+  "source": "https://jlcpcb.com/impedance",
+  "method": "Rendered manufacturer page, six-layer section; selected inner 1 oz, outer 1 oz, 1.6 mm. Read item 11.",
+  "code": "JLC061611-3313G",
+  "copperMm": [
+    0.035,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.035
+  ],
+  "dielectricMm": [
+    0.092,
+    0.55,
+    0.094,
+    0.55,
+    0.092
+  ],
+  "dielectricMaterials": [
+    "3313",
+    "FR-4 core",
+    "2116",
+    "FR-4 core",
+    "3313"
+  ],
+  "thicknessSumMm": 1.568,
+  "publishedRawText": "JLC061611-3313G: Top Copper 0.035mm; 3313*1 0.092mm; L2 Copper 0.03mm; Core 0.55mm 1/1OZ without copper; L3 Copper 0.03mm; 2116*1 0.094mm; L4 Copper 0.03mm; Core 0.55mm 1/1OZ without copper; L5 Copper 0.03mm; 3313*1 0.092mm; Bottom Copper 0.035mm.",
+  "note": "Nominal 1 oz inner weight is published as 0.03 mm in this specific construction. Do not substitute an ideal 0.035 mm in the DC model."
+}

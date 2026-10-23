@@ -1,0 +1,43 @@
+Data needed to finish the Flamingo USB4 / PCIe channel assessment
+
+ASMedia ASM2464PDX:
+Supply a package multiport S-parameter model and TX/RX IBIS-AMI models for
+USB4 Gen 3 and PCIe Gen4. Include ball-to-die port mapping, reference planes,
+reference impedance, supported transmitter settings and receiver equalization.
+
+G-Switch GT-USB-7087B:
+Supply mated-receptacle S-parameters for all four high-speed pairs, including
+pair-to-pair crosstalk. Identify PCB-pad and mating-interface reference planes.
+Include port polarity/mapping, fixture removal and the applicable test report.
+
+XKB X1618WVS-164-9TV30:
+Supply mated PCIe connector multiport S-parameters for the active x4 lanes.
+Include both directions, adjacent pairs, port mapping and reference planes.
+
+Murata GRM033R61E224KE01D and GRM033R61E334KE15D:
+Supply exact series-mounted wideband models. The retrieved 220 nF model ends
+at 6 GHz; no usable exact 330 nF file was retrieved. State mounting and bias
+conditions, port locations and the treatment of solder/PCB lands.
+
+Samsung CL05B224KO5NNNC:
+The exact public precise series-mode 2-port model was retrieved through 6 GHz.
+Supply a wider-band model covering the 8 GHz PCIe Nyquist frequency and the
+additional bandwidth needed for transient work. Clarify the mounting fixture.
+
+Infineon ESD150-B1-W0201:
+Supply the small-signal shunt model/S-parameters, with bias conditions and
+de-embedding information. Include package and mounting details separately.
+
+For USB4 models, cover at least the 12 GHz return-loss assessment band;
+20 GHz or more is preferred for transient/eye work. State the valid bandwidth
+for every file. Do not extrapolate vendor data silently.
+
+PCB factory:
+Confirm JLC061611-3313G finished dielectric/copper/mask dimensions and tolerances,
+assigned laminate variants, Dk/Df versus frequency and foil roughness.
+Confirm via drill/plating, fill/cap, retained inner pads and antipad geometry.
+
+Complete end-to-end assessment also needs the external card/channel and USB
+cable/partner models. Board-only qualification must use its own allocated budget.
+
+This is a data-request checklist. No supplier messages have been sent.

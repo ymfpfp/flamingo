@@ -1,20 +1,20 @@
 {
   "revision": "1.0.42",
   "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
-  "reviewedOn": "2026-10-19",
+  "reviewedOn": "2026-10-22",
   "process": {
     "surfaceFinish": "ENIG",
     "assembly": "standard",
     "componentLayer": "top",
     "solderMaskColor": "green",
     "viaFill": "epoxy filled and copper capped",
-    "stackup": "manufacturing/stackup/JLC06161H-3313.json",
+    "stackup": "manufacturing/stackup/selected.json",
     "bridgeProcess": "manufacturing/bridge-bga/process.json",
     "vendorAcceptanceReceived": false
   },
   "copper": {
     "outerOz": 1,
-    "innerOz": 0.5,
+    "innerOz": 1,
     "layers": 6
   },
   "minimumMm": {

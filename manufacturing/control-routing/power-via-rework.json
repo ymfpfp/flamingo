@@ -253,11 +253,12 @@
         91.59845540000006
       ],
       "after": [
-        46.75,
+        42.467184,
         79.8
       ],
       "pad": 0.3,
-      "hole": 0.15
+      "hole": 0.15,
+      "reason": "Follow R_SPI_CS into the former CS_N label space; feed it from SPI V3V3 through the bottom layer, clear of reset and chip-select traces"
     },
     {
       "name": "PDN_C_VCCL_37_pin1",
@@ -382,7 +383,7 @@
     {
       "name": "VCCH_R_SPI_CS_pin1_TRACE",
       "before": "d3ab75fc6482a704347655b8b3a2f999bbc7c3204f515f38e6830a82af4de66c",
-      "after": "9d15aa1f7ecc2d98bbefedbbc78f9a42cdccd69a4a221aaefc903b229e442fc4",
+      "after": "2e6321e01c3ef593250b2970432e30c6d194db59698334f55f495f2529b419cc",
       "reason": "User-authorized local control/support placement and routing; exact emitted copper must pass full-board validation"
     },
     {

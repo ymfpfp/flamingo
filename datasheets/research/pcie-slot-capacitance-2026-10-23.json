@@ -1,0 +1,37 @@
+{
+  "checkedOnLocal": "2026-10-23",
+  "question": "Is 1000 uF added 12 V GPU slot capacitance unrealistically conservative?",
+  "intendedCards": "User intends a lower-range AMD RX 5000 through RX 9000 series card; exact card and PCB variant not selected.",
+  "sources": [
+    {
+      "url": "https://forums.developer.nvidia.com/uploads/short-url/4ERQj5sznwwmtCOkHFKBSFeAuko.pdf",
+      "author": "PCI-SIG",
+      "title": "PCI Express Card Electromechanical Specification Revision 3.0",
+      "date": "2013-07-21",
+      "printedPage": 44,
+      "pdfPageIndex": 43,
+      "table": "4-1",
+      "slot75W12VMaximumBulkCapacitanceUF": 2000,
+      "slot75W3V3MaximumBulkCapacitanceUF": 1000,
+      "scope": "Generic add-in-card power-rail envelope; not a measurement or typical value for an AMD GPU."
+    },
+    {
+      "url": "https://www.analog.com/en/resources/design-notes/pci-express-power-and-mini-card-solutions.html",
+      "author": "Analog Devices / Linear Technology",
+      "table": 1,
+      "x16_12VMaximumCapacitiveLoadUF": 2000,
+      "scope": "Independent semiconductor-vendor design guidance corroborates the original specification value."
+    }
+  ],
+  "conclusions": [
+    "1000 uF is a plausible intermediate compatibility test load, not an established typical value or a measured property of the intended GPU.",
+    "Neither GPU family nor board power rating establishes capacitance presented specifically to the slot 12 V input. Exact board topology and auxiliary-power partitioning matter.",
+    "The earlier simulation adds card capacitance to the adapter board bulk capacitance; it does not count the same board capacitor twice.",
+    "25 W initial functional power limits in CEM section 4.2 do not bound capacitor charging to 25 W or eliminate inrush stress.",
+    "Extreme preheat, full-current startup and rapid supply-collapse cases remain sensitivities, not predictions of routine cold-start operation.",
+    "The approximate AO4407A model also flags the 1000 uF capacitor-only nominal case; excluding extreme hot corners alone does not close that screening finding."
+  ],
+  "implementationPreference": "Retain discrete-switch topology for fastest prototype work. Do not reintroduce an eFuse redesign merely because this approximate screen is open.",
+  "existingMinimalChangeCandidate": "manufacturing/slot-power-routing/mosfet-replacement-review-2026-10-22.json",
+  "changesApplied": false
+}

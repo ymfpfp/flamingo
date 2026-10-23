@@ -4,7 +4,7 @@ import type {FanoutTracePath} from "@tscircuit/props";
 import {applyToPoint, compose, inverse, translate} from "transformation-matrix";
 import {offsetPairCenterline} from "./pcie-tx-routing";
 import {traceWidthsMm} from "./trace-width-rules";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json";
+import stackup from "../manufacturing/stackup/selected.json";
 
 export const usb2Rules={width:traceWidthsMm.surfaceDifferential85,
   gap:stackup.impedanceProfiles[0].calculatedPairGapMm,maxSkew:0.5,maxLength:101.6,maxVias:4};

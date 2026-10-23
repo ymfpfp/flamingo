@@ -17,18 +17,19 @@ RHO20=1.724e-5  # ohm mm
 RHO80=RHO20*(1+.00393*60)
 CURRENT=3
 PLATING=.020  # Explicit assumed minimum; require vendor confirmation.
-STACK=json.loads((ROOT/'manufacturing/stackup/JLC06161H-3313.json').read_text())
+STACK=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
 z={};depth=0
 for i,layer in enumerate(STACK['copperLayers']):
     depth+=layer['thicknessMm']/2;z[layer['tscircuitLayer']]=depth;depth+=layer['thicknessMm']/2
     if i<len(STACK['dielectrics']):depth+=STACK['dielectrics'][i]['thicknessMm']
 
-def solve(j,rail,step):
+def solve(j,rail,step,*,diagnostic_dir=None):
     j,sc,sp,pp,st,vias,pours,copper,nets,root,via_net,port=model(j)
     net=nets[rail]
     planes=[l for l in ['inner2','inner3'] if any(o['net']==net and l in o['layers'] and o['label'] in pours for o in copper)]
     maps={};offset=0;row=[];col=[];data=[]
-    for layer,t in [('top',.035)]+[(p,.0152) for p in planes]:
+    thickness={l['tscircuitLayer']:l['thicknessMm'] for l in STACK['copperLayers']}
+    for layer,t in [('top',thickness['top'])]+[(p,thickness[p]) for p in planes]:
         pitch=step/3 if layer=='top' else step
         xs=np.arange(0,46.5+pitch/2,pitch);ys=np.arange(69.5,114.5+pitch/2,pitch)
         xx,yy=np.meshgrid(xs,ys)
@@ -81,19 +82,37 @@ def solve(j,rail,step):
     current=np.zeros(offset)
     for name,n in bridge:current[n]-=CURRENT/len(bridge)
     voltage=np.zeros(offset);voltage[free]=spsolve(a[free][:,free],current[free])
+    solved_current=a@voltage
+    maximum_kcl_error=float(np.max(np.abs(solved_current[free]-current[free])))
+    source_current=float(solved_current[fixed].sum())
+    controls={'passed':maximum_kcl_error<1e-7 and abs(source_current-CURRENT)<1e-7,
+        'maximumFreeNodeKclErrorA':maximum_kcl_error,'sourceCurrentA':source_current,'loadCurrentA':CURRENT}
+    if not controls['passed']:raise ValueError(f'{rail}: numerical current conservation failed: {controls}')
     # The divider samples the output capacitor. Its DC current is omitted.
     feedback=node('top',port('C_'+rail+'_COUT_B','pin1'));reference=voltage[feedback]
+    if diagnostic_dir is not None:
+        diagnostic_dir=Path(diagnostic_dir);diagnostic_dir.mkdir(parents=True,exist_ok=True)
+        for layer,(index,shape,xs,ys,pitch) in maps.items():
+            values=np.full(index.shape,np.nan);selected=index>=0
+            selected[selected]=active[index[selected]]
+            values[selected]=(reference-voltage[index[selected]])*1000
+            np.savez_compressed(diagnostic_dir/f'{rail}-{layer}.npz',x=xs,y=ys,drop_mv=values)
+        contacts=[{'via':st.get(v.get('source_trace_id'),{}).get('display_name',v['pcb_via_id']),
+            'x':v['x'],'y':v['y'],'dropMV':{l:float((reference-voltage[node(l,v)])*1000) for l in ['top']+planes}}
+            for v in vias.values() if via_net(v)==net]
+        (diagnostic_dir/f'{rail}-via-drops.json').write_text(json.dumps(contacts,indent=2)+'\n')
     drops=[{'ball':name,'dropMV':float((reference-voltage[n])*1000)} for name,n in bridge]
     via_drops=[{'via':st.get(v.get('source_trace_id'),{}).get('display_name',v['pcb_via_id']),
         'x':v['x'],'y':v['y'],'dropMV':{l:float((reference-voltage[node(l,v)])*1000) for l in ['top']+planes}}
         for v in vias.values() if via_net(v)==net and 93<v['y']<103]
     return {'rail':rail,'layers':['top']+planes,'gridMm':step,'meshNodes':int(active.sum()),'maximumDropMV':max(d['dropMV'] for d in drops),
-        'minimumDropMV':min(d['dropMV'] for d in drops),'balls':drops,'viaDrops':via_drops}
+        'minimumDropMV':min(d['dropMV'] for d in drops),'balls':drops,'viaDrops':via_drops,'numericalControls':controls}
 
 if __name__=='__main__':
     file=Path(sys.argv[1]);raw=file.read_bytes();j=json.loads(raw);results=[];failures=[]
+    diagnostics=next((arg.split('=',1)[1] for arg in sys.argv[2:] if arg.startswith('--diagnostic-dir=')),None)
     for rail in ['VCCL','VDD']:
-        coarse=solve(j,rail,.15);fine=solve(j,rail,.1)
+        coarse=solve(j,rail,.15);fine=solve(j,rail,.1,diagnostic_dir=diagnostics)
         difference=abs(fine['maximumDropMV']-coarse['maximumDropMV'])
         # Reserve at least 20 percent for discretization/contact approximation.
         bound=max(fine['maximumDropMV'],coarse['maximumDropMV'])+max(difference,.2*fine['maximumDropMV'])

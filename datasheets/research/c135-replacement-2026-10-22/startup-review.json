@@ -1,0 +1,189 @@
+{
+  "status": "Implemented; startup sensitivity screen completed; hardware qualification open",
+  "boardSource": "dist/board.circuit.json",
+  "boardSha256": "502a798c022328f8f197da0fc512ce03fb619f5138e44c5e92b02445bd082cf3",
+  "simulationScript": "simulations/slot-power/check-capacitor-startup.mjs",
+  "validationScript": "simulations/slot-power/validate-capacitor-model.mjs",
+  "command": "bun run sim:slot-startup",
+  "caseCount": 96,
+  "metrics": {
+    "peakSwitchCurrentA": {
+      "new": 18.96665202314034,
+      "oldMatched": 18.297353006717003,
+      "changePercent": 3.6579007694590437,
+      "newCase": {
+        "bank": "new-2x330uF",
+        "supplyV": 3.465,
+        "cardCapacitanceUF": 1000,
+        "load": "resistive-3A",
+        "timing": "fast",
+        "temperatureC": 25,
+        "gateCapacitanceUF": 5,
+        "bulkCapacitanceFactor": 1.44,
+        "boardBulkCapacitanceUF": 660,
+        "boardBulkSimulatedUF": 950.4,
+        "peakSwitchCurrentA": 18.96665202314034,
+        "peakSwitchPowerW": 24.62984561050287,
+        "switchEnergyThrough30msJ": 0.012064462595437933,
+        "deliveredChargeThrough30msC": 0.08858295540337982,
+        "timeTo10PercentMs": 0.9667966149208751,
+        "timeTo90PercentMs": 1.4426512248435848,
+        "finalOutputV": 3.3641403419931093,
+        "peakOutputV": 3.3641403419931093,
+        "finalGateMagnitudeV": 3.371454861894684,
+        "peakPowerOperatingPoint": {
+          "timeMs": 3.1267966149208686,
+          "vdsV": 2.095762372382925,
+          "currentA": 11.752212910711933
+        },
+        "settledAbove90PercentAt30ms": true
+      }
+    },
+    "peakSwitchPowerW": {
+      "new": 24.62984561050287,
+      "oldMatched": 23.62908958027875,
+      "changePercent": 4.235271218656544,
+      "newCase": {
+        "bank": "new-2x330uF",
+        "supplyV": 3.465,
+        "cardCapacitanceUF": 1000,
+        "load": "resistive-3A",
+        "timing": "fast",
+        "temperatureC": 25,
+        "gateCapacitanceUF": 5,
+        "bulkCapacitanceFactor": 1.44,
+        "boardBulkCapacitanceUF": 660,
+        "boardBulkSimulatedUF": 950.4,
+        "peakSwitchCurrentA": 18.96665202314034,
+        "peakSwitchPowerW": 24.62984561050287,
+        "switchEnergyThrough30msJ": 0.012064462595437933,
+        "deliveredChargeThrough30msC": 0.08858295540337982,
+        "timeTo10PercentMs": 0.9667966149208751,
+        "timeTo90PercentMs": 1.4426512248435848,
+        "finalOutputV": 3.3641403419931093,
+        "peakOutputV": 3.3641403419931093,
+        "finalGateMagnitudeV": 3.371454861894684,
+        "peakPowerOperatingPoint": {
+          "timeMs": 3.1267966149208686,
+          "vdsV": 2.095762372382925,
+          "currentA": 11.752212910711933
+        },
+        "settledAbove90PercentAt30ms": true
+      }
+    },
+    "switchEnergyThrough30msJ": {
+      "new": 0.013822185788250544,
+      "oldMatched": 0.013053644314219603,
+      "changePercent": 5.887562549821834,
+      "newCase": {
+        "bank": "new-2x330uF",
+        "supplyV": 3.465,
+        "cardCapacitanceUF": 1000,
+        "load": "resistive-3A",
+        "timing": "slow",
+        "temperatureC": 85,
+        "gateCapacitanceUF": 11.000000000000002,
+        "bulkCapacitanceFactor": 1.44,
+        "boardBulkCapacitanceUF": 660,
+        "boardBulkSimulatedUF": 950.4,
+        "peakSwitchCurrentA": 12.766087804073777,
+        "peakSwitchPowerW": 16.142314443410342,
+        "switchEnergyThrough30msJ": 0.013822185788250544,
+        "deliveredChargeThrough30msC": 0.0852743282882343,
+        "timeTo10PercentMs": 1.8456676149955356,
+        "timeTo90PercentMs": 2.624377127104025,
+        "finalOutputV": 3.3621405031260307,
+        "peakOutputV": 3.3621405031260307,
+        "finalGateMagnitudeV": 3.3465372888327765,
+        "peakPowerOperatingPoint": {
+          "timeMs": 4.165667614995523,
+          "vdsV": 2.095068355713728,
+          "currentA": 7.704910629472579
+        },
+        "settledAbove90PercentAt30ms": true
+      }
+    },
+    "timeTo90PercentMs": {
+      "new": 2.8483402415374934,
+      "oldMatched": 2.8100411227847015,
+      "changePercent": 1.3629380168941552,
+      "newCase": {
+        "bank": "new-2x330uF",
+        "supplyV": 3.14,
+        "cardCapacitanceUF": 1000,
+        "load": "resistive-3A",
+        "timing": "slow",
+        "temperatureC": 85,
+        "gateCapacitanceUF": 11.000000000000002,
+        "bulkCapacitanceFactor": 1.44,
+        "boardBulkCapacitanceUF": 660,
+        "boardBulkSimulatedUF": 950.4,
+        "peakSwitchCurrentA": 11.107309262883973,
+        "peakSwitchPowerW": 12.747788014653377,
+        "switchEnergyThrough30msJ": 0.011547548710752266,
+        "deliveredChargeThrough30msC": 0.07668288927680092,
+        "timeTo10PercentMs": 2.0277159368099253,
+        "timeTo90PercentMs": 2.8483402415374934,
+        "finalOutputV": 3.045878891334823,
+        "peakOutputV": 3.045878891334823,
+        "finalGateMagnitudeV": 3.0326860242167566,
+        "peakPowerOperatingPoint": {
+          "timeMs": 4.367715936809911,
+          "vdsV": 1.8976180380917211,
+          "currentA": 6.7177839579733245
+        },
+        "settledAbove90PercentAt30ms": true
+      }
+    }
+  },
+  "initialToleranceOnly": {
+    "maxPeakCurrentA": 18.27655123791783,
+    "maxPeakPowerW": 23.635840990230527,
+    "maxTimeTo90Ms": 2.8037620228354045
+  },
+  "assumptions": {
+    "controlV": 2.4,
+    "sourceResistanceOhm": 0.025,
+    "sourceInductanceNH": 200,
+    "supplyRiseUS": 100,
+    "enableTimeMS": 2,
+    "branchRoutingResistanceOhm": 0.003,
+    "bulkCapacitanceFactors": [
+      1.2,
+      1.44
+    ],
+    "bulkCapacitanceFactorNote": "1.2 is initial tolerance; 1.44 adds a further 20% drift sensitivity.",
+    "cardESROhm": 0.02,
+    "cardCapacitanceUF": [
+      0,
+      1000
+    ],
+    "loads": "Idle, 3 A at 3.3 V resistor, and an assumed 2.3-2.8 V UVLO-ramped 3 A current load. No real endpoint model.",
+    "gateDriver": "Existing NX3008NBK 2.8 ohm/10 mA on-state envelope; no guaranteed hot-corner driver model."
+  },
+  "soaReview": {
+    "sourceFile": "datasheets/DMP2008UFG.pdf",
+    "sourceSha256": "d074e50ddc0c6acbba71c5870c385519c3ec2f24a11f6906ebcf730bc4a6af17",
+    "page": 4,
+    "figure": 12,
+    "referenceConditions": {
+      "ambientC": 25,
+      "gateSourceV": -8,
+      "singlePulse": true,
+      "testBoard": "1 inch MRP board"
+    },
+    "graphReadReference": "At VDS 1 to 3.5 V, the 10 ms single-pulse curve is above approximately 75 W. This is a conservative visual reading, not a guaranteed constant-power rating.",
+    "comparison": "The modeled maximum switch dissipation is 24.63 W and all output-90% crossings occur within 2.85 ms of enable. The model is below that thermal reference during high VDS startup.",
+    "qualified": false,
+    "reason": "Published SOA uses -8 V gate drive and a reference board at 25 C. Actual drive is about -3.3 V, temperature and copper differ, and the vendor model is not electrothermal. The comparison does not establish SOA at the actual gate trajectory, hot restart, repeated starts, larger endpoint capacitance or faults."
+  },
+  "limitations": [
+    "Typical vendor model, not a guaranteed production or electrothermal model; 85 C is sensitivity only.",
+    "Output ramp time is simulated rather than equated to the gate RC constant. A specific GPU/card, PSU and cable remain unmodeled.",
+    "The 1000 uF added card capacitance is an explicit assumption. Larger capacitance and other load timing require another run.",
+    "Single-pulse SOA, startup repetition, hot restart, slow shutdown and fault survival still require temperature-aware review and hardware measurements.",
+    "No local current limiting exists. Passing the settling screen does not qualify MOSFET SOA or arbitrary card compatibility."
+  ],
+  "fullResults": "dist/slot-power/capacitor-startup/report.json",
+  "modelValidation": "dist/slot-power/capacitor-startup/model-validation.json"
+}

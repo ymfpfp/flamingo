@@ -3,17 +3,21 @@ import {createHash} from "node:crypto";
 import {Circuit} from "tscircuit";
 import {createElement} from "react";
 import {circuitGraph} from "../lib/circuit-graph.mjs";
+import {qualifySlotPower} from "../tests/audits/power-qualification.mjs";
 import {createEngine} from "../simulations/power-reset/engine.mjs";
 import {OriginalGateDriver} from "../simulations/slot-power/OriginalGateDriver";
 import {valueAt, crossing} from "../simulations/power-reset/analyze.mjs";
 
-const source = JSON.parse(await readFile("dist/index/circuit.json", "utf8"));
+const sourceFile = process.argv[2] ?? "dist/index/circuit.json";
+const sourceRaw = await readFile(sourceFile);
+const source = JSON.parse(sourceRaw);
 if (source.some(e => e.type.endsWith("_error"))) throw new Error("The input circuit contains errors.");
 const g = circuitGraph(source);
 for (const suffix of ["12V", "3V3"]) {
   if (g.component(`Q_SLOT_DRV_${suffix}`).manufacturer_part_number !== "NX3008NBK,215") throw new Error("Unexpected gate driver.");
 }
-const rails = [["12V", 12, 10], ["3V3", 3.3, 2.5]].map(([suffix, supplyV, targetGateV]) => ({
+const screening = qualifySlotPower(g);
+const rails = [screening.rail12, screening.rail3V3].map(({suffix, supplyV, rdsTestGateV: targetGateV}) => ({
   suffix, supplyV, targetGateV, seriesOhm: g.component(`R_SLOT_GATE_${suffix}`).resistance,
   pullupOhm: g.component(`R_SLOT_OFF_${suffix}`).resistance,
   gateCapF: g.component(`C_SLOT_GATE_${suffix}`).capacitance,
@@ -71,6 +75,7 @@ for (const variant of variants) for (const controlV of [2.4, 2.5, 2.6, 2.7, 2.8,
   console.log(`${variant.name}, ${controlV} V control: ${measurements.map(m => `${m.rail} gate ${m.gateMagnitudeAt99msV.toFixed(3)} V at 99 ms`).join(", ")}`);
 }
 const report = {scope: "Selected NX3008NBK gate-network envelope with a conservative 10 mA sink ceiling, plus historical 2N7002K comparisons; not a card-startup simulation.",
+  sourceFile, sourceSha256: createHash("sha256").update(sourceRaw).digest("hex"),
   source: "https://www.diodes.com/spice/download/1834/2N7002K.spice.txt", modelPath,
   sha256: createHash("sha256").update(model).digest("hex"),
   modelVtoV: 2.5, modelIsGuaranteedProductionCorner: false,

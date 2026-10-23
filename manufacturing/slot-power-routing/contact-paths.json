@@ -2795,5 +2795,125 @@
         "width": 0.1
       }
     ]
+  },
+  {
+    "name": "SP_C136_pin1_1",
+    "connection": "SP_C136_pin1_1.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 43.45,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 44.35,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C136_pin1_2",
+    "connection": "SP_C136_pin1_2.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 44.35,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 44.35,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C136_pin1_3",
+    "connection": "SP_C136_pin1_3.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 45.25,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 44.35,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C136_pin2_1",
+    "connection": "SP_C136_pin2_1.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 48.85,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 49.75,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C136_pin2_2",
+    "connection": "SP_C136_pin2_2.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 49.75,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 49.75,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
+  },
+  {
+    "name": "SP_C136_pin2_3",
+    "connection": "SP_C136_pin2_3.top",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 50.65,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 49.75,
+        "y": 118,
+        "width": 0.8,
+        "layer": "top"
+      }
+    ]
   }
 ]

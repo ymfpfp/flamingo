@@ -1,0 +1,38 @@
+{
+  "checkedOnLocal": "2026-10-21",
+  "planningStatus": "Historical PD proxy review. The accepted PDX budgets supersede its baseline and rounded guardband as active design loads.",
+  "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+  "pdx": {
+    "document": "datasheets/ASM2464PDX_DataSheet_R0_3.pdf",
+    "section": "6.3.12",
+    "printedPage": 19,
+    "status": "VCCH, VCCL and VDD maximum currents are TBD. No usable public PDX-specific rail-current specification was found in this research."
+  },
+  "pd": {
+    "document": "ASMedia ASM2464PD Data Sheet, revision 0.4, May 5 2023",
+    "sourceKind": "Manufacturer-authored datasheet hosted by a third-party mirror",
+    "url": "https://device.report/m/1ecf9e4f15ce5a1cffa2d4a31caa79e66efbac09b98459a91df5bddf49091be2.pdf",
+    "section": "6.3.12",
+    "printedPage": 18,
+    "pdfPageIndex": 17,
+    "maximumCurrentA": {"VCCH": 0.00945, "VCCL": 0.4557, "VDD": 1.8123},
+    "nominalVoltageV": {"VCCH": 3.3, "VCCL": 1.9, "VDD": 1.05},
+    "notes": [
+      "The table labels these as maximum currents. It supplies no typical or idle currents and no detailed operating-mode/test conditions.",
+      "The VCCH figure can vary with GPIO use, according to the datasheet note.",
+      "VCCA33 has a separate supply pin but no separate current figure in this table. Do not infer a complete 3.3 V board budget from VCCH alone."
+    ]
+  },
+  "pdxProxy": {
+    "status": "Historical engineering approximation, superseded by the accepted 1 A VCCL, 3 A VDD and combined 100 mA VCCH/VCCA33 budgets. Not an ASMedia PDX current guarantee.",
+    "baselineCurrentA": {"VCCL": 0.4557, "VDD": 1.8123},
+    "sensitivityMultipliers": [1, 1.1, 1.2, 1.25, 1.3],
+    "roundedGuardbandCaseA": {"VCCL": 0.6, "VDD": 2.3},
+    "limitations": [
+      "PDX uses about 1.13 V VDD, whereas the PD document specifies 1.05 V. Retain the PDX voltage requirements.",
+      "Current does not transfer exactly between the PD and PDX. The sensitivity multipliers and rounded case are assumptions, not measured or guaranteed bounds.",
+      "The 3 A regulator rating remains a stress case, not an estimate of the bridge load.",
+      "Startup current and fast current transients are not established by the PD table."
+    ]
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "dateLocal": "2026-10-22",
+  "sourceFile": "dist/vdd-distribution-review-2026-10-22/after.circuit.json",
+  "sourceSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a",
+  "baselineSha256": "502a798c022328f8f197da0fc512ce03fb619f5138e44c5e92b02445bd082cf3",
+  "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+  "rails": [
+    {
+      "rail": "VDD",
+      "currentA": 3,
+      "beforeMV": 12.277563570543233,
+      "afterMV": 7.92373635431092,
+      "afterStress3AMV": 7.92373635431092,
+      "marginToConductorScreenMV": 0.07626364568907995,
+      "conductorScreenPass": true,
+      "stress3APass": true,
+      "reductionPercent": 35.4616548406898,
+      "fineMV": 6.571456508280382,
+      "regulatorStaticMinimumV": 1.1153311591226762,
+      "minimumStaticPinV": 1.1074074227683652,
+      "remainingStaticMarginMV": 7.40742276836521
+    },
+    {
+      "rail": "VCCL",
+      "currentA": 1,
+      "beforeMV": 3.634172251721022,
+      "afterMV": 4.848403135315031,
+      "afterStress3AMV": 14.545209405945094,
+      "marginToConductorScreenMV": 3.1515968646849686,
+      "conductorScreenPass": true,
+      "stress3APass": false,
+      "reductionPercent": -33.41148408744219,
+      "fineMV": 3.7534274871450783,
+      "regulatorStaticMinimumV": 1.8647946965515747,
+      "minimumStaticPinV": 1.8599462934162596,
+      "remainingStaticMarginMV": 9.946293416259584
+    }
+  ],
+  "tests": {
+    "pass": 168,
+    "skip": 8,
+    "fail": 0
+  },
+  "typecheckPassed": true,
+  "nativeChecks": {
+    "sourceSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a",
+    "passed": true,
+    "checks": [
+      {
+        "check": "source",
+        "exitCode": 0,
+        "passed": true,
+        "existingOrientationAdvisory": false,
+        "log": "native-source.log"
+      },
+      {
+        "check": "schematic-placement",
+        "exitCode": 0,
+        "passed": true,
+        "existingOrientationAdvisory": false,
+        "log": "native-schematic-placement.log"
+      },
+      {
+        "check": "placement",
+        "exitCode": 1,
+        "passed": true,
+        "existingOrientationAdvisory": true,
+        "log": "native-placement.log"
+      },
+      {
+        "check": "shorts",
+        "exitCode": 0,
+        "passed": true,
+        "existingOrientationAdvisory": false,
+        "log": "native-shorts.log"
+      },
+      {
+        "check": "pcb-style",
+        "exitCode": 0,
+        "passed": true,
+        "existingOrientationAdvisory": false,
+        "log": "native-pcb-style.log"
+      }
+    ]
+  },
+  "physicalChecks": {
+    "sourceSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a",
+    "passed": true,
+    "checks": [
+      {
+        "check": "power-distribution/check_layout.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-power-distribution-check_layout.log"
+      },
+      {
+        "check": "buck/check_layout.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-buck-check_layout.log"
+      },
+      {
+        "check": "power-distribution/check_ground_returns.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-power-distribution-check_ground_returns.log"
+      },
+      {
+        "check": "pcie-tx/check_asmedia_spacing.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-pcie-tx-check_asmedia_spacing.log"
+      },
+      {
+        "check": "pcie-tx/check_reference_planes.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-pcie-tx-check_reference_planes.log"
+      },
+      {
+        "check": "usb4/check_layout.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-usb4-check_layout.log"
+      },
+      {
+        "check": "usb4/check_reference_planes.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-usb4-check_reference_planes.log"
+      },
+      {
+        "check": "bridge-clocks/check_layout.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-bridge-clocks-check_layout.log"
+      },
+      {
+        "check": "power-distribution/check_vcch.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-power-distribution-check_vcch.log"
+      },
+      {
+        "check": "power-distribution/check_atx5v.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-power-distribution-check_atx5v.log"
+      },
+      {
+        "check": "power-distribution/check_slot.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-power-distribution-check_slot.log"
+      },
+      {
+        "check": "power-distribution/check_vbus.py",
+        "exitCode": 0,
+        "passed": true,
+        "log": "physical-power-distribution-check_vbus.log"
+      }
+    ]
+  },
+  "preservation": {
+    "allExistingTracesUnchanged": true,
+    "allExistingViasUnchanged": true,
+    "missingVias": [],
+    "addedVias": [],
+    "allComponentPositionsUnchanged": true,
+    "allAssemblyOnTop": true,
+    "traceCount": 637,
+    "previousViaCount": 638,
+    "viaCount": 638,
+    "componentCount": 154,
+    "baselineFile": "dist/vdd-distribution-review-2026-10-22/before.circuit.json",
+    "baselineSha256": "502a798c022328f8f197da0fc512ce03fb619f5138e44c5e92b02445bd082cf3",
+    "sourceFile": "dist/vdd-distribution-review-2026-10-22/after.circuit.json",
+    "sourceSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a",
+    "scope": "All physical trace routes with semantic connections, all previous via dimensions and sites, and all assembled placements. New copper and reference-plane antipads require separate physical/SI audits.",
+    "passed": true
+  },
+  "electricalComponentsUnchanged": {
+    "electricalComponentAttributesUnchanged": true,
+    "components": 154,
+    "sourceSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a"
+  },
+  "copperChanges": [
+    {
+      "net": "VCCL",
+      "layer": "inner2",
+      "removedMm2": 54.95684668604347,
+      "addedMm2": 1.0388060414720228e-08,
+      "allowed": true
+    },
+    {
+      "net": "VDD",
+      "layer": "inner2",
+      "removedMm2": 1.5818340289974059e-18,
+      "addedMm2": 53.18623290591688,
+      "allowed": true
+    },
+    {
+      "net": "VDD",
+      "layer": "top",
+      "removedMm2": 5.115523315515975e-15,
+      "addedMm2": 37.86661061982604,
+      "allowed": true
+    }
+  ],
+  "conditionalLoadStepExamples": [
+    {
+      "rail": "VCCL",
+      "minimumV": 1.8530205073101325,
+      "maximumV": 1.928985132868229,
+      "lowerMarginAfterRippleMV": 2.4355517512411313,
+      "upperMarginAfterRippleMV": 20.369941277226815
+    },
+    {
+      "rail": "VDD",
+      "minimumV": 1.0830774752618515,
+      "maximumV": 1.185209274902615,
+      "lowerMarginAfterRippleMV": -17.404331679678652,
+      "upperMarginAfterRippleMV": -25.765495822164528
+    }
+  ],
+  "qualification": {
+    "acceptedLoadConductorScreensPass": true,
+    "retainedBothRail3AScreenPass": false,
+    "hardwareValidated": false,
+    "closedLoopConverterSimulated": false,
+    "actualPdxCurrentSpectrumKnown": false
+  },
+  "limitations": [
+    "Conductor-only sheet-resistance model at 80 C. Equal current per supply ball; 20 um via plating is assumed.",
+    "The unchanged allowance is the larger mesh result plus the greater of mesh disagreement and 20 percent of the fine result.",
+    "Ground return, package losses and unequal ball loading are omitted. The current budgets are provisional.",
+    "VCCL meets the 8 mV screen at its 1 A planning load. Its separate 3 A stress screen remains open.",
+    "The load-step model uses prescribed current response and assumed inductance. It does not model the TPS62903 control loop.",
+    "Startup, load steps, reset supervision, thermal behavior and vendor fabrication acceptance remain separate work."
+  ],
+  "inputSha256": {
+    "simulations/power-distribution/render_vdd_distribution_review.py": "df914ac080b5bd483346c17c6b938eca05a3ad43a29851b62fcc215d6413b8c5",
+    "lib/power-distribution.tsx": "addb79a2b029af63c5717bb33e30cf9045cdf630693d7435c66916b7b7fdeb65",
+    "index.circuit.tsx": "3e809a8ee2e56ac20632f260584ef58c0632107c8eddb598fbc640bd8e203791",
+    "manufacturing/power-distribution/terminals.json": "0db14ab535972abb5480289827e0f1860d6eced4fb9e43e8ca13bb8576854005",
+    "manufacturing/stackup/selected.json": "6b735f92ca78dca956f0ebf01def379da12bdc075b2b03a7490cb876c1394791",
+    "simulations/power-dynamics/provisional-loads.json": "0bf592621ffad547275b90afc44ac44ed71de17f88a57f7f2f830ab457d6d5a3",
+    "simulations/power-distribution/check_dc.py": "f2b907d0ee032cf6b09db94452d234ed8d1df08649405dd7b562c2798a42a998",
+    "simulations/power-distribution/check_layout.py": "95fa48be82bc977463fc68ac37b52ca6dc7a7242aec9707141749c7156f5a7fe",
+    "simulations/power-distribution/compare_distribution_copper.py": "2f38b5e4452300504566373ac053d31dd220db9674f192bc5a222e793e3e29f1"
+  },
+  "reportFile": "dist/vdd-distribution-review-2026-10-22/report.html"
+}

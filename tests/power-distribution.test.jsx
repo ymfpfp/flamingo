@@ -5,7 +5,7 @@ import {auditLayoutPreservation} from "./audits/layout-audit.mjs";
 import {auditPowerDistribution} from "./audits/power-distribution-audit";
 const json = boardFixture(process.env.PDN_AUDIT_FIXTURE ?? process.env.BOARD_TEST_FIXTURE ?? "dist/board.circuit.json");
 test("power distribution preserves the top placement and existing signal and buck routes",()=>{
- const a=auditPowerDistribution(json);assert.ok(a.passed,a.failures.join("\n"));assert.equal(a.assembledComponentsOnTop,153);
+ const a=auditPowerDistribution(json);assert.ok(a.passed,a.failures.join("\n"));assert.equal(a.assembledComponentsOnTop,154);
 });
 test("a named ground-via tap must retain its native source-port attribution",()=>{
  const other=structuredClone(json),trace=other.find(e=>e.type==="source_trace"&&e.name==="PDN_BGA_Y5_TRACE");

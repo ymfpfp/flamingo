@@ -1,0 +1,162 @@
+{
+  "checked_on_local": "2026-10-22",
+  "timezone": "America/Los_Angeles",
+  "request": "Find a basically equivalent or better capacitor without ordering a reel of 900.",
+  "status": "Applied to BOM, schematic and PCB; startup sensitivity screen completed. Hardware qualification remains open.",
+  "original": {
+    "manufacturer_part_number": "APXJ6R3ARA561MF80G",
+    "jlcpcb_part_number": "C2157846",
+    "capacitance_uF": 560,
+    "tolerance_percent": 20,
+    "rated_voltage_V": 6.3,
+    "esr_milliohm_max_at_20C_100_to_300kHz": 8,
+    "ripple_current_A_at_105C_100kHz": 5,
+    "endurance_hours_at_105C": 15000,
+    "case": "F80, 6.3 mm diameter x 7.7 mm nominal height",
+    "land_pattern_mm": {
+      "gap": 1.9,
+      "pad_length": 3.5,
+      "pad_width": 1.6,
+      "pad_center_x": [
+        -2.7,
+        2.7
+      ]
+    },
+    "user_reported_actual_preorder_quantity": 900,
+    "ordering_note": "The user reported that the actual JLCPCB preorder requires 900, superseding the earlier public-page minimum of 37 as the usable order quantity."
+  },
+  "recommended_candidate": {
+    "manufacturer": "Nippon Chemi-Con",
+    "manufacturer_part_number": "APXF6R3ARA331MF61G",
+    "jlcpcb_part_number": "C133476",
+    "quantity_per_board": 2,
+    "configuration": "Parallel across SLOT_3V3 and GND, both on top",
+    "quantity_for_two_boards": 4,
+    "stock": 1140,
+    "available_order_quantity": 1095,
+    "minimum_order_quantity": 1,
+    "full_reel_quantity": 1000,
+    "observed_at_utc": "2026-10-22T23:39:46.391Z",
+    "stock_source_url": "https://jlcpcb.com/partdetail/144781-APXF6R3ARA331MF61G/C133476",
+    "manufacturer_source_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXF6R3ARA331MF61G",
+    "individual": {
+      "capacitance_uF": 330,
+      "tolerance_percent": 20,
+      "rated_voltage_V": 6.3,
+      "esr_milliohm_max_at_20C_100_to_300kHz": 10,
+      "ripple_current_A_at_105C_100kHz": 3.9,
+      "endurance_hours_at_105C": 15000,
+      "case": "F61",
+      "body_diameter_mm": 6.3,
+      "nominal_height_mm": 5.8,
+      "base_mm": [
+        6.6,
+        6.6
+      ],
+      "leakage_current_uA_max": 700
+    },
+    "bank_calculation": {
+      "capacitance_uF_nominal": 660,
+      "capacitance_uF_min": 528,
+      "capacitance_uF_max": 792,
+      "original_capacitance_uF_min": 448,
+      "original_capacitance_uF_max": 672,
+      "capacitance_increase_percent": 17.85714285714286,
+      "esr_milliohm_max_ideal_parallel": 5,
+      "esr_reduction_percent": 37.5,
+      "ripple_current_A_equal_sharing_sum": 7.8,
+      "ripple_note": "7.8 A is the sum of two 3.9 A ratings with equal sharing. It is not an independently guaranteed bank rating. Keep paths short and similar; account for ESR/capacitance tolerance and temperature when qualifying ripple current.",
+      "voltage_V": 6.3,
+      "stored_energy_mJ_at_3V3": 3.5936999999999997,
+      "original_stored_energy_mJ_at_3V3": 3.0491999999999995
+    },
+    "footprint": {
+      "individual_land_pattern_matches_C135": true,
+      "basis": "Chemi-Con land-pattern table lists F61 and F80 together: 1.9 mm gap, two 3.5 x 1.6 mm pads. PXF datasheet page 1 confirms F61 is 6.3 x 5.8 mm with the same 6.6 x 6.6 mm base.",
+      "source": "datasheets/Chemi-Con-NPCAP-SMD-lands.pdf, page 1",
+      "implementation": "Shared F61/F80 land geometry implemented for both 330 uF components. New C136 is on top at (47.05,118) mm. Native placement, physical power/ground connectivity and Gerber shorts checks pass. Full routed JLCPCB DRC reports no errors."
+    },
+    "price_USD_each_at_one": 0.296,
+    "price_USD_for_two_nominal": 0.592,
+    "price_note": "Public single-unit price, before assembly fees, attrition, tax and shipping."
+  },
+  "search_scope": [
+    "Live JLCPCB polymer capacitor category: In Stock, SMD, 560 uF and 6.3 V; seven listed candidates.",
+    "Live JLCPCB polymer capacitor category: In Stock, SMD, 680 uF and 6.3 V; three listed candidates.",
+    "Broader higher-voltage 680 uF and long-life category candidates were reviewed; this was not an exhaustive catalog export."
+  ],
+  "single_part_result": "No verified stocked single-part replacement meeting all original capacitance, voltage, ESR, ripple and endurance requirements was found in the reviewed candidates.",
+  "not_recommended": [
+    {
+      "part": "APXT6R3ARA561MF80G",
+      "jlcpcb": "C20232576",
+      "reason": "Keeps 560 uF / 6.3 V, F80 package and 15000 h endurance, but 22 mOhm ESR and 2.85 A ripple are materially worse than 8 mOhm / 5 A."
+    },
+    {
+      "part": "5616R30608TR",
+      "jlcpcb": "C5243847",
+      "reason": "Manufacturer datasheet gives 13 mOhm ESR and 4.5 A ripple, and depicts radial leads with 2.5 mm pitch, despite JLCPCB listing SMD. Not a verified footprint-compatible substitute; 2000 h endurance is also below the original."
+    },
+    {
+      "part": "RHA0J561MCN1GS",
+      "jlcpcb": "C2875232",
+      "reason": "Catalog: 9 mOhm, 4.5 A, 2000 h at 105 C, 8 mm diameter. All four are worse or larger than the original target."
+    }
+  ],
+  "qualification_before_implementation": [
+    "Choose and verify the second top-side footprint position, copper clearances and connection geometry.",
+    "Recheck startup/inrush and slot-switch SOA for the 18 percent increase in board bulk capacitance; include actual endpoint capacitance.",
+    "Recheck decoupling impedance and transient response with component tolerances and routing parasitics.",
+    "Treat the 15000 h rating as component endurance, not a guaranteed assembled-board service life."
+  ],
+  "implementation": {
+    "references": [
+      "C135",
+      "C136"
+    ],
+    "manufacturer_part_number": "APXF6R3ARA331MF61G",
+    "jlcpcb_part_number": "C133476",
+    "quantity_per_board": 2,
+    "total_nominal_uF": 660,
+    "placement": {
+      "C135": {
+        "x_mm": 37.35,
+        "y_mm": 118,
+        "layer": "top"
+      },
+      "C136": {
+        "x_mm": 47.05,
+        "y_mm": 118,
+        "layer": "top"
+      }
+    },
+    "routing": "Extended SLOT_3V3 bulk branch on inner2. Three power and three GND full-stack via-in-pad contacts added at C136. Existing C135 lands, existing component placements and saved routes retained.",
+    "startup_review": "datasheets/research/c135-replacement-2026-10-22/startup-review.json",
+    "bom": "dist/schematic-review/bom.json",
+    "preview": "dist/c135-replacement/review.html"
+  },
+  "primary_datasheet": {
+    "file": "datasheets/APXF6R3ARA331MF61G.pdf",
+    "sha256": "774f29e2ec8ab37e4b0575050019cc6ef75f0ed732d5ed3ccfb2682487a23f06",
+    "pages": {
+      "1": "Specifications, endurance, F61 dimensions",
+      "2": "Exact APXF6R3ARA331MF61G ratings"
+    }
+  },
+  "raw_browser_evidence": "dist/c135-replacement-2026-10-22/browser-evidence.json",
+  "remaining_qualification": [
+    "Measure output, MOSFET VDS and current during startup using the intended PSU and card; compare actual trajectories with temperature-appropriate SOA.",
+    "Check hot restart, repeated startup, shutdown and faults. No active current limiting is present.",
+    "Confirm order-specific stock and attrition."
+  ],
+  "validation": {
+    "summary": "dist/c135-replacement/validation-summary.json",
+    "full_routed_drc_passed": true,
+    "placement_passed": true,
+    "gerber_shorts_passed": true,
+    "tests_passed": 160,
+    "tests_skipped": 8,
+    "tests_failed": 0,
+    "hardware_qualified": false
+  }
+}

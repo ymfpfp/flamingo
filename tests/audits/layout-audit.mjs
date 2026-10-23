@@ -4,6 +4,7 @@ import groundRework from "../../manufacturing/control-routing/ground-rework.json
 import clockRework from "../../manufacturing/control-routing/clock-rework.json";
 import localRework from "../../manufacturing/control-routing/local-control-rework.json";
 import componentRework from "../../manufacturing/control-routing/component-rework.json";
+import tx3Rework from "../../manufacturing/bridge-bga/tx3-rework.json";
 import {checkAssemblyRework} from "../../lib/assembly-rework.mjs";
 import {assembledPlacements, layoutDigest, routeDigest, traceConnections} from "../../lib/layout-geometry.mjs";
 import {checkTracesAreContiguous} from "@tscircuit/checks";
@@ -14,7 +15,7 @@ export function checkAssemblyPlacement(json) {
 }
 export function auditLayoutPreservation(json) {
   const failures = checkAssemblyPlacement(json), connections = traceConnections(json);
-  const changes=[...powerRework.traceChanges,...groundRework.changes,...clockRework.changes,...localRework.traceChanges];
+  const changes=[...tx3Rework.traceChanges,...powerRework.traceChanges,...groundRework.changes,...clockRework.changes,...localRework.traceChanges];
   const actual = new Map();
   for (const trace of json.filter(e => e.type === "pcb_trace")) {
     const key = `${connections.get(trace.source_trace_id)}:${routeDigest(trace.route)}`;

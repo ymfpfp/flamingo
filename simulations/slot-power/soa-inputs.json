@@ -1,0 +1,203 @@
+{
+  "revision": "1.0",
+  "date": "2026-10-22",
+  "scope": "Startup and hot-restart screening; SOA curves refer to manufacturer reference boards, not measured board thermal performance.",
+  "temperatureC": [
+    25,
+    85,
+    125
+  ],
+  "maximumJunctionC": 150,
+  "curveReadReserveFactor": 0.9,
+  "temperatureMethod": "Current multiplied by (150 - initialTemperatureC)/125. Extension to these ambient-referenced SOA graphs is a screening estimate, not a vendor-guaranteed hot SOA.",
+  "parts": {
+    "AO4407A": {
+      "datasheet": "datasheets/AO4407A.pdf",
+      "sourceUrl": "https://www.aosmd.com/sites/default/files/res/datasheets/AO4407A.pdf",
+      "page": 4,
+      "figure": 9,
+      "reference": "1 in^2 FR4, 2 oz copper, still air, 25 C; single pulse; Note E",
+      "method": "Extracted actual vector polyline vertices using PyMuPDF; log axes calibrated to PDF graph border.",
+      "curves": {
+        "1e-05": [
+          [
+            0.010000515222759685,
+            0.6113026044684328
+          ],
+          [
+            0.9844486541649172,
+            60.01602301591828
+          ],
+          [
+            0.9844486541649172,
+            60.01602301591828
+          ],
+          [
+            29.995399996694736,
+            60.01602301591828
+          ]
+        ],
+        "0.0001": [
+          [
+            0.010000515222759685,
+            0.6113026044684328
+          ],
+          [
+            0.9844486541649172,
+            60.01602301591828
+          ],
+          [
+            0.9844486541649172,
+            60.01602301591828
+          ],
+          [
+            4.7756662001590975,
+            60.01602301591828
+          ],
+          [
+            4.7756662001590975,
+            60.01602301591828
+          ],
+          [
+            29.995399996694736,
+            9.550534479809922
+          ]
+        ],
+        "0.001": [
+          [
+            0.010000515222759685,
+            0.6113026044684328
+          ],
+          [
+            0.9307707869293721,
+            56.815148904744305
+          ],
+          [
+            0.9307707869293721,
+            56.815148904744305
+          ],
+          [
+            29.995399996694736,
+            1.7567985692032646
+          ]
+        ],
+        "0.01": [
+          [
+            0.10000000188809316,
+            6.123362940276576
+          ],
+          [
+            0.6366955197577361,
+            38.79858789213605
+          ],
+          [
+            0.6366955197577361,
+            38.79858789213605
+          ],
+          [
+            29.995399996694736,
+            0.8198849244654994
+          ]
+        ],
+        "0.1": [
+          [
+            0.010000515222759685,
+            0.6113026044684328
+          ],
+          [
+            0.448869299456044,
+            27.405744329076406
+          ],
+          [
+            0.448869299456044,
+            27.405744329076406
+          ],
+          [
+            29.995399996694736,
+            0.40876892166364004
+          ]
+        ],
+        "10": [
+          [
+            0.010000515222759685,
+            0.6113026044684328
+          ],
+          [
+            0.2127355640503528,
+            12.973826839492554
+          ],
+          [
+            0.2127355640503528,
+            12.973826839492554
+          ],
+          [
+            29.995399996694736,
+            0.092021063666736
+          ]
+        ],
+        "1000000000000.0": [
+          [
+            0.010000515222759685,
+            0.6113026044684328
+          ],
+          [
+            0.15862747282725637,
+            9.680501104382879
+          ],
+          [
+            0.15862747282725637,
+            9.680501104382879
+          ],
+          [
+            29.995399996694736,
+            0.05119414990642559
+          ]
+        ]
+      },
+      "sha256": "ef4b3686383ca7264dad41bd466b750785a08c709d886a61d68ad39d21538bf8"
+    },
+    "DMP2008UFG": {
+      "datasheet": "datasheets/DMP2008UFG.pdf",
+      "sourceUrl": "https://www.diodes.com/datasheet/download/DMP2008UFG.pdf",
+      "page": 4,
+      "figure": 12,
+      "reference": "1*MRP board, 25 C, VGS=-8 V, single pulse",
+      "method": "Conservative rounded-down readings of constant-power segments at 20 V; intersected with 80 A pulse ceiling and 0.0098 ohm Rds boundary. Not an exact trace; lower gate drive and actual copper remain unqualified.",
+      "constantPowerCurvesW": {
+        "0.0001": 350,
+        "0.001": 280,
+        "0.01": 75,
+        "0.1": 9,
+        "1": 1.8,
+        "10": 1.1,
+        "1000000000000": 0.75
+      },
+      "pulseCurrentCeilingA": 80,
+      "rdsBoundaryOhm": 0.0098,
+      "sha256": "d074e50ddc0c6acbba71c5870c385519c3ec2f24a11f6906ebcf730bc4a6af17"
+    }
+  },
+  "references": [
+    {
+      "title": "Using MOSFET Safe Operating Area Curves in Your Design",
+      "url": "https://www.ti.com/lit/an/sluaao2/sluaao2.pdf?ts=1678821992521",
+      "sections": [
+        5,
+        6,
+        7
+      ],
+      "methods": [
+        "Temperature derating",
+        "Log interpolation in pulse duration",
+        "Equivalent square duration E/Ppeak"
+      ]
+    }
+  ],
+  "limitations": [
+    "SOA comparison is a conditional engineering screen, not a guarantee of survival.",
+    "DMP2008UFG SOA is specified with VGS=-8 V; this board uses about -3.3 V. No numerical correction is assumed to turn this into a low-gate-drive guarantee.",
+    "AO4407A official product page does not list a SPICE model. A separately identified approximate transfer model is used; no vendor provenance is claimed.",
+    "Initial 85/125 C cases explicitly test a preheated switch. They do not establish that the actual board reaches or remains below those temperatures.",
+    "Independent 5.5 A/3 A rail stress cases are not simultaneous permission to exceed 75 W."
+  ]
+}

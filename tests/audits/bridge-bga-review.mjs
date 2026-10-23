@@ -28,7 +28,7 @@ export function reviewBridgeBga(json, physicalBallMap, process=defaultProcess) {
   const pastes=json.filter(e=>e.type==="pcb_solder_paste"&&e.pcb_component_id===pcb.pcb_component_id);
   const failures=[];const require=(ok,msg)=>{if(!ok)failures.push(msg);};
   const circular=pads.filter(p=>p.shape==="circle"),oblong=pads.filter(p=>p.shape==="pill");
-  require(pads.length===273&&circular.length===196&&oblong.length===77,"Incorrect bridge pad counts");
+  require(pads.length===273&&circular.length===197&&oblong.length===76,"Incorrect bridge pad counts");
   require(pastes.length===273,"Every bridge pad needs one explicit paste aperture");
   let minimumCopper=Infinity,minimumMaskWeb=Infinity,closestCopper,closestMask;
   for(let i=0;i<pads.length;i++)for(let k=i+1;k<pads.length;k++) {
@@ -45,7 +45,9 @@ export function reviewBridgeBga(json, physicalBallMap, process=defaultProcess) {
   for(const pad of pads) {
     const round=pad.shape==="circle";
     if(round) require(pad.radius*2>=0.2-1e-7,`Land below JLCPCB ENIG minimum: ${pad.port_hints[1]}`);
-    require(round?near(pad.radius*2,process.footprint.circularLandDiameterMm):near(Math.min(pad.width,pad.height),0.1778)&&near(Math.max(pad.width,pad.height),0.3302),`Unexpected land: ${pad.port_hints[1]}`);
+    const matchedTx3=process.pcieTxEscape.matchedLand.balls.includes(pad.port_hints[1]);
+    const expectedDiameter=matchedTx3?process.pcieTxEscape.matchedLand.circularLandDiameterMm:process.footprint.circularLandDiameterMm;
+    require(round?near(pad.radius*2,expectedDiameter):near(Math.min(pad.width,pad.height),0.1778)&&near(Math.max(pad.width,pad.height),0.3302),`Unexpected land: ${pad.port_hints[1]}`);
     require(near(pad.soldermask_margin,round?process.footprint.circularSolderMaskMarginMm:process.footprint.oblongSolderMaskMarginMm),`Unexpected mask margin: ${pad.port_hints[1]}`);
     const paste=pastes.find(p=>p.pcb_smtpad_id===pad.pcb_smtpad_id);
     if(!paste){require(false,`Missing paste for ${pad.port_hints[1]}`);continue;}

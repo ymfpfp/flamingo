@@ -93,21 +93,14 @@
     "route": [
       {
         "route_type": "wire",
-        "x": 45.067184,
+        "x": 42.467184,
         "y": 79.19,
         "width": 0.4,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 45.067184,
-        "y": 79.8,
-        "width": 0.4,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 46.75,
+        "x": 42.467184,
         "y": 79.8,
         "width": 0.4,
         "layer": "top"

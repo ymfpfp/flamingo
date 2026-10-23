@@ -1,0 +1,20 @@
+{
+  "AO4407A": {
+    "rds25Ohm": 0.013, "rdsTestGateV": 10,
+    "vdsRatingV": 30, "vgsRatingV": 25, "thresholdV": [1.7, 3],
+    "thermalReferenceCPerW": 75,
+    "datasheet": "datasheets/AO4407A.pdf"
+  },
+  "SI4497DY-T1-GE3": {
+    "rds25Ohm": 0.0046, "rdsTestGateV": 4.5,
+    "vdsRatingV": 30, "vgsRatingV": 20, "thresholdV": [1, 2.5],
+    "thermalReferenceCPerW": 80,
+    "datasheet": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4497DY.pdf"
+  },
+  "DMP2008UFG-7": {
+    "rds25Ohm": 0.0098, "rdsTestGateV": 2.5,
+    "vdsRatingV": 20, "vgsRatingV": 8, "thresholdV": [0.4, 1],
+    "thermalReferenceCPerW": 137,
+    "datasheet": "datasheets/DMP2008UFG.pdf"
+  }
+}

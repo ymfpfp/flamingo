@@ -1,21 +1,26 @@
 import {Children, cloneElement, Fragment, isValidElement, type ReactElement, type ReactNode} from "react";
 import type {AutoroutingPhase, Board as PcbBoard, Group} from "tscircuit";
+import {cacheSourceConnectionLookups} from "lib/connection-lookup-cache";
+import {scopeAutoroutingPhases} from "lib/scope-autorouting-phases";
+import {configurePreviewPlatform} from "lib/preview-platform";
 import {applyPcbGroupPlacements, type PcbGroupPlacement, type PcbPlacementGroups} from "lib/pcb-group-placement";
 import {jlcpcbBoardRules} from "lib/jlcpcb-rules";
 import {usb4RoutedContacts, prepareUsb4Routing} from "lib/usb4-routing";
 import {prepareUsb2Routing, Usb2Routing} from "lib/usb2-routing";
 import {BridgeClockRouting, prepareBridgeClockRouting} from "lib/bridge-clock-routing";
 import {BuckRouting,prepareBuckRouting} from "lib/buck-routing";
-import {PowerDistribution,preparePowerDistribution} from "lib/power-distribution";
+import {PowerDistribution,PowerDistributionSurfaceCopper,preparePowerDistribution} from "lib/power-distribution";
 import {VcchRouting,prepareVcchRouting} from "lib/vcch-routing";
 import {Atx5vRouting} from "lib/atx5v-routing";
 import {SlotPowerRouting,prepareSlotPowerRouting} from "lib/slot-power-routing";
+import {SlotPowerSurfaceCopper} from "lib/slot-power-surface";
 import {VbusRouting} from "lib/vbus-routing";
 import {GroundReturns} from "lib/ground-returns";
 import {usbGuardBands, usbShieldFences} from "lib/usb-shielding";
 import {pcieConnectorRules, preparePcieConnectorRouting} from "lib/pcie-connector-routing";
 import {usb4Rules, usb4TraceRules} from "lib/high-speed-rules";
 import {BoardArtwork} from "components/BoardArtwork";
+import {configureSilkscreenFont} from "lib/silkscreen-font";
 import {ControlRouting, controlNetProperties, type ControlAutorouting} from "components/ControlRouting";
 import {ControlSupportRoutes} from "components/ControlSupportRoutes";
 import {BridgeReset} from "components/BridgeReset";
@@ -96,6 +101,7 @@ export const pcbGroupPlacements = {
   // Bulk capacitors sit side by side on the same centerline, outside the card zone.
   "SLOT_DECOUPLING/C134_PLACEMENT": {pcbX: 3.2, pcbY: 7.94},
   "SLOT_DECOUPLING/C135_PLACEMENT": {pcbX: 17.1, pcbY: 9.74},
+  "SLOT_DECOUPLING/C136_PLACEMENT": {pcbX: 26.8, pcbY: 9.74}, // Second 330 uF can in the upper-right corner; both on top.
   SLOT_POWER: {pcbX: 25.0, pcbY: 53.0, pcbRotation: 180, offBoard: false}, // Tuck the slot switches under the bucks toward the bridge; output capacitors stay at the slot.
 
   USB: {pcbX: 44.2, pcbY: 91.7, pcbRotation: 90, offBoard: false}, // Upper-right; cutout opens onto the right edge.
@@ -132,7 +138,7 @@ const pcbPartElements = new Set([
 // Align actual rendered geometry after tscircuit's local layouts have finished,
 // before placement checks, routing, or CAD generation. This also includes loose
 // schematic sections, which do not have a native <group> element.
-function bottomLeftGroupLayout(controlRoutingEnabled = false) {
+function bottomLeftGroupLayout(controlRoutingEnabled = false, preview = true) {
   let usb4Phase: AutoroutingPhase | undefined;
   let pciePhase: AutoroutingPhase | undefined;
   let usb2Phase: AutoroutingPhase | undefined;
@@ -150,6 +156,10 @@ function bottomLeftGroupLayout(controlRoutingEnabled = false) {
   };
   const attachBoard = (board: PcbBoard | null) => {
     if (!board) return;
+    cacheSourceConnectionLookups(board);
+    scopeAutoroutingPhases(board);
+    if (preview) configurePreviewPlatform(board);
+    configureSilkscreenFont(board);
     const original = board.doInitialPcbFlexRender.bind(board);
     board.doInitialPcbFlexRender = () => {
       original();
@@ -184,7 +194,6 @@ function bottomLeftGroupLayout(controlRoutingEnabled = false) {
         if (element.type === "pcb_silkscreen_line") db.pcb_silkscreen_line.delete(element.pcb_silkscreen_line_id);
       }
     };
-
   };
   return {addPart, nativeGroups, looseOffsets, attachBoard, controlRoutingEnabled,
     attachUsb4Phase: (phase: AutoroutingPhase | null) => { if (phase) usb4Phase = phase; },
@@ -269,7 +278,11 @@ function placePcbGroups(
       partIndex: 0,
     };
     groupProps = {
-      ref: (group: Group | null) => { if (group) layout.nativeGroups.set(name, group); },
+      ref: (group: Group | null) => {
+        if (!group) return;
+        scopeAutoroutingPhases(group);
+        layout.nativeGroups.set(name, group);
+      },
       // Pack at a stable local origin. Moving an anchor must not repack other groups.
       pcbX: 0,
       pcbY: 0,
@@ -309,14 +322,16 @@ const unusedPcieSideband = [
   "RSVD_A19", "RSVD_A32", "RSVD_A33", "RSVD_A50", "RSVD_B82",
 ] as const;
 
-export default function Board({controlAutorouting, omitControlNets=[]}: {controlAutorouting?: ControlAutorouting; omitControlNets?: string[]} = {}) {
+export default function Board({controlAutorouting, omitControlNets=[], preview=true}: {controlAutorouting?: ControlAutorouting; omitControlNets?: string[]; preview?: boolean} = {}) {
   return placePcbGroups(
     <board
       {...jlcpcbBoardRules}
       autorouter={{...jlcpcbBoardRules.autorouter, allowViaInPad: true,
         ...(controlAutorouting ? {algorithmFn: controlAutorouting.remainingAlgorithm} : {})}}
       isViaInPadAllowed={true}
-      enableViaStitching={true} viaStitchPitch={0.7}
+      // Stitch sites are selected with the native solver and checked into
+      // manufacturing/. Avoid unreviewed vias after the pours are filled.
+      enableViaStitching={false}
       // Top view in millimeters: +X right, +Y up. ATX remains on the bottom edge.
       // Original outline, without added M3 mounting holes or screw keepouts.
       width="52.5mm"
@@ -325,8 +340,8 @@ export default function Board({controlAutorouting, omitControlNets=[]}: {control
       boardAnchorPosition={{x: 0, y: 0}}
       routeRemaining={Boolean(controlAutorouting)}
       layers={6}
-      // Nominal order thickness. The selected JLC06161H-3313 fabrication
-      // recipe and its 1.54 mm calculator value are in manufacturing/stackup/.
+      // Nominal order thickness. manufacturing/stackup/selected.json records
+      // JLC061611-3313G with 1 oz inner copper and a 1.568 mm layer sum.
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
@@ -334,6 +349,8 @@ export default function Board({controlAutorouting, omitControlNets=[]}: {control
       <silkscreentext text="rev 1" pcbX={48.9} pcbY={36.5} pcbRotation={90} fontSize={0.8}
         layer="top" anchorAlignment="center"/>
       <net name="GND"/>
+      <PowerDistributionSurfaceCopper/>
+      <SlotPowerSurfaceCopper/>
       {/* The emitted-polygon check enforces 0.20 mm to drill/cutout edges.
           L2 uses a 0.204 mm cutout margin to support the CC2 connector escape. */}
       <copperpour name="GND_L2" connectsTo="net.GND" layer="inner1" clearance="0.2mm" padMargin={.16} cutoutMargin={.204} boardEdgeMargin="0.2mm"/>
@@ -991,6 +1008,6 @@ export default function Board({controlAutorouting, omitControlNets=[]}: {control
     </board>,
     undefined,
     {},
-    bottomLeftGroupLayout(Boolean(controlAutorouting)),
+    bottomLeftGroupLayout(Boolean(controlAutorouting), preview),
   ) as ReactElement;
 }

@@ -2,7 +2,6 @@ import {Fragment} from "react";
 import {FixedTrace} from "../components/FixedTrace";
 import {Port} from "tscircuit";
 import type {AutoroutingPhase,Board,Via} from "tscircuit";
-import {fanoutTracePath} from "@tscircuit/props";
 import {applyToPoint,compose,inverse,translate} from "transformation-matrix";
 import terminals from "../manufacturing/slot-power-routing/terminals.json";
 import regions from "../manufacturing/slot-power-routing/regions.json";
@@ -34,9 +33,11 @@ export function SlotPowerRouting(){return <>
       points={contactPaths.find(q=>q.name===p.name)!.route.slice(1,-1).map(q=>[q.x,q.y])}/>}
 
   </Fragment>)}
+  {/* The local CC1 widening overrides only pad margin. The physical audit
+      still enforces the 0.2032 mm inner clearance and 0.381 mm power core. */}
   {regions.map(p=><Fragment key={p.name}>
     <copperpour name={p.name} connectsTo={`net.${p.net}`} layer={p.layer as "inner2"|"inner3"} outline={p.outline}
-      clearance={p.clearance} padMargin={p.clearance}
+      clearance={p.clearance} padMargin={"padMargin" in p ? p.padMargin : p.clearance}
       traceMargin={p.layer==="inner3"?Math.max(.26,p.clearance):p.clearance}
       cutoutMargin={.225} boardEdgeMargin={0} useThermalReliefs={false}/>
   </Fragment>)}
@@ -54,6 +55,6 @@ export function prepareSlotPowerRouting(board:Board,phase:AutoroutingPhase){
       const transform=inverse(compose(translate(after.x-before.x,after.y-before.y),phase.getGroup()!._computePcbGlobalTransformBeforeLayout()));
       const path=controlPaths.find(q=>q.name===p.name);
       if(!path)throw Error(`Missing native slot control path ${p.name}`);
-      return fanoutTracePath.parse({connection:p.select,route:path.route.map(q=>({...q,...applyToPoint(transform,q)}))});
-    });
+      return {connection:p.select,route:path.route.map(q=>({...q,...applyToPoint(transform,q)}))};
+    }) as typeof phase._parsedProps.pcbTracePaths;
 }

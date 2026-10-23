@@ -73,6 +73,35 @@ test("complete PCIe TX channels use two signal vias and match P/N within 0.025 m
   }
 });
 
+test("TX3 keeps matched land vias and rejects an equal-length asymmetric escape", () => {
+  const baseline = auditPcieTxRouting(json);
+  assert.ok(baseline.passed, baseline.failures.join("\n"));
+  for (const c of baseline.conductors.filter(c => c.name.startsWith("TX3_"))) {
+    assert.equal(c.firstBgaViaFromBallMm, 0);
+    assert.equal(c.initialTopLengthMm, 0);
+  }
+  const changed = structuredClone(json);
+  const land = changed.find(e => e.type === "pcb_smtpad" && e.port_hints?.includes("Y15"));
+  const trace = changed.find(e => e.type === "pcb_trace" && e.route.some(p => p.route_type === "via")
+    && Math.hypot(e.route[0].x - land.x, e.route[0].y - land.y) < 1e-6);
+  const index = trace.route.findIndex(p => p.route_type === "via"), viaPoint = trace.route[index];
+  const via = changed.find(e => e.type === "pcb_via" && e.pcb_trace_id === trace.pcb_trace_id
+    && Math.hypot(e.x - viaPoint.x, e.y - viaPoint.y) < 1e-6);
+  trace.route.splice(index, 0, {...trace.route[0], x: land.x + .01});
+  viaPoint.x += .01; via.x += .01;
+  for (let i = index + 2; i < trace.route.length; i++) {
+    const p = trace.route[i];
+    if (p.route_type !== "wire" || Math.hypot(p.x - land.x, p.y - land.y) > 1e-6) break;
+    p.x += .01;
+  }
+  const audit = auditPcieTxRouting(changed);
+  assert.ok(audit.failures.some(f => f.includes("matched via-in-pad")));
+  assert.ok(!audit.failures.some(f => f.includes("excessive P/N skew")), audit.failures.join("\n"));
+  const smaller = structuredClone(json);
+  smaller.find(e => e.type === "pcb_smtpad" && e.port_hints?.includes("AA15")).radius = .1;
+  assert.ok(auditPcieTxRouting(smaller).failures.some(f => f.includes("matched 0.25 mm circular")));
+});
+
 test("TX audit rejects missing copper, added skew and absent ground return vias", () => {
   const baseline = auditPcieTxRouting(json);
   assert.ok(baseline.passed, baseline.failures.join("\n"));

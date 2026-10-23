@@ -11,7 +11,7 @@ const json=circuit.getCircuitJson();
 test("bridge copper, mask and 1:1 paste geometry support the proposed process without asserting vendor acceptance",()=>{
  const r=reviewBridgeBga(json,reference.balls);
  assert.deepEqual(r.failures,[]);assert.equal(r.engineeringGeometryPass,true);
- assert.deepEqual(r.counts,{total:273,circular:196,oblong:77,paste:273,coarsePowerAndGround:121});
+ assert.deepEqual(r.counts,{total:273,circular:197,oblong:76,paste:273,coarsePowerAndGround:121});
  assert.ok(Math.abs(r.measurementsMm.minimumCopper-0.1949)<1e-7);
  assert.ok(r.measurementsMm.minimumMaskWeb>=0.1);
  assert.ok(r.measurementsMm.outerEscapeMaskClearance>=0.09);

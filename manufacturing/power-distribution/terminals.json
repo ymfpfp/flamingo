@@ -1521,27 +1521,28 @@
     "part": "ASM2464PDX",
     "port": "U17",
     "net": "GND",
-    "x": 26.210000000000004,
-    "y": 100.23000740000003,
+    "x": 26.28,
+    "y": 101.5400074,
     "copperDiameter": 0.25,
     "drillDiameter": 0.15,
     "role": "bridge",
     "padX": 26.9,
-    "padY": 100.00000740000004
+    "padY": 100.00000740000004,
+    "viaOwner": "PCIE_TX_BGA_GND_1"
   },
   {
     "name": "PDN_BGA_U18",
     "part": "ASM2464PDX",
     "port": "U18",
     "net": "GND",
-    "x": 26.210000000000004,
-    "y": 100.23000740000003,
+    "x": 26.28,
+    "y": 101.5400074,
     "copperDiameter": 0.25,
     "drillDiameter": 0.15,
     "role": "bridge",
     "padX": 26.25,
     "padY": 100.00000740000004,
-    "viaOwner": "PDN_BGA_U17"
+    "viaOwner": "PCIE_TX_BGA_GND_1"
   },
   {
     "name": "PDN_BGA_V4",
@@ -1786,14 +1787,14 @@
     "part": "ASM2464PDX",
     "port": "Y16",
     "net": "GND",
-    "x": 26.210000000000004,
-    "y": 100.23000740000003,
+    "x": 27.2,
+    "y": 102.0000074,
     "copperDiameter": 0.25,
     "drillDiameter": 0.15,
     "role": "bridge",
     "padX": 27.2,
     "padY": 101.54000740000005,
-    "viaOwner": "PDN_BGA_U17"
+    "viaOwner": "PCIE_TX_BGA_GND_2"
   },
   {
     "name": "PDN_BGA_Y20",
@@ -1874,14 +1875,14 @@
     "part": "ASM2464PDX",
     "port": "AA18",
     "net": "GND",
-    "x": 26.210000000000004,
-    "y": 100.23000740000003,
+    "x": 26.28,
+    "y": 101.5400074,
     "copperDiameter": 0.25,
     "drillDiameter": 0.15,
     "role": "bridge",
     "padX": 26.28,
     "padY": 102.00000740000004,
-    "viaOwner": "PDN_BGA_U17"
+    "viaOwner": "PCIE_TX_BGA_GND_1"
   },
   {
     "name": "PDN_BGA_AA20",

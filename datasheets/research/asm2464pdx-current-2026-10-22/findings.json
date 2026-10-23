@@ -1,0 +1,208 @@
+{
+  "checkedOnLocal": "2026-10-22",
+  "timezone": "America/Los_Angeles",
+  "scope": "Deep public-source research into ASM2464PDX rail currents and power, following the 2026-10-21 PD proxy review.",
+  "planningDecision": {
+    "acceptedOnLocal": "2026-10-22",
+    "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+    "summary": "User accepted 1 A VCCL at 1.9 V, 3 A VDD at 1.13 V, and 0.10 A combined VCCH/VCCA33 at 3.3 V. PDX reference supply sizing informs VCCL/VDD. The combined 3.3 V budget is a project allowance.",
+    "qualification": "These budgets supersede the PD proxy and earlier rounded guardband as active design loads. They do not establish chip-current maxima. Earlier reports require new checks before they can validate these budgets. Both regulators and the separate 3 A / 8 mV conductor screen remain unchanged."
+  },
+  "conclusion": {
+    "pdxMaximumRailCurrentsEstablished": false,
+    "pdxTypicalRailCurrentsEstablished": false,
+    "pdxStartupOrLoadStepCurrentsEstablished": false,
+    "summary": "PDX-specific reference-design and product-level power evidence exists, but no retrieved source establishes numerical PDX maximum currents. The accepted design budgets now replace the PD proxy as active planning inputs. Existing regulator capacity and independent qualification checks remain unchanged.",
+    "circuitOrSimulationAssumptionsChanged": false,
+    "changeFlagScope": "The research capture itself changed no circuit or simulation inputs. The later user decision updates provisional-loads.json. No electrical results were recalculated."
+  },
+  "pdxDatasheet": {
+    "manufacturer": "ASMedia",
+    "revision": "0.3",
+    "revisionDate": "2023-09-04",
+    "projectFile": "datasheets/ASM2464PDX_DataSheet_R0_3.pdf",
+    "mirrorUrl": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PDX/ASM2464PDX_DataSheet_R0_3.pdf",
+    "sha256": "4a09440d6510e29e441e9228214ca18650a3a83e15631530c9b3bb51c430f221",
+    "downloadMatchesProjectFile": true,
+    "provenance": "Manufacturer-authored document retrieved from an independent public mirror. This does not establish that revision 0.3 is ASMedia's latest private/customer revision.",
+    "powerTable": {
+      "section": "6.3.12",
+      "pdfPage": 19,
+      "printedPage": 19,
+      "VCCHMaximumMA": null,
+      "VCCLMaximumMA": null,
+      "VDDMaximumMA": null,
+      "allThreeEntries": "TBD",
+      "note": "VCCH current depends on GPIO use. VCCA33 has no separate numerical current entry."
+    },
+    "revisionHistory": "Revision 0.2 explicitly retained power consumption as TBD. Revision 0.3 changed VDD operating voltage and still leaves the current table TBD.",
+    "recommendedVoltageV": {
+      "section": "6.2",
+      "pdfPage": 16,
+      "VCCH": {"min": 3.0, "typ": 3.3, "max": 3.6},
+      "VCCL": {"min": 1.85, "typ": 1.9, "max": 1.95},
+      "VDD": {"min": 1.1, "typ": 1.13, "max": 1.16}
+    },
+    "thermal": {
+      "section": "6.2.1",
+      "pdfPage": 16,
+      "maximumOperatingTJAndTTC": 90,
+      "referenceHeatsink": "UB15-15B, 15 x 15 x 15 mm",
+      "referenceAmbientC": 35,
+      "thetaJA_CPerW": {"stillAir": 17.38, "airflow1MPerS": 8.24, "airflow2MPerS": 6.25},
+      "chipPowerDefinition": "Measured chip power consumption",
+      "limitation": "The table supplies thermal parameters for the stated test arrangement, not a numerical chip TDP or a current specification. It cannot establish the thermal performance of Flamingo."
+    },
+    "visualVerification": "Rendered and inspected PDF pages 16 and 19."
+  },
+  "pdxReferenceDesign": {
+    "projectFile": "datasheets/ASM2464PDX_TI_R03.pdf",
+    "mirrorUrl": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PDX/ASM2464PDX_TI_R03.pdf",
+    "sha256": "9125b3d5e9108d917aaee8a607ec6a0e114b0b81895014e900cf4cf378951333",
+    "revision": "0.3",
+    "date": "2023-06-30",
+    "sheets": [3, 4],
+    "observations": [
+      "Sheet 3 connects net VCC18 to the VCCL bank and net VDD095 to the VDD bank.",
+      "Sheet 4 marks the VCC18 regulator branch as 1 A and says to use RT8059.",
+      "Sheet 4 marks the VDD095 branch as 3 A and says to use ID8225B-ADA60R for 3 A.",
+      "The 3.3 V LDO block is annotated for ASM2464PDX and TI PDC with an 8 mA label. This is an old combined-block annotation, not a maximum PDX VCCH/VCCA33 specification.",
+      "The drawing contains legacy voltage net names and divider alternatives, including approximately 1.074 V. Its date precedes the September VDD revision. Use the later PDX datasheet's 1.13 V nominal VDD requirement."
+    ],
+    "interpretation": "Reference-design supply capacity supports ampere-scale regulator sizing, but does not establish actual draw, guaranteed maximum current, transient demand, or a transferable load bound for Flamingo.",
+    "visualVerification": "Rendered and inspected sheet 4; checked the sheet 3 supply-bank net labels in extracted text."
+  },
+  "pdProxy": {
+    "formerLocalFile": "datasheets/research/asm2464pdx-current-2026-10-22/ASM2464PD_DataSheet_R0_4.pdf",
+    "retainedLocally": false,
+    "removedOnLocal": "2026-10-23",
+    "removalReason": "PD proxy superseded by accepted PDX planning loads. Transcribed values, source URLs and hash remain for historical context.",
+    "manufacturer": "ASMedia",
+    "revision": "0.4",
+    "date": "2023-05-05",
+    "mirrorUrl": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PD/ASM2464PD_DataSheet_R0_4.pdf",
+    "otherMirrorUrl": "https://device.report/m/1ecf9e4f15ce5a1cffa2d4a31caa79e66efbac09b98459a91df5bddf49091be2.pdf",
+    "sha256": "22fc1d78f24328f99645335858e54f412f3e891dd5670695bb9d27119f542f5d",
+    "section": "6.3.12",
+    "pdfPage": 18,
+    "printedPage": 18,
+    "maximumCurrentA": {"VCCH": 0.00945, "VCCL": 0.4557, "VDD": 1.8123},
+    "nominalVoltageV": {"VCCH": 3.3, "VCCL": 1.9, "VDD": 1.05},
+    "limitations": [
+      "These numbers are explicitly maximums for PD, not typical or idle figures.",
+      "The table does not specify the workload, firmware, link state or detailed temperature/test conditions.",
+      "There is no separate VCCA33 current figure.",
+      "Do not transfer the PD 1.05 V core setting to PDX revision 0.3.",
+      "Do not treat the PD current table as a PDX guarantee."
+    ],
+    "visualVerification": "Rendered and inspected PDF page 18."
+  },
+  "derivedSensitivityCalculations": {
+    "status": "Historical arithmetic and engineering sensitivities only. The earlier guardband is superseded by the accepted load file. No measured PDX power or certified upper bound.",
+    "pdThreeListedRailsPowerW": 2.79993,
+    "samePdCurrentsAtPdxNominalVoltagesPowerW": 2.944914,
+    "sameCurrentCalculation": "3.3*0.00945 + 1.9*0.4557 + 1.13*1.8123",
+    "assumedGuardbandCurrentA": {"VCCL": 0.6, "VDD": 2.3},
+    "guardbandVCCLAndVDDOnlyPowerW": 3.739,
+    "omittedLoads": "Separate VCCA33 demand, external flash, support circuitry, regulator losses and PCIe card power are not established by these sums.",
+    "fixedCapacitanceFrequencyActivityVoltageScaling": {
+      "assumptions": "Same switched capacitance, frequency and activity; neglect leakage and other circuit changes. Applied only to the hypothetical dynamic core component.",
+      "voltageRatio": 1.0761904761904761,
+      "dynamicPowerRatio": 1.1581859410430837,
+      "hypotheticalScaledCoreCurrentA": 1.95038,
+      "limitation": "This is a sensitivity calculation, not a PDX current estimate or bound."
+    }
+  },
+  "pdxProductPower": {
+    "product": "TerraMaster D1 SSD Plus",
+    "powerSourceUrl": "https://www.terra-master.com/pages/d1-ssd-plus-1",
+    "chipIdentificationSourceUrl": "https://nascompares.com/2025/08/18/terramaster-d1-ssd-review/?noamp=mobile",
+    "chipIdentificationProvenance": "The reviewer identifies ASM2464PDX. The manufacturer's text specification page does not itself name the controller.",
+    "manufacturerTestSSD": "Samsung 990 Pro 4 TB",
+    "inputVoltageV": 5,
+    "manufacturerReadWritePowerW": 7.5,
+    "manufacturerHibernationPowerW": 5.5,
+    "calculatedInputCurrentA": {"readWrite": 1.5, "hibernation": 1.1},
+    "limitations": [
+      "Whole-enclosure consumption includes the SSD and conversion losses.",
+      "Manufacturer hibernation terminology does not establish a particular PCIe/NVMe power state, host OS policy, or bare bridge idle consumption.",
+      "No per-rail bridge currents, startup trace or guaranteed maximum is supplied.",
+      "Do not subtract an SSD datasheet's idle/sleep power from these figures without matching measured operating conditions."
+    ]
+  },
+  "pdVbusPeakApplicationNote": {
+    "title": "ASMedia ASM2464PD - Improvement of the VBUS Peak Current",
+    "formerLocalFile": "datasheets/research/asm2464pdx-current-2026-10-22/ASM2464PD_VBUS_Current_Peak_Improvement.pdf",
+    "retainedLocally": false,
+    "removedOnLocal": "2026-10-23",
+    "removalReason": "PD enclosure VBUS research does not determine this ATX-powered PDX board's rail loads. Transcribed results, source URL and hash remain.",
+    "mirrorUrl": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/ASM2464PD_VBUS_Current_Peak_Improvement.pdf",
+    "sha256": "2a61dd6b29dbe6078ac013b6e481e674dd8ac801573d10b843b37e07416ab27f",
+    "documentDate": null,
+    "manufacturer": "ASMedia",
+    "partExplicitlyTested": "ASM2464PD",
+    "appliesAsPdxRailCurrentSpecification": false,
+    "measurementPoint": "Whole-system 5 V VBUS input including SSD and conversion losses",
+    "summaryPages": [12, 13, 14],
+    "capacitanceLocation": "M.2 SSD 3.3 V rail, not the ASM VDD or VCCL rails",
+    "reportedNominalCapacitanceUF": [30, 180, 330, 480, 630, 780, 930],
+    "peakVbusCurrentAAt5V": {
+      "Samsung990Pro2TB": [3.364, 3.04, 2.791, 2.663, 2.67, 2.594, 2.572],
+      "ADATAlegend9204TB": [3.871, 3.582, 3.505, 3.352, 3.349, 3.279, 3.306],
+      "SeagateFireCuda5304TB": [null, null, 3.92, 3.738, 3.638, 3.694, 3.681]
+    },
+    "fireCudaNullEntryMeaning": "SSD Lost, as reported in the source table",
+    "transcriptionPolicy": "Values above follow the summary tables. Slide 11's individual capacitor-addition arithmetic is inconsistent with its stated total; the 930 uF case is retained as the source's reported nominal condition, not a validated capacitor BOM.",
+    "interpretation": "Substantial SSD-dependent input transients exist in the PD system. Neither these peaks nor the suggested bulk capacitance determine PDX core/PHY demand. Flamingo powers the PCIe card from ATX, so the USB input budgeting example is not directly transferable.",
+    "visualVerification": "Rendered and inspected pages 12-14."
+  },
+  "otherSourcesChecked": [
+    {
+      "url": "https://www.asmedia.com.tw/zh-Hant/product/bDFzXa0ip1YI7Wj1/C64ZX59yu4sY1GW5.html",
+      "result": "Official PDX product page confirms USB and PCIe link power management and the three supply classes; no numerical current or TDP."
+    },
+    {
+      "url": "https://github.com/ReisWeirdStuff/ReThunder/blob/ed8fd629235ccf76c2345df0c012e6a55ba20bc5/device/asmedia/asm2464pdx/Docs/ASM2464PDX_Docs.json",
+      "result": "Public index led to the primary ASMedia documents. Direct PDX directory listing contained only the revision 0.3 datasheet and reference schematic; this does not prove no newer customer document exists."
+    },
+    {
+      "url": "https://github.com/openchips/JITx-ASM2464PDX_design/blob/0ef6ff9c09ce494f2fef8ad62c931fc61d817662/power.stanza",
+      "result": "Community WIP design uses 2 A +/-20% buck constraints and legacy voltage choices. No measured PDX rail currents or qualification data. Current repository and earlier documentation tree checked."
+    },
+    {
+      "url": "https://www.reddit.com/r/eGPU/comments/1iu9sfo",
+      "result": "UT3G discussion includes a user's 135 W wall measurement and subtraction of assumed PSU efficiency and GPU TGP to infer 6-7 W adapter overhead. This is not simultaneous component power measurement, does not identify board/chip revision adequately, and supplies no rail currents. Other chip-power statements in the discussion are estimates."
+    },
+    {
+      "url": "https://www.flux.ai/jonathanmckinney/usb4-nvme-ssd-enclosure/files/power-budget-analysis~fv",
+      "result": "The page itself labels 320 mA VCCL and 1.27 A VDD typicals as planning estimates, and inherits its peaks from PD. This is not an independent measured PDX current source. Its legacy core-voltage choice conflicts with PDX revision 0.3."
+    },
+    {
+      "url": "https://www.delock.com/produkt/64352/merkmale.html?d=PCPE_10",
+      "result": "The 0.08 W no-load figure is in the external power-supply specification block. It is not PDX or enclosure idle power."
+    },
+    {
+      "url": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/ASM2464PD_Test_Condition_Status_20220809.pdf",
+      "sha256": "4ef3dc1e92fa9e08bf645bd3b4a637c690d5b3a4c43906bb89660bbea99ee4d4",
+      "result": "ASMedia platform/cable/performance status presentation, revision 0.3, 2022-08-09. It concerns PD and provides no usable PDX rail-current specification."
+    }
+  ],
+  "searchCoverage": [
+    "English PDX current, maximum/typical power, datasheet filenames and revisions, thermal, per-rail symbols and numeric-current searches.",
+    "Chinese power/current searches and Japanese power-consumption searches.",
+    "ASMedia product material, public document catalog, manufacturer-authored datasheets/reference designs/application note.",
+    "GitHub global search, relevant open-hardware repository trees, and earlier openchips documentation tree.",
+    "PDX product manufacturer power specifications and first-person enclosure/eGPU reports."
+  ],
+  "remainingEvidenceNeeded": {
+    "vendorRequest": "Please provide current ASM2464PDX production datasheet/power-characterization data and errata for VCCH, VCCA33, VCCL and VDD at 3.3 V/1.9 V/1.13 V, with USB4 40 Gb/s and one PCIe Gen4 x4 endpoint. Include typical and maximum steady-state currents, hot-corner conditions, firmware/silicon revision, startup/inrush and maximum load-step amplitude and slew, and relevant link-power states.",
+    "prototypeMeasurements": [
+      "Measure each bridge supply separately at the PDX operating voltages, with package-near voltage sensing and sufficiently low burden.",
+      "Record cold boot, firmware load, USB attach/detach and link training, idle with documented link states, sustained traffic in each direction, simultaneous traffic, suspend and resume.",
+      "Capture fast current/voltage transients and high-temperature behavior with sufficient bandwidth; a USB power meter alone cannot qualify the internal rails.",
+      "Record silicon marking, firmware, host, negotiated USB/PCIe speeds, endpoint type, temperature and measurement uncertainty.",
+      "Keep flash/support and PCIe-card demand separate from bridge demand; account explicitly for regulator losses when measuring input power."
+    ],
+    "measurementLimit": "A prototype measurement characterizes tested samples and conditions; a guaranteed production maximum requires vendor limits or a justified characterization margin."
+  }
+}

@@ -35,7 +35,7 @@ def audit(raw):
    pin=next((h for h in s['port_hints'] if h.startswith('pin')),s['port_hints'][0]);name=part+'.'+pin
    connected=bool(source&contact(p));targets.append(dict(name=name,connected=connected))
    if not connected:failures.append(name+': no physical '+rail+' copper path')
-  floating=[g.area for i,(l,g) in enumerate(regions) if l in ['inner2','inner3'] and find(i) not in source and g.area>.001]
+  floating=[g.area for i,(l,g) in enumerate(regions) if l in ['top','inner2','inner3','bottom'] and find(i) not in source and g.area>.001]
   if floating:failures.append(rail+': floating power copper '+str(floating))
   inner=[o for o in copper if o['net']==n and o['label'] in pours and any(l in ['inner2','inner3'] for l in o['layers'])]
   gaps=[o['shape'].distance(q['shape']) for o in inner for q in copper if q['net']!=n and set(o['layers'])&set(q['layers'])]
@@ -71,6 +71,10 @@ if __name__=='__main__':
   bad=copy.deepcopy(j);bad=bad['circuitJson'] if isinstance(bad,dict) else bad
   net=next(e['source_net_id'] for e in bad if e['type']=='source_net' and e['name']=='SLOT_12V');bad=[e for e in bad if not(e['type']=='pcb_copper_pour' and e['source_net_id']==net)];assert not audit(bad)['passed'],'Removed slot12V pours were accepted'
   bad=copy.deepcopy(j);bad=bad['circuitJson'] if isinstance(bad,dict) else bad
-  bad=[e for e in bad if not(e['type']=='pcb_via' and e['x']>33 and e['x']<36 and e['y']>57 and e['y']<62)];assert not audit(bad)['passed'],'Removed switch drain barrels were accepted'
-  print('Slot regression: missing output copper and drain barrels rejected')
+  # Surface copper now provides a second physical connection to the drain.
+  # Remove both alternatives to test a genuinely disconnected switch output.
+  bad=[e for e in bad if not(e['type']=='pcb_via' and e['x']>33 and e['x']<36 and e['y']>57 and e['y']<62)
+       and not(e['type']=='pcb_copper_pour' and e['source_net_id']==net and e['layer']in ['top','bottom'])]
+  assert not audit(bad)['passed'],'Removed switch-to-plane connections were accepted'
+  print('Slot regression: missing output copper and switch-to-plane connections rejected')
  sys.exit(0 if result['passed'] else 1)

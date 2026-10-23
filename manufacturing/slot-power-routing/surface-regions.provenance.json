@@ -1,0 +1,126 @@
+{
+  "sourceSha256": "9b6195f2283f0413df9ffd12210dd99a51df6d578a2b44f09332d85dfde802d1",
+  "sourceFile": "dist/slot-power-copper-review/controlled-trial.circuit.json",
+  "intentFile": "dist/slot-power-copper-review/surface-intent.json",
+  "output": "manufacturing/slot-power-routing/surface-regions.json",
+  "keptRegions": 13,
+  "islands": [
+    {
+      "rail": "V12V",
+      "layer": "top",
+      "areaMm2": 71.604160904908,
+      "connected": true,
+      "id": "pcb_copper_pour_1"
+    },
+    {
+      "rail": "V12V",
+      "layer": "top",
+      "areaMm2": 430.67743200653,
+      "connected": true,
+      "id": "pcb_copper_pour_2"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "top",
+      "areaMm2": 293.55613919603235,
+      "connected": true,
+      "id": "pcb_copper_pour_15"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "top",
+      "areaMm2": 590.7041489203676,
+      "connected": true,
+      "id": "pcb_copper_pour_28"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 2.154841597100006,
+      "connected": false,
+      "id": "pcb_copper_pour_42"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 325.12994940256283,
+      "connected": true,
+      "id": "pcb_copper_pour_45"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 647.6425948066093,
+      "connected": true,
+      "id": "pcb_copper_pour_64"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 464.09190318782487,
+      "connected": true,
+      "id": "pcb_copper_pour_65"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 177.436188926736,
+      "connected": true,
+      "id": "pcb_copper_pour_66"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 277.90462905486197,
+      "connected": true,
+      "id": "pcb_copper_pour_67"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 6.863027970077008,
+      "connected": false,
+      "id": "pcb_copper_pour_71"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 10.89952797007701,
+      "connected": true,
+      "id": "pcb_copper_pour_73"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 13.470253691170479,
+      "connected": true,
+      "id": "pcb_copper_pour_74"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "bottom",
+      "areaMm2": 89.20220231596403,
+      "connected": true,
+      "id": "pcb_copper_pour_75"
+    },
+    {
+      "rail": "SLOT_12V",
+      "layer": "top",
+      "areaMm2": 224.99541707235372,
+      "connected": true,
+      "id": "pcb_copper_pour_76"
+    }
+  ],
+  "scope": "Native-filled surface power islands only. Physical connectivity includes explicit vias and plated-hole barrels. Refill and recheck from source after export.",
+  "reviewedSourceFile": "dist/slot-power-copper-review/after-final.circuit.json",
+  "reviewedSourceSha256": "79a007cc1da21ff6496b72def333f33b5fe1a8c4e86499a38bcdae4064bd2183",
+  "reviewReport": "dist/slot-power-copper-review/report.html",
+  "innerCopperRevisionReview": {
+    "sourceFile": "dist/slot-power-inner-copper-review/after.circuit.json",
+    "sourceSha256": "9def10ba83e6e78940f9c7dc779d518978ee63a6c8b59751ffa6443998303bc1",
+    "report": "dist/slot-power-inner-copper-review/report.html",
+    "authoredRegionCount": 14,
+    "additionalRegion": "SLOT_12V_bottom_direct_feed",
+    "result": "Physical continuity and clearance pass. The new bottom branch has negligible resistance benefit because existing control routes interrupt the direct path."
+  }
+}

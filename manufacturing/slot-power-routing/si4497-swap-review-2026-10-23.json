@@ -1,0 +1,287 @@
+{
+  "date": "2026-10-23",
+  "status": "Requested component substitutions applied; full board validator and regression pass; hardware qualification remains open",
+  "hardwareChangesApplied": true,
+  "hardwareQualified": false,
+  "sourceFile": "components/SlotPower.tsx",
+  "boardFile": "dist/slot-si4497-swap-2026-10-23/after.circuit.json",
+  "boardSha256": "7a73e7bf9f1271c65a22a1b26688eacdc68a92dcc6bee75faffa3ca537e52dd4",
+  "baselineFile": "dist/slot-si4497-swap-2026-10-23/before.circuit.json",
+  "baselineSha256": "23debe5df44783200a4e0d7f1d5b5920ba292f6c16182fca1d346388e801b2a6",
+  "baselineMatchesPreviousValidatedBuild": true,
+  "changes": [
+    {
+      "name": "Q_SLOT_12V",
+      "fields": [
+        "manufacturer_part_number",
+        "supplier_part_numbers"
+      ],
+      "old": {
+        "manufacturer_part_number": "AO4407A",
+        "supplier_part_numbers": {
+          "jlcpcb": [
+            "C16072"
+          ]
+        }
+      },
+      "new": {
+        "manufacturer_part_number": "SI4497DY-T1-GE3",
+        "supplier_part_numbers": {
+          "jlcpcb": [
+            "C143044"
+          ]
+        }
+      }
+    },
+    {
+      "name": "R_SLOT_GATE_12V",
+      "fields": [
+        "manufacturer_part_number",
+        "supplier_part_numbers",
+        "resistance",
+        "display_resistance"
+      ],
+      "old": {
+        "manufacturer_part_number": "0402WGF5100TCE",
+        "supplier_part_numbers": {
+          "jlcpcb": [
+            "C25123"
+          ]
+        },
+        "resistance": 510,
+        "display_resistance": "510Ω"
+      },
+      "new": {
+        "manufacturer_part_number": "0402WGF1002TCE",
+        "supplier_part_numbers": {
+          "jlcpcb": [
+            "C25744"
+          ]
+        },
+        "resistance": 10000,
+        "display_resistance": "10kΩ"
+      }
+    },
+    {
+      "name": "R_SLOT_OFF_12V",
+      "fields": [
+        "manufacturer_part_number",
+        "supplier_part_numbers",
+        "resistance",
+        "display_resistance"
+      ],
+      "old": {
+        "manufacturer_part_number": "0402WGF1003TCE",
+        "supplier_part_numbers": {
+          "jlcpcb": [
+            "C25741"
+          ]
+        },
+        "resistance": 100000,
+        "display_resistance": "100kΩ"
+      },
+      "new": {
+        "manufacturer_part_number": "0402WGF1002TCE",
+        "supplier_part_numbers": {
+          "jlcpcb": [
+            "C25744"
+          ]
+        },
+        "resistance": 10000,
+        "display_resistance": "10kΩ"
+      }
+    }
+  ],
+  "retained": {
+    "gateCapacitor": "C_SLOT_GATE_12V: 10 uF, source to gate",
+    "gateDriver": "Q_SLOT_DRV_12V: NX3008NBK,215",
+    "rail3V3": "All parts, values and wiring unchanged",
+    "allPcbRecordsIdentical": true,
+    "sourceConnectivityIdentical": true,
+    "traceCount": 638,
+    "viaCount": 637,
+    "assembledPlacementCount": 154,
+    "allAssemblyOnTop": true,
+    "geometryEvidence": "dist/slot-si4497-swap-2026-10-23/geometry-and-bom.json"
+  },
+  "verification": {
+    "fullBoardValidator": {
+      "passed": true,
+      "command": "PCIE_SI_PYTHON=/private/tmp/flamingo-pcie-si-venv/bin/python bun scripts/validate-board.mjs dist/slot-si4497-swap-2026-10-23/after.circuit.json --require-routed",
+      "report": "dist/slot-si4497-swap-2026-10-23/validation.json",
+      "scopes": [
+        "drc",
+        "pcie",
+        "usb",
+        "clocks",
+        "bucks",
+        "pdn",
+        "vcch",
+        "atx5v",
+        "slot",
+        "vbus",
+        "grounds"
+      ],
+      "nativeNetlistAndSchematicPass": true,
+      "shortsPass": true,
+      "pcbStylePass": true,
+      "drcWarningCount": 235,
+      "drcFindingsUnchanged": true
+    },
+    "regression": {
+      "pass": 169,
+      "skip": 8,
+      "fail": 0,
+      "files": 39,
+      "command": "BOARD_TEST_FIXTURE=dist/slot-si4497-swap-2026-10-23/after.circuit.json bun test ./tests --timeout 120000",
+      "log": "dist/slot-si4497-swap-2026-10-23/tests.log",
+      "skipReason": "Existing historical control-routing fixture tests are skipped without their fixture."
+    },
+    "typecheck": {
+      "passed": true,
+      "log": "dist/slot-si4497-swap-2026-10-23/typecheck.log"
+    },
+    "nativeNetlist": {
+      "passed": true,
+      "command": "tsci check netlist index.circuit.tsx",
+      "log": "dist/slot-si4497-swap-2026-10-23/netlist.log"
+    },
+    "nativePlacement": {
+      "drcErrors": 0,
+      "drcWarnings": 0,
+      "cliExitCode": 1,
+      "advisory": "Existing C_VDD_28 airwire orientation suggestion, unchanged. Fixed routed contacts, native continuity, DRC and exact geometry preservation pass. No rotation applied.",
+      "log": "dist/slot-si4497-swap-2026-10-23/placement.log"
+    },
+    "controlRouting": {
+      "passed": true,
+      "nets": 22,
+      "report": "dist/slot-si4497-swap-2026-10-23/control-review/physical.json"
+    },
+    "gateDriver": {
+      "passed": true,
+      "cases": 28,
+      "report": "dist/slot-si4497-swap-2026-10-23/driver.json"
+    },
+    "startup": {
+      "boardSha256": "7a73e7bf9f1271c65a22a1b26688eacdc68a92dcc6bee75faffa3ca537e52dd4",
+      "boardConfiguration": "installed-rc10k",
+      "resultsSha256": "0dc9908542d26ca9564bb72c3fda97b3b71d6b8d09d5627c17a8b6833dccdbd9",
+      "totalCases": 46,
+      "allCasesCompleted": true,
+      "allFinalOutputsSettled": true,
+      "maximumChargeResidual": 0.0006727463976831302,
+      "screened25And85C1000uFControlCasesPass": true,
+      "summary": [
+        {
+          "temperatureC": 25,
+          "cardCapacitanceUF": 1000,
+          "cases": 4,
+          "worstEquivalentRatio": 0.2554109240456034,
+          "worstFullDurationRatio": 0.38747805268647684,
+          "peakForwardA": 19.10376623965853
+        },
+        {
+          "temperatureC": 25,
+          "cardCapacitanceUF": 2000,
+          "cases": 2,
+          "worstEquivalentRatio": 0.3522066797255679,
+          "worstFullDurationRatio": 0.5267608443559307,
+          "peakForwardA": 24.024448608321443
+        },
+        {
+          "temperatureC": 85,
+          "cardCapacitanceUF": 1000,
+          "cases": 12,
+          "worstEquivalentRatio": 0.48338164380399207,
+          "worstFullDurationRatio": 0.7439663196920487,
+          "peakForwardA": 18.199347306897714
+        },
+        {
+          "temperatureC": 85,
+          "cardCapacitanceUF": 2000,
+          "cases": 2,
+          "worstEquivalentRatio": 0.665684839328194,
+          "worstFullDurationRatio": 1.010151648308295,
+          "peakForwardA": 22.870993540163752
+        },
+        {
+          "temperatureC": 125,
+          "cardCapacitanceUF": 1000,
+          "cases": 12,
+          "worstEquivalentRatio": 1.2459081604024949,
+          "worstFullDurationRatio": 1.9365545803247928,
+          "peakForwardA": 17.705221236706077
+        },
+        {
+          "temperatureC": 125,
+          "cardCapacitanceUF": 2000,
+          "cases": 2,
+          "worstEquivalentRatio": 1.714190547300818,
+          "worstFullDurationRatio": 2.629060403512002,
+          "peakForwardA": 22.239641138891503
+        }
+      ],
+      "maximumSourceReturnCurrentA": 170.8445901345366,
+      "hardwareQualified": false,
+      "method": "Vishay single-pulse constant-power SOA curve with 10 percent reading reserve; hot extension (150-initial C)/125 is an estimate. Equivalent width = linear energy / linear peak power; conservative bound uses linear peak for entire linear interval. No credit below 1 ms.",
+      "limitations": [
+        "Typical vendor electrical model, not process corners or measured hardware.",
+        "125 C preheat, 2000 uF sensitivity and fast source return remain separate limitations; no full-envelope qualification claimed.",
+        "No active current limiting, fault latch, reverse-current cutoff, PSU or GPU-specific qualification."
+      ],
+      "report": "dist/slot-si4497-swap-2026-10-23/startup/summary.json",
+      "numericalComparison": "dist/slot-si4497-swap-2026-10-23/startup/comparison.json"
+    }
+  },
+  "electricalScreen": {
+    "maxRds25Ohm": 0.0046,
+    "rdsSpecifiedGateV": 4.5,
+    "nominalFinalGateMagnitudeV": 6,
+    "lossAt5_5A25CW": 0.13915,
+    "nominalGateOnRCMs": 50,
+    "nominalGateOffRCMs": 100,
+    "referenceBoardSteadyThermalCPerW": 80,
+    "note": "On-state losses assume full gate drive. Actual board temperature and startup need measurements."
+  },
+  "procurement": {
+    "manufacturer": "Vishay Siliconix",
+    "manufacturerPartNumber": "SI4497DY-T1-GE3",
+    "jlcpcbPart": "C143044",
+    "catalogSnapshot": {
+      "query": "C143044",
+      "results": [
+        {
+          "source": "jlcpcb",
+          "lcsc": 143044,
+          "mfr": "SI4497DY-T1-GE3",
+          "package": "SO-8",
+          "is_basic": false,
+          "is_preferred": false,
+          "description": "-55℃~+150℃ 1 P-Channel 2.5V 30V 36A 4.6mΩ@4.5V 7.8W P-Channel SO-8 MOSFETs ROHS",
+          "stock": 1590,
+          "price": 1.8986
+        }
+      ]
+    },
+    "gateResistors": {
+      "manufacturerPartNumber": "0402WGF1002TCE",
+      "jlcpcbPart": "C25744",
+      "quantity": 2
+    },
+    "note": "Exact manufacturer part selected, not the VBsemi substitute. Stock snapshot only."
+  },
+  "remainingQualification": [
+    "The retained VCCL 3 A / 80 C conductor stress exceeds the 8 mV project budget; this pre-existing check remains open. The accepted provisional VCCL planning load is 1 A.",
+    "JLCPCB BGA land, filled/capped via, mask and stencil acceptance remains pending.",
+    "125 C preheat, 2000 uF card sensitivity at 85 C, rapid supply return and existing 3.3 V hot turn-off remain outside the demonstrated startup margin.",
+    "No active current limit, power limit or fault latch is added. Actual GPU/PSU behavior and thermal performance require first-board measurements."
+  ],
+  "artifacts": {
+    "directory": "dist/slot-si4497-swap-2026-10-23",
+    "bomChanges": "dist/slot-si4497-swap-2026-10-23/bom-changes.csv",
+    "preservation": "dist/slot-si4497-swap-2026-10-23/preservation.json",
+    "geometry": "dist/slot-si4497-swap-2026-10-23/geometry-and-bom.json",
+    "validation": "dist/slot-si4497-swap-2026-10-23/validation.json"
+  }
+}

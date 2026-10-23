@@ -1,6 +1,6 @@
 import type {FanoutTracePath} from "@tscircuit/props";
 import {traceWidthsMm} from "./trace-width-rules";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json";
+import stackup from "../manufacturing/stackup/selected.json";
 
 type Point = {x: number; y: number};
 type Route = FanoutTracePath["route"];
@@ -16,23 +16,24 @@ export const pcieTxContacts = [
 
 export const pcieTxViaRules = {diameter: 0.3, hole: 0.2,
   bgaDiameter: 0.25, bgaHole: 0.15, maxCount: 2} as const;
+export const pcieTx2BottomLeadDrop = 0.15;
 
 // Full-stack GND vias join L2 and L5 beside both signal transitions.
 export const pcieTxBridgeReturns = [
   {x: 24.3, y: 100}, {x: 24.3, y: 97.95}, {x: 24.25, y: 100.8},
-  {x: 25.8, y: 98.65}, {x: 26.35, y: 98.95},
+  {x: 25.8, y: 98.55}, {x: 26.35, y: 98.95},
   {x: 29.3, y: 102.8},
 ] as const;
 // V9, Y18 and AA16 are GNDA, connected to GND. The filled/capped BGA
-// process also applies to these returns and the R20/U21/AA17/AA15 signals.
+// process also applies to these returns and the R20/U21/AA17/Y15/AA15 signals.
 export const pcieTxBgaReturns = [{x: 30.1, y: 100.5700074},
   {x: 26.28, y: 101.5400074}, {x: 27.2, y: 102.0000074}] as const;
 export const pcieTxCapReturns = [98.3608, 93.3608, 89.3608, 85.3608]
   .map(y => ({x: 1.05, y}));
 
 // Authored bottom-layer corridors, not a path-search algorithm. L5 is GND.
-// The first two southbound corridors have 1.2 mm pitch. TX3 starts farther
-// east to keep its top escape and bottom launch clear of TX2's copper.
+// The first two southbound corridors have 1.2 mm pitch. TX3's southbound
+// corridor stays farther east; coordinated local launches clear TX2's copper.
 export function offsetPairCenterline(points: Point[], distance: number): Point[] {
   const normals = points.slice(1).map((p, i) => {
     const dx = p.x - points[i].x, dy = p.y - points[i].y, length = Math.hypot(dx, dy);
@@ -61,8 +62,17 @@ export function pcieTxCenterline(lane: number, ballY: number, capCenter: number)
   if (lane === 0) return [{x: 23.5, y: ballY}, {x: 22.9, y: ballY},
     {x: 22.9 - (ballY - capCenter), y: capCenter}, {x: 2.1, y: capCenter}];
   const x = [0, 27.7, 28.9, 32.4][lane];
-  const y = [0, ballY + 0.3, 101.48, 102.8][lane];
+  const y = [0, 100.0, 101.48, 102.8][lane];
   const startX = [0, 27.1, 27.15, 31.8][lane], turnY = [0, 95, 90.1, 86.7][lane];
+  if (lane === 2) {
+    // Descend before passing below TX3's Y15 land via. Keep the original
+    // southbound corridor and all routing beyond the BGA launch region.
+    const sum = 26.74 + ballY + 0.46 - pcieTx2BottomLeadDrop - Math.SQRT2 * halfPitch;
+    const launchY = 100.82;
+    return [{x: startX, y: sum - startX}, {x: sum - launchY, y: launchY},
+      {x: x - 0.3, y: launchY}, {x, y: launchY - 0.3}, {x, y: turnY},
+      {x: x - (turnY - capCenter), y: capCenter}, {x: 2.1, y: capCenter}];
+  }
   return [{x: startX, y}, {x: x - 0.3, y}, {x, y: y - 0.3},
     {x, y: turnY}, {x: x - (turnY - capCenter), y: capCenter}, {x: 2.1, y: capCenter}];
 }
@@ -84,45 +94,54 @@ export function createPcieTxRoutes(position: (selector: string) => Point): Fanou
         {x: 24.4, y: b[1].y - 0.1}, {x: 24.4, y: b[1].y - h}]];
     } else if (lane === 1) {
       const a = 0.39;
-      const h = (Math.abs(b[0].x - b[1].x) + chamferSaving * a + 2 * k * halfPitch + bendSkew) / Math.SQRT2;
+      // N now approaches the lowered launch from above. Match that lead and
+      // the unchanged trunk bends with the existing P top dogbone.
+      const h = (a * (1 - k) + Math.abs(b[0].x - b[1].x)
+        - k * (2 * centerline[0].y - b[0].y - b[1].y) + bendSkew) / Math.SQRT2;
       topLaunches = [[b[0], {x: b[0].x + a, y: b[0].y - a},
         {x: b[0].x + a, y: b[0].y - h}], [b[1]]];
     } else if (lane === 2) {
       const t = centerline[0].y - b[0].y;
       const a = 0.14;
-      const h = (k * (Math.abs(b[1].y - b[0].y) - 2 * t) + bendSkew) / Math.SQRT2 - a;
+      const h = halfPitch + (k * (Math.abs(b[1].y - b[0].y) - 2 * t)
+        + 12 * halfPitch * k + pcieTx2BottomLeadDrop * (1 - k)) / Math.SQRT2 - a;
       topLaunches = [[b[0], {x: b[0].x - a, y: b[0].y - a},
         {x: b[0].x - a, y: b[0].y - h}], [b[1]]];
     } else {
-      const firstDrop = 0.3, viaX = 30.1;
-      const h = b[0].y - 101.0400074;
-      // AA15's filled/capped land via frees the top-side RX3 escape. Begin
-      // coupling on the NE run, within 3 mm of either bottom-layer launch.
-      const viaY = b[0].y - h, startX = 30.575;
-      const startY = viaY + startX - viaX + Math.SQRT2 * halfPitch;
+      // Identical land vias and matching first horizontal runs remove the
+      // previous 3.08 mm top-versus-zero transition asymmetry. Existing trunk
+      // bend skew is compensated locally on the bottom, after that fan-in.
+      const cy = (b[0].y + b[1].y) / 2 + 0.16;
+      const dyP = cy - halfPitch - b[0].y, dyN = cy + halfPitch - b[1].y;
+      const fanInX = b[0].x + 0.19 + Math.max(dyP, dyN);
+      const a = (bendSkew - k * (dyP - dyN)) / (4 * k);
+      const startX = fanInX + 4 * a;
+      const northeastX = 30.1 + cy - (b[0].y - 0.5) - Math.SQRT2 * halfPitch - 0.28;
       paired = [-halfPitch, halfPitch].map(d => offsetPairCenterline([
-        {x: startX, y: startY}, {x: startX + 102.8 - startY, y: 102.8},
+        {x: startX, y: cy}, {x: northeastX, y: cy},
+        {x: northeastX + 102.8 - cy, y: 102.8},
         ...centerline.slice(1),
       ], d));
-      const leadP = 0.06 + Math.SQRT2 * firstDrop + viaX - (b[0].x + 0.06 + firstDrop)
-        + b[0].y - firstDrop - viaY + Math.SQRT2 * (paired[0][0].x - viaX);
-      const leadN = paired[1][0].x - b[1].x + k * (b[1].y - paired[1][0].y);
-      // A short land-clearance dogleg balances the five 45-degree trunk turns.
-      const a = (20 * halfPitch * k - (leadP - leadN)) / (2 * k);
-      topLaunches = [[b[0], {x: b[0].x + 0.06, y: b[0].y},
-        {x: b[0].x + 0.06 + firstDrop, y: b[0].y - firstDrop},
-        {x: 28.1, y: b[0].y - firstDrop},
-        {x: 28.1 + a, y: b[0].y - firstDrop - a},
-        {x: 28.2 + a, y: b[0].y - firstDrop - a},
-        {x: 28.2 + 2 * a, y: b[0].y - firstDrop},
-        {x: viaX, y: b[0].y - firstDrop}, {x: viaX, y: b[0].y - h}],
-      [b[1]]];
+      topLaunches = [[b[0]], [b[1]]];
     }
     const bridgeVias = topLaunches.map(points => points[points.length - 1]);
     const launches = bridgeVias.map((v, i) => {
       const start = paired[i][0], dy = Math.abs(start.y - v.y);
-      if (lane === 3) return i === 0 ? [v, start]
-        : [v, {x: start.x - dy, y: v.y}, start];
+      if (lane === 3) {
+        const cy = (b[0].y + b[1].y) / 2 + 0.16, sign = i === 0 ? -1 : 1;
+        const dyP = cy - halfPitch - b[0].y, dyN = cy + halfPitch - b[1].y;
+        const fanInX = b[0].x + 0.19 + Math.max(dyP, dyN);
+        const y = cy + sign * halfPitch, a = (bendSkew - k * (dyP - dyN)) / (4 * k);
+        const entry = [v, {x: v.x + 0.19, y: v.y},
+          {x: v.x + 0.19 + Math.abs(y - v.y), y}, {x: fanInX, y}];
+        if (i === 1) return [...entry, start];
+        return [...entry, {x: fanInX + a, y: y - a}, {x: fanInX + 2 * a, y},
+          {x: fanInX + 3 * a, y: y - a}, start];
+      }
+      if (lane === 2 && i === 1) {
+        const lead = {x: v.x, y: v.y - pcieTx2BottomLeadDrop};
+        return [v, lead, {x: lead.x + Math.abs(start.y - lead.y), y: start.y}, start];
+      }
       return [v, {x: v.x + (lane === 0 ? -dy : dy), y: start.y}, start];
     });
     const assemble = (i: number): Route => {

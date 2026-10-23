@@ -15,7 +15,7 @@ from copper_geometry import copper_objects
 
 def audit(j, isolation_regions=None):
     if isinstance(j,dict): j=j['circuitJson']
-    stack=json.loads((ROOT/'manufacturing/stackup/JLC06161H-3313.json').read_text())
+    stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
     profile=stack['impedanceProfiles'][0]
     width=profile['calculatedTraceWidthMm']; gap=profile['calculatedPairGapMm']
     required=8*stack['dielectrics'][0]['thicknessMm']

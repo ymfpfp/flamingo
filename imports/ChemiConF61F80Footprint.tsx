@@ -1,12 +1,9 @@
-import type {CapacitorProps} from "@tscircuit/props";
-import capacitorBody from "../models/C135-CP_Elec_6.3x7.7.glb";
-
-/** Chemi-Con F80 lands: a=1.9 mm gap, b=3.5 mm length, c=1.6 mm width.
+/** Chemi-Con F61/F80 lands: a=1.9 mm gap, b=3.5 mm length, c=1.6 mm width.
  * Source: datasheets/Chemi-Con-NPCAP-SMD-lands.pdf, page 1.
- * Body: diameter 6.3 mm, nominal height 7.7 mm, base 6.6 x 6.6 mm.
+ * Body: diameter 6.3 mm, nominal heights 5.8 mm (F61) and 7.7 mm (F80), base 6.6 x 6.6 mm.
  * Pin 1 is positive on the left; pin 2 is negative on the right.
  */
-export function APXJ6R3ARA561MF80GFootprint() {
+export function ChemiConF61F80Footprint() {
   return (
     <footprint>
       <smtpad portHints={["pin1", "pos", "positive"]} pcbX={-2.7} pcbY={0}
@@ -32,28 +29,3 @@ export function APXJ6R3ARA561MF80GFootprint() {
   );
 }
 
-/** Generic KiCad package body, with the negative stripe toward pin 2.
- * Attribution and measured bounds: models/C135-model.provenance.json.
- */
-export function APXJ6R3ARA561MF80G(props: Omit<CapacitorProps, "capacitance">) {
-  return (
-    <capacitor
-      capacitance="560uF"
-      maxVoltageRating="6.3V"
-      polarized
-      manufacturerPartNumber="APXJ6R3ARA561MF80G"
-      supplierPartNumbers={{jlcpcb: ["C2157846"]}}
-      footprint={<APXJ6R3ARA561MF80GFootprint/>}
-      cadModel={{
-        glbUrl: capacitorBody,
-        modelBoardNormalDirection: "y+",
-        modelOriginPosition: {x: 0, y: 0, z: 0},
-        modelBounds: {
-          min: {x: -3.8989, y: 0, z: -3.29946},
-          max: {x: 3.8989, y: 7.69874, z: 3.29946},
-        },
-      }}
-      {...props}
-    />
-  );
-}

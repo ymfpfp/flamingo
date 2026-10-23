@@ -56,16 +56,19 @@ test("ball coordinates match the top-view mixed-pitch package", () => {
   }
 });
 
-test("outer lands match ASMedia's 7 by 13 mil pattern and AA1 exception", () => {
+test("bridge lands retain the outer pattern, AA1 orientation and matched TX3 circles", () => {
   let horizontal = 0;
   let vertical = 0;
+  let circular = 0;
+  let enlarged = 0;
   for (const pad of pads) {
     const ball = pad.name;
     const [, row, column] = ball.match(/^([A-Z]+)(\d+)$/);
     const col = Number(column);
     const isHorizontal = (col === 1 && row !== "A") || (col === 21 && row !== "A" && row !== "AA");
     const isVertical = (row === "A" || row === "AA") && col > 1 && col < 21;
-    if (isHorizontal || isVertical) {
+    const matchedTx3 = ball === "Y15" || ball === "AA15";
+    if ((isHorizontal || isVertical) && !matchedTx3) {
       assert.equal(pad.shape, "pill", ball);
       assert.equal(pad.radius, "0.0889mm", ball);
       assert.equal(pad.width, isHorizontal ? "0.3302mm" : "0.1778mm", ball);
@@ -74,11 +77,15 @@ test("outer lands match ASMedia's 7 by 13 mil pattern and AA1 exception", () => 
     } else {
       assert.equal(pad.shape, "circle", ball);
       // Engineering candidate; ASMedia does not specify the circular land diameter.
-      assert.equal(pad.radius, 0.1, ball);
+      assert.equal(pad.radius, matchedTx3 ? 0.125 : 0.1, ball);
+      circular++;
+      if (matchedTx3) enlarged++;
     }
   }
   assert.equal(horizontal, 39);
-  assert.equal(vertical, 38);
+  assert.equal(vertical, 37);
+  assert.equal(circular, 197);
+  assert.equal(enlarged, 2);
 });
 
 test("power groups and active-low reset directions are preserved", () => {

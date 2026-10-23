@@ -4,7 +4,7 @@ import {auditAtx5vRouting} from "./audits/atx5v-routing-audit.mjs";
 const raw=await Bun.file(process.env.ATX5V_AUDIT_FIXTURE??process.env.BOARD_TEST_FIXTURE??"dist/board.circuit.json").json(),json=raw.circuitJson??raw;
 test("ATX 5 V feed preserves every prior route and the top-only assembly",()=>{
   const a=auditAtx5vRouting(json);assert.ok(a.passed,a.failures.join("\n"));
-  assert.equal(a.assembledComponentsOnTop,153);assert.equal(a.newContacts,4);
+  assert.equal(a.assembledComponentsOnTop,154);assert.equal(a.newContacts,4);
 });
 test("ATX 5 V audit rejects a missing power contact or moved assembly",()=>{
   const source=json.find(e=>e.type==="source_trace"&&e.name==="ATX5V_VDD_A_TRACE");assert.ok(source);

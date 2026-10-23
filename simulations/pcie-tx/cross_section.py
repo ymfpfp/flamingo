@@ -46,16 +46,25 @@ def axis(features, fine_max, end, step):
         a.append(min(end,a[-1]+dx))
     return np.array(a)
 
-def solve(section: Section, vacuum=False, keep_field=False):
+def solve(section: Section, vacuum=False, keep_field=False, metal_profile='trapezoid'):
     s=section
     left=0 if s.single else s.gap/2
     right=s.width/2 if s.single else left+s.width
     fine_x=right+0.1
     fine_y=s.height+max(s.copper+s.mask_top,s.mask_base)+0.08
-    x=axis([left,right,left+s.top_width_reduction/2,right-s.top_width_reduction/2],fine_x,right+s.exterior,s.step)
-    y=axis([s.height,s.height+s.copper,s.height+s.mask_base,s.height+s.copper+s.mask_top],fine_y,s.height+s.exterior,s.step)
+    x_features=[left,right,left+s.top_width_reduction/2,right-s.top_width_reduction/2]
+    y_features=[s.height,s.height+s.copper,s.height+s.mask_base,s.height+s.copper+s.mask_top]
+    if metal_profile=='two_step':
+        for fraction in [.25,.75]:
+            x_features.extend([left+fraction*s.top_width_reduction/2,right-fraction*s.top_width_reduction/2])
+        y_features.append(s.height+s.copper/2)
+    elif metal_profile!='trapezoid':raise ValueError(metal_profile)
+    x=axis(x_features,fine_x,right+s.exterior,s.step)
+    y=axis(y_features,fine_y,s.height+s.exterior,s.step)
     xx,yy=np.meshgrid(x,y)
     taper=np.clip((yy-s.height)/s.copper,0,1)*s.top_width_reduction/2 if s.copper>0 else np.zeros_like(yy)
+    if metal_profile=='two_step':
+        taper=np.where(yy<=s.height+s.copper/2+1e-10,.25,.75)*s.top_width_reduction/2
     metal=(yy>=s.height-1e-10)&(yy<=s.height+s.copper+1e-10)&(xx>=left+taper-1e-10)&(xx<=right-taper+1e-10)
     if s.single:
         metal=(yy>=s.height-1e-10)&(yy<=s.height+s.copper+1e-10)&(xx<=right-taper+1e-10)
@@ -110,8 +119,8 @@ def solve(section: Section, vacuum=False, keep_field=False):
     if keep_field:result.update(x=x,y=y,potential=v.reshape(ny,nx),metal=metal)
     return result
 
-def analyze(section: Section, keep_field=False):
-    a=solve(section,keep_field=keep_field);b=solve(section,vacuum=True)
+def analyze(section: Section, keep_field=False, metal_profile='trapezoid'):
+    a=solve(section,keep_field=keep_field,metal_profile=metal_profile);b=solve(section,vacuum=True,metal_profile=metal_profile)
     z=1/(C0*math.sqrt(a['capacitance_F_per_m']*b['capacitance_F_per_m']))
     r={'inputs':asdict(section),'impedance_ohm':z,'effective_er':a['capacitance_F_per_m']/b['capacitance_F_per_m'],
        'capacitance_F_per_m':a['capacitance_F_per_m'],'vacuum_capacitance_F_per_m':b['capacitance_F_per_m'],

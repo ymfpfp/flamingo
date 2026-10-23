@@ -1,0 +1,64 @@
+                                                                                        Document No.          PO-00044
+
+                                                                                          Version                   I
+
+
+                                    DFN5x6_8L_EP1_P PACKAGE OUTLINE
+                          0.05
+                                        b
+                                                                                                    c
+           R0.4 REF. (x4)
+                                                                               q
+
+
+
+                                                       E E1
+
+
+                                                                                                         VIEW 'A'
+
+
+                                 e                                                      A
+                                  TOP VIEW                                               SIDE VIEW
+                                     D
+                                     D1
+                     L1                               L
+
+                                                                                   A1
+                        E3
+
+                   E2
+
+
+                                                      L2
+                                                                                            VIEW 'A'
+                                 BOTTOM VIEW                                               (SCALE 5:1)
+
+   RECOMMENDED LAND PATTERN                                        DIMENSION IN MM               DIMENSION IN INCHES
+                                                   SYMBOLS
+                                                               MIN       NOM       MAX         MIN      NOM        MAX
+                 4.60                                 A       0.85       0.95     1.00        0.033     0.037     0.039
+   0.50                 0.77        0.55              A1      0.00         -      0.05        0.000        -      0.002
+                                                       b      0.30       0.40     0.50        0.012     0.016     0.020
+                                                       c      0.15       0.20     0.25        0.006     0.008     0.010
+                     0.635                            D       5.10       5.20     5.30        0.201     0.205     0.209
+                                                      D1      4.25       4.35     4.45        0.167     0.171     0.175
+                                                       E      5.45       5.55     5.65        0.215     0.219     0.222
+                                 4.12                 E1      5.95       6.05     6.15        0.234     0.238     0.242
+6.15                                                  E2      3.525     3.625     3.725       0.139     0.143     0.147
+    1.60                                              E3      1.175     1.275     1.375       0.046     0.050     0.054
+                                                       e               1.27 BSC                       0.050 BSC
+                                                       L      0.45       0.55     0.65        0.018     0.022     0.026
+                                                      L1      0.00         -      0.15        0.000        -      0.006
+                                 0.65                 L2               0.68 REF                       0.027 REF
+   0.50                 1.27                           θ        0°         -       10°          0°         -       10°
+                                 UNIT: mm
+
+ NOTE:
+ 1. PACKAGE BODY SIZES EXCLUDE MOLD FLASH AND GATE BURRS.
+    MOLD FLASH AT THE NON-LEAD SIDES SHOULD BE LESS THAN 6 MILS EACH.
+ 2. CONTROLLING DIMENSION IS MILLIMETER.
+    CONVERTED INCH DIMENSIONS ARE NOT NECESSARILY EXACT.
+ 3. THIS PACKAGE WAS QUALIFIED USING IR REFLOW PROCESS (JEDEC STANDARD). FOR USAGE
+    IN OTHER SOLDERING PROCESSES, PLEASE CONTACT LOCAL AOS REPRESENTATIVES.
+

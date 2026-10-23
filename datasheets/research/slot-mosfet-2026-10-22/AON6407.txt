@@ -1,0 +1,488 @@
+                                                                                                               AON6407
+                                                                                                       30V P-Channel MOSFET
+
+
+
+      General Description                                                    Product Summary
+
+     The AON6407 combines advanced trench MOSFET                             VDS                                -30
+     technology with a low resistance package to provide                     ID (at VGS= -10V)                  -85A
+     extremely low RDS(ON). This device is ideal for load                    RDS(ON) (at VGS= -10V)             < 4.5mW
+     switch and battery protection applications.
+                                                                             RDS(ON) (at VGS = -6V)             < 6.0mW
+
+
+
+
+                                                                             100% UIS Tested
+                                                                             100% Rg Tested
+
+
+
+
+                          DFN5X6                                               Top View                        D
+           Top View                Bottom View
+                                                                     S   1                8   D
+                                                                     S   2                7   D
+                                                                     S   3                6   D
+                                                                     G   4                5   D
+                                                                                                         G
+
+                          PIN1                                                                                 S
+
+
+
+   Absolute Maximum Ratings TA=25°C unless otherwise noted
+   Parameter                               Symbol                                         Maximum                      Units
+   Drain-Source Voltage                    VDS                                              -30                         V
+   Gate-Source Voltage                                  VGS                                   ±25                         V
+   Continuous Drain         TC=25°C                                                           -85
+           G                                            ID
+   Current                  TC=100°C                                                          -67                         A
+                           C
+   Pulsed Drain Current                                 IDM                                   -200
+   Continuous Drain         TA=25°C                                                            -32
+                                                        IDSM                                                              A
+   Current                  TA=70°C                                                           -25.5
+   Avalanche Current C                                  IAS                                       45                      A
+   Avalanche energy L=0.1mH C                           EAS                                   101                         mJ
+                            TC=25°C                                                               83
+                                                        PD                                                                W
+   Power Dissipation B      TC=100°C                                                              33
+                            TA=25°C                                                           7.3
+                                                        PDSM                                                              W
+   Power Dissipation A      TA=70°C                                                           4.7
+   Junction and Storage Temperature Range               TJ, TSTG                          -55 to 150                      °C
+
+   Thermal Characteristics
+   Parameter                                            Symbol                     Typ                   Max           Units
+                               A
+   Maximum Junction-to-Ambient           t ≤ 10s                                    14                    17           °C/W
+                                                              RqJA
+   Maximum Junction-to-Ambient A D       Steady-State                               40                    55           °C/W
+   Maximum Junction-to-Case              Steady-State         RqJC                 1.1                   1.5           °C/W
+
+
+
+
+Rev 1.0: September 2023                                       www.aosmd.com                                                    Page 1 of 6
+                                                                                                                                    AON6407
+
+
+
+ Electrical Characteristics (TJ=25°C unless otherwise noted)
+
+
+ Symbol                          Parameter                        Conditions                                  Min        Typ       Max       Units
+ STATIC PARAMETERS
+ BVDSS   Drain-Source Breakdown Voltage                           ID=-250mA, VGS=0V                            -30                              V
+                                                                  VDS=-30V, VGS=0V                                                   -1
+ IDSS         Zero Gate Voltage Drain Current                                                                                                  mA
+                                                                                                TJ=55°C                              -5
+ IGSS         Gate-Body leakage current                           VDS=0V, VGS=±25V                                                 ±100        nA
+ VGS(th)      Gate Threshold Voltage                              VDS=VGS, ID=-250mA                          -1.6       -2.1       -2.6        V
+ ID(ON)       On state drain current                              VGS=-10V, VDS=-5V                           -200                              A
+                                                                  VGS=-10V, ID=-20A                                      3.3        4.5
+                                                                                                                                              mW
+ RDS(ON)      Static Drain-Source On-Resistance                                               TJ=125°C                   4.9        6.5
+                                                                  VGS=-6V, ID=-20A                                       4.4         6        mW
+ gFS          Forward Transconductance                            VDS=-5V, ID=-20A                                        65                    S
+ VSD          Diode Forward Voltage                               IS=-1A,VGS=0V                                         -0.69        -1         V
+ IS           Maximum Body-Diode Continuous Current G                                                                               -85         A
+ DYNAMIC PARAMETERS
+ Ciss    Input Capacitance                                                                                              3505                   pF
+ Coss         Output Capacitance                                  VGS=0V, VDS=-15V, f=1MHz                               900                   pF
+ Crss         Reverse Transfer Capacitance                                                                               650                   pF
+ Rg           Gate resistance                                     VGS=0V, VDS=0V, f=1MHz                                 4.6        9.2         W
+ SWITCHING PARAMETERS
+ Qg(10V) Total Gate Charge                                                                                                75        105        nC
+ Qgs          Gate Source Charge                                  VGS=-10V, VDS=-15V, ID=-20A                             13                   nC
+ Qgd          Gate Drain Charge                                                                                           23                   nC
+ tD(on)       Turn-On DelayTime                                                                                           14                   ns
+ tr           Turn-On Rise Time                                   VGS=-10V, VDS=-15V,                                     16                   ns
+ tD(off)      Turn-Off DelayTime                                  RL=0.75W, RGEN=3W                                       94                   ns
+ tf           Turn-Off Fall Time                                                                                          75                   ns
+ trr          Body Diode Reverse Recovery Time                    IF=-20A, dI/dt=500A/ms                                  35                   ns
+ Qrr          Body Diode Reverse Recovery Charge IF=-20A, dI/dt=500A/ms                                                   75                   nC
+ A. The value of RqJA is measured with the device mounted on 1in 2 FR-4 board with 2oz. Copper, in a still air environment with T A =25°C. The
+ Power dissipation PDSM is based on R qJA and the maximum allowed junction temperature of 150°C. The value in any given application depends
+ on the user's specific board design, and the maximum temperature of 150°C may be used if the PCB allows it.
+ B. The power dissipation PD is based on TJ(MAX)=150°C, using junction-to-case thermal resistance, and is more useful in setting the upper
+ dissipation limit for cases where additional heatsinking is used.
+ C. Repetitive rating, pulse width limited by junction temperature T J(MAX)=150°C. Ratings are based on low frequency and duty cycles to keep initial
+ TJ =25°C.Maximum UIS current limited by test equipment.
+ D. The RqJA is the sum of the thermal impedance from junction to case RqJC and case to ambient.
+ E. The static characteristics in Figures 1 to 6 are obtained using <300ms pulses, duty cycle 0.5% max.
+ F. These curves are based on the junction-to-case thermal impedance which is measured with the device mounted to a large heatsink, assuming a
+ maximum junction temperature of T J(MAX)=150°C. The SOA curve provides a IAS   single pulse rating.
+ G. The maximum current rating is package limited.
+ H. These tests are performed with the device mounted on 1 in 2 FR-4 board with EAS2oz. Copper, in a still air environment with TA=25°C.
+
+
+
+
+ APPLICATIONS OR USES AS CRITICAL COMPONENTS IN LIFE SUPPORT DEVICES OR SYSTEMS ARE NOT AUTHORIZED. AOS DOES
+ NOT ASSUME ANY LIABILITY ARISING OUT OF SUCH APPLICATIONS OR USES OF ITS PRODUCTS. AOS RESERVES THE RIGHT TO
+ MAKE CHANGES TO PRODUCT SPECIFICATIONS WITHOUT NOTICE. IT IS THE RESPONSIBILITY OF THE CUSTOMER TO EVALUATE
+ SUITABILITY OF THE PRODUCT FOR THEIR INTENDED APPLICATION. CUSTOMER SHALL COMPLY WITH APPLICABLE LEGAL
+ REQUIREMENTS, INCLUDING ALL APPLICABLE EXPORT CONTROL RULES, REGULATIONS AND LIMITATIONS.
+
+ AOS' products are provided subject to AOS' terms and conditions of sale which are set forth at:
+ http://www.aosmd.com/terms_and_conditions_of_sale
+
+
+
+
+Rev 1.0: September 2023                                         www.aosmd.com                                                              Page 2 of 6
+                                                                                                                                                                                   AON6407
+
+
+
+  TYPICAL ELECTRICAL AND THERMAL CHARACTERISTICS
+
+                      100                                                                                                   100
+                                            -5V                                                                                       VDS=-5V
+                                                                             -4V
+                          80                                                                                                 80
+                                                -6V
+                                            -10V
+                          60                                                                                                 60
+
+     -ID (A)                                                                                     -ID(A)
+                          40                                                                                                 40                125°C
+
+                                                                              -3.5V
+                          20                                                                                                 20                                                  25°C
+
+                                                                           VGS=-3.0V
+                           0                                                                                                  0
+                               0            1               2         3           4         5                                     1            2           3           4           5        6
+                                                   -VDS (Volts)                                                                                       -VGS(Volts)
+                                    Fig 1: On-Region Characteristics (Note E)                                                         Figure 2: Transfer Characteristics (Note E)
+
+                          7                                                                                                 1.8
+
+
+
+
+                                                                                                 Normalized On-Resistance
+                          6
+                                                                                                                            1.6                 VGS=-10V
+                                                                                                                                                ID=-20A
+                          5                                VGS=-6V
+
+
+
+           RDS(ON) (mW)
+                                                                                                                            1.4
+                                                                                                                                                                                   17
+                          4                                                                                                                                                         5
+                                                                                                                            1.2                                                     2
+                          3
+                                                           VGS=-10V                                                                                                    VGS=-6V     10
+                                                                                                                             1                                         ID=-20A
+                          2
+
+                          1                                                                                                 0.8
+                               0        5             10 15     20      25      30                                                0       25       50      75        100     125    150   175
+                                                       -ID (A)                                                                                                             0
+                                                                                                                                                  Temperature (°C)
+                                   Figure 3: On-Resistance vs. Drain Current and
+                                               Gate Voltage (Note E)                                                                                                      18
+                                                                                                                                        Figure 4: On-Resistance vs. Junction
+                                                                                                                                                Temperature (Note E)
+
+
+                          12                                                                                                1.0E+02
+                                                                                 ID=-20A
+                          10                                                                                                1.0E+01
+                                                                                                                                  40
+                                                                                                                            1.0E+00
+                          8                                                           IAS
+                                                                          125°C
+
+
+       RDS(ON) (mW)
+                                                                                      EAS                                   1.0E-01                125°C
+                          6                                                                      -IS (A)
+                                                                                                                            1.0E-02
+                          4                                                                                                                                                 25°C
+                                                                                                                            1.0E-03
+
+                          2                                               25°C                                              1.0E-04
+
+                          0                                                                                                 1.0E-05
+                               2                4               6            8              10                                         0.0         0.2         0.4         0.6     0.8     1.0
+
+                                                     -VGS (Volts)                                                                                       -VSD (Volts)
+                                   Figure 5: On-Resistance vs. Gate-Source Voltage                                                     Figure 6: Body-Diode Characteristics (Note E)
+                                                       (Note E)
+
+
+
+
+Rev 1.0: September 2023                                                                 www.aosmd.com                                                                                     Page 3 of 6
+                                                                                                                                                                                            AON6407
+
+
+
+  TYPICAL ELECTRICAL AND THERMAL CHARACTERISTICS
+
+                        10                                                                                                       5000
+                                       VDS=-15V
+                                       ID=-20A
+                               8                                                                                                 4000                                     Ciss
+
+
+
+
+                                                                                                              Capacitance (pF)
+   -VGS (Volts)
+                               6                                                                                                 3000
+
+
+                               4                                                                                                 2000                   Coss
+
+
+                               2                                                                                                 1000
+
+                                                                                                                                               Crss
+                               0                                                                                                       0
+                                   0        10     20     30       40       50    60        70       80                                    0           5       10          15          20    25       30
+                                                          Qg (nC)                                                                                              -VDS (Volts)
+                                           Figure 7: Gate-Charge Characteristics                                                                  Figure 8: Capacitance Characteristics
+
+
+                               1000.0                                                                                            400
+                                                                                                                                                                                   TJ(Max)=150°C
+                                                                                                                                 350
+                                                                                                                                                                                   TC=25°C
+                                100.0                                                    10ms
+                                                                                                    10ms                         300
+                                              RDS(ON)
+                                              limited                                               100ms
+
+             -ID (Amps)
+                                                                                                                                 250
+
+
+                                                                                                              Power (W)
+                                   10.0                                                                                                                                                     17
+                                                                                                    1ms
+                                                                                                    10ms                         200                                                         5
+                                                                                         DC
+                                    1.0           TJ(Max)=150°C                                                                                                                              2
+                                                                                                                                 150
+                                                  TC=25°C                                                                                                                                   10
+                                    0.1                                                                                          100
+
+                                                                                                                                 50
+                                    0.0                                                                                           0
+                                       0.01             0.1             1              10             100                         0.0001              0.001     0.01             0.1         1        10
+                                                                -VDS (Volts)                                                                                                                0
+                                                                                                                                                         Pulse Width (s)
+                                                 Figure 9: Maximum Forward Biased
+                                                                                                                                                                            18
+                                                                                                                                       Figure 10: Single Pulse Power Rating Junction-to-
+                                                    Safe Operating Area (Note F)                                                                          Case (Note F)
+
+
+                                    10
+                                            D=Ton/T                                                                                              In descending order
+                                            TJ,PK=TC+PDM.ZqJC.RqJC                                                                               D=0.5, 0.3, 0.1, 0.05, 0.02, 0.01, single pulse
+
+
+   ZqJC Normalized Transient
+                                            RqJC=1.5°C/W                                                                               40
+                                       1                                                      IAS
+                                                                                              EAS
+
+
+      Thermal Resistance
+                                    0.1                                                                                                                        PD
+
+                                                                                                                                                                    Ton
+                                                    Single Pulse                                                                                                            T
+                                   0.01
+                                     0.00001              0.0001                 0.001                 0.01                                0.1                  1                      10             100
+
+                                                                                        Pulse Width (s)
+                                                              Figure 11: Normalized Maximum Transient Thermal Impedance (Note F)
+
+
+
+
+Rev 1.0: September 2023                                                                          www.aosmd.com                                                                                    Page 4 of 6
+                                                                                                                                                                                                      AON6407
+
+
+
+  TYPICAL ELECTRICAL AND THERMAL CHARACTERISTICS
+
+                                                1000                                                                                         100
+
+
+
+
+              -IAR (A) Peak Avalanche Current
+                                                               TA=25°C                      TA=100°C                                         80
+
+
+
+
+                                                                                                                     Power Dissipation (W)
+                                                100
+                                                               TA=150°C
+                                                                                                                                             60
+
+
+                                                                                       TA=125°C                                              40
+                                                 10
+
+                                                                                                                                             20
+
+
+                                                  1                                                                                           0
+                                                       1                  10              100              1000                                    0             25      50              75   100     125       150
+                                                                     Time in avalanche, t A (ms)                                                                            TCASE (°C)
+                                                            Figure 12: Single Pulse Avalanche capability                                                        Figure 13: Power De-rating (Note F)
+                                                                              (Note C)
+
+
+
+                                                 100                                                                                         10000
+                                                                                                                                                                                                      TA=25°C
+
+                                                  80
+                                                                                                                                              1000
+
+
+
+
+              Current rating ID(A)
+                                                                                                                             Power (W)
+                                                  60
+                                                                                                                                                                                                      17
+                                                                                                                                               100                                                     5
+                                                                                                                                                                                                       2
+                                                  40
+                                                                                                                                                                                                      10
+                                                                                                                                                   10
+                                                  20
+
+                                                                                                                                                   1
+                                                   0                                                                                               0.0001             0.01                1         100        10000
+                                                        0         25      50      75      100     125      150                                                                                        0
+                                                                            TCASE (°C)                                                                                               Pulse Width (s) 18
+                                                               Figure 14: Current De-rating (Note F)                                                            Figure 15: Single Pulse Power Rating Junction-to-
+                                                                                                                                                                                Ambient (Note H)
+
+                                                       10
+                                                              D=Ton/T                                                                                       In descending order
+                                                                                                                                                            D=0.5, 0.3, 0.1, 0.05, 0.02, 0.01, single pulse
+
+
+   ZqJA Normalized Transient
+                                                              TJ,PK=TA+PDM.ZqJA.RqJA
+
+                                                       1      RqJA=55°C/W                                                                              40
+                                                                                                    IAS
+                                                                                                    EAS
+                                                   0.1
+
+
+      Thermal Resistance
+                                                                                                                                                                          PD
+                                                  0.01
+                                                                                                                                                                                   Ton
+                                                                                                Single Pulse                                                                              T
+                                                 0.001
+                                                     0.0001               0.001            0.01                0.1                                          1                 10               100              1000
+
+                                                                                                     Pulse Width (s)
+                                                                           Figure 16: Normalized Maximum Transient Thermal Impedance (Note H)
+
+
+
+
+Rev 1.0: September 2023                                                                                 www.aosmd.com                                                                                         Page 5 of 6
+                                                                                                                                                              AON6407
+
+
+
+
+                                                      Gate Charge Test Circuit & Waveform
+                                                                                                Vgs
+                                                                                                                               Qg
+                                                                                                -10V
+                          -
+                    VDC
+                                                                   -   Vds                                       Qgs       Qgd
+                       +                                    VDC
+
+
+                                                      DUT          +
+                                     Vgs
+
+                                Ig
+
+                                                                                                                                                           Charge
+
+                                                       Resistive Switching Test Circuit & Waveforms
+                                                 RL
+                                     Vds                                                                  ton                                  toff
+
+
+                                                                                                 td(on)     tr                       td(off)          tf
+                                                                                        Vgs
+
+                                                 DUT
+                                                                   -   Vdd                                                                                  90%
+                               Vgs                          VDC
+
+                    Rg                                             +
+
+         Vgs                                                                                                                                                10%
+                                                                                        Vds
+
+
+
+                                                Unclamped Inductive Switching (UIS) Test Circuit & Waveforms
+                                                                                                            2
+                                           L                                              EAR= 1/2 LIAR
+                                Vds
+
+                                Id                                                        Vds
+                                                                                                                                                            BVDSS
+                                                        Vgs                   -   Vdd
+                              Vgs                                       VDC
+
+                  Rg                                                      +              Id
+                                                                                                                                                            I AR
+                                               DUT
+         Vgs                                                                             Vgs
+
+
+
+
+                                                     Diode Recovery Test Circuit & Waveforms
+
+        Vds +                                                                                                   Q rr = - Idt
+                                     DUT
+                                                                                         Vgs
+
+
+                                                                                                                                    t rr
+         Vds -                             L                                            -Isd               -I F
+                    Isd                                                                                                dI/dt
+                                                            + Vdd                                                         -I RM
+                 Vgs                                     VDC
+                                                                                                                                                           Vdd
+            Ig
+                                                               -                        -Vds
+
+
+
+
+Rev 1.0: September 2023                                                   www.aosmd.com                                                                             Page 6 of 6
+

@@ -3,7 +3,7 @@
   "sources": [
     "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6: short power connections, 15:8 mil geometry and L3/L4 power layers",
     "datasheets/TPS62903RPJR.pdf sections 6.3 and 10: 3-17 V input range and compact input bypass loop",
-    "manufacturing/stackup/JLC06161H-3313.json",
+    "manufacturing/stackup/selected.json",
     "jlcpcb-clearance-rules.json"
   ],
   "componentLayer": "top",

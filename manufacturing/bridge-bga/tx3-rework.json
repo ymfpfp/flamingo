@@ -1,0 +1,100 @@
+{
+  "authorized": true,
+  "authorization": "User requested coordinated BGA redesign to make TX3 symmetric and rerun all-channel checks; leave the PCIe connector as is.",
+  "beforeSourceSha256": "198d9db497f4dbf7addcee2868b811fb97348497fc3ccf6e03c222c5affc48b4",
+  "sourceSha256": "2d42d8a2ab264fbb73d3346b63f78adc7a22949fb5c09b1bab4091e72f6e2169",
+  "traceChanges": [
+    {
+      "name": "PDN_BGA_Y16_TRACE",
+      "before": "d11a137c06307553da2b4d2c36e46f73fecccbae4526b5149c29194f41226c98",
+      "after": "fb277da86c23eca909d2280bcc5ed160e417d5ebcb6261aba4684077c06c7d38",
+      "priorToThisRework": "d11a137c06307553da2b4d2c36e46f73fecccbae4526b5149c29194f41226c98",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "PDN_BGA_U17_TRACE",
+      "before": "eadd422ee212395defce54a2612dac50d9d6ae737c6dba94743487ef5a6ac906",
+      "after": "066fe2df3b2772c91929ec36f95c429d528c3bdf602c1210858096cebad624bb",
+      "priorToThisRework": "eadd422ee212395defce54a2612dac50d9d6ae737c6dba94743487ef5a6ac906",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "PDN_BGA_AA18_TRACE",
+      "before": "4ee2a2a77af46154b06d05ff9a20b0039df6d67f24cb3127234f7e9be46e6ccd",
+      "after": "99f7cf1dafdee7476d739b7d2364317a5adbe4703446a083b8da2164cd4d87b7",
+      "priorToThisRework": "4ee2a2a77af46154b06d05ff9a20b0039df6d67f24cb3127234f7e9be46e6ccd",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "PDN_BGA_U18_TRACE",
+      "before": "62343ac1595043d6a341d23c6b2d114ddf60ac85e650eaa66ee522832ccca7b5",
+      "after": "36a2356d8f1021c15ba2ff16bd21246978c24d9988f5debfff3c7da41d203c95",
+      "priorToThisRework": "62343ac1595043d6a341d23c6b2d114ddf60ac85e650eaa66ee522832ccca7b5",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PTXP1|net.ASM_PTXP1",
+      "before": "7951dbdf019f026a5504e8775f2465176e35f6014bc341d78b80650e4880a49c",
+      "after": "2677afbbabd1cb03a61ef80ff7da02eac33db365382438fe52310e1e751b7075",
+      "priorToThisRework": "7951dbdf019f026a5504e8775f2465176e35f6014bc341d78b80650e4880a49c",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PTXN1|net.ASM_PTXN1",
+      "before": "5a86889970afc7c70f73e5c474592808d1acef0c969f9db35a7dc6ce0f6df2b1",
+      "after": "042caa4bab9fe48537b0fc30357290ad98b0a0b1f4784517cdbbde2a24c5b90b",
+      "priorToThisRework": "5a86889970afc7c70f73e5c474592808d1acef0c969f9db35a7dc6ce0f6df2b1",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PTXP2|net.ASM_PTXP2",
+      "before": "d7c9e4a31de6f43ba04defc93e1b00bd698628751cb7a489321aab3ca9181f7c",
+      "after": "ccb5a713afadc6d998e7407650f53e105a77f8f1c352d613dbb80c1a1e0fa681",
+      "priorToThisRework": "d7c9e4a31de6f43ba04defc93e1b00bd698628751cb7a489321aab3ca9181f7c",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PTXN2|net.ASM_PTXN2",
+      "before": "ce7715297e805ff1fedf622ce93ba22e3f0abcddf9db8b0a023dab8b18745711",
+      "after": "939dfb86c54133b694eeddca27a0b0f1444aac6a3221e3cb008746cd835dc331",
+      "priorToThisRework": "ce7715297e805ff1fedf622ce93ba22e3f0abcddf9db8b0a023dab8b18745711",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PTXP3|net.ASM_PTXP3",
+      "before": "fd3b8c3d30809bafaef8423b6da4548c45518391442a3dc7c5b0db335625421f",
+      "after": "b37661d46202a8676ef8caddadebe7f42dba3fbb7dd9d219650ea217d54e0940",
+      "priorToThisRework": "fd3b8c3d30809bafaef8423b6da4548c45518391442a3dc7c5b0db335625421f",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PTXN3|net.ASM_PTXN3",
+      "before": "08dd95f8e657094ef5c7dde8a95d80ed64940b86774be9c4dc359fc9db8aba3f",
+      "after": "78f85cb38b7874190780e7f9b007eeb870a4c9c47041a8365a5d02fc10eb1d6a",
+      "priorToThisRework": "08dd95f8e657094ef5c7dde8a95d80ed64940b86774be9c4dc359fc9db8aba3f",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "CLOCK_REFCLK_P_PHY",
+      "before": "a93a3b8c87d21cd1a94a10da4f46ef5c7f54a90933cca8b1a9308ce1d91551b4",
+      "after": "18cfb5ae56dacf81dbc092eee890fd3e3e8881117a089a6bfc419869b51d4147",
+      "priorToThisRework": "a93a3b8c87d21cd1a94a10da4f46ef5c7f54a90933cca8b1a9308ce1d91551b4",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "CLOCK_REFCLK_N_PHY",
+      "before": "9c1a0e2d13b741da286e101b6146d410846668d73e238744175460df811f9d79",
+      "after": "ed4356ce801010ec8b3a215d631bea1bafa07f559c0df48c4c4fb0d5d4a4afd6",
+      "priorToThisRework": "9c1a0e2d13b741da286e101b6146d410846668d73e238744175460df811f9d79",
+      "reason": "User-authorized coordinated TX3 BGA redesign, local TX1/TX2 and GND changes, and REFCLK bridge-via clearance adjustment; connector routing preserved."
+    },
+    {
+      "name": "ASM2464PDX.PRXN3|net.ASM_PRXN3",
+      "before": "a0e7c52fd3a1a0aa2b58662705b5ab73fc762f9484282b58f521f623a4933f75",
+      "after": "4afe4c7cb6c7094d2e81404331b941dfa782955f98d55a411be072b7881270a9",
+      "reason": "Records the prior user-authorized RX3 neck-width cleanup. RX3 copper is unchanged by the coordinated TX3 redesign."
+    }
+  ],
+  "assemblyPreserved": true,
+  "connectorPreserved": true
+}

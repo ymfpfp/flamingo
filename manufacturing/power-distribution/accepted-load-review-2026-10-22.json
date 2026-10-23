@@ -1,0 +1,193 @@
+{
+  "dateLocal": "2026-10-22",
+  "scope": "Accepted-load power review. Model findings and improvement targets; no circuit changes or hardware qualification.",
+  "sourceSha256": "502a798c022328f8f197da0fc512ce03fb619f5138e44c5e92b02445bd082cf3",
+  "acceptedLoadFile": "simulations/power-dynamics/provisional-loads.json",
+  "artifactDirectory": "dist/conservative-power-review-2026-10-22",
+  "report": "dist/conservative-power-review-2026-10-22/report.html",
+  "regression": {
+    "pass": 160,
+    "skip": 8,
+    "fail": 0,
+    "initialRun": {
+      "pass": 158,
+      "skip": 8,
+      "fail": 2
+    },
+    "resolvedTimeouts": [
+      "PWR_OK, its independent 5 V LED branch, and local ground returns have top-layer copper",
+      "all eight PCIe TX capacitor outputs reach the correct slot pads on top without vias"
+    ]
+  },
+  "typecheckPassed": true,
+  "nativePlacementAssessment": {
+    "component": "C_VDD_28",
+    "nativePlacementExitCode": 1,
+    "nativePlacementDrcErrors": 0,
+    "nativePlacementDrcWarnings": 0,
+    "finding": "Airwire-based orientation heuristic suggests a 180-degree rotation.",
+    "assessment": "Nonpolar capacitor has fixed routed contacts to the correct pads. Geometry, native continuity and DRC audits pass. A rotation requires rerouting and is not an electrical correction to the existing fixed copper.",
+    "componentMoved": false
+  },
+  "railResults": [
+    {
+      "rail": "VCCL",
+      "currentA": 1,
+      "conductorDropMV": 3.634172251721022,
+      "conductor8mVPass": true,
+      "minimumStaticPinV": 1.8611605242998537,
+      "minimumStaticMarginAfterRippleMV": 10.504122049780731,
+      "assumedHalfLoadStepMinimumV": 1.8537695314394627,
+      "assumedHalfLoadReleaseMaximumV": 1.9300434865383882,
+      "assumedStepLowerMarginAfterRippleMV": 3.113129189389709,
+      "assumedStepUpperMarginAfterRippleMV": 19.23857611410993,
+      "upperPeakInductorCurrentA": 1.373696537483164
+    },
+    {
+      "rail": "VDD",
+      "currentA": 3,
+      "conductorDropMV": 12.277563570543231,
+      "conductor8mVPass": false,
+      "minimumStaticPinV": 1.103053595552133,
+      "minimumStaticMarginAfterRippleMV": 2.6395287997096437,
+      "assumedHalfLoadStepMinimumV": 1.0803201454815308,
+      "assumedHalfLoadReleaseMaximumV": 1.1813909568847625,
+      "assumedStepLowerMarginAfterRippleMV": -20.093921270892572,
+      "assumedStepUpperMarginAfterRippleMV": -21.87636792403433,
+      "upperPeakInductorCurrentA": 3.2737994954373617
+    }
+  ],
+  "threeV3": {
+    "passed": true,
+    "cases": 6,
+    "minimumVCCHV": 3.1178839501803095,
+    "minimumVCCA33V": 3.109314413797876
+  },
+  "findings": [
+    {
+      "priority": 1,
+      "area": "VDD feed",
+      "result": "The conservative conductor screen exceeds the 8 mV project limit at 3 A.",
+      "screeningDropMV": 12.277563570543231,
+      "resistanceReductionTargetPercent": 34.84049213808279,
+      "target": "Review shared feed copper, output contacts and parallel vias. Keep separate transient and ground-return checks."
+    },
+    {
+      "priority": 1,
+      "area": "VDD load response",
+      "result": "The assumed 1.5 A increase and release exceed the 1.10-1.16 V window in the passive model. A small voltage trim does not fix both extremes.",
+      "minimumBeforeRippleV": 1.0803201454815308,
+      "maximumBeforeRippleV": 1.1813909568847625,
+      "target": "Review effective capacitance, bypass access and converter response. Obtain a usable controller model or bench waveforms before selecting a final remedy."
+    },
+    {
+      "priority": 2,
+      "area": "Reset fault recovery",
+      "result": "Missing VDD, VDD brownout and a short power cycle expose the RC reset limitations. All 18 normal-startup sensitivity cases pass.",
+      "target": "A dedicated rail supervisor needs accurate thresholds, suitable timing and enough sink current for the 1 uF reset capacitor. TPS62903 PG thresholds do not enforce the full PDX voltage window."
+    },
+    {
+      "priority": 3,
+      "area": "Slot startup SOA",
+      "result": "All 96 startup comparison cases settle. Peak current is not a switch-SOA qualification.",
+      "peakCurrentA": 18.96665202314034,
+      "peakSwitchPowerW": 24.62984561050287,
+      "target": "Compare VDS/current trajectories with temperature-adjusted SOA. Consider controlled inrush if margin is insufficient."
+    },
+    {
+      "priority": 3,
+      "area": "Thermal and regulator margin",
+      "result": "The 3 A VDD budget uses the full nominal regulator rating. The bridge rail allowance totals 5.62 W if all loads are sustained.",
+      "target": "Verify converter derating and the bridge thermal path. Reference-condition arithmetic does not predict assembled-board temperature."
+    }
+  ],
+  "thermalAllowance": {
+    "bridgeRailPowerAllowanceW": 5.619999999999999,
+    "referenceAmbientC": 35,
+    "maximumTemperatureC": 90,
+    "requiredThetaJAAtAllowanceCPerW": 9.786476868327403,
+    "referenceStillAirThetaJA": 17.38,
+    "referenceOneMPerSThetaJA": 8.24,
+    "limitation": "All rail input is treated as local heat. ASMedia reference heatsink values do not predict Flamingo temperatures."
+  },
+  "slotVoltageCases": [
+    {
+      "rail": "12V",
+      "currentA": 5.5,
+      "sourceV": 11.2,
+      "slotV": 11.028949504090043,
+      "minimumV": 11.04,
+      "marginMV": -11.050495909955771
+    },
+    {
+      "rail": "12V",
+      "currentA": 5.5,
+      "sourceV": 11.4,
+      "slotV": 11.228949504090043,
+      "minimumV": 11.04,
+      "marginMV": 188.94950409004352
+    },
+    {
+      "rail": "12V",
+      "currentA": 5.5,
+      "sourceV": 12,
+      "slotV": 11.828949504090044,
+      "minimumV": 11.04,
+      "marginMV": 788.9495040900449
+    },
+    {
+      "rail": "3V3",
+      "currentA": 3,
+      "sourceV": 3.135,
+      "slotV": 3.0476535429762044,
+      "minimumV": 3.003,
+      "marginMV": 44.65354297620428
+    },
+    {
+      "rail": "3V3",
+      "currentA": 3,
+      "sourceV": 3.3,
+      "slotV": 3.2126535429762044,
+      "minimumV": 3.003,
+      "marginMV": 209.6535429762043
+    }
+  ],
+  "qualification": {
+    "hardwareValidated": false,
+    "closedLoopConverterSimulated": false,
+    "powerGeometryAuditsPassed": true,
+    "retained3AConductorScreenQualified": false,
+    "actualPdxCurrentSpectrumKnown": false
+  },
+  "numericalControls": {
+    "passiveControlCount": 8,
+    "passiveControlsPass": true,
+    "independentSpicePass": true,
+    "threeV3ControlsPass": true,
+    "slotModelCheckPass": true
+  },
+  "limitations": [
+    "Selected currents are provisional PDX design assumptions, not measured or guaranteed limits. Idle current, current spectrum and load edge rates are unknown.",
+    "TI PSpice SLVMDN8 and SIMPLIS SLVMDP3 packages contain encrypted models. No vendor closed-loop transient simulation was run.",
+    "Switching ripple is a forced-PWM triangular-current harmonic calculation. It excludes controller jitter, switch-node coupling, common ground, package and probe noise.",
+    "Samsung curves are typical at their stated measurement conditions. Multiplying DC-bias, 10 mV AC, tolerance and temperature factors is a sensitivity construction, not a guaranteed joint capacitor model. Low AC amplitude below 10 mV is outside the published curve.",
+    "Switching frequency 2.25\u20132.75 MHz and inductor 0.72\u20131.2 uH are sensitivity assumptions. They are not guaranteed switching-frequency limits.",
+    "Interconnect inductance 1\u201320 nH and mounting inductance 0.2\u20131 nH per capacitor are assumed, not extracted. The 80 C board resistance and mesh allowance come from the previous DC analysis; ground and package losses remain excluded.",
+    "The transient network reduces each physical capacitor bank to one series RLC using low-frequency moments and typical ESR at 2.5 MHz. ESR x0.5/x2 and edge-rate cases are separate sensitivities. Distributed branch antiresonance and unequal ball currents remain unmodeled.",
+    "Transient source current starts after a prescribed 0\u20132 us delay, then catches up at the ideal maximum buck slew with a 1.2 uH inductor. This is optimistic after the assumed delay, not a TPS62903 transfer function. It predicts a conditional first dip/peak only; the apparent later offset is not a voltage recovery prediction.",
+    "Minimum and maximum voltage corners are evaluated separately. Ripple phase is conservatively aligned with the transient extremum. No pass fraction is a probability.",
+    "No startup, short circuit, thermal qualification, complete SI/BER simulation or hardware measurement is added by this analysis.",
+    "VCCH/VCCA33 split is unknown; endpoints and midpoint are planning scenarios. Equal current across VCCH balls is assumed.",
+    "VCCA33 3.0 V floor follows the 3.3 V-domain project screen; the PDX current table does not supply an independent VCCA33 specification.",
+    "50 milliohm jumper resistance is the manufacturer family limit, without a separate hot-resistance model.",
+    "Ground, connector/cable, semiconductor package, AC noise, capacitor charging and arbitrary programming-header loads are omitted.",
+    "Bridge internal currents and external pin loading are not measured.",
+    "Typical vendor model, not a guaranteed production or electrothermal model; 85 C is sensitivity only.",
+    "Output ramp time is simulated rather than equated to the gate RC constant. A specific GPU/card, PSU and cable remain unmodeled.",
+    "The 1000 uF added card capacitance is an explicit assumption. Larger capacitance and other load timing require another run.",
+    "Single-pulse SOA, startup repetition, hot restart, slow shutdown and fault survival still require temperature-aware review and hardware measurements.",
+    "No local current limiting exists. Passing the settling screen does not qualify MOSFET SOA or arbitrary card compatibility."
+  ],
+  "distributionFollowUpReviewFile": "manufacturing/power-distribution/vdd-distribution-review-2026-10-22.json",
+  "snapshotStatus": "Baseline before the VDD distribution improvement. Its numerical results remain unchanged."
+}

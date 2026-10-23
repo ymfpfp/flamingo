@@ -4,15 +4,17 @@
     "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6: short power wiring, 15:8 mil power geometry, L3/L4 power and L2/L5 ground",
     "datasheets/ASM2464PDX_TI_R03.pdf sheet 6: HDDPC switched slot power and source-to-gate RC networks",
     "docs/reviews/original-slot-switch-review-2026-10-18.md",
-    "manufacturing/stackup/JLC06161H-3313.json",
+    "manufacturing/stackup/selected.json",
     "jlcpcb-clearance-rules.json"
   ],
   "assembledLayer": "top",
-  "fixedAssembledComponents": 153,
+  "fixedAssembledComponents": 154,
   "preservedTracePaths": 330,
   "powerLayers": [
+    "top",
     "inner2",
-    "inner3"
+    "inner3",
+    "bottom"
   ],
   "referenceLayers": [
     "inner1",
@@ -51,5 +53,55 @@
     "remaining": "Startup/shutdown MOSFET SOA, hot Rds and junction temperature, actual card capacitance, gate-resistor repeated pulse stress, input voltage/cable loss, shared VCCH load, ground return, fault clearing and fabrication process acceptance. The reference circuit has no active current limit or enforced 75 W combined limit. Existing bridge 3 A / 8 mV qualification remains open."
   },
   "hddpcLocalCrossingLayer": "inner2",
-  "hddpcLocalCrossingPurpose": "L3 crossings over the L4 flash and buck input supplies, using full-stack drilled vias. Keep both supply feeds continuous and retain the original 5 V DC screen."
+  "hddpcLocalCrossingPurpose": "L3 crossings over the L4 flash and buck input supplies, using full-stack drilled vias. Keep both supply feeds continuous and retain the original 5 V DC screen.",
+  "surfaceCopperRevision": {
+    "date": "2026-10-22",
+    "scope": "Requested steps 1\u20133; copper and via changes only. Component positions and power-switch parts remain fixed.",
+    "regions": "manufacturing/slot-power-routing/surface-regions.json",
+    "stitches": "manufacturing/slot-power-routing/surface-stitches.json",
+    "stitchCount": 29,
+    "stitchSelection": "tscircuit native ViaStitchSolver; selected sites are authored explicitly before native copper-pour generation",
+    "automaticViaStitching": false,
+    "surfaceTraceMarginMm": 0.95,
+    "surfacePadMarginMm": 0.225,
+    "coveredWithSolderMask": true,
+    "referencePlanePolicy": "Only new via antipads may remove L2/L5 GND; existing high-speed trace projections must remain supported.",
+    "comparison": "dist/slot-power-copper-review/report.html",
+    "qualification": "Conductor improvement only. Full-path hot resistance, contacts, ground return, startup/shutdown SOA, transients and thermal behavior remain open."
+  },
+  "innerCopperRevision": {
+    "date": "2026-10-22",
+    "stackup": "manufacturing/stackup/selected.json",
+    "manufacturerCode": "JLC061611-3313G",
+    "publishedInnerCopperMm": 0.03,
+    "outerCopperMm": 0.035,
+    "scope": "Widen input headers and add a parallel L3 output corridor around the restrictive surface path. MOSFET and BOM unchanged.",
+    "leftBypassOutlineMm": [
+      0.3,
+      78.35,
+      5.45,
+      106.55
+    ],
+    "regulatorPlaneReservation": "VCCL L3 plane reserves 0.225 mm to the left slot-power bypass. Its bridge and bypass continuity require revalidation.",
+    "bottomCrossbarOutlineMm": [
+      0.5,
+      65.9,
+      45,
+      69.2
+    ],
+    "bottomCrossbarTraceMarginMm": 0.4,
+    "comparison": "dist/slot-power-inner-copper-review/report.html",
+    "reviewedSourceSha256": "9def10ba83e6e78940f9c7dc779d518978ee63a6c8b59751ffa6443998303bc1",
+    "bottomCrossbarResult": "Existing control traces interrupt the direct bottom connection. The trial branch reduces the coarse output result by only 0.028 mV."
+  },
+  "localCoreWidthRepair": {
+    "date": "2026-10-22",
+    "region": "SP_12V_CC1_WIDENING",
+    "layer": "inner3",
+    "padMarginMm": 0.205,
+    "minimumInnerPowerSpacingMm": 0.2032,
+    "minimumMainPowerWidthMm": 0.381,
+    "scope": "Local SLOT_12V copper widening and adjacent VDD reservation beside the REFCLK and CC1 via clearances. Existing CC1 keepouts and validation limits remain active.",
+    "review": "manufacturing/slot-power-routing/copper-width-review-2026-10-22.json"
+  }
 }

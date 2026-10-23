@@ -40,7 +40,7 @@ def audit(raw):
   row={'name':name,'portId':p['pcb_port_id'],'net':'GNDA' if p.get('source_port_id') in analog_ports else 'GND','connectedL2':bool(contact&refs['inner1']),'connectedL5':bool(contact&refs['inner4'])};all_ports.append(row)
   if assembled_pad:all_ground.append(row)
   if not(row['connectedL2'] and row['connectedL5']):failures.append(name+': no physical path to both GND reference planes')
- if len(all_ground)!=286:failures.append('Assembled ground-pad inventory changed: '+str(len(all_ground)))
+ if len(all_ground)!=287:failures.append('Assembled ground-pad inventory changed: '+str(len(all_ground)))
  all_vias=[]
  for v in vias.values():
   if via_net(v)!=n:continue
@@ -54,7 +54,7 @@ def audit(raw):
   contact={find(i) for i,(l,g) in enumerate(regions) if l in o['layers'] and g.intersects(o['shape'])}
   row={'name':o['label'],'portId':o['port'],'connectedL2':bool(contact&refs['inner1']),'connectedL5':bool(contact&refs['inner4'])};all_lands.append(row)
   if not(row['connectedL2'] and row['connectedL5']):failures.append(o['label']+': individual copper land does not reach both reference planes')
- if len(all_lands)!=288:failures.append('Physical ground copper-land inventory changed: '+str(len(all_lands)))
+ if len(all_lands)!=289:failures.append('Physical ground copper-land inventory changed: '+str(len(all_lands)))
  contacts=[]
  for spec in specs:
   ts=[t for t in j if t['type']=='pcb_trace' and st.get(t.get('source_trace_id'),{}).get('name')==spec['name']]

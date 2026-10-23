@@ -15,8 +15,10 @@ globalThis.FileReader ??= class {
 };
 
 const modelFile = name => fileURLToPath(new URL(`../models/${name}`, import.meta.url));
+const inputModel = process.argv[2] ?? "CP_Elec_6.3x5.8.wrl";
+const outputModel = process.argv[3] ?? "CP_Elec_6.3x5.8.glb";
 const sourceScene = new VRMLLoader().parse(
-  readFileSync(modelFile("C135-CP_Elec_6.3x7.7.wrl"), "utf8"), "",
+  readFileSync(modelFile(inputModel), "utf8"), "",
 );
 // Export a Group: glTF scenes themselves cannot carry a transform.
 const scene = new Group();
@@ -71,4 +73,4 @@ scene.traverse(object => {
   }
 });
 const glb = await new GLTFExporter().parseAsync(bakedModel, {binary: true});
-writeFileSync(modelFile("C135-CP_Elec_6.3x7.7.glb"), new Uint8Array(glb));
+writeFileSync(modelFile(outputModel), new Uint8Array(glb));

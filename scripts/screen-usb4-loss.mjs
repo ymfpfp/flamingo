@@ -1,6 +1,6 @@
 import {readFileSync, writeFileSync, mkdirSync} from "node:fs";
 import {argv} from "node:process";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json" with {type: "json"};
+import stackup from "../manufacturing/stackup/selected.json" with {type: "json"};
 
 // A planning sensitivity calculation, not a field solver or channel simulation.
 const input = JSON.parse(readFileSync(argv[2] ?? "dist/bga-planning-cache.json", "utf8"));

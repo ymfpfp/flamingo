@@ -1,0 +1,189 @@
+{
+  "manufacturer": "JLCPCB",
+  "code": "JLC061611-3313G",
+  "status": "selected for the prototype; source-verified 1 oz inner construction",
+  "reviewedOn": "2026-10-22",
+  "nominalOrderThicknessMm": 1.6,
+  "calculatorFinishedThicknessMm": 1.568,
+  "finishedThicknessTolerancePercent": 10,
+  "surfaceFinish": "ENIG",
+  "solderMaskColor": "green",
+  "outerCopperOz": 1,
+  "innerCopperOz": 1,
+  "copperLayers": [
+    {
+      "number": 1,
+      "tscircuitLayer": "top",
+      "thicknessMm": 0.035,
+      "role": "USB4, PCIe, reference clock and local component connections"
+    },
+    {
+      "number": 2,
+      "tscircuitLayer": "inner1",
+      "thicknessMm": 0.03,
+      "role": "continuous GND plane"
+    },
+    {
+      "number": 3,
+      "tscircuitLayer": "inner2",
+      "thicknessMm": 0.03,
+      "role": "power regions"
+    },
+    {
+      "number": 4,
+      "tscircuitLayer": "inner3",
+      "thicknessMm": 0.03,
+      "role": "power regions"
+    },
+    {
+      "number": 5,
+      "tscircuitLayer": "inner4",
+      "thicknessMm": 0.03,
+      "role": "continuous GND plane"
+    },
+    {
+      "number": 6,
+      "tscircuitLayer": "bottom",
+      "thicknessMm": 0.035,
+      "role": "USB4 escapes, PCIe TX bridge sections and control signals, referenced to L5"
+    }
+  ],
+  "dielectrics": [
+    {
+      "betweenLayers": [
+        1,
+        2
+      ],
+      "material": "3313 prepreg",
+      "calculatorMaterialLabel": "3313 RC57% 0.092mm",
+      "thicknessMm": 0.092,
+      "designDk": 4.1
+    },
+    {
+      "betweenLayers": [
+        2,
+        3
+      ],
+      "material": "FR-4 core",
+      "thicknessMm": 0.55,
+      "designDk": 4.6
+    },
+    {
+      "betweenLayers": [
+        3,
+        4
+      ],
+      "material": "2116 prepreg",
+      "calculatorMaterialLabel": "2116 0.094mm",
+      "thicknessMm": 0.094,
+      "designDk": 4.16
+    },
+    {
+      "betweenLayers": [
+        4,
+        5
+      ],
+      "material": "FR-4 core",
+      "thicknessMm": 0.55,
+      "designDk": 4.6
+    },
+    {
+      "betweenLayers": [
+        5,
+        6
+      ],
+      "material": "3313 prepreg",
+      "calculatorMaterialLabel": "3313 RC57% 0.092mm",
+      "thicknessMm": 0.092,
+      "designDk": 4.1
+    }
+  ],
+  "solderMaskModel": {
+    "aboveSubstrateMm": 0.03048,
+    "aboveTraceMm": 0.01524,
+    "betweenTracesMm": 0.03048,
+    "designDk": 3.8,
+    "source": "JLCPCB published impedance parameters"
+  },
+  "impedanceProfiles": [
+    {
+      "name": "USB4 and PCIe surface pairs",
+      "status": "existing trace geometry retained; independently screened on the selected 0.092 mm outer dielectric",
+      "targetOhms": 85,
+      "requestedFabricationTolerancePercent": 10,
+      "model": "Differential Pair (Non coplanar), with solder mask",
+      "signalLayer": "top",
+      "referenceLayer": "inner1",
+      "inputPairGapMm": 0.1,
+      "calculatedTraceWidthMm": 0.1234,
+      "calculatedPairGapMm": 0.1001,
+      "calculatorSearchTolerancePercent": 0.5,
+      "note": "The 0.1234 mm width and 0.1001 mm gap are retained. Independent nominal 2D screening gives approximately 85.17 ohms on the selected 0.092 mm 3313 dielectric. New mesh-convergence results are saved with the copper revision. Nearby copper, launches, full channel loss and fabrication tolerances require separate review.",
+      "evidence": "../../dist/slot-power-inner-copper-review/stackup-impedance.json",
+      "calculatorGuideTraceModel": {
+        "outerCopperThicknessMm": 0.04064,
+        "topWidthReductionFromBaseMm": 0.01778,
+        "note": "The existing published guide model of 1.6 mil finished outer trace copper and 0.7 mil top-to-base width reduction remains separate from the 0.035 mm stackup foil specification."
+      },
+      "previousCalculatorGeometrySource": "JLC06161H-3313, 0.5 oz inner copper; retained geometry, not a new manufacturer calculator result"
+    },
+    {
+      "name": "USB4 bottom surface pairs",
+      "status": "existing trace geometry retained; independently screened on the selected 0.092 mm outer dielectric",
+      "targetOhms": 85,
+      "requestedFabricationTolerancePercent": 10,
+      "model": "Differential Pair (Non coplanar), with solder mask",
+      "signalLayer": "bottom",
+      "referenceLayer": "inner4",
+      "inputPairGapMm": 0.1,
+      "calculatedTraceWidthMm": 0.1234,
+      "calculatedPairGapMm": 0.1001,
+      "calculatorSearchTolerancePercent": 0.5,
+      "note": "The 0.1234 mm width and 0.1001 mm gap are retained. Independent nominal 2D screening gives approximately 85.17 ohms on the selected 0.092 mm 3313 dielectric. New mesh-convergence results are saved with the copper revision. Nearby copper, launches, full channel loss and fabrication tolerances require separate review.",
+      "evidence": "../../dist/slot-power-inner-copper-review/stackup-impedance.json",
+      "calculatorGuideTraceModel": {
+        "outerCopperThicknessMm": 0.04064,
+        "topWidthReductionFromBaseMm": 0.01778,
+        "note": "The existing published guide model of 1.6 mil finished outer trace copper and 0.7 mil top-to-base width reduction remains separate from the 0.035 mm stackup foil specification."
+      },
+      "previousCalculatorGeometrySource": "JLC06161H-3313, 0.5 oz inner copper; retained geometry, not a new manufacturer calculator result"
+    }
+  ],
+  "laminate": {
+    "grade": "FR-4",
+    "exactProduct": null,
+    "lossTangentAt10GHz": null,
+    "copperRoughness": null,
+    "lossBudgetVerified": false,
+    "note": "The JLCPCB calculator guide specifies NP-155F for 4-8 layers and requires the corresponding material at ordering. Specify this family and obtain the exact core/prepreg variant. The stackup code alone does not guarantee a production assignment. The linked supplier sheets do not specify Df at 10 GHz.",
+    "calculatorModelFamily": "Nan Ya Plastics NP-155F",
+    "requiredFamily": "Nan Ya Plastics NP-155F",
+    "requestedTgC": 155,
+    "exactVariant": null,
+    "allowUnreviewedSubstitution": false,
+    "researchFile": "manufacturing/stackup/laminate-research.json"
+  },
+  "implementation": {
+    "boardNominalThicknessMm": 1.6,
+    "nativeDielectricStackupConfigured": false,
+    "note": "The circuit declares six copper layers and nominal 1.6 mm thickness. This selected fabrication recipe defines the 30 micrometre inner copper, dielectric dimensions and resistance-model layer depths. The native router does not model the dielectric stack."
+  },
+  "sources": [
+    "https://jlcpcb.com/impedance",
+    "https://jlcpcb.com/pcb-impedance-calculator",
+    "https://jlcpcb.com/help/article/multi-layer-pcb-standard-laminated-structures",
+    "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf",
+    "https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator",
+    "https://jlcpcb.com/certifications"
+  ],
+  "copperSelection": {
+    "nominalInnerOz": 1,
+    "modeledInnerThicknessMm": 0.03,
+    "idealizedPreviousStudyInnerThicknessMm": 0.035,
+    "reason": "Use the actual published JLC061611-3313G inner foil thickness instead of converting nominal ounces to an ideal thickness.",
+    "manufacturerSource": "https://jlcpcb.com/impedance",
+    "sourceSelection": "6 layers, nominal 1.6 mm, outer 1 oz, inner 1 oz; item 11 JLC061611-3313G",
+    "evidence": "manufacturing/stackup/inner-copper-research-2026-10-22.json",
+    "previousSelectedStackup": "manufacturing/stackup/JLC06161H-3313.json"
+  }
+}

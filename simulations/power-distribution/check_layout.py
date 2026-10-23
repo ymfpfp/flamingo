@@ -92,8 +92,10 @@ def audit(j):
         if plane.is_empty:failures.append(rail+': missing assigned inner power region')
         floating=[s.area for i,(l,s) in enumerate(regions) if l in ['inner2','inner3'] and origin is not None and find(i)!=find(origin) and s.area>.001]
         if floating:failures.append(rail+': floating inner copper '+str(floating))
+        floating_top=[s.area for i,(l,s) in enumerate(regions) if l=='top' and origin is not None and find(i)!=find(origin) and s.area>.001]
+        if floating_top:failures.append(rail+': floating top copper '+str(floating_top))
         records.append({'rail':rail,'layer':layer,'bridgePins':sum(name.startswith('ASM') for name,p in expected),
-            'bypassPins':sum(not name.startswith('ASM') for name,p in expected),'disconnected':disconnected,'planeAreaMm2':plane.area,'floatingCopperMm2':floating})
+            'bypassPins':sum(not name.startswith('ASM') for name,p in expected),'disconnected':disconnected,'planeAreaMm2':plane.area,'floatingCopperMm2':floating,'floatingTopCopperMm2':floating_top})
     # Verify each bypass ground and all bridge GND/GNDA pins physically reach
     # either reference plane through a top copper region and a grounded via.
     n=nets['GND'];top=unary_union([o['shape'] for o in copper if o['net']==n and 'top' in o['layers']]).buffer(1e-7)
@@ -171,4 +173,12 @@ if __name__=='__main__':
         bad=[e for e in bad if not(e['type']=='pcb_via' and e['pcb_via_id'] in removed)]
         assert not audit(bad)['passed'],'Missing bypass ground via was not rejected'
         print('PDN regression: missing bypass return rejected')
+        bad=copy.deepcopy(j);bad=bad['circuitJson'] if isinstance(bad,dict) else bad
+        n=next(e['source_net_id'] for e in bad if e['type']=='source_net' and e['name']=='VDD')
+        floating=copy.deepcopy(next(e for e in bad if e['type']=='pcb_copper_pour' and e['source_net_id']==n and e['layer']=='top'))
+        floating.update(pcb_copper_pour_id='regression_floating_vdd_top',brep_shape={
+            'outer_ring':{'vertices':[{'x':x,'y':y} for x,y in [(45.1,79.1),(45.3,79.1),(45.3,79.3),(45.1,79.3)]]},'inner_rings':[]})
+        bad.append(floating)
+        assert any('floating top copper' in f for f in audit(bad)['failures']),'Floating top power island was not rejected'
+        print('PDN regression: floating top power island rejected')
     sys.exit(0 if report['passed'] else 1)

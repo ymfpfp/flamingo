@@ -1,0 +1,1175 @@
+{
+  "checked_on_local": "2026-10-22",
+  "timezone": "America/Los_Angeles",
+  "scope": "Updated authored BOM availability at JLCPCB, including ASM2464PDX. Individual stock observation timestamps are retained.",
+  "method": "Rendered the current index.circuit.tsx with schematic, PCB and supplier lookup disabled to extract source components. Compared every populated group and reference with dist/schematic-review/bom.json; exact match. Read live JLCPCB product-page stock and Available Order Qty in the browser for every supplier-listed part, and searched the exact ASM2464PDX name. After the user selected the two 330 uF capacitors, rebuilt the complete board and regenerated the BOM. Replaced the retired C135 selection with the C133476 pair using the later live stock observation. Other stock observations retain their original timestamps.",
+  "bom_sha256": "d3d1fbe9976a48f73665c960e23f16db88810dac9e6150ba07e55c745e8e77e1",
+  "board_quantity_assumption": 2,
+  "board_quantity_note": "Two boards carried forward from the October 16 audit; no batch size was specified in the current request. Per-board quantities are also recorded.",
+  "quantity_basis": "Nominal installed quantities. Assembly attrition and order-specific requirements are excluded; stock is not reserved.",
+  "excluded": [
+    {
+      "reference": "UART",
+      "reason": "Unpopulated doNotPlace access header"
+    },
+    {
+      "reference": "SPI",
+      "reason": "Unpopulated doNotPlace access header"
+    }
+  ],
+  "summary": {
+    "populated_components_per_board": 152,
+    "distinct_part_types": 44,
+    "supplier_listed_jlcpcb_part_types": 43,
+    "in_stock_sufficient_for_two_nominal_boards": 43,
+    "out_of_stock_preorder": 0,
+    "consignment_only_no_stock": 1,
+    "low_stock_attention": [
+      "PCIe / C21263101: 13 available"
+    ]
+  },
+  "parts": [
+    {
+      "manufacturer_part_number": "0402WGF4701TCE",
+      "jlcpcb_part_number_in_bom": "C25900",
+      "jlcpcb_catalog_match": "C25900",
+      "references": [
+        "R_UART_TX",
+        "R_TEST_EN",
+        "R_PCIE_PRESENT_PU",
+        "R_VBUS_TOP"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 14942247,
+      "available_order_quantity": 12986854,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C25900",
+      "observed_at_utc": "2026-10-22T23:28:04.981Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "213 text In Stock:  14,942,247 Minimum:  1 Full Reel:  10000",
+        "221 text Available Order Qty:  12,986,854 Qty Unit Price 1 + $0.0021 1000 + $0.0016 3000 + $0.0014 10000 + $0.0013 50000 + $0.0011"
+      ]
+    },
+    {
+      "manufacturer_part_number": "ASM2464PDX",
+      "jlcpcb_part_number_in_bom": null,
+      "jlcpcb_catalog_match": "C9900153838",
+      "references": [
+        "ASM2464PDX"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 0,
+      "available_order_quantity": null,
+      "displayed_minimum": 441,
+      "pcba_type": "Standard Only",
+      "status": "consignment_only_no_stock",
+      "source_url": "https://jlcpcb.com/partdetail/JLCPCBAssembly-ASM2464PDX/C9900153838",
+      "observed_at_utc": "2026-10-22T23:29:37.114Z",
+      "evidence": [
+        "83 text Standard Only ",
+        "156 text In Stock:  0 Minimum:  441 Full Reel:  3000",
+        "158 button Consign Part",
+        "160 text Estimated unit price:  $0.0205 The component is currently unavailable for purchase but can still be used in assembly. You may send us this part for your future PCBA orders."
+      ],
+      "note": "BOM has no supplier ID. Exact-name JLCPCB result is a JLCPCB Assembly consignment entry. The page explicitly says unavailable for purchase; customer-supplied parts can be assembled. Its minimum field and estimated price do not establish chip procurement availability.",
+      "resolution": "Source the exact ASM2464PDX and arrange consignment, or obtain a confirmed sourcing quote. Review the catalog mapping before adding it to the BOM; ASM2464PD is a different part number and is not an approved substitute."
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-0712K1L",
+      "jlcpcb_part_number_in_bom": "C132157",
+      "jlcpcb_catalog_match": "C132157",
+      "references": [
+        "R_RST_N"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 94227,
+      "available_order_quantity": 83432,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C132157",
+      "observed_at_utc": "2026-10-22T23:28:06.164Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "217 text In Stock:  94,227 Minimum:  1 Full Reel:  10000",
+        "225 text Available Order Qty:  83,432 Qty Unit Price 1 + $0.0017 1000 + $0.0013 3000 + $0.0012 10000 + $0.0011 50000 + $0.0010"
+      ]
+    },
+    {
+      "manufacturer_part_number": "W25Q32JVSSIQ",
+      "jlcpcb_part_number_in_bom": "C179173",
+      "jlcpcb_catalog_match": "C179173",
+      "references": [
+        "W25Q32JVSSIQ"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 2130,
+      "available_order_quantity": 933,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C179173",
+      "observed_at_utc": "2026-10-22T23:28:07.387Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "238 text In Stock:  2,130 Minimum:  1 Full Reel:  2000",
+        "246 text Available Order Qty:  933 Qty Unit Price 1 + $1.6989 10 + $1.4226 30 + $1.2509 100 + $1.0727 500 + $0.9942 1000 + $0.9582"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1002TCE",
+      "jlcpcb_part_number_in_bom": "C25744",
+      "jlcpcb_catalog_match": "C25744",
+      "references": [
+        "R_SPI_WP",
+        "R_SPI_HOLD",
+        "R_SPI_CS",
+        "R_PCIE_CLKREQ_PU",
+        "R_VBUS_BOTTOM",
+        "R_BUCK_EN_PU"
+      ],
+      "quantity_per_board": 6,
+      "quantity_for_two_boards": 12,
+      "stock": 18463783,
+      "available_order_quantity": 13199510,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C25744",
+      "observed_at_utc": "2026-10-22T23:28:08.783Z",
+      "evidence": [
+        "89 text Economic and Standard",
+        "210 text In Stock:  18,463,783 Minimum:  1 Full Reel:  10000",
+        "218 text Available Order Qty:  13,199,510 Qty Unit Price 1 + $0.0013 1000 + $0.0010 3000 + $0.0009 10000 + $0.0008 50000 + $0.0007"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05B104KO5NNNC",
+      "jlcpcb_part_number_in_bom": "C1525",
+      "jlcpcb_catalog_match": "C1525",
+      "references": [
+        "C_SPI_VCC",
+        "C_VCCL_HF",
+        "C_VDD_HF",
+        "C_BUCK_EN",
+        "C_PSU_LED"
+      ],
+      "quantity_per_board": 5,
+      "quantity_for_two_boards": 10,
+      "stock": 36888077,
+      "available_order_quantity": 29039687,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C1525",
+      "observed_at_utc": "2026-10-22T23:28:09.974Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "196 text In Stock:  36,888,077 Minimum:  1 Full Reel:  10000",
+        "204 text Available Order Qty:  29,039,687 Qty Unit Price 1 + $0.0037 1000 + $0.0029 3000 + $0.0024 10000 + $0.0022 50000 + $0.0019"
+      ]
+    },
+    {
+      "manufacturer_part_number": "XXCBCLNANF-25M",
+      "jlcpcb_part_number_in_bom": "C124313",
+      "jlcpcb_catalog_match": "C124313",
+      "references": [
+        "XCLK"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 3055,
+      "available_order_quantity": 2967,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C124313",
+      "observed_at_utc": "2026-10-22T23:27:59.834Z",
+      "evidence": [
+        "89 text Economic and Standard",
+        "207 text In Stock:  3,055 Minimum:  1 Full Reel:  3000",
+        "215 text Available Order Qty:  2,967 Qty Unit Price 1 + $0.1565 50 + $0.1266 150 + $0.1117 500 + $0.1006 3000 + $0.0794 6000 + $0.0749"
+      ]
+    },
+    {
+      "manufacturer_part_number": "TCC0402COG100J500AT",
+      "jlcpcb_part_number_in_bom": "C696913",
+      "jlcpcb_catalog_match": "C696913",
+      "references": [
+        "C1"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1313874,
+      "available_order_quantity": 1303113,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C696913",
+      "observed_at_utc": "2026-10-22T23:28:10.972Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "199 text In Stock:  1,313,874 Minimum:  1 Full Reel:  10000",
+        "207 text Available Order Qty:  1,303,113 Qty Unit Price 1 + $0.0033 500 + $0.0025 1500 + $0.0020 10000 + $0.0018 20000 + $0.0015"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1003TCE",
+      "jlcpcb_part_number_in_bom": "C25741",
+      "jlcpcb_catalog_match": "C25741",
+      "references": [
+        "R_RST",
+        "R_SLOT_OFF_3V3",
+        "R_SLOT_OFF_12V",
+        "R_PSU_OK_PD"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 8227399,
+      "available_order_quantity": 6474234,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C25741",
+      "observed_at_utc": "2026-10-22T23:28:12.051Z",
+      "evidence": [
+        "89 text Economic and Standard",
+        "210 text In Stock:  8,227,399 Minimum:  1 Full Reel:  10000",
+        "218 text Available Order Qty:  6,474,234 Qty Unit Price 1 + $0.0015 1000 + $0.0012 3000 + $0.0010 10000 + $0.0009 50000 + $0.0008"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05A105KA5NQNC",
+      "jlcpcb_part_number_in_bom": "C52923",
+      "jlcpcb_catalog_match": "C52923",
+      "references": [
+        "C_RST",
+        "C_VBUS_SENSE"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 7709874,
+      "available_order_quantity": 5464657,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C52923",
+      "observed_at_utc": "2026-10-22T23:28:13.197Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "196 text In Stock:  7,709,874 Minimum:  1 Full Reel:  10000",
+        "204 text Available Order Qty:  5,464,657 Qty Unit Price 1 + $0.0070 1000 + $0.0053 3000 + $0.0046 10000 + $0.0040 50000 + $0.0038 100000 + $0.0036"
+      ]
+    },
+    {
+      "manufacturer_part_number": "TS-1088-AR02016",
+      "jlcpcb_part_number_in_bom": "C720477",
+      "jlcpcb_catalog_match": "C720477",
+      "references": [
+        "SW_RESET"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 542395,
+      "available_order_quantity": 475185,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C720477",
+      "observed_at_utc": "2026-10-22T23:28:14.560Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "265 text In Stock:  542,395 Minimum:  1 Full Reel:  4000",
+        "273 text Available Order Qty:  475,185 Qty Unit Price 1 + $0.0527 100 + $0.0426 300 + $0.0373 1000 + $0.0331 4000 + $0.0308 8000 + $0.0298"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05A225KO5NQNC",
+      "jlcpcb_part_number_in_bom": "C170151",
+      "jlcpcb_catalog_match": "C170151",
+      "references": [
+        "C_VCCH_3",
+        "C_VCCH_11",
+        "C_VCCH_16",
+        "C_VCCH_19",
+        "C_VCCL_2",
+        "C_VCCL_10",
+        "C_VCCL_17",
+        "C_VCCL_25",
+        "C_VCCL_29",
+        "C_VCCL_33",
+        "C_VCCL_37",
+        "C_VCCL_41",
+        "C_VCCL_43",
+        "C_VCCL_45",
+        "C_VCCL_46",
+        "C_VDD_1",
+        "C_VDD_9",
+        "C_VDD_15",
+        "C_VDD_22",
+        "C_VDD_24",
+        "C_VDD_28",
+        "C_VDD_32",
+        "C_VDD_36",
+        "C_VDD_40",
+        "C_VDD_42",
+        "C_VDD_44"
+      ],
+      "quantity_per_board": 26,
+      "quantity_for_two_boards": 52,
+      "stock": 597910,
+      "available_order_quantity": 523773,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C170151",
+      "observed_at_utc": "2026-10-22T23:28:15.631Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "202 text In Stock:  597,910 Minimum:  1 Full Reel:  10000",
+        "210 text Available Order Qty:  523,773 Qty Unit Price 1 + $0.0197 200 + $0.0153 600 + $0.0134 2000 + $0.0119 10000 + $0.0108 20000 + $0.0104"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL21A106KAYNNNE",
+      "jlcpcb_part_number_in_bom": "C15850",
+      "jlcpcb_catalog_match": "C15850",
+      "references": [
+        "C_VCCH_6",
+        "C_VCCH_14",
+        "C_VCCL_5",
+        "C_VCCL_13",
+        "C_VCCL_20",
+        "C_VDD_4",
+        "C_VDD_12",
+        "C_VDD_18",
+        "C_VCCL_COUT",
+        "C_VCCL_COUT_B",
+        "C_VDD_COUT",
+        "C_VDD_COUT_B"
+      ],
+      "quantity_per_board": 12,
+      "quantity_for_two_boards": 24,
+      "stock": 9379090,
+      "available_order_quantity": 7617911,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C15850",
+      "observed_at_utc": "2026-10-22T23:28:18.305Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "202 text In Stock:  9,379,090 Minimum:  1 Full Reel:  2000",
+        "210 text Available Order Qty:  7,617,911 Qty Unit Price 1 + $0.0426 200 + $0.0342 600 + $0.0301 2000 + $0.0267 10000 + $0.0254 20000 + $0.0246"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05B224KO5NNNC",
+      "jlcpcb_part_number_in_bom": "C16772",
+      "jlcpcb_catalog_match": "C16772",
+      "references": [
+        "C_VCCH_23",
+        "C_VCCH_27",
+        "C_VCCH_31",
+        "C_VCCH_35",
+        "C_VCCA33_8",
+        "C_VDD_26",
+        "C_VDD_30",
+        "C_VDD_34",
+        "C_VDD_39",
+        "C_TX0_P",
+        "C_TX0_N",
+        "C_TX1_P",
+        "C_TX1_N",
+        "C_TX2_P",
+        "C_TX2_N",
+        "C_TX3_P",
+        "C_TX3_N"
+      ],
+      "quantity_per_board": 17,
+      "quantity_for_two_boards": 34,
+      "stock": 1379652,
+      "available_order_quantity": 1239775,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C16772",
+      "observed_at_utc": "2026-10-22T23:28:19.640Z",
+      "evidence": [
+        "94 text Economic and Standard",
+        "198 text In Stock:  1,379,652 Minimum:  1 Full Reel:  10000",
+        "206 text Available Order Qty:  1,239,775 Qty Unit Price 1 + $0.0049 500 + $0.0038 1500 + $0.0033 10000 + $0.0030 20000 + $0.0028 50000 + $0.0027"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF0000TCE",
+      "jlcpcb_part_number_in_bom": "C17168",
+      "jlcpcb_catalog_match": "C17168",
+      "references": [
+        "R_VCCA33_4",
+        "R_PCIE_PERST",
+        "R_PCIE_REFCLK_P",
+        "R_PCIE_REFCLK_N",
+        "R_PCIE_CLKREQ",
+        "R_PCIE_PRESENT",
+        "R_PSU_ON"
+      ],
+      "quantity_per_board": 7,
+      "quantity_for_two_boards": 14,
+      "stock": 9500593,
+      "available_order_quantity": 7328277,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C17168",
+      "observed_at_utc": "2026-10-22T23:29:10.852Z",
+      "evidence": [
+        "89 text Economic and Standard",
+        "210 text In Stock:  9,500,593 Minimum:  1 Full Reel:  10000",
+        "218 text Available Order Qty:  7,328,277 Qty Unit Price 1 + $0.0011 1000 + $0.0009 3000 + $0.0007 50000 + $0.0006"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL21A226MAYNNNE",
+      "jlcpcb_part_number_in_bom": "C602037",
+      "jlcpcb_catalog_match": "C602037",
+      "references": [
+        "C_VCCA33_7"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 185729,
+      "available_order_quantity": 85412,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C602037",
+      "observed_at_utc": "2026-10-22T23:28:32.883Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "196 text In Stock:  185,729 Minimum:  1 Full Reel:  2000",
+        "204 text Available Order Qty:  85,412 Qty Unit Price 1 + $0.1567 100 + $0.1220 300 + $0.1052 2000 + $0.0901 4000 + $0.0859 10000 + $0.0834"
+      ]
+    },
+    {
+      "manufacturer_part_number": "X1618WVS-164-9TV30",
+      "jlcpcb_part_number_in_bom": "C21263101",
+      "jlcpcb_catalog_match": "C21263101",
+      "references": [
+        "PCIe"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 13,
+      "available_order_quantity": 13,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C21263101",
+      "observed_at_utc": "2026-10-22T23:27:57.178Z",
+      "evidence": [
+        "90 text Economic and Standard",
+        "211 text In Stock:  13 Minimum:  1 Full Reel:  30",
+        "219 text Available Order Qty:  13 Qty Unit Price 1 + $3.8213 10 + $3.2670 30 + $2.9383 90 + $2.6047 600 + $2.4510 900 + $2.3807"
+      ],
+      "risk": "Only 13 are available to order. Enough for two nominal boards; a larger run or assembly attrition may need additional sourcing."
+    },
+    {
+      "manufacturer_part_number": "25SVPK470M",
+      "jlcpcb_part_number_in_bom": "C454276",
+      "jlcpcb_catalog_match": "C454276",
+      "references": [
+        "C134"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 677,
+      "available_order_quantity": 670,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C454276",
+      "observed_at_utc": "2026-10-22T23:28:34.002Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "241 text In Stock:  677 Minimum:  1 Full Reel:  400",
+        "249 text Available Order Qty:  670 Qty Unit Price 1 + $1.5436 10 + $1.2983 30 + $1.1446 100 + $0.9860 400 + $0.9141 800 + $0.8830"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL10B104KB8NNNC",
+      "jlcpcb_part_number_in_bom": "C1591",
+      "jlcpcb_catalog_match": "C1591",
+      "references": [
+        "C132",
+        "C133",
+        "C131"
+      ],
+      "quantity_per_board": 3,
+      "quantity_for_two_boards": 6,
+      "stock": 2315721,
+      "available_order_quantity": 1031587,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C1591",
+      "observed_at_utc": "2026-10-22T23:28:35.955Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "202 text In Stock:  2,315,721 Minimum:  1 Full Reel:  4000",
+        "210 text Available Order Qty:  1,031,587 Qty Unit Price 1 + $0.0086 1000 + $0.0066 4000 + $0.0057 8000 + $0.0051 48000 + $0.0048 100000 + $0.0046"
+      ]
+    },
+    {
+      "manufacturer_part_number": "DMP2008UFG-7",
+      "jlcpcb_part_number_in_bom": "C461052",
+      "jlcpcb_catalog_match": "C461052",
+      "references": [
+        "Q_SLOT_3V3"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 189,
+      "available_order_quantity": 171,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C461052",
+      "observed_at_utc": "2026-10-22T23:28:37.081Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "262 text In Stock:  189 Minimum:  1 Full Reel:  2000",
+        "270 text Available Order Qty:  171 Qty Unit Price 1 + $1.3604 10 + $1.1740 30 + $1.0727 100 + $0.9582 500 + $0.9059 1000 + $0.8830"
+      ]
+    },
+    {
+      "manufacturer_part_number": "NX3008NBK,215",
+      "jlcpcb_part_number_in_bom": "C179399",
+      "jlcpcb_catalog_match": "C179399",
+      "references": [
+        "Q_SLOT_DRV_3V3",
+        "Q_SLOT_DRV_12V"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 28696,
+      "available_order_quantity": 28593,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C179399",
+      "observed_at_utc": "2026-10-22T23:28:38.255Z",
+      "evidence": [
+        "90 text Economic and Standard",
+        "236 text In Stock:  28,696 Minimum:  1 Full Reel:  3000",
+        "244 text Available Order Qty:  28,593 Qty Unit Price 1 + $0.0404 100 + $0.0318 300 + $0.0274 3000 + $0.0241 6000 + $0.0215 9000 + $0.0202"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF5100TCE",
+      "jlcpcb_part_number_in_bom": "C25123",
+      "jlcpcb_catalog_match": "C25123",
+      "references": [
+        "R_SLOT_GATE_3V3",
+        "R_SLOT_GATE_12V"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 1723587,
+      "available_order_quantity": 1393130,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C25123",
+      "observed_at_utc": "2026-10-22T23:28:39.526Z",
+      "evidence": [
+        "87 text Economic and Standard",
+        "208 text In Stock:  1,723,587 Minimum:  1 Full Reel:  10000",
+        "216 text Available Order Qty:  1,393,130 Qty Unit Price 1 + $0.0014 1000 + $0.0010 3000 + $0.0009 10000 + $0.0008 50000 + $0.0007"
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL31B106KAHNNNE",
+      "jlcpcb_part_number_in_bom": "C14860",
+      "jlcpcb_catalog_match": "C14860",
+      "references": [
+        "C_SLOT_GATE_3V3",
+        "C_SLOT_GATE_12V",
+        "C_VCCL_CIN",
+        "C_VDD_CIN"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 922798,
+      "available_order_quantity": 883542,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C14860",
+      "observed_at_utc": "2026-10-22T23:28:41.550Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "199 text In Stock:  922,798 Minimum:  1 Full Reel:  2000",
+        "207 text Available Order Qty:  883,542 Qty Unit Price 1 + $0.1695 200 + $0.1242 600 + $0.1047 2000 + $0.0803 10000 + $0.0695 20000 + $0.0630"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RC1206FR-071KL",
+      "jlcpcb_part_number_in_bom": "C131398",
+      "jlcpcb_catalog_match": "C131398",
+      "references": [
+        "R_SLOT_DISCHARGE_3V3",
+        "R_SLOT_DISCHARGE_12V"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 2838681,
+      "available_order_quantity": 2790455,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C131398",
+      "observed_at_utc": "2026-10-22T23:28:42.595Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "223 text In Stock:  2,838,681 Minimum:  1 Full Reel:  5000",
+        "231 text Available Order Qty:  2,790,455 Qty Unit Price 1 + $0.0085 500 + $0.0066 1500 + $0.0055 5000 + $0.0049 25000 + $0.0044 50000 + $0.0041"
+      ]
+    },
+    {
+      "manufacturer_part_number": "AO4407A",
+      "jlcpcb_part_number_in_bom": "C16072",
+      "jlcpcb_catalog_match": "C16072",
+      "references": [
+        "Q_SLOT_12V"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 12178,
+      "available_order_quantity": 11900,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C16072",
+      "observed_at_utc": "2026-10-22T23:28:44.004Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "258 text In Stock:  12,178 Minimum:  1 Full Reel:  3000",
+        "266 text Available Order Qty:  11,900 Qty Unit Price 1 + $0.3360 50 + $0.2723 150 + $0.2411 500 + $0.2134 3000 + $0.1832 6000 + $0.1785"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0402WGF1001TCE",
+      "jlcpcb_part_number_in_bom": "C11702",
+      "jlcpcb_catalog_match": "C11702",
+      "references": [
+        "R_HDDPC_PD",
+        "R_PSU_LED"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 20017409,
+      "available_order_quantity": 16862329,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C11702",
+      "observed_at_utc": "2026-10-22T23:28:45.091Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "216 text In Stock:  20,017,409 Minimum:  1 Full Reel:  10000",
+        "224 text Available Order Qty:  16,862,329 Qty Unit Price 1 + $0.0013 1000 + $0.0011 3000 + $0.0010 10000 + $0.0009 50000 + $0.0008"
+      ]
+    },
+    {
+      "manufacturer_part_number": "GT-USB-7087B",
+      "jlcpcb_part_number_in_bom": "C3019713",
+      "jlcpcb_catalog_match": "C3019713",
+      "references": [
+        "USBC"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1127,
+      "available_order_quantity": 1127,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C3019713",
+      "observed_at_utc": "2026-10-22T23:28:46.230Z",
+      "evidence": [
+        "87 text Economic and Standard",
+        "254 text In Stock:  1,127 Minimum:  1 Full Reel:  1200",
+        "262 text Available Order Qty:  1,127 Qty Unit Price 1 + $0.7342 10 + $0.6541 30 + $0.6148 100 + $0.5756 500 + $0.5249 1200 + $0.5135"
+      ]
+    },
+    {
+      "manufacturer_part_number": "GRM033R61E224KE01D",
+      "jlcpcb_part_number_in_bom": "C701263",
+      "jlcpcb_catalog_match": "C701263",
+      "references": [
+        "C_USB_TX1_P",
+        "C_USB_TX1_N",
+        "C_USB_TX2_P",
+        "C_USB_TX2_N"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 226368,
+      "available_order_quantity": 216322,
+      "displayed_minimum": 1,
+      "pcba_type": "Standard Only",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C701263",
+      "observed_at_utc": "2026-10-22T23:28:51.027Z",
+      "evidence": [
+        "99 text Standard Only ",
+        "203 text In Stock:  226,368 Minimum:  1 Full Reel:  15000",
+        "211 text Available Order Qty:  216,322 Qty Unit Price 1 + $0.0105 500 + $0.0087 1500 + $0.0077 15000 + $0.0071 30000 + $0.0066 45000 + $0.0063"
+      ]
+    },
+    {
+      "manufacturer_part_number": "ESD150B1W0201E6327XTSA1",
+      "jlcpcb_part_number_in_bom": "C3709987",
+      "jlcpcb_catalog_match": "C3709987",
+      "references": [
+        "D_USB_TX1_P",
+        "D_USB_TX1_N",
+        "D_USB_TX2_P",
+        "D_USB_TX2_N",
+        "D_USB_RX1_P",
+        "D_USB_RX1_N",
+        "D_USB_RX2_P",
+        "D_USB_RX2_N"
+      ],
+      "quantity_per_board": 8,
+      "quantity_for_two_boards": 16,
+      "stock": 1226,
+      "available_order_quantity": 1203,
+      "displayed_minimum": 1,
+      "pcba_type": "Standard Only",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C3709987",
+      "observed_at_utc": "2026-10-22T23:28:52.119Z",
+      "evidence": [
+        "96 text Standard Only ",
+        "250 text In Stock:  1,226 Minimum:  1 Full Reel:  15000",
+        "258 text Available Order Qty:  1,203 Qty Unit Price 1 + $0.1310 50 + $0.1034 150 + $0.0895 500 + $0.0756 2500 + $0.0673 5000 + $0.0630"
+      ]
+    },
+    {
+      "manufacturer_part_number": "0201WMF2203TEE",
+      "jlcpcb_part_number_in_bom": "C473458",
+      "jlcpcb_catalog_match": "C473458",
+      "references": [
+        "R_USB_TX1_P",
+        "R_USB_TX1_N",
+        "R_USB_TX2_P",
+        "R_USB_TX2_N",
+        "R_USB_RX1_P",
+        "R_USB_RX1_N",
+        "R_USB_RX2_P",
+        "R_USB_RX2_N"
+      ],
+      "quantity_per_board": 8,
+      "quantity_for_two_boards": 16,
+      "stock": 101284,
+      "available_order_quantity": 100595,
+      "displayed_minimum": 1,
+      "pcba_type": "Standard Only",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C473458",
+      "observed_at_utc": "2026-10-22T23:28:53.212Z",
+      "evidence": [
+        "96 text Standard Only ",
+        "217 text In Stock:  101,284 Minimum:  1 Full Reel:  15000",
+        "225 text Available Order Qty:  100,595 Qty Unit Price 1 + $0.0019 1000 + $0.0015 3000 + $0.0013 15000 + $0.0011 45000 + $0.0010"
+      ]
+    },
+    {
+      "manufacturer_part_number": "GRM033R61E334KE15D",
+      "jlcpcb_part_number_in_bom": "C723889",
+      "jlcpcb_catalog_match": "C723889",
+      "references": [
+        "C_USB_RX1_P",
+        "C_USB_RX1_N",
+        "C_USB_RX2_P",
+        "C_USB_RX2_N"
+      ],
+      "quantity_per_board": 4,
+      "quantity_for_two_boards": 8,
+      "stock": 12351,
+      "available_order_quantity": 12205,
+      "displayed_minimum": 1,
+      "pcba_type": "Standard Only",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C723889",
+      "observed_at_utc": "2026-10-22T23:28:54.425Z",
+      "evidence": [
+        "96 text Standard Only ",
+        "192 text In Stock:  12,351 Minimum:  1 Full Reel:  15000",
+        "200 text Available Order Qty:  12,205 Qty Unit Price 1 + $0.0259 200 + $0.0211 600 + $0.0184 2000 + $0.0167 15000 + $0.0153 30000 + $0.0145"
+      ]
+    },
+    {
+      "manufacturer_part_number": "39301240",
+      "jlcpcb_part_number_in_bom": "C492347",
+      "jlcpcb_catalog_match": "C492347",
+      "references": [
+        "ATX"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 2187,
+      "available_order_quantity": 2102,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C492347",
+      "observed_at_utc": "2026-10-22T23:28:55.464Z",
+      "evidence": [
+        "90 text Economic and Standard",
+        "279 text In Stock:  2,187 Minimum:  1 Full Reel:  75",
+        "287 text Available Order Qty:  2,102 Qty Unit Price 1 + $1.3637 10 + $1.2476 30 + $1.1822 75 + $1.1103 525 + $1.0792 1200 + $1.0645"
+      ]
+    },
+    {
+      "manufacturer_part_number": "TPS62903RPJR",
+      "jlcpcb_part_number_in_bom": "C2866502",
+      "jlcpcb_catalog_match": "C2866502",
+      "references": [
+        "VCCL_BUCK",
+        "VDD_BUCK"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 1258,
+      "available_order_quantity": 1246,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C2866502",
+      "observed_at_utc": "2026-10-22T23:28:56.840Z",
+      "evidence": [
+        "90 text Economic and Standard",
+        "246 text In Stock:  1,258 Minimum:  1 Full Reel:  3000",
+        "254 text Available Order Qty:  1,246 Qty Unit Price 1 + $1.1839 10 + $0.9697 30 + $0.8536 100 + $0.7211 500 + $0.6623 1000 + $0.6345"
+      ]
+    },
+    {
+      "manufacturer_part_number": "XGL4020-102MEC",
+      "jlcpcb_part_number_in_bom": "C5357696",
+      "jlcpcb_catalog_match": "C5357696",
+      "references": [
+        "L_VCCL",
+        "L_VDD"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 1096,
+      "available_order_quantity": 984,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C5357696",
+      "observed_at_utc": "2026-10-22T23:27:54.648Z",
+      "evidence": [
+        "90 text Economic and Standard",
+        "202 text In Stock:  1,096 Minimum:  1 Full Reel:  1000",
+        "210 text Available Order Qty:  984 Qty Unit Price 1 + $4.0747 10 + $3.5858 30 + $3.2800 100 + $2.9661 500 + $2.8239 1000 + $2.7634"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0726K1L",
+      "jlcpcb_part_number_in_bom": "C728557",
+      "jlcpcb_catalog_match": "C728557",
+      "references": [
+        "R_VCCL_FBT"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 9014,
+      "available_order_quantity": 8827,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C728557",
+      "observed_at_utc": "2026-10-22T23:28:58.012Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "217 text In Stock:  9,014 Minimum:  1 Full Reel:  10000",
+        "225 text Available Order Qty:  8,827 Qty Unit Price 1 + $0.0283 500 + $0.0242 1500 + $0.0220 10000 + $0.0205 20000 + $0.0193 50000 + $0.0187"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0712K1L",
+      "jlcpcb_part_number_in_bom": "C281773",
+      "jlcpcb_catalog_match": "C281773",
+      "references": [
+        "R_VCCL_FBB",
+        "R_VDD_FBB"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 17614,
+      "available_order_quantity": 15133,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C281773",
+      "observed_at_utc": "2026-10-22T23:28:59.157Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "223 text In Stock:  17,614 Minimum:  1 Full Reel:  10000",
+        "231 text Available Order Qty:  15,133 Qty Unit Price 1 + $0.0483 100 + $0.0419 300 + $0.0388 1000 + $0.0365 5000 + $0.0346 10000 + $0.0336"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RC0402FR-078K87L",
+      "jlcpcb_part_number_in_bom": "C155696",
+      "jlcpcb_catalog_match": "C155696",
+      "references": [
+        "R_VCCL_MODE",
+        "R_VDD_MODE"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 9904,
+      "available_order_quantity": 9900,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C155696",
+      "observed_at_utc": "2026-10-22T23:27:55.894Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "217 text In Stock:  9,904 Minimum:  1 Full Reel:  10000",
+        "225 text Available Order Qty:  9,900 Qty Unit Price 1 + $0.0027 1000 + $0.0024 3000 + $0.0023 10000 + $0.0022 50000 + $0.0021"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0710K7L",
+      "jlcpcb_part_number_in_bom": "C852482",
+      "jlcpcb_catalog_match": "C852482",
+      "references": [
+        "R_VDD_FBT"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 12303,
+      "available_order_quantity": 11865,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C852482",
+      "observed_at_utc": "2026-10-22T23:29:00.183Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "223 text In Stock:  12,303 Minimum:  1 Full Reel:  10000",
+        "231 text Available Order Qty:  11,865 Qty Unit Price 1 + $0.0292 500 + $0.0249 1500 + $0.0226 10000 + $0.0211 20000 + $0.0198 50000 + $0.0192"
+      ]
+    },
+    {
+      "manufacturer_part_number": "TPS389001DSER",
+      "jlcpcb_part_number_in_bom": "C1509297",
+      "jlcpcb_catalog_match": "C1509297",
+      "references": [
+        "U_BUCK_EN"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 200,
+      "available_order_quantity": 166,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C1509297",
+      "observed_at_utc": "2026-10-22T23:27:58.479Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "234 text In Stock:  200 Minimum:  1 Full Reel:  3000",
+        "242 text Available Order Qty:  166 Qty Unit Price 1 + $1.7627 10 + $1.4569 30 + $1.2885 100 + $1.0988 500 + $1.0138 1000 + $0.9762"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0716K2L",
+      "jlcpcb_part_number_in_bom": "C852557",
+      "jlcpcb_catalog_match": "C852557",
+      "references": [
+        "R_BUCK_EN_TOP"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1915,
+      "available_order_quantity": 1307,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C852557",
+      "observed_at_utc": "2026-10-22T23:29:01.221Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "223 text In Stock:  1,915 Minimum:  1 Full Reel:  10000",
+        "231 text Available Order Qty:  1,307 Qty Unit Price 1 + $0.0283 500 + $0.0242 1500 + $0.0220 10000 + $0.0205 20000 + $0.0193 50000 + $0.0187"
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD0710KL",
+      "jlcpcb_part_number_in_bom": "C190095",
+      "jlcpcb_catalog_match": "C190095",
+      "references": [
+        "R_BUCK_EN_BOTTOM"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 592361,
+      "available_order_quantity": 218901,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C190095",
+      "observed_at_utc": "2026-10-22T23:29:02.413Z",
+      "evidence": [
+        "95 text Economic and Standard",
+        "220 text In Stock:  592,361 Minimum:  1 Full Reel:  10000",
+        "228 text Available Order Qty:  218,901 Qty Unit Price 1 + $0.0254 500 + $0.0215 1500 + $0.0197 10000 + $0.0175 20000 + $0.0171 50000 + $0.0167"
+      ]
+    },
+    {
+      "manufacturer_part_number": "SN74AHCT1G14DBVR",
+      "jlcpcb_part_number_in_bom": "C55250",
+      "jlcpcb_catalog_match": "C55250",
+      "references": [
+        "U_PSU_LED"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 20972,
+      "available_order_quantity": 20863,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C55250",
+      "observed_at_utc": "2026-10-22T23:29:03.433Z",
+      "evidence": [
+        "92 text Economic and Standard",
+        "273 text In Stock:  20,972 Minimum:  1 Full Reel:  3000",
+        "281 text Available Order Qty:  20,863 Qty Unit Price 1 + $0.3153 50 + $0.2494 150 + $0.2211 500 + $0.1858 3000 + $0.1526 6000 + $0.1433"
+      ]
+    },
+    {
+      "manufacturer_part_number": "XL-1608UWC-04",
+      "jlcpcb_part_number_in_bom": "C965808",
+      "jlcpcb_catalog_match": "C965808",
+      "references": [
+        "LED_PSU_OK"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 1269984,
+      "available_order_quantity": 1244398,
+      "displayed_minimum": 1,
+      "pcba_type": "Economic and Standard",
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/C965808",
+      "observed_at_utc": "2026-10-22T23:29:04.689Z",
+      "evidence": [
+        "98 text Economic and Standard",
+        "265 text In Stock:  1,269,984 Minimum:  1 Full Reel:  4000",
+        "273 text Available Order Qty:  1,244,398 Qty Unit Price 1 + $0.0049 1000 + $0.0038 4000 + $0.0031 8000 + $0.0027 48000 + $0.0026 100000 + $0.0025"
+      ]
+    },
+    {
+      "manufacturer_part_number": "APXF6R3ARA331MF61G",
+      "jlcpcb_part_number_in_bom": "C133476",
+      "jlcpcb_catalog_match": "C133476",
+      "references": [
+        "C135",
+        "C136"
+      ],
+      "quantity_per_board": 2,
+      "quantity_for_two_boards": 4,
+      "stock": 1140,
+      "available_order_quantity": 1095,
+      "displayed_minimum": 1,
+      "status": "in_stock",
+      "source_url": "https://jlcpcb.com/partdetail/144781-APXF6R3ARA331MF61G/C133476",
+      "observed_at_utc": "2026-10-22T23:39:46.391Z",
+      "resolution": "User-selected pair implemented. Ordering no longer requires the former 900-piece preorder. Stock is not reserved.",
+      "replacement_research": "datasheets/research/c135-replacement-2026-10-22/findings.json"
+    }
+  ],
+  "external_checks": [
+    {
+      "part": "APXJ6R3ARA561MF80G",
+      "supplier": "Mouser USA",
+      "source_url": "https://www.mouser.com/en/ProductDetail/Chemi-Con/APXJ6R3ARA561MF80G?qs=eP2BKZSCXI64pAfBVOxnZQ%3D%3D",
+      "observed_at_utc": "2026-10-22T23:29:49.441Z",
+      "stock": 0,
+      "status": "backorder",
+      "displayed_factory_lead_time_weeks": 30,
+      "displayed_incoming": [
+        {
+          "quantity": 1399,
+          "expected_date": "2027-03-15"
+        },
+        {
+          "quantity": 2700,
+          "expected_date": "2027-05-28"
+        }
+      ],
+      "note": "Live browser inventory supersedes older search-engine and cached page results that report positive Mouser stock."
+    },
+    {
+      "part": "APXJ6R3ARA561MF80G",
+      "supplier": "DigiKey",
+      "source_url": "https://www.digikey.com/en/products/detail/chemi-con/APXJ6R3ARA561MF80G/10487120",
+      "status": "not_live_verified",
+      "note": "Browser stopped at automatic security verification. Search results showed stock but were cached, so no current availability claim is made."
+    }
+  ],
+  "limitations": [
+    "Public catalog inventory only; user private or consigned stock was not inspected.",
+    "JLCPCB pre-order delivery dates require confirmation.",
+    "No component substitutions, BOM mappings, circuit changes or purchases were made."
+  ],
+  "raw_browser_evidence": "dist/bom-stock-audit-2026-10-22/browser-evidence.json",
+  "replaced_parts": [
+    {
+      "manufacturer_part_number": "APXJ6R3ARA561MF80G",
+      "jlcpcb_part_number_in_bom": "C2157846",
+      "jlcpcb_catalog_match": "C2157846",
+      "references": [
+        "C135"
+      ],
+      "quantity_per_board": 1,
+      "quantity_for_two_boards": 2,
+      "stock": 0,
+      "available_order_quantity": null,
+      "displayed_minimum": 37,
+      "pcba_type": "Economic and Standard",
+      "status": "out_of_stock_preorder",
+      "source_url": "https://jlcpcb.com/partdetail/C2157846",
+      "observed_at_utc": "2026-10-22T23:27:33.528Z",
+      "evidence": [
+        "97 text Economic and Standard",
+        "275 text In Stock:  0 Minimum:  37 Full Reel:  900",
+        "280 button  Pre-order"
+      ],
+      "note": "Pre-order is offered with minimum 37. No immediate order quantity or confirmed delivery date is shown.",
+      "resolution": "Confirm JLCPCB supply date for the exact part, or qualify a stocked substitute against the existing footprint, 560 uF, >=6.3 V, <=8 mOhm ESR, >=5 A ripple at 100 kHz and 105 C, and >=15000 h endurance at 105 C. No substitute was selected in this audit.",
+      "user_reported_actual_preorder_quantity": 900,
+      "ordering_correction": "The public page displayed minimum 37 during the audit, but the user reports an actual preorder requirement of 900. Use the actual order requirement; 37 is not a confirmed orderable quantity.",
+      "replacement_research": "datasheets/research/c135-replacement-2026-10-22/findings.json"
+    }
+  ],
+  "previous_bom_sha256": "af0be3d35f4f4b3593526d94c9bb974e843149f6ffa9b14978ce5f41022fc39c",
+  "remaining_resolution": "ASM2464PDX is the remaining procurement blocker: no purchasable JLCPCB stock, consignment only. The bridge supplier mapping has not been changed."
+}

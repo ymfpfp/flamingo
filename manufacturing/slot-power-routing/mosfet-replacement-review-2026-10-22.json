@@ -1,0 +1,363 @@
+{
+  "date": "2026-10-22",
+  "status": "Candidate identified; MOSFET-only change is not validated for all tested startup and restart conditions",
+  "candidate": "Si4497DY-T1-GE3",
+  "position": "Q_SLOT_12V",
+  "hardwareChangesApplied": false,
+  "hardwareQualified": false,
+  "boardSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a",
+  "reportFile": "dist/slot-mosfet-selection-2026-10-22/report.html",
+  "cases": 156,
+  "finalComparisonCases": 138,
+  "additionalBlockingSupplyCases": 18,
+  "candidateSetup": {
+    "MOSFET": "Si4497DY-T1-GE3",
+    "R_SLOT_GATE_12V_ohm": 10000,
+    "R_SLOT_OFF_12V_ohm": 10000,
+    "C_SLOT_GATE_12V_uF": 10,
+    "gateCapacitorConnection": "Source to gate; same as current board",
+    "topology": "Existing NX3008NBK gate driver retained",
+    "applied": false
+  },
+  "footprint": {
+    "compatible": true,
+    "package": "SO-8 / JEDEC MS-012, narrow body",
+    "pitchMM": 1.27,
+    "pins": {
+      "1-3": "Source",
+      "4": "Gate",
+      "5-8": "Drain"
+    },
+    "existingPadMM": [
+      0.58801,
+      1.7999964
+    ],
+    "existingRowCenterMM": 5.199888,
+    "manufacturerLeadSpanMM": [
+      5.8,
+      6.2
+    ],
+    "manufacturerBodyMM": [
+      5.0,
+      4.0
+    ],
+    "method": "Compared existing AO4407A land coordinates and courtyard with Si4497DY package drawing and recommended pads, datasheet pages 7-8. Existing lands are longer than the recommended minimum. Same physical pin numbers and orientation.",
+    "assemblyLayer": "top"
+  },
+  "findings": [
+    "Si4497DY has 3.3 mOhm maximum RDS(on) at -10 V and 4.6 mOhm at -4.5 V, plus a substantially higher published pulsed SOA than AO4407A.",
+    "A direct replacement with 510 ohm / 100 kohm / 10 uF does not clear the hot startup screen. Its stronger transfer characteristic increases predicted inrush.",
+    "With both gate resistors at 10 kohm, the 25 C and 85 C control-cycle cases with 1000 uF added card capacitance clear the full-duration estimated thermal bound.",
+    "The 85 C / 2000 uF sensitivity clears the equivalent-pulse estimate but reaches 1.01 times the full-duration bound. It has no robust margin under that stronger bound.",
+    "125 C control-cycle cases still exceed the equivalent-pulse estimate. This is a preheat sensitivity, not a measured board temperature.",
+    "Fast 12 V return can occur with retained gate charge. The forced-collapse source model predicts approximately 170 A; a separate source-blocking model still predicts approximately 163 A after a 10 ms interruption and a 100 us return ramp. These exceed the 70 A pulsed rating.",
+    "In the blocking-source sensitivity, 1 ms return ramps reduce the 1/10 ms interruption surges to approximately 26 A, and 10 ms ramps reduce them to approximately 7.7 A. Actual PSU return behavior must be measured.",
+    "Gate-to-drain-only capacitance caused unwanted startup during input application. Dual-capacitor and resistor sweeps did not close the 125 C margin; they are not proposed for the board.",
+    "The 3.3 V switch is outside this replacement study. Its previously reported slow hot turn-off remains open."
+  ],
+  "decision": "Retain Si4497DY-T1-GE3 as the preferred same-footprint candidate. Do not mark a MOSFET-only swap as a completed hot-restart fix. A release that must cover all tested conditions needs gate reset / controlled restart or an explicitly narrower validated operating envelope.",
+  "limitations": [
+    "Vendor typical electrical SPICE model, not a process-corner model. Fixed-temperature simulations omit electrothermal feedback and repeated-cycle heat accumulation.",
+    "TA=25 C SOA power legs are extended by (150-initialTemperatureC)/125 and a 0.9 curve-reading reserve. This is an engineering estimate. Actual board thermal impedance is unmeasured.",
+    "Equivalent pulse uses positive forward-linear energy divided by forward-linear peak power. The separate full-duration bound uses that peak throughout the entire forward-linear event. Ratios above one are outside the estimate, not proof of physical failure.",
+    "No additional pulse credit below 1 ms. Forward and reverse current above 70 A are flagged separately from thermal SOA; ohmic surges are not declared linear-mode failures.",
+    "The main source model can sink current: 25 mOhm, 200 nH, 100 us ramps. It is a stiff collapse sensitivity, not a measured ATX waveform. Reverse body-diode survival is unqualified.",
+    "The additional source model adds a conventional blocking diode. Its forward drop changes the delivered voltage. It checks sensitivity to a supply that cannot absorb reverse current; it is not an ATX PSU model.",
+    "Capacitance assumptions: board bulk 470 uF x 1.44, card 1000 uF with 2000 uF sensitivity, effective gate capacitance 5-11 uF. Resistor tolerances and complete device process corners are not qualified.",
+    "12 V stress load is 5.5 A nominal, tested as a resistor or a UVLO-ramped current sink. Independent rail stress does not permit more than 75 W combined slot load.",
+    "Hard shorts, live insertion, PSU current limiting, reverse recovery limits, and auxiliary card power are outside this review."
+  ],
+  "numericalControls": {
+    "all156CasesCompleted": true,
+    "allFinalVoltagesSettled": true,
+    "maximumChargeResidual": 0.002419779220249846,
+    "timeStepChecks": {
+      "checks": [
+        {
+          "index": 0,
+          "config": "dropin",
+          "temp": 25,
+          "kind": "control",
+          "basePeakW": 312.1848377054632,
+          "refinedPeakW": 312.5613242318175,
+          "basePeakA": 74.2436862589948,
+          "refinedPeakA": 74.27402925541203,
+          "powerRelativeDifference": 0.0012059731315634536,
+          "currentRelativeDifference": 0.0004086946371626432,
+          "passed": true
+        },
+        {
+          "index": 96,
+          "config": "rc10k",
+          "temp": 85,
+          "kind": "control",
+          "basePeakW": 76.09527922930664,
+          "refinedPeakW": 76.09979844433227,
+          "basePeakA": 18.199347306897714,
+          "refinedPeakA": 18.200828133963935,
+          "powerRelativeDifference": 5.938890127477059e-05,
+          "currentRelativeDifference": 8.136704252348359e-05,
+          "passed": true
+        },
+        {
+          "index": 100,
+          "config": "rc10k",
+          "temp": 125,
+          "kind": "control",
+          "basePeakW": 73.80638405176151,
+          "refinedPeakW": 73.80816596937237,
+          "basePeakA": 17.705221236706077,
+          "refinedPeakA": 17.706560494821836,
+          "powerRelativeDifference": 2.414313658305467e-05,
+          "currentRelativeDifference": 7.564198706444536e-05,
+          "passed": true
+        },
+        {
+          "index": 130,
+          "config": "rc10k",
+          "temp": 85,
+          "kind": "control",
+          "basePeakW": 97.40865274302263,
+          "refinedPeakW": 97.41096669407281,
+          "basePeakA": 22.870993540163752,
+          "refinedPeakA": 22.87553437285408,
+          "powerRelativeDifference": 2.3755087305010747e-05,
+          "currentRelativeDifference": 0.00019854112075856634,
+          "passed": true
+        },
+        {
+          "index": 118,
+          "config": "rc10k",
+          "temp": 125,
+          "kind": "source",
+          "basePeakW": 120.10745561503768,
+          "refinedPeakW": 119.96136973906687,
+          "basePeakA": 170.28073997213022,
+          "refinedPeakA": 170.18313102516674,
+          "powerRelativeDifference": 0.0012162931536826571,
+          "currentRelativeDifference": 0.0005732236480734398,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "boardUnchanged": true
+  },
+  "model": {
+    "path": "datasheets/research/slot-mosfet-startup-2026-10-22/Si4497DY-Si4497DY_PS.txt",
+    "sha256": "e919c89f9253437998249151d5e3449528a8ddc9b1462908fb549dbc309c91eb",
+    "sourceUrl": "https://www.vishay.com/docs/66616/si4497dy.zip",
+    "adaptations": [
+      "Normalize CRLF",
+      "Rename PSpice diode T_MEASURED to ngspice TNOM"
+    ]
+  },
+  "evidence": {
+    "focusedResults": "dist/slot-mosfet-focused-2026-10-22/results.json",
+    "focusedRunnerSnapshot": "dist/slot-mosfet-focused-2026-10-22/runner.mjs",
+    "sourceResults": "dist/slot-mosfet-source-study-2026-10-22/results.json",
+    "sourceRunnerSnapshot": "dist/slot-mosfet-source-study-2026-10-22/runner.mjs",
+    "runner": "simulations/slot-power/check-replacement.mjs",
+    "soa": "simulations/slot-power/si4497-soa.json"
+  },
+  "summary": [
+    {
+      "config": "dropin",
+      "tempC": 25,
+      "cardUF": 1000,
+      "cases": 4,
+      "worstEquivalentRatio": 0.7078265429143241,
+      "worstEquivalentCase": 0,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 0.7078265429143241,
+      "peakForwardA": 74.2436862589948
+    },
+    {
+      "config": "dropin",
+      "tempC": 25,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 0.8696844263433251,
+      "worstEquivalentCase": 36,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 0.8696844263433251,
+      "peakForwardA": 92.02369626939844
+    },
+    {
+      "config": "dropin",
+      "tempC": 85,
+      "cardUF": 1000,
+      "cases": 12,
+      "worstEquivalentRatio": 1.2853265244129073,
+      "worstEquivalentCase": 4,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 1.4551773157853454,
+      "peakForwardA": 69.94835278463823
+    },
+    {
+      "config": "dropin",
+      "tempC": 85,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 1.5870858742961587,
+      "worstEquivalentCase": 38,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 1.5870858742961587,
+      "peakForwardA": 87.07256480222239
+    },
+    {
+      "config": "dropin",
+      "tempC": 125,
+      "cardUF": 1000,
+      "cases": 12,
+      "worstEquivalentRatio": 3.2181115966582126,
+      "worstEquivalentCase": 8,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 3.4199072471325254,
+      "peakForwardA": 67.39381488657054
+    },
+    {
+      "config": "dropin",
+      "tempC": 125,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 3.9935031179433085,
+      "worstEquivalentCase": 40,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 3.9935031179433085,
+      "peakForwardA": 84.10791912460196
+    },
+    {
+      "config": "rc5k",
+      "tempC": 25,
+      "cardUF": 1000,
+      "cases": 4,
+      "worstEquivalentRatio": 0.28760540670102586,
+      "worstEquivalentCase": 46,
+      "worstEquivalentEvent": "restart",
+      "worstFullDurationRatio": 0.4274005947200604,
+      "peakForwardA": 26.652834695577113
+    },
+    {
+      "config": "rc5k",
+      "tempC": 25,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 0.3975818173737173,
+      "worstEquivalentCase": 82,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 0.5834436748587426,
+      "peakForwardA": 33.48313402478565
+    },
+    {
+      "config": "rc5k",
+      "tempC": 85,
+      "cardUF": 1000,
+      "cases": 12,
+      "worstEquivalentRatio": 0.5433000171314689,
+      "worstEquivalentCase": 50,
+      "worstEquivalentEvent": "restart",
+      "worstFullDurationRatio": 0.8192133644834039,
+      "peakForwardA": 25.37625977628025
+    },
+    {
+      "config": "rc5k",
+      "tempC": 85,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 0.7514971166270943,
+      "worstEquivalentCase": 84,
+      "worstEquivalentEvent": "restart",
+      "worstFullDurationRatio": 1.1180868690362973,
+      "peakForwardA": 31.91894906304648
+    },
+    {
+      "config": "rc5k",
+      "tempC": 125,
+      "cardUF": 1000,
+      "cases": 12,
+      "worstEquivalentRatio": 1.3984884005640643,
+      "worstEquivalentCase": 54,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 2.1270095190366467,
+      "peakForwardA": 24.675072777195606
+    },
+    {
+      "config": "rc5k",
+      "tempC": 125,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 1.9347025946754555,
+      "worstEquivalentCase": 86,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 2.898382245106991,
+      "peakForwardA": 31.047451323821672
+    },
+    {
+      "config": "rc10k",
+      "tempC": 25,
+      "cardUF": 1000,
+      "cases": 4,
+      "worstEquivalentRatio": 0.2554109240456034,
+      "worstEquivalentCase": 92,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 0.38747805268647684,
+      "peakForwardA": 19.10376623965853
+    },
+    {
+      "config": "rc10k",
+      "tempC": 25,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 0.3522066797255679,
+      "worstEquivalentCase": 128,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 0.5267608443559307,
+      "peakForwardA": 24.024448608321443
+    },
+    {
+      "config": "rc10k",
+      "tempC": 85,
+      "cardUF": 1000,
+      "cases": 12,
+      "worstEquivalentRatio": 0.48338164380399207,
+      "worstEquivalentCase": 96,
+      "worstEquivalentEvent": "restart",
+      "worstFullDurationRatio": 0.7439663196920487,
+      "peakForwardA": 18.199347306897714
+    },
+    {
+      "config": "rc10k",
+      "tempC": 85,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 0.665684839328194,
+      "worstEquivalentCase": 130,
+      "worstEquivalentEvent": "restart",
+      "worstFullDurationRatio": 1.010151648308295,
+      "peakForwardA": 22.870993540163752
+    },
+    {
+      "config": "rc10k",
+      "tempC": 125,
+      "cardUF": 1000,
+      "cases": 12,
+      "worstEquivalentRatio": 1.2459081604024949,
+      "worstEquivalentCase": 100,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 1.9365545803247928,
+      "peakForwardA": 17.705221236706077
+    },
+    {
+      "config": "rc10k",
+      "tempC": 125,
+      "cardUF": 2000,
+      "cases": 2,
+      "worstEquivalentRatio": 1.714190547300818,
+      "worstEquivalentCase": 132,
+      "worstEquivalentEvent": "startup",
+      "worstFullDurationRatio": 2.629060403512002,
+      "peakForwardA": 22.239641138891503
+    }
+  ]
+}

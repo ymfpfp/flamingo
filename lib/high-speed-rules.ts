@@ -1,5 +1,5 @@
 import type {ComponentProps} from "react";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json";
+import stackup from "../manufacturing/stackup/selected.json";
 import {traceWidthsMm} from "./trace-width-rules";
 
 const profile = stackup.impedanceProfiles.find(p => p.signalLayer === "bottom")!;
@@ -49,17 +49,3 @@ export const usb4TraceRules = {
   width: usb4Rules.width,
   maxViaCount: usb4Rules.maxSignalVias,
 } satisfies Partial<ComponentProps<"trace">>;
-
-export const usb4PairRules = {
-  pcbTraceGap: usb4Rules.gap,
-  maxLengthSkew: usb4Rules.maxSkew,
-} satisfies Partial<ComponentProps<"differentialpair">>;
-
-export const layerRoles = {
-  top: "high-speed and local connections",
-  inner1: "GND",
-  inner2: "power",
-  inner3: "power",
-  inner4: "GND",
-  bottom: "USB4 escapes, PCIe data sections, REFCLK, and controls",
-} as const;

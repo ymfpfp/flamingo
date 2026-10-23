@@ -96,16 +96,12 @@ export function checkPcieConnectorKeepout(json: AnyCircuitElement[]): PcieKeepou
 export function updatePcieConnectorKeepout(json: AnyCircuitElement[]) {
   const geometry = getPcieConnectorKeepout(json);
   if (!geometry) return;
-  const {polygon, bounds} = geometry;
+  const {polygon} = geometry;
   const generated: AnyCircuitElement[] = [];
   if (area(polygon) > 1e-6) {
     generated.push({type: "pcb_note_path", pcb_note_path_id: `${prefix}xkb-body`,
       name: `${prefix}xkb-body`, route: [...polygon, polygon[0]],
       layer: "top", stroke_width: 0.18, color: "#e05a5a"});
-    generated.push({type: "pcb_note_text", pcb_note_text_id: `${prefix}xkb-body_label`,
-      name: `${prefix}xkb-body_label`, text: "XKB: no other components",
-      anchor_position: {x: bounds.minX + 16, y: bounds.maxY - 3},
-      anchor_alignment: "top_left", font: "tscircuit2024", font_size: 1, layer: "top", color: "#e05a5a"});
   }
   for (const [index, finding] of checkPcieConnectorKeepout(json).entries()) {
     generated.push({type: "pcb_placement_error", pcb_placement_error_id: `${prefix}error_${index}`,

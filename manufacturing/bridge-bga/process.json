@@ -1,5 +1,5 @@
 {
-  "revision": "1.6",
+  "revision": "1.7",
   "footprint": {
     "circularLandDiameterMm": 0.2,
     "circularSolderMaskMarginMm": 0.025,
@@ -92,8 +92,14 @@
   },
   "usb2Escape": {
     "source": "ASMedia PCB Guideline R1.0 page 3, USB2.0 UDP/N",
-    "signalViaInPadBalls": ["M2"],
-    "connectorViaInPadContacts": ["A7", "B6", "B7"],
+    "signalViaInPadBalls": [
+      "M2"
+    ],
+    "connectorViaInPadContacts": [
+      "A7",
+      "B6",
+      "B7"
+    ],
     "bgaViaCopperDiameterMm": 0.25,
     "bgaViaDrillMm": 0.15,
     "connectorViaCopperDiameterMm": 0.3,
@@ -103,9 +109,15 @@
     "vendorAcceptanceReceived": false
   },
   "usbShielding": {
-    "outerLayers": ["top", "bottom"],
+    "outerLayers": [
+      "top",
+      "bottom"
+    ],
     "surfaceCopperStyle": "authored constant-width guard bands",
-    "nominalGuardOutlineWidthsMm": [0.5, 0.6],
+    "nominalGuardOutlineWidthsMm": [
+      0.5,
+      0.6
+    ],
     "signalTraceToShieldClearanceMm": 0.8,
     "asmedia8hMinimumMm": 0.7952,
     "authoredFenceMaximumPitchMm": 1,
@@ -125,7 +137,7 @@
     "note": "Retain the accepted 0201 X5R parts. This is an explicit prototype deviation from the ASMedia dielectric requirement; it does not establish effective capacitance or channel compliance."
   },
   "pcieTxEscape": {
-    "revision": "1.2",
+    "revision": "1.3",
     "signalViaCopperDiameterMm": 0.25,
     "signalViaDrillMm": 0.15,
     "capacitorViaCopperDiameterMm": 0.3,
@@ -134,6 +146,7 @@
       "R20",
       "U21",
       "AA17",
+      "Y15",
       "AA15"
     ],
     "groundViaLand": "V9",
@@ -146,14 +159,42 @@
     "pairGapMm": 0.1001,
     "signalViasPerConductor": 2,
     "vendorAcceptanceReceived": false,
-    "note": "Constant-offset bottom trunks retain nominal pair geometry. Local top/bottom escapes balance planar length. The AA15 filled/capped land via frees the direct top RX3 escape; TX3 starts coupling on its northeast launch. Filled/capped signal and ground land vias require combined land/mask/stencil DFM review. Geometry does not establish electrical delay or 3D channel SI.",
+    "note": "TX3 has identical 0.25 mm circular lands, mask openings and 0.15 mm drill / 0.25 mm copper filled/capped via-in-pad transitions at Y15 and AA15. Both have zero top escape and the first 0.19 mm bottom segment is identical. Subsequent bottom fan-in and short P length compensation balance the existing trunk bends. TX1/TX2 launch routing, nearby GND contacts and REFCLK bridge vias are coordinated to preserve the checked clearance, isolation and reference geometry. Connector lands and entries remain fixed. Equal drawn lengths do not establish electrical delay, package SI or channel eye/BER.",
     "additionalGroundViaInPadBalls": [
       "Y18",
       "AA16"
-    ]
+    ],
+    "coordinatedRework": {
+      "date": "2026-10-22",
+      "tx3InitialBottomHorizontalMm": 0.19,
+      "tx3FanCenterOffsetMm": 0.16,
+      "tx3NortheastParallelShiftMm": 0.28,
+      "tx2InitialBottomNDropMm": 0.15,
+      "retiredGroundVia": "PDN_BGA_U17",
+      "retappedGroundBalls": [
+        "U17",
+        "U18",
+        "AA18",
+        "Y16"
+      ],
+      "refclkBridgeViaYmm": 103.75,
+      "clockGroundReturn1Ymm": 103.4,
+      "connectorGeometryChanged": false,
+      "vendorAcceptanceReceived": false,
+      "tx1GroundReturn3Ymm": 98.55
+    },
+    "matchedLand": {
+      "balls": [
+        "Y15",
+        "AA15"
+      ],
+      "circularLandDiameterMm": 0.25,
+      "solderMaskMarginMm": 0.025,
+      "note": "Two identical circular copper lands around equal filled/capped via barrels; 0.21 mm land-to-land clearance and nominal 0.16 mm solder-mask web. Combined land/mask/stencil still requires vendor acceptance."
+    }
   },
   "pcieRxEscape": {
-    "revision": "1.1",
+    "revision": "1.2",
     "signalLayersByPair": {
       "RX0": [
         "top",
@@ -201,9 +242,9 @@
       "pair": "RX3",
       "widthMm": 0.0762,
       "positiveLengthMm": 0.794155,
-      "negativeLengthMm": 1.164454,
+      "negativeLengthMm": 0.794155,
       "padToTraceClearanceMm": 0.1,
-      "note": "The different neck lengths compensate drawn length at the coupled 90 degree exit. This is not electrical-delay matching."
+      "note": "Equal narrow arclengths retain the original BGA clearance; the N suffix is widened to normal width. Complete drawn lengths remain matched; this is not electrical-delay matching."
     },
     "maxPlanarSkewMm": 0.025,
     "vendorAcceptanceReceived": false,
@@ -216,9 +257,14 @@
     "surfaceTraceWidthMm": 0.1234,
     "pairGapMm": 0.1001,
     "crystalMaximumCopperLengthMm": 12.7,
-    "crystalSignalLayers": ["top"],
+    "crystalSignalLayers": [
+      "top"
+    ],
     "crystalSignalViasPerConductor": 0,
-    "crystalCaseGroundViaInPadPins": ["pin2", "pin4"],
+    "crystalCaseGroundViaInPadPins": [
+      "pin2",
+      "pin4"
+    ],
     "crystalCaseViaCopperDiameterMm": 0.3,
     "crystalCaseViaDrillMm": 0.2,
     "crystalCaseViaFill": "epoxy filled and copper capped",
@@ -227,9 +273,15 @@
     "refclkSignalViasPerConductor": 2,
     "refclkViaCopperDiameterMm": 0.3,
     "refclkViaDrillMm": 0.2,
-    "refclkViaInPadParts": ["R_PCIE_REFCLK_P.pin1", "R_PCIE_REFCLK_N.pin1"],
+    "refclkViaInPadParts": [
+      "R_PCIE_REFCLK_P.pin1",
+      "R_PCIE_REFCLK_N.pin1"
+    ],
     "refclkViaFill": "epoxy filled and copper capped",
-    "topBgaNeckTraces": ["CLOCK_XO_BRIDGE", "CLOCK_REFCLK_N_PHY"],
+    "topBgaNeckTraces": [
+      "CLOCK_XO_BRIDGE",
+      "CLOCK_REFCLK_N_PHY"
+    ],
     "neckWidthMm": 0.0762,
     "componentLayer": "top",
     "vendorAcceptanceReceived": false,
@@ -240,8 +292,9 @@
     "source": "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf",
     "page": 5,
     "rule": "S1 > 8h",
-    "outerDielectricMm": 0.0994,
-    "minimumForeignCopperGapMm": 0.7952,
+    "stackupFile": "manufacturing/stackup/selected.json",
+    "outerDielectricMm": 0.092,
+    "minimumForeignCopperGapMm": 0.736,
     "scope": "Coupled TX/RX outer-layer routing, including foreign pads, ground vias and traces",
     "launchRegionsMm": {
       "bottomAfterBgaVia": 3,

@@ -1,0 +1,234 @@
+[
+  {
+    "name": "SP_SURFACE_V12V_1",
+    "net": "V12V",
+    "x": 2,
+    "y": 52,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_V12V_2",
+    "net": "V12V",
+    "x": 2,
+    "y": 54,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_V12V_3",
+    "net": "V12V",
+    "x": 2,
+    "y": 56,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_V12V_4",
+    "net": "V12V",
+    "x": 2,
+    "y": 58,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_V12V_5",
+    "net": "V12V",
+    "x": 2,
+    "y": 60,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_6",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 64.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_7",
+    "net": "SLOT_12V",
+    "x": 3,
+    "y": 64.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_8",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 66.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_9",
+    "net": "SLOT_12V",
+    "x": 3,
+    "y": 66.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_10",
+    "net": "SLOT_12V",
+    "x": 4,
+    "y": 78.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_11",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 79.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_12",
+    "net": "SLOT_12V",
+    "x": 3,
+    "y": 80.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_13",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 81.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_14",
+    "net": "SLOT_12V",
+    "x": 2.5,
+    "y": 95.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_15",
+    "net": "SLOT_12V",
+    "x": 2.5,
+    "y": 100.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_16",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 105.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_17",
+    "net": "SLOT_12V",
+    "x": 3,
+    "y": 105.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_18",
+    "net": "SLOT_12V",
+    "x": 4,
+    "y": 110,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_19",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 110.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_20",
+    "net": "SLOT_12V",
+    "x": 2.5,
+    "y": 112,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_21",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 113.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_22",
+    "net": "SLOT_12V",
+    "x": 4,
+    "y": 113.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_23",
+    "net": "SLOT_12V",
+    "x": 2.5,
+    "y": 115,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_24",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 116.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_25",
+    "net": "SLOT_12V",
+    "x": 3,
+    "y": 117,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_26",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 118.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_27",
+    "net": "SLOT_12V",
+    "x": 3,
+    "y": 119,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_28",
+    "net": "SLOT_12V",
+    "x": 1,
+    "y": 120.5,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  },
+  {
+    "name": "SP_SURFACE_SLOT_12V_29",
+    "net": "SLOT_12V",
+    "x": 2.5,
+    "y": 122,
+    "drillDiameter": 0.3,
+    "copperDiameter": 0.6
+  }
+]

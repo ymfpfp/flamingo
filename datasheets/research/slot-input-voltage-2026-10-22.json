@@ -1,0 +1,17 @@
+{
+  "checkedOnLocal": "2026-10-22",
+  "scope": "Correction to the 2026-10-21 source-board screening envelope; no new copper or thermal simulation",
+  "previous12VInputFloorV": 11.4,
+  "atx3Published12VInputFloorV": 11.2,
+  "atx3Source": "https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/atx-version-3-0-multi-rail-desktop-platform-power-supply-design-guide/2.0/2.1/dc-voltage-regulation-required/",
+  "atx3SourceTable": "Table 4-2, DC Output Voltage Regulation",
+  "note": "Use the published numeric minimum 11.20 V. The same table labels the range +5% / -7%; do not silently replace the published minimum with an exact percentage calculation.",
+  "slot12VMinimumV": 11.04,
+  "slotLimitSource": "https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/atx-version-3-0-multi-rail-desktop-platform-power-supply-design-guide/2.1/pcie-aic-auxiliary-power-connectors/",
+  "screen12VLoadA": 5.5,
+  "designTarget": {
+    "totalHotDcDropV": [0.05, 0.1],
+    "status": "Engineering starting target, not a PCIe or ATX requirement and not demonstrated feasible on this layout",
+    "scope": "Complete supply path including copper, hot MOSFET, contacts and ground return. Remaining headroom must also cover dynamic dips and model uncertainty."
+  }
+}

@@ -1725,5 +1725,71 @@
     "drillDiameter": 0.15,
     "width": 0.25,
     "contact": false
+  },
+  {
+    "name": "SP_C136_pin1_1",
+    "selector": "C136.pin1",
+    "net": "SLOT_3V3",
+    "x": 43.45,
+    "y": 118,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8,
+    "contact": true
+  },
+  {
+    "name": "SP_C136_pin1_2",
+    "selector": "C136.pin1",
+    "net": "SLOT_3V3",
+    "x": 44.35,
+    "y": 118,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8,
+    "contact": true
+  },
+  {
+    "name": "SP_C136_pin1_3",
+    "selector": "C136.pin1",
+    "net": "SLOT_3V3",
+    "x": 45.25,
+    "y": 118,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8,
+    "contact": true
+  },
+  {
+    "name": "SP_C136_pin2_1",
+    "selector": "C136.pin2",
+    "net": "GND",
+    "x": 48.85,
+    "y": 118,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8,
+    "contact": true
+  },
+  {
+    "name": "SP_C136_pin2_2",
+    "selector": "C136.pin2",
+    "net": "GND",
+    "x": 49.75,
+    "y": 118,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8,
+    "contact": true
+  },
+  {
+    "name": "SP_C136_pin2_3",
+    "selector": "C136.pin2",
+    "net": "GND",
+    "x": 50.65,
+    "y": 118,
+    "copperDiameter": 0.8,
+    "drillDiameter": 0.4,
+    "width": 0.8,
+    "contact": true
   }
 ]

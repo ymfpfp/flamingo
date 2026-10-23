@@ -449,6 +449,8 @@ const ballToPos = (ball: string) => {
  * - Use 7x13mil oblong pads for the outermost row on each edge, with AA1 horizontal.
  * - Circular lands are a 0.20mm engineering candidate for the selected ENIG process.
  *   ASMedia specifies no circular land diameter; this is pending vendor acceptance.
+ * - TX3's Y15/AA15 exception uses matching 0.25mm circular lands around equal
+ *   filled/capped land vias. The combined land/mask/stencil remains pending review.
  * - Copper, mask and paste proposals are explicit in manufacturing/bridge-bga/.
  *   Do not apply the related ASM2464PD footprint as PDX manufacturing approval.
  *
@@ -462,8 +464,12 @@ export const Footprint = () => {
     <footprint>
       {Object.entries(logicalToPhysical).map(([pin, ball]) => {
         const rotatedOblong = rotatedOblongPads.includes(ball);
-        const isOblong = oblongPads.includes(ball) || rotatedOblong;
-        const padShape = isOblong ? {
+        const matchedTx3 = bridgeProcess.pcieTxEscape.matchedLand.balls.includes(ball);
+        const isOblong = !matchedTx3 && (oblongPads.includes(ball) || rotatedOblong);
+        const padShape = matchedTx3 ? {
+          shape: "circle" as const,
+          radius: bridgeProcess.pcieTxEscape.matchedLand.circularLandDiameterMm / 2,
+        } : isOblong ? {
           shape: "pill" as const,
           radius: "0.0889mm",
           width: rotatedOblong ? "0.3302mm" : "0.1778mm",

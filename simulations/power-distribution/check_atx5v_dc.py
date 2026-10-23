@@ -9,7 +9,7 @@ from shapely import contains_xy
 from shapely.geometry import Point
 from shapely.ops import unary_union
 from check_layout import model,ROOT
-from check_dc import RHO80,z,PLATING
+from check_dc import RHO80,z,PLATING,STACK
 
 def solve(raw,step):
     j,sc,sp,pp,st,vias,pours,copper,nets,root,via_net,port=model(raw)
@@ -18,7 +18,8 @@ def solve(raw,step):
     # the two annuli through four distributed contacts, rather than a hole node.
     holes=unary_union([Point(e['x'],e['y']).buffer(e['hole_diameter']/2,quad_segs=24)
         for e in j if e['type'] in ['pcb_via','pcb_plated_hole'] and 'hole_diameter' in e])
-    for layer,thickness in [('top',.035),('inner3',.0152)]:
+    layer_copper={l['tscircuitLayer']:l['thicknessMm'] for l in STACK['copperLayers']}
+    for layer,thickness in [('top',layer_copper['top']),('inner3',layer_copper['inner3'])]:
         pitch=step/3 if layer=='top' else step
         xs=np.arange(0,52.5+pitch/2,pitch);ys=np.arange(11,78+pitch/2,pitch);xx,yy=np.meshgrid(xs,ys)
         shape=unary_union([o['shape'] for o in copper if o['net']==net and layer in o['layers']]).difference(holes)

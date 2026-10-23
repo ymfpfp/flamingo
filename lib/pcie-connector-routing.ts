@@ -1,7 +1,7 @@
 import type {AutoroutingPhase, Board, Port} from "tscircuit";
 import type {FanoutTracePath} from "@tscircuit/props";
 import {applyToPoint, compose, inverse, translate} from "transformation-matrix";
-import stackup from "../manufacturing/stackup/JLC06161H-3313.json";
+import stackup from "../manufacturing/stackup/selected.json";
 import {traceWidthsMm} from "./trace-width-rules";
 import {createPcieTxRoutes} from "./pcie-tx-routing";
 import {createPcieRxRoutes} from "./pcie-rx-routing";

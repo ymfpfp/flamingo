@@ -6,7 +6,7 @@
     "manufacturing/bridge-bga/process.json"
   ],
   "componentLayer": "top",
-  "assembledComponents": 153,
+  "assembledComponents": 154,
   "signalLayers": [
     "top",
     "inner2"
@@ -44,7 +44,7 @@
   "existingNetwork": {
     "upperOhms": 4700,
     "lowerOhms": 10000,
-    "filterFarads": 0.000001
+    "filterFarads": 1e-06
   },
   "vias": {
     "span": "top to bottom",

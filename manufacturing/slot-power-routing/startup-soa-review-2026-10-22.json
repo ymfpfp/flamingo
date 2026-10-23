@@ -1,0 +1,254 @@
+{
+  "date": "2026-10-22",
+  "status": "Rev 1 change recommended; circuit unchanged",
+  "sourceFile": "dist/board.circuit.json",
+  "sourceSha256": "9f7ea519eb5586b64cc0463778114ec26ace33459bc129dbd98061b59151298a",
+  "reportFile": "dist/slot-startup-soa-2026-10-22/report.html",
+  "resultsFile": "dist/slot-startup-soa-2026-10-22/assessed-results.json",
+  "rawElectricalResultsFile": "dist/slot-startup-soa-2026-10-22/results.json",
+  "runnerFile": "simulations/slot-power/check-startup-soa.mjs",
+  "soaInputsFile": "simulations/slot-power/soa-inputs.json",
+  "cases": 268,
+  "worstEvents": [
+    {
+      "rail": "3V3",
+      "event": "Startup",
+      "case": 129,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 2000,
+      "driverModel": "limited",
+      "peakCurrentA": 19.61252431564333,
+      "peakPowerW": 26.037489895792206,
+      "energyJ": 0.013447684470185841,
+      "equivalentWidthMs": 0.5164739198750129,
+      "estimatedStressRatio": 0.5223177983661742,
+      "interpretation": "estimated-linear-SOA"
+    },
+    {
+      "rail": "3V3",
+      "event": "Disable",
+      "case": 110,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 1000,
+      "driverModel": "limited",
+      "peakCurrentA": 3.0583815595170587,
+      "peakPowerW": 2.6259099914667976,
+      "energyJ": 0.5560124887697162,
+      "equivalentWidthMs": 211.7408786198095,
+      "estimatedStressRatio": 2.7383726041051686,
+      "interpretation": "estimated-linear-SOA"
+    },
+    {
+      "rail": "3V3",
+      "event": "Re-enable",
+      "case": 108,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 1000,
+      "driverModel": "limited",
+      "peakCurrentA": 17.33257052092857,
+      "peakPowerW": 22.666653543774032,
+      "energyJ": 0.010283077757530604,
+      "equivalentWidthMs": 0.45366545783531026,
+      "estimatedStressRatio": 0.4547414107788358,
+      "interpretation": "estimated-linear-SOA"
+    },
+    {
+      "rail": "3V3",
+      "event": "Source reapply",
+      "case": 115,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 1000,
+      "driverModel": "limited",
+      "peakCurrentA": 46.99757610612695,
+      "peakPowerW": 26.026626107752293,
+      "energyJ": 0.002251985465026603,
+      "equivalentWidthMs": 0.08652621571859544,
+      "estimatedStressRatio": 4.620474918630919,
+      "interpretation": "inconclusive-ohmic-boundary"
+    },
+    {
+      "rail": "12V",
+      "event": "Startup",
+      "case": 259,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 2000,
+      "driverModel": "limited",
+      "peakCurrentA": 48.470322197104906,
+      "peakPowerW": 224.99455617490634,
+      "energyJ": 0.1771991854275964,
+      "equivalentWidthMs": 0.7875709903391851,
+      "estimatedStressRatio": 19.88432009491162,
+      "interpretation": "estimated-linear-SOA"
+    },
+    {
+      "rail": "12V",
+      "event": "Disable",
+      "case": 240,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 1000,
+      "driverModel": "limited",
+      "peakCurrentA": 5.696988540385064,
+      "peakPowerW": 17.55844290057327,
+      "energyJ": 4.220342330192769,
+      "equivalentWidthMs": 240.35971492978902,
+      "estimatedStressRatio": 10.562378399400673,
+      "interpretation": "estimated-linear-SOA"
+    },
+    {
+      "rail": "12V",
+      "event": "Re-enable",
+      "case": 256,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 1000,
+      "driverModel": "resistive",
+      "peakCurrentA": 49.221606555185645,
+      "peakPowerW": 239.56697009541574,
+      "energyJ": 0.11740399346953967,
+      "equivalentWidthMs": 0.49006753068997577,
+      "estimatedStressRatio": 14.939130457504723,
+      "interpretation": "estimated-linear-SOA"
+    },
+    {
+      "rail": "12V",
+      "event": "Source reapply",
+      "case": 252,
+      "temperatureC": 125,
+      "cardCapacitanceUF": 1000,
+      "driverModel": "limited",
+      "peakCurrentA": 39.648994082122044,
+      "peakPowerW": 181.3011978359719,
+      "energyJ": 0.12542592824148838,
+      "equivalentWidthMs": 0.6918097052782002,
+      "estimatedStressRatio": 14.56649816426393,
+      "interpretation": "estimated-linear-SOA"
+    }
+  ],
+  "numericalControls": {
+    "selectedColdChargeBalance": [
+      {
+        "rail": "3V3",
+        "case": 129,
+        "integratedChargeC": 0.009999307286272305,
+        "capacitorChargeC": 0.009920673284436502,
+        "relativeResidual": 0.007926276733572506,
+        "passed": true
+      },
+      {
+        "rail": "12V",
+        "case": 259,
+        "integratedChargeC": 0.03340644008056053,
+        "capacitorChargeC": 0.03321838154770257,
+        "relativeResidual": 0.005661279210364491,
+        "passed": true
+      }
+    ],
+    "sourceHashMatches": true,
+    "all268CasesPresent": true,
+    "allWaveformsReachedRequestedEnd": true,
+    "allCaseChargeBalancePassed": true,
+    "maximumCaseChargeResidual": 0.0031969196930894733,
+    "timeStepChecks": {
+      "results": [
+        {
+          "name": "3V3-cold-startup",
+          "caseIndex": 129,
+          "refinedMaxStep": "1u",
+          "baselinePeakPowerW": 26.037489895792206,
+          "refinedPeakPowerW": 26.16448129977006,
+          "baselineEnergyJ": 0.013447684470185841,
+          "refinedEnergyJ": 0.013496735394600156,
+          "peakRelativeChange": 0.004877252165477618,
+          "energyRelativeChange": 0.003647536832312103,
+          "passed": true
+        },
+        {
+          "name": "3V3-control-restart-shutdown",
+          "caseIndex": 110,
+          "refinedMaxStep": "10u",
+          "baselinePeakPowerW": 2.6259099914667976,
+          "refinedPeakPowerW": 2.625909578433322,
+          "baselineEnergyJ": 0.5560124887697162,
+          "refinedEnergyJ": 0.5560153145459346,
+          "peakRelativeChange": 1.5729155864585734e-07,
+          "energyRelativeChange": 5.0822171721430565e-06,
+          "passed": true
+        },
+        {
+          "name": "3V3-source-restart-restart",
+          "caseIndex": 115,
+          "refinedMaxStep": "1u",
+          "baselinePeakPowerW": 26.026626107752293,
+          "refinedPeakPowerW": 26.022294475264307,
+          "baselineEnergyJ": 0.002251985465026603,
+          "refinedEnergyJ": 0.0022548297584477294,
+          "peakRelativeChange": 0.0001664308108954564,
+          "energyRelativeChange": 0.0012630158876682103,
+          "passed": true
+        },
+        {
+          "name": "12V-cold-startup",
+          "caseIndex": 259,
+          "refinedMaxStep": "1u",
+          "baselinePeakPowerW": 224.99455617490634,
+          "refinedPeakPowerW": 225.3910769082889,
+          "baselineEnergyJ": 0.1771991854275964,
+          "refinedEnergyJ": 0.1776309395893326,
+          "peakRelativeChange": 0.0017623570104261799,
+          "energyRelativeChange": 0.0024365471020328204,
+          "passed": true
+        },
+        {
+          "name": "12V-control-restart-shutdown",
+          "caseIndex": 240,
+          "refinedMaxStep": "10u",
+          "baselinePeakPowerW": 17.55844290057327,
+          "refinedPeakPowerW": 17.558440942888634,
+          "baselineEnergyJ": 4.220342330192769,
+          "refinedEnergyJ": 4.220358573184102,
+          "peakRelativeChange": 1.1149534420172157e-07,
+          "energyRelativeChange": 3.84873786590458e-06,
+          "passed": true
+        },
+        {
+          "name": "12V-source-restart-restart",
+          "caseIndex": 252,
+          "refinedMaxStep": "1u",
+          "baselinePeakPowerW": 181.3011978359719,
+          "refinedPeakPowerW": 181.52725323881816,
+          "baselineEnergyJ": 0.12542592824148838,
+          "refinedEnergyJ": 0.12586018891124673,
+          "peakRelativeChange": 0.0012468500238525127,
+          "energyRelativeChange": 0.0034622878685996207,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "independentRampControls": {
+      "aoGraphReadingsPass": true,
+      "temperatureDeratingPass": true,
+      "idleCapacitorEnergyPass": true
+    },
+    "ohmicBoundaryInterpretationPass": true,
+    "solverRetries": 21
+  },
+  "decision": {
+    "rail12": "Replace or redesign the 12 V switching path for controlled startup and adequate hot SOA. Do not release it as qualified.",
+    "rail3V3": "Startup clears the equivalent-pulse estimate. Some conservative full-duration bounds are inconclusive. Hot control cycling needs faster turn-off or an operating restriction.",
+    "automaticRestart": "Do not assume a brief HDDPC disable fully removes slot power. The nominal gate-off time constant is 1 second.",
+    "hardwareChangesApplied": false
+  },
+  "limitations": [
+    "SOA comparison is a conditional engineering screen, not a guarantee of survival.",
+    "DMP2008UFG SOA is specified with VGS=-8 V; this board uses about -3.3 V. No numerical correction is assumed to turn this into a low-gate-drive guarantee.",
+    "AO4407A official product page does not list a SPICE model. A separately identified approximate transfer model is used; no vendor provenance is claimed.",
+    "Initial 85/125 C cases explicitly test a preheated switch. They do not establish that the actual board reaches or remains below those temperatures.",
+    "Independent 5.5 A/3 A rail stress cases are not simultaneous permission to exceed 75 W.",
+    "Fixed-temperature electrical models omit electrothermal feedback and thermal accumulation. Hot cases do not qualify unlimited automatic retry.",
+    "Source cycling uses an ideal bidirectional supply behind 25 milliohm / 200 nH. Actual PSU sink capability, cable behavior and auxiliary card power are unknown. Reverse peaks are recorded separately. Body-diode pulsed survival is not qualified by the forward SOA check.",
+    "A result outside the approximate screen is evidence for design review, not proof of physical failure. A result inside it is not hardware qualification.",
+    "The 1.44 capacitor factor is +20% initial tolerance followed by a separate +20% drift sensitivity, not a measured capacitance distribution.",
+    "No short-circuit cutoff, current limit, or thermal shutdown exists in the current slot circuit. Hard shorts and insertion with live slot power are outside this startup review."
+  ],
+  "hardwareQualified": false
+}

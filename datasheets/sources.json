@@ -6,6 +6,12 @@
       "manufacturer_part_number": "ASM2464PDX",
       "manufacturer": "ASMedia",
       "component_file": "imports/ASM2464PDX.tsx",
+      "current_planning": {
+        "accepted_on": "2026-10-22",
+        "load_file": "../simulations/power-dynamics/provisional-loads.json",
+        "research_file": "research/asm2464pdx-current-2026-10-22/findings.json",
+        "status": "Accepted provisional budgets: 1 A VCCL, 3 A VDD and 0.10 A combined VCCH/VCCA33. The reference supply sizing informs VCCL/VDD. The combined 3.3 V budget is a project assumption. PDX maximum currents remain TBD."
+      },
       "placed_on_board": true,
       "board_references": [
         "ASM2464PDX"
@@ -271,7 +277,9 @@
         "R_SPI_CS",
         "R_PCIE_CLKREQ_PU",
         "R_VBUS_BOTTOM",
-        "R_BUCK_EN_PU"
+        "R_BUCK_EN_PU",
+        "R_SLOT_GATE_12V",
+        "R_SLOT_OFF_12V"
       ],
       "documents": [
         {
@@ -494,7 +502,6 @@
       "board_references": [
         "R_RST",
         "R_SLOT_OFF_3V3",
-        "R_SLOT_OFF_12V",
         "R_PSU_OK_PD"
       ],
       "documents": [
@@ -511,10 +518,9 @@
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
         "sheet": "slot_power",
-        "quantity": 2,
+        "quantity": 1,
         "board_references": [
-          "R_SLOT_OFF_3V3",
-          "R_SLOT_OFF_12V"
+          "R_SLOT_OFF_3V3"
         ]
       }
     },
@@ -561,10 +567,9 @@
       "manufacturer_part_number": "AO4407A",
       "manufacturer": "Alpha & Omega Semiconductor",
       "component_file": "imports/AO4407A.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "Q_SLOT_12V"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
+      "replacement_note": "Replaced on 2026-10-23 by SI4497DY-T1-GE3 with both 12 V gate resistors changed to 10 kohm; physical lands retained.",
       "documents": [
         {
           "file": "AO4407A.pdf",
@@ -579,12 +584,39 @@
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
         "sheet": "slot_power",
-        "quantity": 1,
-        "board_references": [
-          "Q_SLOT_12V"
-        ],
+        "quantity": 0,
+        "board_references": [],
         "footprint": "Exact EasyEDA C16072 footprint, with all package source and drain terminals preserved."
       }
+    },
+    {
+      "manufacturer_part_number": "SI4497DY-T1-GE3",
+      "manufacturer": "Vishay Siliconix",
+      "component_file": "imports/SI4497DY_T1_GE3.tsx",
+      "placed_on_board": true,
+      "board_references": ["Q_SLOT_12V"],
+      "supplier_part_numbers": {"jlcpcb": ["C143044"]},
+      "product_url": "https://www.lcsc.com/product-detail/C143044.html",
+      "documents": [{
+        "file": "research/slot-mosfet-startup-2026-10-22/Si4497DY.pdf",
+        "source_url": "https://www.vishay.com/docs/65748/si4497dy.pdf",
+        "origin": "manufacturer datasheet",
+        "pages": 9,
+        "sha256": "4a75c9ef2fe30549247644127245b36c70f7ae69ff5c37ac42a0efd38e683c19",
+        "notes": "30 V P-channel, +/-20 V gate; 4.6 milliohm maximum at -4.5 V / 25 C. Sources 1-3, gate 4, drains 5-8 match retained lands. Both 12 V gate resistors are 10 kohm; existing 10 uF source-to-gate capacitor and NX3008NBK driver retained."
+      }],
+      "footprint_review": {
+        "reviewed_on": "2026-10-23",
+        "source": "manufacturing/slot-power-routing/mosfet-replacement-review-2026-10-22.json",
+        "note": "Exact original AO4407A lands, placement and package-body CAD proxy retained. New part metadata selects Vishay; the CAD body is a generic SO-8 proxy."
+      },
+      "availability_snapshot": {
+        "checked_on": "2026-10-23",
+        "stock": 1590,
+        "source": "tsci search C143044 --json; exact MPN SI4497DY-T1-GE3, SO-8",
+        "notes": "Extended part. Catalog snapshot only; assembly stock must be rechecked when ordering."
+      },
+      "procurement_note": "Exact Vishay MPN and C143044 confirmed against LCSC and the JLCPCB catalog. The VBsemi SI4497DY-VB is a different part and is not selected."
     },
     {
       "manufacturer_part_number": "DMP2008UFG-7",
@@ -646,8 +678,7 @@
       "component_file": "imports/A_0402WGF5100TCE.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R_SLOT_GATE_3V3",
-        "R_SLOT_GATE_12V"
+        "R_SLOT_GATE_3V3"
       ],
       "documents": [
         {
@@ -663,10 +694,9 @@
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
         "sheet": "slot_power",
-        "quantity": 2,
+        "quantity": 1,
         "board_references": [
-          "R_SLOT_GATE_3V3",
-          "R_SLOT_GATE_12V"
+          "R_SLOT_GATE_3V3"
         ]
       }
     },
@@ -1586,22 +1616,24 @@
     {
       "manufacturer_part_number": "APXJ6R3ARA561MF80G",
       "manufacturer": "Nippon Chemi-Con",
-      "component_file": "imports/APXJ6R3ARA561MF80G.tsx",
-      "board_references": [
-        "C135"
-      ],
+      "component_file": null,
+      "former_component_file": "imports/APXJ6R3ARA561MF80G.tsx",
+      "board_references": [],
       "product_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXJ6R3ARA561MF80G",
-      "placed_on_board": true,
+      "placed_on_board": false,
       "supplier_part_numbers": {
         "jlcpcb": [
           "C2157846"
         ]
       },
       "inventory_file": "../slot-power-parts.json",
-      "selection_status": "Selected for slot decoupling; inrush and final PCB placement remain unqualified.",
+      "selection_status": "Replaced on 2026-10-22 by two APXF6R3ARA331MF61G parts at C135/C136 because actual preorder required 900. Historical datasheet and model source metadata retained.",
       "documents": [
         {
-          "file": "APXJ6R3ARA561MF80G.pdf",
+          "former_local_filename": "APXJ6R3ARA561MF80G.pdf",
+          "retained_locally": false,
+          "removed_on": "2026-10-23",
+          "removal_reason": "Replaced by APXF6R3ARA331MF61G at C135/C136; the shared Chemi-Con land-pattern document remains local.",
           "source_url": "https://www.chemi-con.co.jp/products/relatedfiles/capacitor/catalog/PXJRA-e.PDF",
           "origin": "manufacturer document",
           "pages": 3,
@@ -1618,7 +1650,10 @@
         }
       ],
       "cad_model": {
-        "file": "../models/C135-CP_Elec_6.3x7.7.glb",
+        "former_file": "../models/C135-CP_Elec_6.3x7.7.glb",
+        "retained_locally": false,
+        "removed_on": "2026-10-23",
+        "removal_reason": "Unused 7.7 mm capacitor body; C135/C136 use the retained 5.8 mm model.",
         "provenance": "../models/C135-model.provenance.json",
         "source": "KiCad CP_Elec_6.3x7.7 package model, converted from original VRML to glTF with baked transforms.",
         "manufacturer_specific": false
@@ -2065,6 +2100,47 @@
       ],
       "sourcing_note": "JLCPCB C179399, Extended. Search returned 40,178 in stock, USD 0.0529 on 2026-10-18; snapshot, not an inventory reservation.",
       "supplier_url": "https://jlcpcb.com/partdetail/Nexperia-NX3008NBK215/C179399"
+    },
+    {
+      "manufacturer_part_number": "APXF6R3ARA331MF61G",
+      "manufacturer": "Nippon Chemi-Con",
+      "component_file": "imports/APXF6R3ARA331MF61G.tsx",
+      "board_references": [
+        "C135",
+        "C136"
+      ],
+      "product_url": "https://www.chemi-con.co.jp/en/products/detail-condenser.php?part_number=APXF6R3ARA331MF61G",
+      "placed_on_board": true,
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C133476"
+        ]
+      },
+      "selection_status": "User-selected stocked parallel pair. 660 uF total / 6.3 V; startup and layout checks recorded in research/c135-replacement-2026-10-22/.",
+      "documents": [
+        {
+          "file": "APXF6R3ARA331MF61G.pdf",
+          "source_url": "https://jlc-prod-smt.oss-eu-central-1.aliyuncs.com/smtDataManualFile/8588899434730573824-C133476.pdf",
+          "origin": "manufacturer document",
+          "pages": 2,
+          "sha256": "774f29e2ec8ab37e4b0575050019cc6ef75f0ed732d5ed3ccfb2682487a23f06",
+          "notes": "PXF F61: 330 uF, 6.3 V, 10 mOhm maximum ESR, 3.9 A ripple at 105 C / 100 kHz, 15000 h endurance at 105 C."
+        },
+        {
+          "file": "Chemi-Con-NPCAP-SMD-lands.pdf",
+          "source_url": "https://www.chemi-con.co.jp/products/relatedfiles/capacitor/catalog/al-soldernpcap-e.pdf",
+          "origin": "manufacturer document",
+          "pages": 1,
+          "sha256": "d71683fc00f0cde034f73e31fd7628d54b829093c44dfb3557530bb6a622946c",
+          "notes": "Manufacturer soldering and recommended land-pattern sheet. F61 and F80 share a=1.9mm gap, b=3.5mm pad length, c=1.6mm pad width."
+        }
+      ],
+      "cad_model": {
+        "file": "../models/CP_Elec_6.3x5.8.glb",
+        "provenance": "../models/CP_Elec_6.3x5.8.provenance.json",
+        "source": "KiCad generic CP_Elec_6.3x5.8, converted from original VRML with baked transforms.",
+        "manufacturer_specific": false
+      }
     }
   ],
   "retired_components": [
@@ -3122,7 +3198,7 @@
     "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending"
   },
   "document_cleanup": {
-    "checked_on": "2026-10-20",
+    "checked_on": "2026-10-23",
     "removed_documents": [
       {
         "former_local_filename": "TPS62130RGTR.pdf",
@@ -3289,23 +3365,71 @@
         "reason": "Unselected laminate alternative. The current stackup requires Nan Ya NP-155F; source URL, hash and comparison values remain for provenance.",
         "retained_locally": false,
         "removed_on": "2026-10-20"
+      },
+      {
+        "former_local_filename": "APXJ6R3ARA561MF80G.pdf",
+        "sha256": "0c1ee703ad2fe478e527d592128120333088d10146d832930db354cf4e301d6a",
+        "source_url": "https://www.chemi-con.co.jp/products/relatedfiles/capacitor/catalog/PXJRA-e.PDF",
+        "reason": "Replaced by APXF6R3ARA331MF61G at C135/C136; the shared Chemi-Con land-pattern document remains local.",
+        "retained_locally": false,
+        "removed_on": "2026-10-23"
+      },
+      {
+        "former_local_filename": "research/asm2464pdx-current-2026-10-22/ASM2464PD_DataSheet_R0_4.pdf",
+        "sha256": "22fc1d78f24328f99645335858e54f412f3e891dd5670695bb9d27119f542f5d",
+        "source_url": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/PD/ASM2464PD_DataSheet_R0_4.pdf",
+        "reason": "PD proxy superseded by accepted PDX planning loads. Transcribed values, source URLs and hash remain for historical context.",
+        "retained_locally": false,
+        "removed_on": "2026-10-23"
+      },
+      {
+        "former_local_filename": "research/asm2464pdx-current-2026-10-22/ASM2464PD_VBUS_Current_Peak_Improvement.pdf",
+        "sha256": "2a61dd6b29dbe6078ac013b6e481e674dd8ac801573d10b843b37e07416ab27f",
+        "source_url": "http://static.kolabo.dev/pub/docs/ASMedia/ASM2464/ASM2464PD_VBUS_Current_Peak_Improvement.pdf",
+        "reason": "PD enclosure VBUS research does not determine this ATX-powered PDX board's rail loads. Transcribed results, source URL and hash remain.",
+        "retained_locally": false,
+        "removed_on": "2026-10-23"
+      },
+      {
+        "former_local_filename": "research/slot-mosfet-startup-2026-10-22/Si4459BDY.pdf",
+        "sha256": "26048ef786d19bfb8ee55c787a011040fafa3a7280720fc0daf742bbb01983bc",
+        "source_url": "https://www.vishay.com/docs/76759/si4459bdy.pdf",
+        "reason": "Unselected MOSFET alternative; SI4497DY-T1-GE3 is used on the board.",
+        "retained_locally": false,
+        "removed_on": "2026-10-23"
+      },
+      {
+        "former_local_filename": "research/slot-mosfet-startup-2026-10-22/IPD90P04P4-05.pdf",
+        "sha256": "131880b0ed68e74c9667ba94b662ec65382027de08530591402d05f0c6c12939",
+        "source_url": "https://www.infineon.com/assets/row/public/documents/10/49/infineon-ipd90p04p4-05-datasheet-en.pdf",
+        "reason": "Unselected MOSFET alternative; SI4497DY-T1-GE3 is used on the board.",
+        "retained_locally": false,
+        "removed_on": "2026-10-23"
+      },
+      {
+        "former_local_filename": "research/slot-mosfet-startup-2026-10-22/Si4497DY-66615Si4497DY_PS.pdf",
+        "sha256": "ca7cb647654e3feb245659ef40f47184f2ded1fa45699116471842528bcc3b75",
+        "source_url": "https://www.vishay.com/docs/66616/si4497dy.zip",
+        "reason": "Redundant extracted model guide; the identical 66615Si4497DY_PS.pdf remains inside Si4497DY-model.zip, and Si4497DY-model.pdf remains local.",
+        "retained_locally": false,
+        "removed_on": "2026-10-23"
       }
     ],
-    "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, and research metadata. Superseded component PDFs retain source URLs and hashes only."
+    "retained_scope": "Current component datasheets, capacitor characteristics, ASMedia schematic/layout/footprint references, USB4 specification, ATX guide, simulation evidence and research metadata. Removed PDFs retain source URLs and hashes."
   },
   "slot_decoupling": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-22",
     "inventory_file": "../slot-power-parts.json",
     "implementation_file": "../components/SlotDecoupling.tsx",
-    "capacitor_quantity": 5,
+    "capacitor_quantity": 6,
     "reference": "ASM2464PDX_TI_R03.pdf, sheet 6",
-    "status": "Added switched-output bulk and ceramic banks. Footprints and polarity checked against manufacturer documents; hardware qualification pending."
+    "status": "C135/C136 are two 330 uF / 6.3 V Chemi-Con PXF caps in parallel on SLOT_3V3. C134 and ceramics retained."
   },
   "stock_substitutions": {
     "checked_on": "2026-10-16",
     "research": "research/bom-jlcpcb-replacements-2026-10-16.json",
     "applied_count": 4,
-    "C135": "Original APXJ6R3ARA561MF80G retained."
+    "C135": "Replaced by C135 and C136, both APXF6R3ARA331MF61G / C133476, on 2026-10-22."
   },
   "buck_reference_restoration": {
     "checked_on": "2026-10-18",

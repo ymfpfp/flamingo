@@ -135,6 +135,6 @@ export function electricalMargins(json) {
     combinedSlotBudgetW: 75,
     sources: ["datasheets/TPS62903RPJR.pdf sections 6.5, 7.3.4, 8.2.2.3 and 8.3.2", "datasheets/TPS389001DSET.pdf sections 7.5 and 7.6",
       "datasheets/XGL4020.pdf", "datasheets/ASM2464PDX_DataSheet_R0_3.pdf sections 5 and 6.3.6",
-      "datasheets/AO4407A.pdf", "datasheets/DMP2008UFG.pdf", "https://assets.nexperia.com/documents/data-sheet/NX3008NBK.pdf"],
+      slot.rail12.datasheet, slot.rail3V3.datasheet, "https://assets.nexperia.com/documents/data-sheet/NX3008NBK.pdf"],
     converter, supervisor, slot, vbus, driver};
 }

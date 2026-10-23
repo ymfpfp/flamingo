@@ -25,7 +25,7 @@ raw = source.read_bytes()
 j = json.loads(raw)
 if isinstance(j, dict):
     j = j['circuitJson']
-stack_path = ROOT / 'manufacturing/stackup/JLC06161H-3313.json'
+stack_path = ROOT / 'manufacturing/stackup/selected.json'
 stack_raw = stack_path.read_bytes()
 stack = json.loads(stack_raw)
 (OUT / 'input.circuit.json').write_bytes(raw)

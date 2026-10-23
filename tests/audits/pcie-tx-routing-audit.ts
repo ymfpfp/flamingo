@@ -36,12 +36,29 @@ export function auditPcieTxRouting(json: AnyCircuitElement[]) {
     const capOut = port(`C_TX${lane}_${polarity}`, "pin2");
     const slot = port("PCIe", contacts[lane][i]);
     let viaCount = 0, bottomLengthMm = 0;
+    let firstBgaViaFromBallMm: number | null = null, initialTopLengthMm = 0;
     const bottom: Segment[] = [];
     const segments = [["bridge", bridge, capIn], ["connector", capOut, slot]] as const;
     const segmentLengths = segments.map(([segment, start, end]) => {
       const copper = traces.filter(t => [start, end].every(p => [t.route[0], t.route[t.route.length - 1]]
         .some(q => q && q.route_type !== "through_pad" && Math.hypot(q.x - p.x, q.y - p.y) < 1e-4)));
       if (copper.length !== 1) failures.push(`${name} ${segment}: expected one route, found ${copper.length}`);
+      if (segment === "bridge" && copper.length === 1) {
+        const first = copper[0].route[0];
+        const r = first.route_type !== "through_pad" && Math.hypot(first.x - bridge.x, first.y - bridge.y) < 1e-4
+          ? copper[0].route : [...copper[0].route].reverse();
+        const firstVia = r.findIndex(p => p.route_type === "via"), vp = r[firstVia];
+        if (vp?.route_type === "via") {
+          firstBgaViaFromBallMm = Math.hypot(vp.x - bridge.x, vp.y - bridge.y);
+          for (let j = 1; j < firstVia; j++) {
+            const a = r[j - 1], b = r[j];
+            if (a.route_type === "wire" && b.route_type === "wire" && a.layer === "top" && b.layer === "top")
+              initialTopLengthMm += Math.hypot(a.x - b.x, a.y - b.y);
+          }
+        }
+        if (lane === 3 && (firstBgaViaFromBallMm === null || firstBgaViaFromBallMm > 1e-6 || initialTopLengthMm > 1e-6))
+          failures.push(`${name}: TX3 requires matched via-in-pad ball transitions`);
+      }
       let lengthMm = 0, segmentVias = 0;
       for (const trace of copper) for (const [index, point] of trace.route.entries()) {
         if (point.route_type === "via") {
@@ -82,8 +99,16 @@ export function auditPcieTxRouting(json: AnyCircuitElement[]) {
     if (bottomLengthMm < 20) failures.push(`${name}: missing bottom-layer corridor`);
     bottomSegments.set(name, bottom);
     return {name, copperLengthMm, bridgeLengthMm: segmentLengths[0].lengthMm,
-      connectorLengthMm: segmentLengths[1].lengthMm, bottomLengthMm, viaCount};
+      connectorLengthMm: segmentLengths[1].lengthMm, bottomLengthMm, viaCount,
+      firstBgaViaFromBallMm, initialTopLengthMm};
   }));
+  const tx3Pads = ["Y15", "AA15"].map(ball => {
+    const p = port("ASM2464PDX", ball);
+    return json.find(e => e.type === "pcb_smtpad" && e.pcb_port_id === p.pcb_port_id);
+  });
+  if (tx3Pads.some(p => p?.type !== "pcb_smtpad" || p.shape !== "circle" || Math.abs(p.radius - .125) > 1e-6
+      || Math.abs((p.soldermask_margin ?? 0) - .025) > 1e-6))
+    failures.push("TX3: both ball lands must retain the matched 0.25 mm circular copper and 0.025 mm mask margin");
   const pairs = pcieTxContacts.map(({lane}) => {
     const p = conductors.find(c => c.name === `TX${lane}_P`)!, n = conductors.find(c => c.name === `TX${lane}_N`)!;
     const skewMm = Math.abs(p.copperLengthMm - n.copperLengthMm);

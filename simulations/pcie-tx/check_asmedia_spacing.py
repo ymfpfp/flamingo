@@ -16,7 +16,7 @@ CONTACTS={"TX":[('R20','R21','B14','B15'),('U20','U21','B19','B20'),('Y17','AA17
 
 def audit(j, isolation_regions=None):
     if isinstance(j,dict): j=j['circuitJson']
-    stack=json.loads((ROOT/'manufacturing/stackup/JLC06161H-3313.json').read_text())
+    stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
     required=8*stack['dielectrics'][0]['thicknessMm']
     comp={c['name']:c['source_component_id'] for c in j if c['type']=='source_component'}
     names={c['pcb_component_id']:next((s.get('name',c['pcb_component_id']) for s in j if s['type']=='source_component' and s['source_component_id']==c.get('source_component_id')),c['pcb_component_id']) for c in j if c['type']=='pcb_component'}
@@ -123,7 +123,7 @@ def audit(j, isolation_regions=None):
                     bad=[{'object':o['label'],'gapMm':trunk.distance(o['shape'])} for o in local if trunk.distance(o['shape'])<=required+0.0001]
                     results.append({'name':name,'layer':layer,'checkedLengthMm':line.length-before-after,
                         'minimumGapMm':gap,'closestObject':closest['label'],'violations':sorted(bad,key=lambda o:o['gapMm'])})
-    return {'passed':not launch_failures and all(not r['violations'] for r in results),'requiredGapMm':required,'rule':'ASMedia PCIe Gen4 S1 > 8h; h = 0.0994 mm',
+    return {'passed':not launch_failures and all(not r['violations'] for r in results),'requiredGapMm':required,'rule':f"ASMedia PCIe Gen4 S1 > 8h; h = {stack['dielectrics'][0]['thicknessMm']:g} mm",
         'scope':'All foreign outer-layer copper, including ground, pads, vias and traces. Reference-plane copper is not an obstacle.',
         'launchRegionsMm':{'bottomAfterBgaVia':3,'viaOrCapacitor':1,'slotPad':2,'topBgaEscapeProjectMaximum':3.2},
         'excludedLaunchRuns':excluded,'launchFailures':launch_failures,

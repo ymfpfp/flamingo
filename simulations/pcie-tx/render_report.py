@@ -49,7 +49,7 @@ a{{color:#13635c}}details{{margin:20px 0}}summary{{cursor:pointer;font-weight:65
 The straight-section screen supports the nominal 85 Ω design. Launch and via SI remain open.
 This review does not establish Gen4 eye or BER compliance.</p>
 <p>The review uses a frozen copy of the rendered board. It does not change the routes.
-The independent 2D solver uses the selected JLC06161H-3313 stackup and published calculator parameters.</p>
+The independent 2D solver uses the selected fabrication stackup and published calculator parameters.</p>
 <p><strong>What the available data supports</strong></p>
 <div class="table"><table><tr><th>Item</th><th>Result</th><th>Meaning</th></tr>
 <tr><td>Uniform surface pair</td><td>{nom['impedance_ohm']:.1f} Ω differential</td><td>Nominal quasi-static result within 76.5–93.5 Ω.</td></tr>
@@ -67,7 +67,7 @@ This check excludes their own via apertures. It does not assess the full field f
 <tr><td>Loss, crosstalk and mode conversion</td><td>Not solved</td><td>Actual material loss, roughness, final copper and component models remain incomplete.</td></tr>
 </table></div>
 <p>The nominal pair uses a 0.1234 mm base width and a 0.1001 mm edge gap.
-Its reference-plane distance is 0.0994 mm. The dielectric Dk is 4.1.
+Its reference-plane distance and dielectric Dk come from the selected fabrication recipe.
 The model includes 40.64 μm finished copper, a 17.78 μm width reduction at the trace top, and the published mask model.
 The nominal 35 μm foil label is a different input.
 <a href="https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator">JLCPCB explains these calculator parameters.</a></p>
@@ -99,7 +99,7 @@ No channel return-loss pass or failure follows from that example.</figcaption></
 <p><strong>How to review the design manually</strong></p>
 <ol>
 <li><strong>Establish the fabrication inputs.</strong>
-Get the factory-approved cross-section for JLC06161H-3313.
+Get the factory-approved cross-section for the selected fabrication recipe.
 Record the finished trace dimensions, dielectric thicknesses, Dk, mask and process tolerances.
 Resolve the 35 μm nominal foil versus 40.64 μm calculator copper distinction.
 Request an 85 Ω differential coupon report. The ASMedia guideline specifies ±10%, or 76.5–93.5 Ω.
