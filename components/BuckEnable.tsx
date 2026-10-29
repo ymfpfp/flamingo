@@ -1,6 +1,5 @@
-import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
-import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
 import {RT0402BRD0710KL} from "imports/RT0402BRD0710KL";
+import {CL10B104KB8NNNC} from "imports/CL10B104KB8NNNC";
 import {RT0402BRD0716K2L} from "imports/RT0402BRD0716K2L";
 import {TPS389001DSER} from "imports/TPS389001DSER";
 import type {ChipProps} from "@tscircuit/props";
@@ -59,7 +58,7 @@ export function BuckEnable({spiceModel}: {spiceModel?: ChipProps["spiceModel"]} 
       <netlabel inline net="VCCH" connection="U_BUCK_EN.N_MR"/>
       <netlabel inline net="VCCH" connection="U_BUCK_EN.VDD"/>
       <netlabel inline net="GND" connection="U_BUCK_EN.GND"/>
-      <A_0402WGF1002TCE name="R_BUCK_EN_PU" schSectionName="BUCK_ENABLE"
+      <RT0402BRD0710KL name="R_BUCK_EN_PU" schSectionName="BUCK_ENABLE"
         schX={3} schY={1.1} schOrientation="vertical"
         pcbX={2.8} pcbY={0.5} pcbRotation={180}
         connections={{pin1: "net.VCCH"}}/>
@@ -71,9 +70,9 @@ export function BuckEnable({spiceModel}: {spiceModel?: ChipProps["spiceModel"]} 
         connections={["R_BUCK_EN_PU.pin2"]} minTraceWidth={.25} pcbTracePaths={[]}/>
       <bus name="BUCK_ENABLE_PULLUP_TOP" connections={["BUCK_ENABLE_PULLUP"]}
         pcbAllowedLayers={["top"]} preferredLayer="top" pcbTraceWidth={.25}/>
-      <CL05B104KO5NNNC name="C_BUCK_EN" schSectionName="BUCK_ENABLE"
+      <CL10B104KB8NNNC name="C_BUCK_EN" schSectionName="BUCK_ENABLE"
         schX={-6.5} schY={0.6} schOrientation="vertical"
-        pcbX={0.5} pcbY={-2} pcbRotation={180}
+        pcbX={0.5} pcbY={-1.82} pcbRotation={180}
         connections={{pin1: "net.VCCH", pin2: "net.GND"}}/>
       <netlabel inline net="VCCH" connection="C_BUCK_EN.pin1"/>
       <netlabel inline net="GND" connection="C_BUCK_EN.pin2"/>

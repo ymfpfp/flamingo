@@ -1367,5 +1367,25 @@
         "layer": "top"
       }
     ]
+  },
+  {
+    "name": "VCCH_C_VCCA33_9_pin2",
+    "selector": "C_VCCA33_9.pin2",
+    "route": [
+      {
+        "route_type": "wire",
+        "x": 47,
+        "y": 90.5,
+        "width": 0.15,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 47.45,
+        "y": 90.05,
+        "width": 0.15,
+        "layer": "top"
+      }
+    ]
   }
 ]

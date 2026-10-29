@@ -1,6 +1,7 @@
 import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {circuitGraph} from '../../lib/circuit-graph.mjs';
+import {slotGateNetwork} from '../../lib/cost-passive-networks.mjs';
 import {createEngine} from '../power-reset/engine.mjs';
 import {sourceInterruption, restartSensitivityCases} from './restart-cases.mjs';
 
@@ -29,9 +30,10 @@ const configs=[
 ].filter(c => !selectedRail || c.rail === selectedRail);
 for(const c of configs){
   if(g.component(`Q_SLOT_${c.rail}`).manufacturer_part_number!==c.part)throw Error('Unexpected MOSFET');
-  c.rgate=g.component(`R_SLOT_GATE_${c.rail}`).resistance;
-  c.roff=g.component(`R_SLOT_OFF_${c.rail}`).resistance;
-  c.cgate=g.component(`C_SLOT_GATE_${c.rail}`).capacitance;
+  const gateNetwork=slotGateNetwork(g,c.rail);
+  c.rgate=gateNetwork.turnOnResistanceOhm;
+  c.roff=gateNetwork.turnOffResistanceOhm;
+  c.cgate=gateNetwork.gateCapacitanceF;
   c.bleed=g.component(`R_SLOT_DISCHARGE_${c.rail}`).resistance;
   c.bulkF=c.bulk.map(n=>g.component(n).capacitance);
   c.ceramicF=c.ceramic.reduce((s,n)=>s+g.component(n).capacitance,0);

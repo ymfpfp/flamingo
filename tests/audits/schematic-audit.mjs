@@ -2,6 +2,24 @@ import {vddReserveSpec} from "../../lib/vdd-reserve-spec.mjs";
 import {qualifySlotPower} from "./power-qualification.mjs";
 import {circuitGraph} from "../../lib/circuit-graph.mjs";
 import {feedbackResistorError} from "../../lib/feedback-resistor-spec.mjs";
+import {buckFeedbackNetwork} from "../../lib/cost-passive-networks.mjs";
+
+// Keep absent manufacturer ratings distinct from a measured or specified failure.
+// The original conservative 10%-drop criterion remains required for a strict pass.
+export function screenBuckConverters(converters) {
+  const below = (value, limit) => Number.isFinite(value) && Number.isFinite(limit) && value < limit;
+  return converters.map(c => {
+    const staticVoltageAndLcPass = c.staticVoltageRangePass && c.datasheetLcSelectionPass;
+    const currentScreenPass = below(c.inductorPeakAtLoadEnvelopeA, c.minimumBuckPeakCurrentLimitA)
+      && below(c.inductorPeakWith20PercentMarginA, c.inductorIsatA)
+      && below(c.inductorRmsAtLoadEnvelopeA, c.inductorIrmsRatingA);
+    const tenPercentDropStatus = !Number.isFinite(c.inductor10PercentDropCurrentA) ? "unknown"
+      : below(c.inductorPeakAtLoadEnvelopeA, c.inductor10PercentDropCurrentA) ? "pass" : "fail";
+    return {rail:c.rail, staticVoltageAndLcPass, currentScreenPass, tenPercentDropStatus,
+      status:!staticVoltageAndLcPass || !currentScreenPass || tenPercentDropStatus === "fail" ? "fail"
+        : tenPercentDropStatus === "unknown" ? "unqualified" : "pass"};
+  });
+}
 
 export function auditCircuit(json) {
   const g = circuitGraph(json, {zeroOhm: true});
@@ -64,9 +82,11 @@ export function electricalMargins(json) {
   const resistor = name => value(name, "resistance");
   const capacitor = name => value(name, "capacitance");
   const converter = ["VCCL", "VDD"].map(rail => {
-    const top = resistor(`R_${rail}_FBT`), bottom = resistor(`R_${rail}_FBB`);
-    const feedbackParts = [`R_${rail}_FBT`,`R_${rail}_FBB`].map(n=>g.component(n).manufacturer_part_number);
-    const resistorError = Math.max(...[`R_${rail}_FBT`,`R_${rail}_FBB`].map(n=>feedbackResistorError(g.component(n))));
+    const network = buckFeedbackNetwork(g,rail);
+    const top = network.topOhm, bottom = network.bottomOhm;
+    const feedbackParts = [...network.topParts,network.bottom].map(c=>c.manufacturer_part_number);
+    const topError = network.topParts.reduce((sum,c)=>sum+c.resistance*feedbackResistorError(c),0)/top;
+    const resistorError = Math.max(topError,feedbackResistorError(network.bottom));
     const nominalV = 0.6 * (1 + top / bottom);
     const part = g.component(`${rail}_BUCK`).manufacturer_part_number;
     const isTps62903 = part === "TPS62903RPJR";
@@ -84,13 +104,20 @@ export function electricalMargins(json) {
     const inductor = g.component(`L_${rail}`);
     const inductanceMatch = String(inductor.inductance).match(/^([\d.]+)\s*(nH|uH|mH|H)$/);
     const inductanceH = inductanceMatch ? Number(inductanceMatch[1]) * ({nH: 1e-9, uH: 1e-6, mH: 1e-3, H: 1}[inductanceMatch[2]]) : null;
-    const selectedInductor = inductor.manufacturer_part_number === "XGL4020-102MEC";
+    const inductorLimits = {
+      "XGL4020-102MEC": {isatA:8.8, irmsA:12, dcrOhm:.009, biasFactor:.9, tenPercentA:3.8},
+      // Murata J(E)TE243A-0017D-01 and TI TPS62903 table 8-4.
+      // Use the full 30% saturation drop and a further 10% temperature
+      // sensitivity, rather than transferring Coilcraft's 10%-drop curve.
+      "DFE252012F-1R0M=P2": {isatA:4.7, irmsA:3.3, dcrOhm:.040, biasFactor:.7*.9, tenPercentA:null},
+    }[inductor.manufacturer_part_number];
+    const selectedInductor = !!inductorLimits;
     const modeOhm = resistor(`R_${rail}_MODE`);
     const nominalSwitchingFrequencyHz = isTps62903 && modeOhm === 8870 ? 2.5e6 : isTps62903 && modeOhm === 21000 ? 1e6 : null;
     const loadA = 3;
-    // Frequency -10% and inductance -10% under bias are sensitivity assumptions.
+    // Frequency -10% is a sensitivity assumption; the inductor bound above is part-specific.
     const frequencyHz = nominalSwitchingFrequencyHz === null ? null : nominalSwitchingFrequencyHz * 0.9;
-    const rippleA = frequencyHz && inductanceH ? (maximumV ?? nominalV) * (1 - (maximumV ?? nominalV) / 5.25) / (inductanceH * 0.8 * 0.9 * frequencyHz) : null;
+    const rippleA = frequencyHz && inductanceH ? (maximumV ?? nominalV) * (1 - (maximumV ?? nominalV) / 5.25) / (inductanceH * 0.8 * (inductorLimits?.biasFactor ?? 0.9) * frequencyHz) : null;
     const peakA = rippleA === null ? null : loadA + rippleA / 2;
     const rmsA = rippleA === null ? null : Math.sqrt(loadA ** 2 + rippleA ** 2 / 12);
     const [railMinimum, railMaximum] = rail === "VCCL" ? [1.85, 1.95] : [1.10, 1.16];
@@ -101,10 +128,12 @@ export function electricalMargins(json) {
       continuousLoadEnvelopeA: loadA, peakToPeakInductorRippleA: rippleA,
       nominalSwitchingFrequencyHz, modeResistanceOhm: modeOhm, nominalInductanceH: inductanceH,
       inductorPeakAtLoadEnvelopeA: peakA, inductorRmsAtLoadEnvelopeA: rmsA,
-      inductorIsatA: selectedInductor ? 8.8 : null,
-      inductor10PercentDropCurrentA: selectedInductor ? 3.8 : null,
-      inductorIrmsRatingA: selectedInductor ? 12 : null,
-      inductorCopperLossAtMaxDcrW: selectedInductor && rmsA !== null ? rmsA ** 2 * 0.009 * (1 + 0.00393 * 100) : null,
+      inductorIsatA: inductorLimits?.isatA ?? null,
+      inductorPeakWith20PercentMarginA: peakA === null ? null : peakA * 1.2,
+      minimumEffectiveInductanceSensitivityH: inductanceH === null ? null : inductanceH*.8*(inductorLimits?.biasFactor ?? .9),
+      inductor10PercentDropCurrentA: inductorLimits?.tenPercentA ?? null,
+      inductorIrmsRatingA: inductorLimits?.irmsA ?? null,
+      inductorCopperLossAtMaxDcrW: selectedInductor && rmsA !== null ? rmsA ** 2 * inductorLimits.dcrOhm * (1 + 0.00393 * 100) : null,
       minimumBuckPeakCurrentLimitA: isTps62903 ? 4 : null,
       nominalCapacitanceUF: capacitanceF * 1e6,
       minimumEffectiveCapacitanceSensitivityUF, maximumEffectiveCapacitanceUF,
@@ -144,7 +173,7 @@ export function electricalMargins(json) {
     worstInternalPullupOffGateV: (3.6 / 57000 + 2e-6) / (1 / 57000 + 1 / (resistor("R_HDDPC_PD") * 1.01)),
     fullOnBehaviorGuaranteedAtBridgeMinimumHigh: slot.driver.guaranteedAtBridgeMinimumHigh};
   return {assumptions: ["Static rail errors include reference, feedback leakage, resistor tolerance and conservative TCR; ripple, PCB drop and load steps are separate.",
-    "Inductor screening uses up to 3 A per converter, -20% initial inductance, another -10% bias sensitivity and nominal frequency minus 10%. The frequency reduction is not a guaranteed minimum. Copper loss includes a 100 C rise allowance.",
+    "Inductor screening uses up to 3 A per converter, -20% initial inductance, the selected part's bias/temperature sensitivity, and nominal frequency minus 10%. These are not guaranteed combined operating bounds. Copper loss includes a 100 C rise allowance.",
     "All selected output capacitors have +/-10% initial tolerance. The capacitance screening adds +/-15% temperature change and a -50% DC-bias sensitivity; this does not establish a guaranteed capacitance floor.",
     "The user selected a 75 W total slot budget. Individual rail stress checks use conservative limits of 3 A at 3.3 V and 5.5 A at 12 V; these are not a simultaneous load request.",
     "No card-specific surge or board thermal model is available."],

@@ -1,0 +1,159 @@
+{
+  "authorized": true,
+  "reason": "User requested validation and implementation of cheaper parts with top-only population. Preserve every existing USB/PCIe signal route.",
+  "qualification": "Exact authorized geometry record only; independent design checks and revised supplier quote are required.",
+  "traceChanges": [
+    {
+      "name": "VCCH_C_VCCA33_7_pin1_TRACE",
+      "before": "3c42c140eca19ef923c50f15406119161fedba90da03e752e63c6cb925487f3b",
+      "after": "ca22ed9c00137eb46d75b040d087e69027945de1e746dab72fa74cf741113306",
+      "reason": "Retain the VCCA33 bulk-pad contacts with the existing 10 uF land pattern."
+    },
+    {
+      "name": "VCCH_C_VCCA33_7_pin2_TRACE",
+      "before": "3e919f860447c1b588b1ac4a889330c851cd49ace9361c417fc3bbf3b1c38515",
+      "after": "f2ecc81c532cda80f9e548720965f5499e42bfec72633d94e1f4749737b453d7",
+      "reason": "Retain the VCCA33 bulk-pad contacts with the existing 10 uF land pattern."
+    },
+    {
+      "name": "PSU_STATUS_INPUT",
+      "before": "ff9a63b32593d6ec83ada9da179ccb4e3971ccc1177076b6457a4a5a260d670d",
+      "after": "6bde5cfd898310de51ec12bf5074a02757a9f7a1878ca1fe96e268d8f9847516",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_PULLDOWN",
+      "before": "6c49dce530837a51d27631d8aa27cf8d340d9dc4803e24ed80853023cf678c86",
+      "after": "2a7c46381fa257f9ad9c8b48f23928cdb2133c9fe6e5a72d8c8107808e9fa58a",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_5V",
+      "before": "dedadf6cddda4567fc4f013ddb571bf26dd1327c56501d17a82402490c504ce4",
+      "after": "fd301c2a50d78718f6f0ece2e36a8adfb1530298f2238f46d5856ceddffbd5a8",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_BYPASS",
+      "before": "41f3b5e3f65837506a4b306999e58e010e2fe8c93e4a91e7b42f4aeddada683a",
+      "after": "d7815400fcf0c7a6c467ec6b0f3ac35f8e6a719072cb6a2deb01e4436983cc95",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_LED_FEED",
+      "before": "b47a8098f6dac85a1fb98c512e6161469a1b9aae68328895896ebe8fd5c25f78",
+      "after": "0a6c78b390bd5f210ca96933f698a90c443edc31488fe3b31b0b5c78809f7bc9",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_LED_CATHODE",
+      "before": "7027de5ca1172cb601ec3140654574e125a9d1b5ba77919542d1c8e885a1cb81",
+      "after": "f7340e852c9fcc992499702d5332c153ee85fd18c91822f0847e84fee4019858",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_GND_IC",
+      "before": "122af297c256c51a57c36f9e9773cb47ffd3525cf435909e2cb22c55fbca508b",
+      "after": "cef93fd3a77dce75b4b6b7aae3c3def2e110f6bf9a6cd32d113821383915cb8c",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "PSU_STATUS_GND_CAP",
+      "before": "87b32cdd2163fceb67689ad4e1d4daef6c197814477367d531dcd0252f8491a1",
+      "after": "68eeb9b856bf0cf7d4ae5c1ee293ed6b3f8028241866e5bf9746b1d87eb8c585",
+      "reason": "Adapt only local PSU indicator contacts to the smaller TI package and its bypass capacitor."
+    },
+    {
+      "name": "BUCK_VCCL_SW",
+      "before": "311ff6fb683a13869c85d5102370d60cf31e9ee35dbcb167bba36387ce4549e8",
+      "after": "ab3514d20223f35d201c2a17f4198374fd03fc54a9a9814b6a5e25da77612c43",
+      "reason": "Adapt only the inductor contacts for the manufacturer land pattern; retain existing power widths."
+    },
+    {
+      "name": "BUCK_VCCL_OUTPUT_A",
+      "before": "8501c3d1b5625e5acb3ea6923dbfc85374dbd401b10dae9ac893926cf084d8f3",
+      "after": "da2268233b7780025cc78698a9abfd73c3b6beaab8d64efdf9d4847252b98d6c",
+      "reason": "Adapt only the inductor contacts for the manufacturer land pattern; retain existing power widths."
+    },
+    {
+      "name": "BUCK_VCCL_OUTPUT_B",
+      "before": "562c38772ff8eeea37e3cbe9c51111f3c7f5ba2dc75cdfc56ed9e0522b174ad0",
+      "after": "a00477d30a76ab06101e2561bc576fa0ca7b9e36d24b4f19c921101b51990a97",
+      "reason": "Adapt only the inductor contacts for the manufacturer land pattern; retain existing power widths."
+    },
+    {
+      "name": "BUCK_VDD_SW",
+      "before": "15682feba5e0bb599d7e06b5ff6aeb1f7d004d10eaf812dffa0000ec401a9fc7",
+      "after": "ce994c57919b793305d0123465609d321514112ffee33b629f854e0b94382ee7",
+      "reason": "Adapt only the inductor contacts for the manufacturer land pattern; retain existing power widths."
+    },
+    {
+      "name": "BUCK_VDD_OUTPUT_A",
+      "before": "f19582e3f17a48600135bc1cda4ffceddfc8fb958f7fa128062068de70a1d438",
+      "after": "43233c9f8b28f1cad363aa00512fdc8f08d2fc3d5514c2e5931439c3ae3fcea3",
+      "reason": "Adapt only the inductor contacts for the manufacturer land pattern; retain existing power widths."
+    },
+    {
+      "name": "BUCK_VDD_OUTPUT_B",
+      "before": "b1840c689444daaab0a2266496778694763dccc574d839c086c2c6c7db994adc",
+      "after": "99232198b35d9ec70226618b9ccea6191b8372c8c1b80e5b9984142db9566295",
+      "reason": "Adapt only the inductor contacts for the manufacturer land pattern; retain existing power widths."
+    }
+  ],
+  "addedRoutes": [
+    "VCCH_C_VCCA33_9_pin2_TRACE",
+    "VCCA33_BULK_9_FEED"
+  ],
+  "traceRemovals": [
+    {
+      "name": "PSU_STATUS_INPUT",
+      "before": "6bde5cfd898310de51ec12bf5074a02757a9f7a1878ca1fe96e268d8f9847516",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_PULLDOWN",
+      "before": "2a7c46381fa257f9ad9c8b48f23928cdb2133c9fe6e5a72d8c8107808e9fa58a",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_5V",
+      "before": "fd301c2a50d78718f6f0ece2e36a8adfb1530298f2238f46d5856ceddffbd5a8",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_BYPASS",
+      "before": "d7815400fcf0c7a6c467ec6b0f3ac35f8e6a719072cb6a2deb01e4436983cc95",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_LED_FEED",
+      "before": "0a6c78b390bd5f210ca96933f698a90c443edc31488fe3b31b0b5c78809f7bc9",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_LED_ANODE",
+      "before": "f55bef79e004f4150d45dff9e57968f0d7c82f1a973984280ec4687cdb654788",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_LED_CATHODE",
+      "before": "f7340e852c9fcc992499702d5332c153ee85fd18c91822f0847e84fee4019858",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_GND_IC",
+      "before": "cef93fd3a77dce75b4b6b7aae3c3def2e110f6bf9a6cd32d113821383915cb8c",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_GND_PD",
+      "before": "da985177626d8a73e922f6a3995f187860b1cca2fc72566793579c5f753e1618",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    },
+    {
+      "name": "PSU_STATUS_GND_CAP",
+      "before": "68eeb9b856bf0cf7d4ae5c1ee293ed6b3f8028241866e5bf9746b1d87eb8c585",
+      "reason": "User approved removal of the optional PWR_OK indicator and its copper."
+    }
+  ]
+}

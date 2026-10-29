@@ -1,0 +1,167 @@
+{
+  "authorized": true,
+  "reason": "User requested a final local design saving to reach the USD 460 target. Consolidate four feeder types using existing stocked passives, with extra parts/placements counted. Independent electrical, native placement, shorts and physical copper checks required. User also requested unpopulated wire holes for future external PSU status and restoration of the existing small top-silkscreen badge.",
+  "sourceBoardSha256": "bf79442acc55ae0f055dd1c6b9b22912a5ab47a3e77f9588df7c330254e32167",
+  "traceChanges": [
+    {
+      "name": "VCCH_C_SPI_VCC_pin1_TRACE",
+      "before": "0570dbff7a0c6f11fa50b638ba655f56a92ac6bb8c8001225ad2b293c26dff09",
+      "after": "b528317ff6459389f93e0c9074a9dfc8dd318f31561099059c5df646790747e5",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "VCCH_C_SPI_VCC_pin2_TRACE",
+      "before": "3a44fc2d66916a701947e38f2488259874505654db1f76a7b7dcea5f114782ed",
+      "after": "18fb11ab7fad6543fd8237fda6847bae7cf36b5dc9936dbd67ed821e3c302621",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "VCCH_C_SLOT_GATE_3V3_pin1_TRACE",
+      "before": "5f84e303609b339f218032ff180b3534ed3ce69233731c90c6c33453a6511b33",
+      "after": "5611bd535c3b10d9ba7c7c965177555e4f7d683cda755efb7c90d6d5987c6f8d",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "VCCH_C_BUCK_EN_pin1_TRACE",
+      "before": "fce21ed5d0f3ee082ce3a187d98faa7f358526485131d6ad14c6968a2ed43245",
+      "after": "e975ef4f7e3e687810909d387899e974b4b8bd81c713056702a349b7c0a60e81",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "VCCH_C_BUCK_EN_pin2_TRACE",
+      "before": "af1323aeaf3a3efe964e0163fd3293ce76be654d53def76f729ed2927950fac3",
+      "after": "59a6734270fe2f2171f9c8a672800bffaf438b9c58584ad9ebdf26c27d82eee7",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "ATX5V_VCCL_A_TRACE",
+      "before": "88ba7c32f538f1405694f68b3cc867e4fdcbc9b64005cc14d32d67ae73c040ec",
+      "after": "4d609f6d4b39dd34df5f52dedc7592bacd18d17d51a0de54df02ff1b83f9c0bc",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "ATX5V_VCCL_B_TRACE",
+      "before": "131c29a1cedb9c1bc2389ffb8da7d3df820f3d6556b1c1b8196f1aaae696cc91",
+      "after": "44f635acb1ed6e9f6723cc8fb19be66193bfa5692a7e0f6390321f0423003799",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "ATX5V_VDD_A_TRACE",
+      "before": "1d553dcd66e41ea6d8db5acc2630bc80f17aea0bf7a6a343ce946bd5d3181cc0",
+      "after": "061e1a7138c152be2d363c378ba469946b5201653b0096187547bbfb0b9d4c73",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "ATX5V_VDD_B_TRACE",
+      "before": "50a75a25847f44034bda38d8c2ce76fa26e99fcd74f3dbce183c2371d2ec4177",
+      "after": "3a6b0d5febe6b248bc0ab423baad13fc8e8ced87013b467f5978a0fecd99f800",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "SP_3V3_BLEED_TRACE",
+      "before": "5b5f7162a43818ed3dd96c313b6bc8d5f4b70999c2009cdd397b1bc0f6a6c8a5",
+      "after": "a80a6c3d29b233fc604f3bff93aeff9d8748a135bb6929a337372872763e2346",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "SP_3V3_BLEED_GND_TRACE",
+      "before": "5f5b1d5dabcac826374db86bf498829406965f9b21ac253c794ffe1520aef9ea",
+      "after": "273052c84b8cc1c8a9788050b8f137cb20ce9334b5b301e00b316a2600824c2a",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "SP_3V3_GATE_OFF",
+      "before": "621d65b6547e6d2427bafbe1154a15fafa170a55e91c9e44f9b04e596deabe18",
+      "after": "a4ee6b3af58e27cb18aafa83e1141d228bd0cc57082757c45409ed635ffc1c84",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "SP_3V3_GATE_CAP",
+      "before": "028a74e3726e0f196390b9667d0d543a0ae59533e8907b05000bdbd13878fd90",
+      "after": "4e5f8be33a1bcea0988cd4b0cb004df0a60b38cac767393c1aa52adf7891945f",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_VIN",
+      "before": "57e6c6ce4918327f926e1e72b33c1203b98a819b0398fe35539b4b29eff47458",
+      "after": "e4dbbaaba1c7911d83868c3af912152ec866419594763027b2f0a578dba5f7ed",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_INPUT_BULK",
+      "before": "07dc030d28f8b554d5c109420a61bcb5128acbfa057cfcc655c2baf94a477f6f",
+      "after": "c5e589f91c706e33be118db8b291c1f27f585f54337dad8f64862d1d374d761c",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_GND_HF",
+      "before": "240b948b8d8fd4af309603c75f2b53e073b4bef8fe187b06e5b74207f8a7132a",
+      "after": "0767005b7d594373f8c273be8efff90d6d119b0f5bca1ad1b41fdd256276e691",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_GND_CIN",
+      "before": "6487dd5e83785f6fde7d097ba90020d45e12911d36fb5989f0f2b7bdb623e727",
+      "after": "9a6cb525c4a8d971739cef0097dde5c4925c71378b6f10aedec6a506ed38db5a",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_GND_FBB",
+      "before": "b3a0ae02cd51298eb7782f5f8b34bdfba524c48534af084e6cc6dc134b18bc23",
+      "after": "837d6f91a19307bd9df0bc1595fc1fd06b1bcf6f6d11077a38c5bdbf825abf22",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VDD_VIN",
+      "before": "00f3af13456cb1debe8f6553f4df7809f2887e6bea6a3eb6fa886d38cd7f04e7",
+      "after": "969c00b9bd8d60fe960e55c6d5b3e5b43b85a669e6070ed6e5b830c4425528f0",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VDD_INPUT_BULK",
+      "before": "8e179e2d82518cba9d550b43ee33c3a1d7f087ef5d22fa24ec668b71e2182c7b",
+      "after": "037f7fc6c3001ebcd3a522afea3f165dc6c465756c429902a32bce38f42950b6",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VDD_GND_HF",
+      "before": "812d66c9baa688d3e1f00923dcda1ba8a3bc0665ee95f1089d085eedb1f1f8db",
+      "after": "faedc855d5e51f64846a4777c3c297f32eddeb3a1c8ee587264a6921dbae2734",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VDD_GND_CIN",
+      "before": "3bff0feecff7e76d14ac42100e59f109baf0e1d008bc32062a19c70e9377d880",
+      "after": "21f48de18dd3a5953e152d5ba6132dc67844d6452a0c34b42b7c941d88dcea9c",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_FB_SENSE",
+      "before": "bf711a9c7b91fe1da6a55944f014463e538287d9ea1ff6dc4554dc183cbacd17",
+      "after": "430568347d870b961118722efa2080d234137492be3550a95a88cf03745eca15",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_FB_INPUT",
+      "before": "5c6f2f650efd11eb897b5a861c86cfef8ceaafc222a3bc0a7ba8e16a22a7c8e0",
+      "after": "3368f15abadaa61f51286ab590095b37831ded81eeb24a078f4ce8943077c422",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    },
+    {
+      "name": "BUCK_VCCL_FB_DIVIDER",
+      "before": "421e8f647fabb9cebc32fa873447c9705d5863c38e170d62675a5812ea3b1fa7",
+      "after": "2ec6c6ecf7826bb7e77a1d0c9c825334e87c647b8217b1dc34ce40c3e3777d6c",
+      "reason": "Local passive-network contacts only: shared 0603 bypass lands, retained buck input bypass/feedback loops, or 3.3 V slot gate/discharge contacts. Preserve all vias and USB/PCIe signal copper."
+    }
+  ],
+  "addedRoutes": [
+    "SP_3V3_PARALLEL_DRIVE",
+    "SP_3V3_PARALLEL_GATE",
+    "SP_3V3_OFF_SERIES",
+    "SP_3V3_EXTRA_CAP_SOURCE",
+    "SP_3V3_EXTRA_CAP_GATE",
+    "BUCK_VCCL_FB_TOP_SERIES",
+    "PSU_ACCESS_PWR_OK",
+    "PSU_ACCESS_5V"
+  ]
+}

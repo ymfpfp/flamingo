@@ -1,0 +1,426 @@
+{
+  "dateLocal": "2026-10-28",
+  "status": "Local passive consolidation and optional external status access implemented. Software/layout checks passed; checkout projection is below USD 460. Revised supplier quote and any uncollected tax remain unconfirmed.",
+  "sourceBoardFile": "dist/final-passive-cut-2026-10-28/final-silkscreen.circuit.json",
+  "sourceBoardSha256": "a3567bb38f1ca1180e524996b646d7334b396374756a699904f39db669215cd7",
+  "scope": {
+    "completeBoards": 2,
+    "barePcbs": 5,
+    "topOnly": true,
+    "populatedPartsPerBoard": 157,
+    "uniqueMpn": 40,
+    "newExternalUsPartsUsd": "0.00",
+    "newExternalUsShippingUsd": "0.00",
+    "prepaidAsmChipsExcludedFromNewPurchase": true,
+    "unpopulatedAccessHeaders": 3
+  },
+  "changes": [
+    {
+      "refs": [
+        "L_VCCL",
+        "L_VDD"
+      ],
+      "oldMpn": "XGL4020-102MEC",
+      "newMpn": "DFE252012F-1R0M=P2",
+      "jlcCode": "C435392",
+      "purchaseQtyBudget": 20,
+      "installedAcrossTwoBoards": 4,
+      "minimumObserved": 1,
+      "unitBudgetUsd": "0.1116",
+      "newPartsBudgetUsd": "2.2320",
+      "merchandiseSavingUsd": "15.9528",
+      "stockObserved": 113478,
+      "fullReelRequired": false,
+      "source": "https://jlcpcb.com/partdetail/C435392",
+      "designReview": "TI TPS62903 table 8-4 lists this Murata part. Use manufacturer lands, not the oversized imported footprint. Current screen includes 20% initial tolerance, 30% bias reduction, an additional 10% temperature sensitivity, and 20% saturation-current margin. Winding loss increases. Closed-loop startup, load steps, fault response and physical temperature measurements remain open."
+    },
+    {
+      "refs": [
+        "C_VCCA33_7",
+        "C_VCCA33_9"
+      ],
+      "oldMpn": "One CL21A226MAYNNNE per board",
+      "newMpn": "Two CL21A106KAYNNNE per board",
+      "jlcCode": "C15850",
+      "purchaseQtyBudgetForAll10u": 38,
+      "originalPurchaseQtyForAll10u": 34,
+      "installedAcrossTwoBoardsForAll10u": 28,
+      "unitBudgetUsd": "0.0438",
+      "extraPlacementBudgetUsd": "0.0276",
+      "removedFeederTypes": 1,
+      "merchandiseSavingUsd": "4.4832",
+      "source": "https://jlcpcb.com/partdetail/C15850",
+      "designReview": "Retain 25 V X5R and the fast 220 nF capacitor beside H5. Two 10 uF +/-10% parts give an 18 uF nominal-tolerance minimum, above the original 22 uF +/-20% minimum of 17.6 uF. Samsung typical curves show less DC-bias loss for the 10 uF part around 3.3 V; this is not a guaranteed combined operating-capacitance bound. Added bulk capacitor and ground via remain on top. The trial third capacitor was removed after it interfered with existing SPI copper."
+    },
+    {
+      "refs": [
+        "U_PSU_LED",
+        "LED_PSU_OK",
+        "C_PSU_LED",
+        "R_PSU_LED",
+        "R_PSU_OK_PD"
+      ],
+      "oldMpn": "Original SN74AHCT1G14DBVR and XL-1608UWC-04 indicator circuit",
+      "newMpn": "Omitted",
+      "removedFeederTypes": 2,
+      "newPartsBudgetUsd": "0.00",
+      "merchandiseSavingUsd": "4.7770",
+      "incrementalMerchandiseSavingFromPriorRevisionUsd": "3.7010",
+      "designReview": "User permitted removing the optional PWR_OK indicator. Omit the status inverter, LED, bypass, 1k LED resistor, 100k status pull-down, ten retired indicator traces and three status ground vias. ATX pin 8 now connects only to the unpopulated PSU_ACCESS PWR_OK wire hole, following the later user request. Automatic PS_ON start link, VCCH monitor, both bucks, reset RC and reset switch remain. The passive-consolidation local moves and routes are recorded separately.",
+      "costBasis": "Cumulative from original quote: inverter USD 1.5790 + LED USD 0.0980 + two feeder types USD 3.10 = USD 4.7770. The prior smaller-inverter substitution already saved USD 1.0760, so only USD 3.7010 is new. No credit for shared passive purchasing or fewer placements."
+    },
+    {
+      "refs": [
+        "PCIe"
+      ],
+      "oldMpn": "X1618WVS-164-9TV30",
+      "newMpn": "X1618WVS-164-9TV15",
+      "jlcCode": "C21263100",
+      "purchaseQtyBudget": 2,
+      "unitBudgetUsd": "3.2606",
+      "newPartsBudgetUsd": "6.5212",
+      "merchandiseSavingUsd": "1.1334",
+      "source": "https://jlcpcb.com/partdetail/C21263100",
+      "designReview": "Manufacturer common drawing covers both plating variants with the same 164-pin geometry. Retain the x16 mechanical connector and advertised PCIe 4.0 family. Contact gold decreases from 30 to 15 microinch, reducing wear margin."
+    },
+    {
+      "refs": [
+        "R_RST_N",
+        "ordinary 10k positions"
+      ],
+      "oldMpn": "Separate 1% 12.1k and 10k types",
+      "newMpn": "Existing RT0402BRD0712K1L and RT0402BRD0710KL",
+      "removedFeederTypes": 2,
+      "additionalPrecision10kPurchaseQty": 8,
+      "precision10kTotalPurchaseQty": 28,
+      "additionalPartsBudgetUsd": "0.2032",
+      "removedPartsBudgetUsd": "0.0964",
+      "merchandiseSavingUsd": "2.9932",
+      "designReview": "Retain values and land geometry; tighten tolerance to 0.1%. R_RST_N is REXT calibration and remains 12.1k. Include the existing ten-piece attrition allowance for the revised 18-piece precision-10k demand."
+    },
+    {
+      "refs": [
+        "R_SLOT_GATE_3V3",
+        "R_SLOT_GATE_3V3_B",
+        "C_SLOT_GATE_3V3_B"
+      ],
+      "oldMpn": "0402WGF5100TCE",
+      "newMpn": "Two existing 0402WGF1001TCE in parallel plus existing CL05B224KO5NNNC in parallel with retained gate capacitor",
+      "removedPartsBudgetUsd": "0.0220",
+      "removedFeederTypes": 1,
+      "extraPlacementBudgetUsd": "0.0552",
+      "additionalPartsBudgetUsd": "0.0098",
+      "merchandiseSavingUsd": "1.5070",
+      "purchaseAllowance": "Existing 20-piece 1k purchase covers six installed across two boards plus ten attrition pieces. 220nF purchase rises 52 to 54, including the existing eighteen-piece attrition allowance.",
+      "designReview": "500 ohm on / 10.22 uF. Together with 20k off, nominal on RC is within 0.02% of the original 510 ohm / 22k / 10 uF. Retain the original 1206 X7R gate capacitor and MOSFET. Added 220nF uses the already stocked 16 V X7R type.",
+      "source": [
+        "https://jlcpcb.com/partdetail/C11702",
+        "https://jlcpcb.com/partdetail/C16772"
+      ]
+    },
+    {
+      "refs": [
+        "R_SLOT_OFF_3V3",
+        "R_SLOT_OFF_3V3_B"
+      ],
+      "oldMpn": "0402WGF2202TCE",
+      "newMpn": "Two existing RT0402BRD0710KL in series",
+      "removedPartsBudgetUsd": "0.0240",
+      "removedFeederTypes": 1,
+      "extraPlacementBudgetUsd": "0.0276",
+      "additionalPartsBudgetUsd": "0.1016",
+      "merchandiseSavingUsd": "1.4448",
+      "purchaseAllowance": "Four added precision-10k purchase pieces for the two replaced plus two added installed pieces. Full shared order including feedback rises from 28 to 34; ten attrition pieces retained.",
+      "designReview": "20k off. Nominal off RC becomes 204.4 ms versus 220 ms, about 7.1% quicker. Paired startup and hot/source restart model comparisons retain the same four pre-existing outside-SOA cases; hardware qualification remains open.",
+      "source": [
+        "https://jlcpcb.com/partdetail/C190095"
+      ]
+    },
+    {
+      "refs": [
+        "R_VCCL_FBT",
+        "R_VCCL_FBT_B"
+      ],
+      "oldMpn": "RT0402BRD0726K1L",
+      "newMpn": "Existing RT0402BRD0716K2L + RT0402BRD0710KL in series",
+      "removedPartsBudgetUsd": "0.5280",
+      "removedFeederTypes": 1,
+      "extraPlacementBudgetUsd": "0.0276",
+      "additionalPartsBudgetUsd": "0.0508",
+      "merchandiseSavingUsd": "1.9996",
+      "purchaseAllowance": "Existing 20-piece 16.2k purchase covers four installed plus ten attrition pieces. Two added precision-10k pieces counted separately from the gate-off network; total precision10k purchase 34.",
+      "designReview": "26.2k total. Both 0.1%, 25 ppm/K; unchanged 12.1k bottom. Nominal VCCL 1.89917 V, full static screen 1.86966-1.92897 V inside 1.85-1.95 V.",
+      "source": [
+        "https://jlcpcb.com/partdetail/C852557",
+        "https://jlcpcb.com/partdetail/C190095"
+      ]
+    },
+    {
+      "refs": [
+        "C_SPI_VCC",
+        "C_BUCK_EN",
+        "C_VCCL_HF",
+        "C_VDD_HF"
+      ],
+      "oldMpn": "CL05B104KO5NNNC",
+      "newMpn": "Existing CL10B104KB8NNNC",
+      "jlcCode": "C1591",
+      "removedPartsBudgetUsd": "0.0620",
+      "removedFeederTypes": 1,
+      "extraPlacementBudgetUsd": "0.0000",
+      "additionalPartsBudgetUsd": "0.0308",
+      "merchandiseSavingUsd": "1.5812",
+      "purchaseAllowance": "0603 100nF purchase rises 20 to 24: fourteen installed across two boards plus ten attrition pieces.",
+      "designReview": "Retain 100nF, +/-10%, X7R; increase rated voltage 16 to 50 V. Larger 0603 lands require local placement/contact updates.",
+      "source": [
+        "https://jlcpcb.com/partdetail/C1591"
+      ]
+    }
+  ],
+  "budget": {
+    "latestUserConfirmedPayableTotalUsd": "507.90",
+    "latestItemizedBreakdownAvailable": false,
+    "originalItemizedMerchandiseUsd": "351.34",
+    "observedDutyRatePercent": "35",
+    "additionalCouponCreditCountedUsd": "0.00",
+    "merchandiseSavingUsd": "35.8722",
+    "modeledCheckoutSavingUsd": "48.427470",
+    "modeledRevisedCheckoutUsd": "459.472530",
+    "conservativeUncollectedCaliforniaTaxReserveUsd": "37.38088196250",
+    "modeledTotalIncludingReserveUsd": "496.85341196250",
+    "remainingCashGapBeforeSeparateTaxUsd": "0.00",
+    "additionalMerchandiseReductionIncludingConservativeTaxReserveUsd": "25.13125309636448876955206069",
+    "budgetAchieved": false,
+    "qualifiedSupplierQuote": false,
+    "manufacturerReviewExtraUsd": null,
+    "assumptions": "Relative projection from the user-confirmed USD 507.90 payable total. Hold shipping and fixed import fees unchanged; use the observed 35% duty. Count no additional coupon. Shared-part purchases retain attrition allowances and eight extra placements are charged. Standard same-color artwork and unpopulated wire holes add no purchased parts or feeder types. Actual revised quote and whether California tax was collected are unknown. The separate reserve retains the previous conservative 8.625% planning assumption; it is not a cart charge or tax determination.",
+    "costStatusDefinitions": {
+      "actualCheckoutUsd": "507.90",
+      "actualCheckoutSource": "Latest amount reported by user; no updated factory quote after this local design revision.",
+      "projectedCheckoutUsd": "459.472530",
+      "projectedCheckoutIsAFactoryQuote": false,
+      "taxReserveIsAConfirmedCharge": false,
+      "taxReserveIsAddedToCart": false,
+      "newCartChangesMade": false
+    },
+    "currentUserBudgetUsd": "460.00",
+    "budgetRevisionSource": "User explicitly raised limit to USD 460.",
+    "currentCheckoutGapUsd": "0.00",
+    "currentGapIncludingTaxReserveUsd": "36.85341196250",
+    "minimumFurtherMerchandiseCutForCheckoutUsd": "0.00",
+    "incrementalMerchandiseSavingThisReviewUsd": "6.5326",
+    "incrementalCheckoutSavingThisReviewUsd": "8.819010",
+    "projectedCheckoutWithinBudget": true,
+    "projectedCheckoutHeadroomUsd": "0.527470"
+  },
+  "verification": {
+    "status": "Software and physical-layout screening passed; hardware power qualification remains open",
+    "sourceSha256": "a3567bb38f1ca1180e524996b646d7334b396374756a699904f39db669215cd7",
+    "typecheckPassed": true,
+    "existingUsbPcieSignalRoutesPreserved": true,
+    "existingRemainingViasChanged": 0,
+    "existingViaCount": 685,
+    "changedExistingLocalTraces": 25,
+    "addedLocalTraces": 8,
+    "changedSupportComponentPlacements": 10,
+    "addedPopulatedComponents": 4,
+    "addedUnpopulatedAccessHeaders": 1,
+    "newPlatedWireHoles": 3,
+    "allComponentsOnTop": true,
+    "hardwareQualified": false,
+    "closedLoopRegulatorValidated": false,
+    "regression": {
+      "passed": 179,
+      "skipped": 8,
+      "failed": 0
+    },
+    "currentPlacementPassed": true,
+    "currentSchematicPlacementPassed": true,
+    "noDetectedShorts": true,
+    "pcbStylePassed": true,
+    "fullBoardValidatorPassedOnElectricallyIdenticalRevision": true,
+    "fullValidatorInput": "dist/final-passive-cut-2026-10-28/final.circuit.json",
+    "finalRevisionDifference": "Three horizontal silk labels and correct top-entry metadata for the unpopulated wire holes. Exact equality of every other Circuit JSON field is verified by type. Current native placement checks reject no warnings/errors.",
+    "electricalEquivalenceReport": "dist/final-passive-cut-2026-10-28/complete-verification.json",
+    "fullBoardReport": "dist/final-passive-cut-2026-10-28/full-board-report.json",
+    "testsLog": "dist/final-passive-cut-2026-10-28/tests-complete.log",
+    "typecheckLog": "dist/final-passive-cut-2026-10-28/typecheck-final.log",
+    "fullValidationLog": "dist/final-passive-cut-2026-10-28/full-validation-final.log",
+    "geometryComparison": "dist/final-passive-cut-2026-10-28/geometry-comparison.json",
+    "pairedStartupComparison": "dist/final-passive-cut-2026-10-28/paired-startup-comparison.json",
+    "pdnLoadQualified": false,
+    "existingPowerQualificationLimit": "VCCL 3 A / 80 C conductor screen still exceeds the 8 mV project target. The same four 125 C short source-interruption slot-switch cases remain outside the equivalent SOA screen. No new outside-SOA cases in the paired comparison; hardware/thermal/regulator closed-loop qualification remains open.",
+    "manufacturingExportStatus": "Current matching native UI Gerbers/BOM/CPL generated and source-verified on 2026-10-29. Saved in /Users/jc/Downloads/Flamingo-RevA-2026-10-29. 157 populated top-side positions / 40 MPNs; three headers unpopulated; 685 filled/capped vias and 45 open plated holes. Manufacturer review and existing prototype hardware limits remain.",
+    "hardwareReview20261029": {
+      "record": "manufacturing/hardware-cost-review-2026-10-29.json",
+      "hardwareQualified": false,
+      "currentFullBuildSha256": "b237ad3ac3f1abc70a7242f0c7996f5137c3d702efac4d32fd9b610c110f6c7a",
+      "currentElectricalAndCopperMatchReviewedCampaign": true,
+      "regression": {
+        "passed": 181,
+        "skipped": 8,
+        "failed": 0
+      },
+      "originalTenPercentInductorDropCriterion": "unknown for selected Murata part; strict buck screen remains unqualified",
+      "keyOpenHardwareItems": [
+        "VDD load-step margin",
+        "short-interruption reset and slot restart",
+        "inductor thermal behavior",
+        "cooling and BGA assembly acceptance",
+        "full channel hardware validation"
+      ],
+      "priceProjectionChanged": false
+    },
+    "currentManufacturingExport": "manufacturing/current-export-2026-10-29.json"
+  },
+  "fabricationSavingsCountedUsd": "0.00",
+  "fabricationOptionsNotAccepted": [
+    {
+      "option": "0.2/0.3 mm via revision",
+      "modeledMerchandiseSavingUsd": "17.63",
+      "existingLayoutGeometryErrors": 10,
+      "evidence": "dist/cost-cut-2026-10-28/larger-via-screen.json"
+    },
+    {
+      "option": "0.3/0.4 mm via revision",
+      "modeledMerchandiseSavingUsd": "52.37",
+      "existingLayoutGeometryErrors": 95,
+      "evidence": "dist/cost-cut-2026-10-28/vias-0.3-screen.json"
+    }
+  ],
+  "supplierInquiry": {
+    "draft": "manufacturing/jlcpcb-cost-quote-request-2026-10-28.txt",
+    "priceReviewBom": "dist/cost-validation-2026-10-28/price-review-bom.csv",
+    "targetFactoryDeliveredTotalUsd": "365.00",
+    "separateTaxAllowanceUsd": "45.00",
+    "userPermissionRequired": true,
+    "sent": false,
+    "orderPlaced": false,
+    "note": "Supplier contact declined; no inquiry, upload or order. Current USD 460 checkout projection is below the limit; a revised factory quote and any uncollected tax must still be established. Historical USD 365 target is obsolete.",
+    "userAuthorized": false,
+    "userDecision": "Declined supplier contact; continue local design changes"
+  },
+  "taxSources": [
+    "https://cdtfa.ca.gov/taxes-and-fees/rates.aspx",
+    "https://cdtfa.ca.gov/taxes-and-fees/use-tax/foreign-purchases.htm"
+  ],
+  "conclusion": "Implemented cuts model USD 459.472530 checkout, USD 0.527470 below the current USD 460 cap, holding shipping/import fees unchanged. Actual checkout remains the last user-reported USD 507.90 until repricing. No under-budget all-in supplier quote or California tax collection has been established. Optional external-indicator parts are a future separate build, not purchased here.",
+  "designConstraintsAfterUserReview": {
+    "retainExistingViaSizes": true,
+    "retainExistingBgaPadsAndFanout": true,
+    "authorization": "User rejected larger-via cost reduction as too risky around the BGA. Supplier contact declined.",
+    "largerViaTrialsAppliedToProductionSource": false,
+    "viaFabricationSavingsCountedUsd": "0.00"
+  },
+  "previousQualifiedRevision": {
+    "sourceBoardFile": "dist/cost-validation-2026-10-28/without-status.circuit.json",
+    "sourceBoardSha256": "bf79442acc55ae0f055dd1c6b9b22912a5ab47a3e77f9588df7c330254e32167",
+    "verification": {
+      "status": "Software/layout verification passed; existing hardware/power qualification limits remain open",
+      "sourceSha256": "bf79442acc55ae0f055dd1c6b9b22912a5ab47a3e77f9588df7c330254e32167",
+      "typecheckPassed": true,
+      "existingUsbPcieSignalRoutesPreserved": true,
+      "remainingComponentPositionsPreserved": true,
+      "existingRemainingRoutesChanged": 0,
+      "existingRemainingViasChanged": 0,
+      "removedComponents": 5,
+      "removedLocalTraces": 10,
+      "removedIndicatorGroundVias": 3,
+      "hardwareQualified": false,
+      "closedLoopRegulatorValidated": false,
+      "regression": {
+        "passed": 175,
+        "skipped": 8,
+        "failed": 0
+      },
+      "focusedRemovalGuardsPassed": true,
+      "nativeRoutedDrcPassed": true,
+      "fullBoardValidatorPassed": true,
+      "noDetectedShorts": true,
+      "schematicPlacementPassed": true,
+      "pcbStylePassed": true,
+      "pdnLoadQualified": false,
+      "existingPowerQualificationLimit": "VCCL 3 A / 80 C resistive conductor screen still exceeds the 8 mV project budget. This omission does not change any remaining power copper or components.",
+      "testsLog": "dist/cost-validation-2026-10-28/verification/without-status-tests.log",
+      "focusedTestsLog": "dist/cost-validation-2026-10-28/verification/without-status-focused-tests.log",
+      "typecheckLog": "dist/cost-validation-2026-10-28/verification/without-status-typecheck.log",
+      "fullValidationLog": "dist/cost-validation-2026-10-28/verification/without-status-full-board-validation.log",
+      "fullBoardReport": "dist/cost-validation-2026-10-28/verification/without-status-board.json",
+      "geometryComparison": "dist/cost-validation-2026-10-28/verification/without-status-delta.json",
+      "manufacturingExportStatus": "Pricing BOM refreshed; matching native manufacturing exports have not been generated for this revision."
+    },
+    "projectedCheckoutUsd": "468.291540"
+  },
+  "historical410BudgetFeasibility": {
+    "remainingModeledComponentsSubtotalUsd": "58.8738",
+    "additionalMerchandiseCutNeededWithTaxReserveUsd": "69.46108972424668627200272770",
+    "hypotheticalAllRemainingComponentsFreeTotalUsd": "425.52559867500",
+    "assumptions": "Hold PCB fabrication, shipping, feeder/setup/assembly, import fees and existing discounts fixed; use the same 35% duty and conservative 8.625% reserve as the budget model. This is an impossibly optimistic component-price bound, not a quotation.",
+    "conclusion": "Component unit-price substitutions alone cannot reach USD 410 under the current model. Additional manufacturing, assembly-type count or shipping reductions would be needed even if all remaining components cost zero.",
+    "additionalVerifiedSavingThisReviewUsd": "0.00"
+  },
+  "furtherCostFeasibility": {
+    "currentUserLimitUsd": "460.00",
+    "additionalMerchandiseCutNeededForProjectedCheckoutUsd": "0.00",
+    "additionalVerifiedMerchandiseSavingThisReviewUsd": "6.5326",
+    "noNewUsPartsOrShipping": true,
+    "rejectedThisReview": [
+      {
+        "candidate": "Use ATX PWR_OK alone to enable bucks",
+        "reason": "PWR_OK delay can exceed the ASMedia VCCH-to-VCCL maximum 10 ms and VCCH-to-VDD maximum 90 ms. No circuit or cost credit applied."
+      }
+    ],
+    "projectedCheckoutWithinLimit": true
+  },
+  "historicalQualifiedRevisions": [
+    {
+      "sourceBoardFile": "dist/cost-validation-2026-10-28/qualified-revision.circuit.json",
+      "sourceBoardSha256": "1e562aa1daf9a69019aa40f27fd7a7a51b7135be6bb0f0048e0d735a6a86743f",
+      "verification": {
+        "regression": {
+          "passed": 176,
+          "skipped": 8,
+          "failed": 0
+        },
+        "nativeRoutedDrcPassed": true,
+        "existingUsbPcieSignalRoutesPreserved": true,
+        "allComponentPositionsPreservedExcept": "C_PSU_LED moves 0.10 mm; one bulk capacitor is added",
+        "changedExistingLocalTraces": 16,
+        "fullBoardValidatorPassed": true,
+        "hardwareQualified": false,
+        "closedLoopRegulatorValidated": false,
+        "evidenceDirectory": "dist/cost-validation-2026-10-28",
+        "testsLog": "dist/cost-validation-2026-10-28/verification/tests.log",
+        "fullValidationLog": "dist/cost-validation-2026-10-28/verification/full-board-validation.log",
+        "typecheckPassed": true,
+        "noDetectedShorts": true,
+        "pcbStylePassed": true,
+        "fullBoardReport": "dist/cost-validation-2026-10-28/verification/board.json",
+        "typecheckLog": "dist/cost-validation-2026-10-28/verification/typecheck.log"
+      },
+      "projectedCheckoutUsd": "473.287890"
+    }
+  ],
+  "passiveConsolidationCostBasis": {
+    "originalRows": "dist/quotes/2026-10-28-stock-replacements/matched-parts-restored.json",
+    "originalAssemblyBreakdown": "dist/quotes/2026-10-28-stock-replacements/quote.json",
+    "feederPerTypeUsd": "1.55",
+    "feederBasis": "Actual Advanced assembly quote: 48 purchased MPN feeder types x USD 1.55 = USD 74.40. This includes basic-listed parts in this assembly mode.",
+    "newPlacementsAcrossTwoBoards": 8,
+    "perPlacementUsd": "0.0138",
+    "totalExtraPlacementBudgetUsd": "0.1104",
+    "newExternalPartsUsd": "0.00",
+    "newExternalShippingUsd": "0.00",
+    "fullReelsRequired": false,
+    "noAdditionalCouponCounted": true
+  },
+  "nonPurchasingChanges": {
+    "restoredArtwork": "Small .ts badge, existing standard top-silkscreen artwork and position",
+    "externalAccess": "Three unpopulated 1 mm plated holes, 2.54 mm pitch: left GND, middle 5V, right PWR_OK. No header or indicator purchased. External circuit is a future separate build.",
+    "additionalEstimatedMerchandiseUsd": "0.00",
+    "newPurchasedParts": 0,
+    "newFeederTypes": 0,
+    "assemblyPopulationUnchanged": true,
+    "quoteQualification": "Standard silkscreen and unpopulated plated wire holes are held within the existing process quote; revised supplier quote still required."
+  }
+}

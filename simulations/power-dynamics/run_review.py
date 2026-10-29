@@ -227,8 +227,18 @@ def transient(r, profile, link_nh, mount_nh, fraction, delay_us, direction, rise
 
 
 profiles = ["typical_dc", "low_ac_sensitivity", "half_nominal_sensitivity"]
-ripple_cases = [ripple(r,p,link,mount,vin,ind,freq) for r,p,link,mount,vin,ind,freq in itertools.product(
-    rail_inputs, profiles,[1,5,20],[.2,1],[4.75,5.25],[.72e-6,1.2e-6],[2.25e6,2.75e6])]
+def inductance_corners(r):
+    # Keep historical inputs reproducible, but bind new reviews to the selected
+    # inductor's documented bias/temperature sensitivity rather than Coilcraft's.
+    low = r.get("minimumEffectiveInductanceSensitivityH", .72e-6)
+    high = r.get("maximumInductanceSensitivityH", 1.2e-6)
+    if not (np.isfinite(low) and np.isfinite(high) and 0 < low <= high):
+        raise ValueError("Invalid inductor sensitivity envelope")
+    return [low, high]
+
+ripple_cases = [ripple(r,p,link,mount,vin,ind,freq) for r in rail_inputs
+    for p,link,mount,vin,ind,freq in itertools.product(
+        profiles,[1,5,20],[.2,1],[4.75,5.25],inductance_corners(r),[2.25e6,2.75e6])]
 transient_cases = [transient(r,p,link,mount,fraction,delay,direction) for r,p,link,mount,fraction,delay,direction in itertools.product(
     rail_inputs,profiles,[1,5,20],[.2,1],[.1,.25,.5,1],[0,.2,.5,1,2], ["up","down"])]
 edge_cases = [transient(r,"low_ac_sensitivity",5,1,.5,.5,direction,rise_ns=rise,esr_factor=esr)
@@ -342,7 +352,7 @@ limitations = [
     "TI PSpice SLVMDN8 and SIMPLIS SLVMDP3 packages contain encrypted models. No vendor closed-loop transient simulation was run.",
     "Switching ripple is a forced-PWM triangular-current harmonic calculation. It excludes controller jitter, switch-node coupling, common ground, package and probe noise.",
     "Samsung curves are typical at their stated measurement conditions. Multiplying DC-bias, 10 mV AC, tolerance and temperature factors is a sensitivity construction, not a guaranteed joint capacitor model. Low AC amplitude below 10 mV is outside the published curve.",
-    "Switching frequency 2.25–2.75 MHz and inductor 0.72–1.2 uH are sensitivity assumptions. They are not guaranteed switching-frequency limits.",
+    "Switching frequency 2.25–2.75 MHz and the per-rail inductance envelopes from the bound input are sensitivity assumptions, not guaranteed combined operating limits. Historical inputs without an envelope retain 0.72–1.2 uH.",
     "Interconnect inductance 1–20 nH and mounting inductance 0.2–1 nH per capacitor are assumed, not extracted. The 80 C board resistance and mesh allowance come from the previous DC analysis; ground and package losses remain excluded.",
     "Damped reserve branches retain separate RLC states. Their 6/9 mOhm contact and 5 nH loop values are assumptions. ESR specifications apply at stated measurement conditions; temperature, aging, frequency and layout require additional sensitivity and measurements.",
     "The transient network reduces each physical ceramic capacitor bank to one series RLC using low-frequency moments and typical ESR at 2.5 MHz. ESR x0.5/x2 and edge-rate cases are separate sensitivities. Distributed branch antiresonance and unequal ball currents remain unmodeled.",

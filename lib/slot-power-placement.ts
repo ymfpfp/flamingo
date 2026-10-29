@@ -12,11 +12,14 @@ const placements: Record<string, {x: number; y: number; rotation: number}> = {
   Q_SLOT_DRV_12V: {x: 25.5, y: 56.7, rotation: 180},
   R_SLOT_DISCHARGE_12V: {x: 19.6, y: 53.4, rotation: 90},
   Q_SLOT_3V3: {x: 25.5, y: 41.8, rotation: 90},
-  C_SLOT_GATE_3V3: {x: 31.2, y: 43.3, rotation: 90},
+  C_SLOT_GATE_3V3: {x: 31.43, y: 43.3, rotation: 90},
   R_SLOT_OFF_3V3: {x: 31.2, y: 47.5, rotation: 180},
   R_SLOT_GATE_3V3: {x: 28.7, y: 45.1, rotation: 270},
+  R_SLOT_GATE_3V3_B: {x: 29.74565, y: 45.1, rotation: 270},
+  R_SLOT_OFF_3V3_B: {x: 32.86565, y: 46.94, rotation: 270},
+  C_SLOT_GATE_3V3_B: {x: 33.36565, y: 43.24, rotation: 90},
   Q_SLOT_DRV_3V3: {x: 25.5, y: 46, rotation: 180},
-  R_SLOT_DISCHARGE_3V3: {x: 19.6, y: 41.8, rotation: 90},
+  R_SLOT_DISCHARGE_3V3: {x: 19.6, y: 41.85, rotation: 90},
   // Above the buck-enable divider after the root group's 180-degree rotation.
   R_HDDPC_PD: {x: 22.1, y: 43.2, rotation: 270},
 };

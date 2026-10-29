@@ -7,6 +7,8 @@ import componentRework from "../../manufacturing/control-routing/component-rewor
 import tx3Rework from "../../manufacturing/bridge-bga/tx3-rework.json";
 import costReductionRework from "../../manufacturing/stackup/cost-reduction-rework.json";
 import stockRework from "../../manufacturing/stock-replacement-rework.json";
+import componentCostRework from "../../manufacturing/component-cost-rework-2026-10-28.json";
+import passiveCostRework from "../../manufacturing/passive-cost-rework-2026-10-28.json";
 import {checkAssemblyRework} from "../../lib/assembly-rework.mjs";
 import {assembledPlacements, layoutDigest, routeDigest, traceConnections} from "../../lib/layout-geometry.mjs";
 import {checkTracesAreContiguous} from "@tscircuit/checks";
@@ -31,7 +33,17 @@ export function auditLayoutPreservation(json) {
     const costRevision = costReductionRework.traceChanges.find(change => change.name === connection && change.before === predecessor);
     const beforeStock=costRevision?.after ?? predecessor;
     const stockRevision=stockRework.authorized && stockRework.traceChanges.find(change=>change.name===connection && change.before===beforeStock);
-    const key = `${connection}:${stockRevision?.after ?? beforeStock}`, count = actual.get(key) ?? 0;
+    const beforeComponentCost = stockRevision?.after ?? beforeStock;
+    const componentCostRevision = componentCostRework.authorized && componentCostRework.traceChanges.find(change => change.name === connection && change.before === beforeComponentCost);
+    const beforePassiveCost = componentCostRevision?.after ?? beforeComponentCost;
+    const passiveCostRevision = passiveCostRework.authorized && passiveCostRework.traceChanges.find(change => change.name === connection && change.before === beforePassiveCost);
+    const expected = passiveCostRevision?.after ?? beforePassiveCost;
+    const removal = componentCostRework.authorized && componentCostRework.traceRemovals?.find(change => change.name === connection && change.before === expected);
+    if (removal) {
+      if ([...actual.keys()].some(key => key.startsWith(`${connection}:`))) failures.push(`Removed route still has copper: ${connection}`);
+      continue;
+    }
+    const key = `${connection}:${expected}`, count = actual.get(key) ?? 0;
     if (!count) failures.push(`Existing route geometry changed: ${connection}`);
     else actual.set(key, count - 1);
   }

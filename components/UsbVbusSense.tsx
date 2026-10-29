@@ -1,4 +1,4 @@
-import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
+import {RT0402BRD0710KL} from "imports/RT0402BRD0710KL";
 import {CL05A105KA5NQNC} from "imports/CL05A105KA5NQNC";
 
 /** ASMedia reference sheet 3: R57/R60 divider and C68 filter. */
@@ -21,7 +21,7 @@ export function UsbVbusSense() {
         schOrientation="vertical"
         connections={{pin1: "net.USB_VBUS", pin2: "net.USB_VBUS_SENSE"}}
       />
-      <A_0402WGF1002TCE
+      <RT0402BRD0710KL
         name="R_VBUS_BOTTOM"
         pcbX={0} pcbY={3.8} pcbRotation={0} layer="top"
         schSectionName="USB_VBUS_SENSE"

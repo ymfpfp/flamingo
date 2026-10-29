@@ -1,13 +1,15 @@
 import {Fragment} from "react";
-import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
+import {CL10B104KB8NNNC} from "imports/CL10B104KB8NNNC";
 import {CL21A106KAYNNNE} from "imports/CL21A106KAYNNNE";
 import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
-import {XGL4020_102MEC} from "imports/XGL4020_102MEC";
+import {DFE252012F_1R0M_P2} from "imports/DFE252012F_1R0M_P2";
 import {TPS62903RPJR} from "imports/TPS62903RPJR";
 import {RC0402FR_078K87L} from "imports/RC0402FR_078K87L";
 import {VddPrecisionFeedback} from "imports/VddPrecisionFeedback";
 import {RT0402BRD0712K1L} from "imports/RT0402BRD0712K1L";
-import {RT0402BRD0726K1L} from "imports/RT0402BRD0726K1L";
+import {RT0402BRD0716K2L} from "imports/RT0402BRD0716K2L";
+import {RT0402BRD0710KL} from "imports/RT0402BRD0710KL";
+import {FixedTrace} from "./FixedTrace";
 
 /** TPS62903: external feedback, 2.5 MHz forced PWM, 1 uH and 2 x 10 uF per rail. */
 export function BuckInputs() {
@@ -17,7 +19,8 @@ export function BuckInputs() {
         const name = `${rail}_BUCK`;
         const section = `${rail}_BUCK_INPUT`;
         const BottomResistor = rail === "VDD" ? VddPrecisionFeedback : RT0402BRD0712K1L;
-        const TopResistor = rail === "VCCL" ? RT0402BRD0726K1L : VddPrecisionFeedback;
+        const TopResistor = rail === "VCCL" ? RT0402BRD0716K2L : VddPrecisionFeedback;
+        const feedbackEnd = rail === "VCCL" ? "R_VCCL_FBT_B.pin2" : "R_VDD_FBT.pin2";
         return (
           <group key={rail} name={section} schX={3 + index * 14} schY={8} pcbRelative
             pcbStyle={{silkscreenTextVisibility: "hidden"}}>
@@ -37,7 +40,7 @@ export function BuckInputs() {
                 VOS: `net.${rail}`, FB: `net.FB_${rail}`,
               }}
             />
-            <XGL4020_102MEC
+            <DFE252012F_1R0M_P2
               name={`L_${rail}`}
               pcbX={0} pcbY={3.5} pcbRotation={90} layer="top"
               schSectionName={section}
@@ -72,14 +75,25 @@ export function BuckInputs() {
                 Keep the divider beside FB on the quiet right side. One output
                 capacitor sits toward VOS/GND; the other faces the inductor output. */}
             <TopResistor name={`R_${rail}_FBT`} schSectionName={section}
-              pcbX={rail === "VDD" ? 4.2 : 3.3} pcbY={rail === "VDD" ? 1.4 : 1.5} pcbRotation={180} layer="top"
+              pcbX={rail === "VDD" ? 4.2 : 4.329998} pcbY={rail === "VDD" ? 1.4 : 2.686} pcbRotation={180} layer="top"
               schX={2.5} schY={-1} schOrientation="vertical"
-              connections={{pin2: `net.FB_${rail}`}}/>
+              connections={{pin2: rail === "VCCL" ? "net.FBT_VCCL_SERIES" : "net.FB_VDD"}}/>
+            {rail === "VCCL" && <>
+              {/* 16.2k + 10k = 26.2k; both 0.1% / 25 ppm/K.
+                  Nominal VCCL is 1.89917 V with the unchanged 12.1k bottom. */}
+              <RT0402BRD0710KL name="R_VCCL_FBT_B" schSectionName={section}
+                pcbX={2.394998} pcbY={1.836} pcbRotation={180} layer="top"
+                footprint="smdpads2_p0.8656mm_pw0.5657mm_ph0.54mm_cyw1.9313mm_cyh1.04mm"
+                schX={2.5} schY={-2.2} schOrientation="vertical"
+                connections={{pin1:"net.FBT_VCCL_SERIES",pin2:"net.FB_VCCL"}}/>
+              <FixedTrace name="BUCK_VCCL_FB_TOP_SERIES" from="R_VCCL_FBT.pin2" to="R_VCCL_FBT_B.pin1"
+                width={.15} points={[[29.2672,77.4]]}/>
+            </>}
             <BottomResistor {...(rail === "VDD" ? {bottom:true} : {})} name={`R_${rail}_FBB`} schSectionName={section}
-              pcbX={3.3} pcbY={rail === "VDD" ? 2.8 : 2.7} pcbRotation={0} layer="top"
-              schX={2.5} schY={-2.2} schOrientation="vertical"
+              pcbX={rail === "VDD" ? 3.3 : 2.494998} pcbY={rail === "VDD" ? 2.8 : .336} pcbRotation={rail === "VDD" ? 0 : 270} layer="top"
+              schX={2.5} schY={rail === "VCCL" ? -3.4 : -2.2} schOrientation="vertical"
               connections={{pin2: "net.GND"}}/>
-            <netlabel inline net={`FB_${rail}`} connectsTo={[`R_${rail}_FBT.pin2`, `R_${rail}_FBB.pin1`]}/>
+            <netlabel inline net={`FB_${rail}`} connectsTo={[feedbackEnd, `R_${rail}_FBB.pin1`]}/>
             <netlabel inline net="GND" connection={`R_${rail}_FBB.pin2`}/>
             {/* TI table 7-1 option 4: external FB, 2.5 MHz forced PWM, discharge off. */}
             <RC0402FR_078K87L name={`R_${rail}_MODE`} schSectionName={section}
@@ -92,7 +106,7 @@ export function BuckInputs() {
                 The local PCB layout keeps bypassing below VIN/GND. */}
             <CL31B106KAHNNNE
               name={`C_${rail}_CIN`}
-              pcbX={-0.425} pcbY={-3.564} pcbRotation={180} layer="top"
+              pcbX={-0.425} pcbY={-3.721} pcbRotation={180} layer="top"
               maxDecouplingTraceLength="3mm"
               schSectionName={section}
               schX={-5.7}
@@ -100,9 +114,9 @@ export function BuckInputs() {
               schOrientation="vertical"
               connections={{pin1: "net.V5V", pin2: "net.GND"}}
             />
-            <CL05B104KO5NNNC
+            <CL10B104KB8NNNC
               name={`C_${rail}_HF`}
-              pcbX={0} pcbY={-1.864} pcbRotation={180} layer="top"
+              pcbX={-.4} pcbY={-1.902} pcbRotation={180} layer="top"
               maxDecouplingTraceLength="3mm"
               schSectionName={section}
               schX={-3.8}

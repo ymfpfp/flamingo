@@ -1,0 +1,13 @@
+{
+  "referenceFile": "ts-mark-reference.png",
+  "sourceUrl": "https://github.com/tscircuit/tscircuit.com/blob/main/public/tscircuit-logo.png",
+  "sourceBlobSha": "0c014421e049959e5793e8826341424e7d8dd4b4",
+  "sourceDimensions": [460, 460],
+  "vectorization": {
+    "method": "Potrace cubic curves from the original blue/white silhouette",
+    "alphaMax": 1,
+    "optTolerancePixels": 0.6,
+    "border": "Original exact 6 mm rounded square with 1.2 mm corner radius",
+    "stroke": "none"
+  }
+}

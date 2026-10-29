@@ -18,12 +18,17 @@ const research=JSON.parse(readFileSync(researchFile));
 mkdirSync(out,{recursive:true});
 writeFileSync(`${out}/board.circuit.json`,raw);
 copyFileSync(dcFile,`${out}/dc-audit.json`);
+const circuitInductor=rail=>board.find(c=>c.type==='source_component'&&c.name===`L_${rail}`).manufacturer_part_number;
 const rails=dc.results.map(r=>{
  const m=margins.converter.find(c=>c.rail===r.rail);
  if(!m)throw Error('Missing static converter calculation');
  const input=inputDc?.results.find(c=>c.rail===r.rail);
  if(inputDc&&!input)throw Error('Missing 5 V input branch');
- return {rail:r.rail,...(input?{minimumInputAtBuckV:4.75-input.withMeshAllowanceMV/1000,inputDcBoundMV:input.withMeshAllowanceMV}:{}),regulatorMinimumV:m.minimumV,regulatorNominalV:m.nominalV,
+ return {rail:r.rail,...(input?{minimumInputAtBuckV:4.75-input.withMeshAllowanceMV/1000,inputDcBoundMV:input.withMeshAllowanceMV}:{}),
+ inductorPart:circuitInductor(r.rail),
+ minimumEffectiveInductanceSensitivityH:m.minimumEffectiveInductanceSensitivityH,
+ maximumInductanceSensitivityH:m.nominalInductanceH*1.2,
+ regulatorMinimumV:m.minimumV,regulatorNominalV:m.nominalV,
  regulatorMaximumV:m.maximumV,minimumRequiredV:r.rail==='VDD'?1.1:1.85,
  dcDropAt3AMV:r.fine.maximumDropMV,dcDropWithMeshAllowanceAt3AMV:r.screeningUpperDropMV,
  remainingStaticMarginMV:m.remainingLowerMarginMV};

@@ -1,4 +1,5 @@
 import mosfetLimits from "../../simulations/slot-power/mosfet-limits.json";
+import {slotGateNetwork} from "../../lib/cost-passive-networks.mjs";
 
 /** Conservative on-state RC envelope: do not extrapolate the 10 mA Rds test
  * to the larger initial current demand. This is not a transistor/card model.
@@ -33,8 +34,9 @@ export function qualifySlotPower(g, {extraCardCapacitanceUF = 1000} = {}) {
     return {...p, ...mosfetLimits[part]};
   });
   const rails = configurations.map(p => {
-    const series = r(`R_SLOT_GATE_${p.suffix}`), pullup = r(`R_SLOT_OFF_${p.suffix}`);
-    const gateC = c(`C_SLOT_GATE_${p.suffix}`), bleeder = r(`R_SLOT_DISCHARGE_${p.suffix}`);
+    const network=slotGateNetwork(g,p.suffix);
+    const series=network.turnOnResistanceOhm, pullup=network.turnOffResistanceOhm;
+    const gateC=network.gateCapacitanceF, bleeder=r(`R_SLOT_DISCHARGE_${p.suffix}`);
     const bulkC = p.bulk.reduce((sum, name) => sum + c(name), 0);
     const localC = bulkC + p.ceramics.reduce((sum, name) => sum + c(name), 0);
     // Explicit tolerance/temperature sensitivity; added card capacitance is effective.
@@ -48,7 +50,7 @@ export function qualifySlotPower(g, {extraCardCapacitanceUF = 1000} = {}) {
     const offTau = pullup * gateC;
     const timeToGateV = v => finalGateV > v ? -onTau * Math.log(1 - v / finalGateV) * 1000 : null;
     const loss25W = p.currentA ** 2 * p.rds25Ohm;
-    return {...p, mosfet: g.component(`Q_SLOT_${p.suffix}`).manufacturer_part_number,
+    return {...p, turnOnResistanceOhm:series, turnOffResistanceOhm:pullup, mosfet: g.component(`Q_SLOT_${p.suffix}`).manufacturer_part_number,
       nominalLocalCapacitanceUF: localC * 1e6, maximumEffectiveCapacitanceUF: maxC * 1e6,
       idealDriverFinalGateMagnitudeV: finalGateV, idealDriverMinimumGateMagnitudeV: minimumGateV,
       idealDriverReachesRdsTestVoltage: minimumGateV >= p.rdsTestGateV,
@@ -63,9 +65,9 @@ export function qualifySlotPower(g, {extraCardCapacitanceUF = 1000} = {}) {
       driverGateNetworkTimeToRdsTest25CMs: lowVoltageDriver
         ? gateNetworkTimeMs(p.supplyV * 0.95, p.rdsTestGateV, series * 1.01, pullup * 0.99, gateC * 1.1) : null,
       initialGateSinkCurrentMaxA: maxV / (series * 0.99),
-      initialGateResistorPulseW: maxV ** 2 / (series * 0.99), gateResistorContinuousRatingW: 0.0625,
-      gateResistorShortTimeOverloadTestV: 2.5 * Math.sqrt(0.0625 * series * 0.99),
-      initialPulseBelowOverloadTestVoltage: maxV < 2.5 * Math.sqrt(0.0625 * series * 0.99),
+      initialGateResistorPulseW: Math.max(...network.turnOnParts.map(c=>maxV**2/(c.resistance*.99))), gateResistorContinuousRatingW: 0.0625,
+      gateResistorShortTimeOverloadTestV: Math.min(...network.turnOnParts.map(c=>2.5*Math.sqrt(.0625*c.resistance*.99))),
+      initialPulseBelowOverloadTestVoltage: network.turnOnParts.every(c=>maxV<2.5*Math.sqrt(.0625*c.resistance*.99)),
       bleederWorstLossW: maxV ** 2 / (bleeder * 0.99), bleederRatedPowerW: 0.25,
       nominalLocalBleederTimeConstantS: bleeder * localC,
       capacitorOnlyStartupEnergyJ: 0.5 * maxC * maxV ** 2,
@@ -95,9 +97,9 @@ export function qualifySlotPower(g, {extraCardCapacitanceUF = 1000} = {}) {
     maximumBridgeOutputCurrentA: 0.012,
     worstControlPulldownAndGateLeakageA: 2.4 / (r("R_HDDPC_PD") * 0.99) + (lowVoltageDriver ? 2e-6 : 20e-6),
     requiredSteadyOperatingPoints: rails.map(p => {
-      const sinkA = p.rdsTestGateV / r(`R_SLOT_OFF_${p.suffix}`);
+      const sinkA = p.rdsTestGateV / p.turnOffResistanceOhm;
       return {rail: p.suffix, requiredSinkA: sinkA,
-        maximumDriverDrainVAtMinimumSupply: p.supplyV * 0.95 - p.rdsTestGateV - sinkA * r(`R_SLOT_GATE_${p.suffix}`)};
+        maximumDriverDrainVAtMinimumSupply: p.supplyV * 0.95 - p.rdsTestGateV - sinkA * p.turnOnResistanceOhm};
     })};
   return {topology: "original-discrete-p-channel", status: lowVoltageDriver ? "startup-review-required" : "startup-and-driver-review-required",
     envelope: {combinedSteadyCardBudgetW: 75, extraCardCapacitanceMaxPerRailUF: extraCardCapacitanceUF,

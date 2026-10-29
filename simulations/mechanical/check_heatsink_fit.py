@@ -42,6 +42,10 @@ profiles={
 for mpn in {p.get("manufacturer_part_number") for p in sources.values()}:
     if mpn and mpn.startswith("0402WGF"):
         profiles[mpn]=(1.10,.55,.40,"datasheets/0402WGF1003TCE.pdf")
+    if mpn and mpn.startswith("RT0402"):
+        # Yageo RT series table 1: 1.00 +/- .10 x .50 +/- .05,
+        # maximum height .30 + .05 mm, before solder standoff.
+        profiles[mpn]=(1.10,.55,.35,"datasheets/YAGEO-RT-series.pdf")
 
 def rect(x,y,w,h):
     return dict(minX=x-w/2,maxX=x+w/2,minY=y-h/2,maxY=y+h/2)

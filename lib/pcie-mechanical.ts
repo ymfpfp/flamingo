@@ -44,7 +44,8 @@ function clip(polygon: Point[], rect: Rect): Point[] {
 export function getPcieConnectorKeepout(json: AnyCircuitElement[]) {
   const source = json.find(e => e.type === "source_component" && e.name === "PCIe");
   if (source?.type !== "source_component") return undefined;
-  if (source.manufacturer_part_number !== "X1618WVS-164-9TV30") {
+  // XKB's common X1618WVS-XX-9TV15 drawing covers both plating options.
+  if (!["X1618WVS-164-9TV30", "X1618WVS-164-9TV15"].includes(source.manufacturer_part_number ?? "")) {
     throw new Error("Review the PCIe keepout for the replacement connector");
   }
   const connector = json.find(e => e.type === "pcb_component" && e.source_component_id === source.source_component_id);

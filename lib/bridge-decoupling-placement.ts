@@ -50,6 +50,7 @@ place("VCCL", "C_VCCL_20", 38.9, 111);
 place("VCCA33", "R_VCCA33_4", 36.8, 93.95, 0);
 place("VCCA33", "C_VCCA33_8", 36.8, 95, 0);
 place("VCCA33", "C_VCCA33_7", 43, 90.5, 270);
+place("VCCA33", "C_VCCA33_9", 46, 90.5, 0);
 
 export function bridgeDecouplingPlacement(name: string) {
   const placement = layouts[name];

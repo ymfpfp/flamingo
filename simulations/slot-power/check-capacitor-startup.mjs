@@ -1,6 +1,7 @@
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {circuitGraph} from '../../lib/circuit-graph.mjs';
+import {slotGateNetwork} from '../../lib/cost-passive-networks.mjs';
 import {createEngine} from '../power-reset/engine.mjs';
 
 const input = process.argv[2] ?? 'dist/board.circuit.json';
@@ -22,10 +23,11 @@ const model = originalModel.replace(/\r/g,'').replace(/^\.SIMULATOR DEFAULT\s*$/
   .replace('IS=1E-15 N=10)', 'IS=1E-15)')
   .replace('Rta 30 23 1E-20', 'Rta 30 23 1E-6');
 const engine = await createEngine();
-const out = 'dist/slot-power/capacitor-startup'; await mkdir(out,{recursive:true});
-const series = g.component('R_SLOT_GATE_3V3').resistance;
-const pullup = g.component('R_SLOT_OFF_3V3').resistance;
-const gateC = g.component('C_SLOT_GATE_3V3').capacitance;
+const out = process.argv[3] ?? 'dist/slot-power/capacitor-startup'; await mkdir(out,{recursive:true});
+const gateNetwork = slotGateNetwork(g,'3V3');
+const series = gateNetwork.turnOnResistanceOhm;
+const pullup = gateNetwork.turnOffResistanceOhm;
+const gateC = gateNetwork.gateCapacitanceF;
 const bleeder = g.component('R_SLOT_DISCHARGE_3V3').resistance;
 const currentA = 3;
 const results=[], waves=[];

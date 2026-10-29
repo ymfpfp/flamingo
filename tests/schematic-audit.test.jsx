@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {boardFixture} from "./board-fixture.mjs";
-import {auditCircuit, electricalMargins} from "./audits/schematic-audit.mjs";
+import {auditCircuit, electricalMargins, screenBuckConverters} from "./audits/schematic-audit.mjs";
 import {circuitGraph} from "../lib/circuit-graph.mjs";
 import bridgePins from "./fixtures/asm2464pdx-pin-map.json";
 
@@ -77,9 +77,9 @@ test("REXT, memory-repair strap and test strap have the intended physical pin co
   assert.equal(g.net("R_TEST_EN", "pin2"), g.net("ATX", "pin3"));
 });
 
-test("all 44 bridge capacitors have reference quantities and shunt the intended rails", () => {
+test("all 45 bridge capacitors have the selected quantities and shunt the intended rails", () => {
   const banks = {VCCH: {count: 10, total: 29.68e-6, net: g.net("ATX", "pin1")},
-    VCCA33: {count: 2, total: 22.22e-6, net: g.net("ATX", "pin1")},
+    VCCA33: {count: 3, total: 20.22e-6, net: g.net("ATX", "pin1")},
     VCCL: {count: 14, total: 54.2e-6, net: g.net("L_VCCL", "pin2")},
     VDD: {count: 18, total: 55.08e-6, net: g.net("L_VDD", "pin2")}};
   for (const [rail, bank] of Object.entries(banks)) {
@@ -110,7 +110,11 @@ test("the audit checks TPS62903 voltage, current and other static margins", () =
     assert.ok(c.inductorPeakAtLoadEnvelopeA < c.inductorIsatA);
     assert.ok(c.inductorRmsAtLoadEnvelopeA < c.inductorIrmsRatingA);
     assert.ok(c.inductorPeakAtLoadEnvelopeA < c.minimumBuckPeakCurrentLimitA);
-    assert.ok(c.inductorPeakAtLoadEnvelopeA < c.inductor10PercentDropCurrentA);
+    // TI recommends 20% saturation-current margin. The Murata selection
+    // uses its documented 30%-drop current with the larger L derating above.
+    assert.ok(c.inductorPeakWith20PercentMarginA < c.inductorIsatA);
+    if (c.inductor10PercentDropCurrentA !== null)
+      assert.ok(c.inductorPeakAtLoadEnvelopeA < c.inductor10PercentDropCurrentA);
     assert.equal(c.staticVoltageRangePass, true);
     assert.ok(c.remainingLowerMarginMV > 10 && c.remainingUpperMarginMV > 10);
   }
@@ -147,6 +151,19 @@ test("the audit checks TPS62903 voltage, current and other static margins", () =
   assert.ok(m.driver.worstInternalPullupOffGateV < 1);
 });
 
+
+test("missing inductor 10%-drop ratings stay unqualified without concealing current failures", () => {
+  const c = electricalMargins(json).converter.find(c => c.rail === "VDD");
+  const unknown = screenBuckConverters([{...c, inductor10PercentDropCurrentA:null}])[0];
+  assert.equal(unknown.staticVoltageAndLcPass, true);
+  assert.equal(unknown.currentScreenPass, true);
+  assert.equal(unknown.tenPercentDropStatus, "unknown");
+  assert.equal(unknown.status, "unqualified");
+  const failed = screenBuckConverters([{...c, inductor10PercentDropCurrentA:3}])[0];
+  assert.equal(failed.tenPercentDropStatus, "fail");
+  assert.equal(failed.status, "fail");
+  assert.equal(screenBuckConverters([{...c, minimumBuckPeakCurrentLimitA:3}])[0].status, "fail");
+});
 
 test("TPS62903 screening rejects an oversized output bank and the earlier 1 MHz filter", () => {
   const m = electricalMargins(json);

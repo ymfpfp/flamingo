@@ -1,3 +1,4 @@
+import {slotGateNetwork} from "../lib/cost-passive-networks.mjs";
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {Circuit} from "tscircuit";
@@ -204,14 +205,15 @@ test("each gate has a source-referenced RC network and its own driver series res
     const pullup = `R_SLOT_OFF_${suffix}`;
     const capacitor = `C_SLOT_GATE_${suffix}`;
     gates.add(gate);
-    assert.equal(component(series).resistance, suffix === "12V" ? 10000 : 510);
+    const network=slotGateNetwork(circuitGraph(json),suffix);
+    assert.equal(network.turnOnResistanceOhm, suffix === "12V" ? 10000 : 500);
     assert.equal(net(series, "pin1"), net(`Q_SLOT_DRV_${suffix}`, "D"));
     assert.equal(net(series, "pin2"), gate);
     assert.notEqual(net(series, "pin1"), gate, "series resistor is not bypassed");
-    assert.equal(component(pullup).resistance, suffix === "12V" ? 10000 : 22000);
+    assert.equal(network.turnOffResistanceOhm, suffix === "12V" ? 10000 : 20000);
     assert.equal(net(pullup, "pin1"), input);
-    assert.equal(net(pullup, "pin2"), gate);
-    assert.ok(Math.abs(component(capacitor).capacitance - 10e-6) < 1e-12);
+    assert.equal(net(suffix === "12V" ? pullup : "R_SLOT_OFF_3V3_B", "pin2"), gate);
+    assert.ok(Math.abs(network.gateCapacitanceF - (suffix === "12V" ? 10e-6 : 10.22e-6)) < 1e-12);
     assert.equal(net(capacitor, "pin1"), input, "timing capacitor references source, not GND or output");
     assert.equal(net(capacitor, "pin2"), gate);
     assert.ok(![input, output, ground].includes(gate));

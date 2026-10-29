@@ -151,10 +151,8 @@
       "manufacturer_part_number": "X1618WVS-164-9TV30",
       "manufacturer": "XKB Connection",
       "component_file": "imports/X1618WVS_164_9TV30.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "PCIe"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C21263101"
@@ -174,7 +172,11 @@
       "implementation": {
         "footprint_source": "tsci import C21263100 --jlcpcb --use-exact-footprint --exclude-pin-attributes",
         "notes": "C21263101 had no importable EasyEDA entry. C21263100 is the V15 plating variant of the same X1618WVS connector. Geometry matches the common manufacturer drawing. Signal pad hints remap by A/B contact IDs to preserve existing circuit aliases. Two mechanical hold-down pads have no signal ports. No old connector CAD model is retained."
-      }
+      },
+      "former_board_references": [
+        "PCIe"
+      ],
+      "replacement_note": "Replaced in the user-requested 2026-10-28 cost revision; retained as a source and comparison."
     },
     {
       "manufacturer_part_number": "39301240",
@@ -226,10 +228,8 @@
       "manufacturer_part_number": "RC0402FR-0712K1L",
       "manufacturer": "Yageo",
       "component_file": "imports/RC0402FR_0712K1L.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_RST_N"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "RC0402FR-0712K1L.pdf",
@@ -239,7 +239,11 @@
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
           "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
-      ]
+      ],
+      "former_board_references": [
+        "R_RST_N"
+      ],
+      "replacement_note": "Replaced in the user-requested 2026-10-28 cost revision; retained as a source and comparison."
     },
     {
       "manufacturer_part_number": "GT-USB-7087B",
@@ -270,17 +274,8 @@
       "manufacturer_part_number": "0402WGF1002TCE",
       "manufacturer": "UNI-ROYAL",
       "component_file": "imports/A_0402WGF1002TCE.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_SPI_WP",
-        "R_SPI_HOLD",
-        "R_SPI_CS",
-        "R_PCIE_CLKREQ_PU",
-        "R_VBUS_BOTTOM",
-        "R_BUCK_EN_PU",
-        "R_SLOT_GATE_12V",
-        "R_SLOT_OFF_12V"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "0402WGF1003TCE.pdf",
@@ -293,20 +288,25 @@
           "retained_locally": true,
           "local_copy_note": "The two downloads are byte-identical. The local file is shared with the other resistor-family entries."
         }
-      ]
+      ],
+      "former_board_references": [
+        "R_SPI_WP",
+        "R_SPI_HOLD",
+        "R_SPI_CS",
+        "R_PCIE_CLKREQ_PU",
+        "R_VBUS_BOTTOM",
+        "R_BUCK_EN_PU",
+        "R_SLOT_GATE_12V",
+        "R_SLOT_OFF_12V"
+      ],
+      "replacement_note": "Replaced in the user-requested 2026-10-28 cost revision; retained as a source and comparison."
     },
     {
       "manufacturer_part_number": "CL05B104KO5NNNC",
       "manufacturer": "Samsung Electro-Mechanics",
       "component_file": "imports/CL05B104KO5NNNC.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "C_SPI_VCC",
-        "C_VCCL_HF",
-        "C_VDD_HF",
-        "C_BUCK_EN",
-        "C_PSU_LED"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "CL05B104KO5NNNC.pdf",
@@ -500,8 +500,7 @@
       "component_file": "imports/A_0402WGF1003TCE.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R_RST",
-        "R_PSU_OK_PD"
+        "R_RST"
       ],
       "documents": [
         {
@@ -682,10 +681,8 @@
       "manufacturer_part_number": "0402WGF5100TCE",
       "manufacturer": "UNI-ROYAL",
       "component_file": "imports/A_0402WGF5100TCE.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_SLOT_GATE_3V3"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "0402WGF1003TCE.pdf",
@@ -712,8 +709,9 @@
       "component_file": "imports/A_0402WGF1001TCE.tsx",
       "placed_on_board": true,
       "board_references": [
+        "R_SLOT_GATE_3V3",
         "R_HDDPC_PD",
-        "R_PSU_LED"
+        "R_SLOT_GATE_3V3_B"
       ],
       "documents": [
         {
@@ -899,10 +897,8 @@
       "manufacturer_part_number": "SN74AHCT1G14DBVR",
       "manufacturer": "Texas Instruments",
       "component_file": "imports/SN74AHCT1G14DBVR.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "U_PSU_LED"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C55250"
@@ -918,16 +914,18 @@
           "notes": "Revision R. 5 V TTL-compatible Schmitt-trigger inverter. Pin 1 NC, 2 A, 3 GND, 4 Y, 5 VCC. Positive threshold <=2.0 V, input leakage <=1 uA, rated sink current 8 mA. Output sinks the LED when ATX PWR_OK is high; it is not a 3.3 V logic output."
         }
       ],
-      "footprint_review": "Explicit SOT-23-5 rectangular lands retain intended 1.1 x 0.6 mm pads at 0.95 mm pitch and 2.6 mm row spacing. Corrects rotation-dependent overlap in generated footprinter pads; checked at all four orthogonal rotations."
+      "footprint_review": "Explicit SOT-23-5 rectangular lands retain intended 1.1 x 0.6 mm pads at 0.95 mm pitch and 2.6 mm row spacing. Corrects rotation-dependent overlap in generated footprinter pads; checked at all four orthogonal rotations.",
+      "former_board_references": [
+        "U_PSU_LED"
+      ],
+      "replacement_note": "Replaced in the user-requested 2026-10-28 cost revision; retained as a source and comparison."
     },
     {
       "manufacturer_part_number": "XL-1608UWC-04",
       "manufacturer": "Xinglight",
       "component_file": "imports/XL_1608UWC_04.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "LED_PSU_OK"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C965808"
@@ -982,10 +980,8 @@
       "manufacturer_part_number": "CL21A226MAYNNNE",
       "manufacturer": "Samsung Electro-Mechanics",
       "component_file": "imports/CL21A226MAYNNNE.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "C_VCCA33_7"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C602037"
@@ -1012,7 +1008,11 @@
         "footprint_source": "tsci import --jlcpcb --use-exact-footprint C602037",
         "use": "C_VCCA33_7 analog-supply decoupling only. Both buck outputs use two 10 uF CL21A106KAYNNNE capacitors."
       },
-      "bridge_decoupling_inventory": "../bridge-decoupling-parts.json"
+      "bridge_decoupling_inventory": "../bridge-decoupling-parts.json",
+      "former_board_references": [
+        "C_VCCA33_7"
+      ],
+      "replacement_note": "Replaced in the user-requested 2026-10-28 cost revision; retained as a source and comparison."
     },
     {
       "manufacturer_part_number": "RT0402BRD07137KL",
@@ -1169,10 +1169,8 @@
       "manufacturer_part_number": "RT0402BRD0726K1L",
       "manufacturer": "Yageo",
       "component_file": "imports/RT0402BRD0726K1L.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_VCCL_FBT"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C728557"
@@ -1239,6 +1237,7 @@
       "component_file": "imports/RT0402BRD0712K1L.tsx",
       "placed_on_board": true,
       "board_references": [
+        "R_RST_N",
         "R_VCCL_FBB"
       ],
       "supplier_part_numbers": {
@@ -1381,6 +1380,7 @@
       "component_file": "imports/RT0402BRD0716K2L.tsx",
       "placed_on_board": true,
       "board_references": [
+        "R_VCCL_FBT",
         "R_BUCK_EN_TOP"
       ],
       "documents": [
@@ -1400,7 +1400,18 @@
       "component_file": "imports/RT0402BRD0710KL.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R_BUCK_EN_BOTTOM"
+        "R_SPI_WP",
+        "R_SPI_HOLD",
+        "R_SPI_CS",
+        "R_PCIE_CLKREQ_PU",
+        "R_SLOT_OFF_3V3",
+        "R_SLOT_GATE_12V",
+        "R_SLOT_OFF_12V",
+        "R_VBUS_BOTTOM",
+        "R_BUCK_EN_BOTTOM",
+        "R_BUCK_EN_PU",
+        "R_SLOT_OFF_3V3_B",
+        "R_VCCL_FBT_B"
       ],
       "documents": [
         {
@@ -1481,6 +1492,7 @@
       "board_references": [
         "C_VCCH_6",
         "C_VCCH_14",
+        "C_VCCA33_7",
         "C_VCCL_5",
         "C_VCCL_13",
         "C_VCCL_20",
@@ -1490,7 +1502,8 @@
         "C_VCCL_COUT",
         "C_VCCL_COUT_B",
         "C_VDD_COUT",
-        "C_VDD_COUT_B"
+        "C_VDD_COUT_B",
+        "C_VCCA33_9"
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -1554,7 +1567,8 @@
         "C_TX2_P",
         "C_TX2_N",
         "C_TX3_P",
-        "C_TX3_N"
+        "C_TX3_N",
+        "C_SLOT_GATE_3V3_B"
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -1667,9 +1681,13 @@
       "manufacturer": "Samsung Electro-Mechanics",
       "component_file": "imports/CL10B104KB8NNNC.tsx",
       "board_references": [
+        "C_SPI_VCC",
         "C132",
         "C133",
-        "C131"
+        "C131",
+        "C_VCCL_HF",
+        "C_VDD_HF",
+        "C_BUCK_EN"
       ],
       "product_url": "https://product.samsungsem.com/mlcc/CL10B104KB8NNN.do",
       "placed_on_board": true,
@@ -1695,9 +1713,7 @@
       "manufacturer_part_number": "25SVPK470M",
       "manufacturer": "Panasonic",
       "component_file": "imports/A_25SVPK470M.tsx",
-      "board_references": [
-        "C134"
-      ],
+      "board_references": [],
       "product_url": "https://industrial.panasonic.com/ww/products/pt/os-con/models/25SVPK470M",
       "placed_on_board": false,
       "supplier_part_numbers": {
@@ -1908,12 +1924,14 @@
           "notes": "Manufacturer February 2026 family datasheet. 1 uH; 9 milliohm max DCR, 12 A Irms, Isat 3.8/6.3/8.8 A for 10/20/30% drop."
         }
       ],
-      "placed_on_board": true,
-      "board_references": [
+      "placed_on_board": false,
+      "board_references": [],
+      "selection_status": "Selected for both TPS62903 buck circuits on 2026-10-18. See docs/reviews/tps62903-return-2026-10-18.md.",
+      "former_board_references": [
         "L_VCCL",
         "L_VDD"
       ],
-      "selection_status": "Selected for both TPS62903 buck circuits on 2026-10-18. See docs/reviews/tps62903-return-2026-10-18.md."
+      "replacement_note": "Replaced in the user-requested 2026-10-28 cost revision; retained as a source and comparison."
     },
     {
       "manufacturer_part_number": "RC0402FR-07300RL",
@@ -2180,10 +2198,7 @@
       "manufacturer": "Vishay",
       "component_file": "components/VddReserve.tsx",
       "placed_on_board": false,
-      "board_references": [
-        "R_VDD_DAMP_A",
-        "R_VDD_DAMP_B"
-      ],
+      "board_references": [],
       "documents": [
         {
           "file": "Vishay-WSL.pdf",
@@ -2234,9 +2249,7 @@
       "manufacturer": "Panasonic",
       "component_file": "imports/VddPrecisionFeedback.tsx",
       "placed_on_board": false,
-      "board_references": [
-        "R_VDD_FBT"
-      ],
+      "board_references": [],
       "documents": [
         {
           "file": "Panasonic-ERA-A.pdf",
@@ -2252,9 +2265,7 @@
       "manufacturer": "Panasonic",
       "component_file": "imports/VddPrecisionFeedback.tsx",
       "placed_on_board": false,
-      "board_references": [
-        "R_VDD_FBB"
-      ],
+      "board_references": [],
       "documents": [
         {
           "file": "Panasonic-ERA-A.pdf",
@@ -2269,10 +2280,8 @@
       "manufacturer_part_number": "0402WGF2202TCE",
       "manufacturer": "UNI-ROYAL",
       "component_file": "imports/A_0402WGF2202TCE.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_SLOT_OFF_3V3"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "documents": [
         {
           "file": "0402WGF1003TCE.pdf",
@@ -2343,9 +2352,7 @@
       "manufacturer": "Yageo",
       "component_file": "imports/VddPrecisionFeedback.tsx",
       "placed_on_board": false,
-      "board_references": [
-        "R_VDD_FBT"
-      ],
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C852620"
@@ -2367,9 +2374,7 @@
       "manufacturer": "Yageo",
       "component_file": "imports/VddPrecisionFeedback.tsx",
       "placed_on_board": false,
-      "board_references": [
-        "R_VDD_FBB"
-      ],
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C852695"
@@ -2427,6 +2432,71 @@
           "source_url": "https://jlcpcb.com/partdetail/RESI-PTFR0603B1K87N9/C2692849",
           "origin": "Manufacturer PTFR series datasheet linked by JLCPCB; downloaded 2026-10-28. Pages 2-3 specify 0.1%, N=10 ppm/K, temperature -55 to +155 C and recommended lands. JLC catalogue temperature text is older.",
           "sha256": "ce6a100ade2073ba8416627461be900b0efb807a330bea476227f7f9128a7ec8"
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "DFE252012F-1R0M=P2",
+      "manufacturer": "Murata",
+      "component_file": "imports/DFE252012F_1R0M_P2.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "L_VCCL",
+        "L_VDD"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C435392"
+        ]
+      },
+      "documents": [
+        {
+          "file": "DFE252012F.pdf",
+          "source_url": "https://pim.murata.com/asset/pim4/inductor/J(E)TE243A-0017_PDF_INDUCTOR",
+          "sha256": "3765c42afd2f36eae8d7b14ba8272dd4a287a937ab7b6e2e8daa0ed75df780cc",
+          "pages": 10,
+          "notes": "Manufacturer 1 uH +/-20%, DCR 40 mOhm maximum, 4.7 A saturation at 30% loss, 3.3 A DC temperature-rise rating. Page 5 land pattern: 2.8 mm span, 1.2 mm gap, 2.0 mm height. Imported C435392 lands were corrected from this drawing."
+        }
+      ],
+      "regulator_selection_source": "https://www.ti.com/lit/ds/symlink/tps62903.pdf table 8-4",
+      "qualification": "Static/current and layout checks only. Loss is higher than XGL4020. Hardware startup, load-step, temperature and fault-current verification remain open."
+    },
+    {
+      "manufacturer_part_number": "SN74AHCT1G14DCKR",
+      "manufacturer": "Texas Instruments",
+      "component_file": "imports/SN74AHCT1G14DCKR.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C7486"
+        ]
+      },
+      "documents": [
+        {
+          "file": "SN74AHCT1G14.pdf",
+          "source_url": "https://www.ti.com/lit/ds/symlink/sn74ahct1g14.pdf",
+          "notes": "Same logic family and pin numbers as DBV; DCK is the SC-70 package. Nominal pitch 0.65 mm. Retain TTL Schmitt input and 5 V operation."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "X1618WVS-164-9TV15",
+      "manufacturer": "XKB",
+      "component_file": "imports/X1618WVS_164_9TV15.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "PCIe"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C21263100"
+        ]
+      },
+      "documents": [
+        {
+          "file": "X1618WVS-164-9TV30.pdf",
+          "notes": "Stored common manufacturer drawing is titled X-X1618WVS-XX-9TV15, revision A0. It explicitly covers V15 15 microinch and V30 30 microinch gold variants with the same geometry. Reduced contact-wear margin is a prototype tradeoff."
         }
       ]
     }
@@ -3109,10 +3179,10 @@
     }
   },
   "psu_control_review": {
-    "checked_on": "2026-10-15",
-    "implementation_file": "components/PsuControl.tsx",
+    "checked_on": "2026-10-28",
+    "implementation_file": "index.circuit.tsx",
     "sheet": "power",
-    "behavior": "Dedicated PSU starts whenever AC is present and its rear switch is on. R_PSU_ON can be removed to release PS_ON#. White PSU OK LED follows PWR_OK. USB presence does not control the PSU.",
+    "behavior": "Dedicated PSU starts with AC/rear switch on: R_PSU_ON grounds ATX pin 16 PS_ON#. The optional on-board indicator is omitted. Unpopulated PSU_ACCESS holes expose GND, 5 V and ATX pin 8 PWR_OK for a future external buffer/indicator. No purchased header; USB presence does not control the PSU.",
     "reference": {
       "file": "research/ATX-Power-Supply-Design-Guide.pdf",
       "source_url": "https://www.intel.com/content/dam/www/public/us/en/documents/design-guides/resellers-power-supply-design-guide-changes.pdf",
@@ -3127,12 +3197,13 @@
     "ATX_high_min_V": 2.4,
     "LED_current_nominal_mA": 2.0,
     "limitations": [
-      "PSU indication only; local converter outputs and link status are not monitored.",
-      "No reset or regulator sequencing changes.",
-      "Supply-ramp behavior and LED brightness require prototype verification.",
-      "PCB routing remains disabled."
+      "PS_ON# remains asserted while the start link is fitted. Removing it releases PS_ON# and prevents automatic startup unless an external controller or jumper asserts it.",
+      "The removed indicator provided PSU status only; it did not control power sequencing.",
+      "Existing local converter and system hardware qualification remains separate."
     ],
-    "automatic_start_file": "index.circuit.tsx"
+    "automatic_start_file": "index.circuit.tsx",
+    "indicator_status": "Removed in the cost revision. Previous LED input/current calculations below are historical, not populated circuitry.",
+    "external_status_access_file": "components/PsuStatusAccess.tsx"
   },
   "buck_inputs": {
     "checked_on": "2026-10-18",
@@ -3145,23 +3216,25 @@
     "status": "Converter, LC filter, feedback, MODE and shared VCCH-qualified enable fitted. Bridge reset/PG control and complete startup timing remain pending; PCB placement and routing remain preliminary."
   },
   "buck_inductors": {
-    "checked_on": "2026-10-18",
+    "checked_on": "2026-10-28",
     "implementation_file": "../components/BuckInputs.tsx",
-    "part": "XGL4020-102MEC",
+    "part": "DFE252012F-1R0M=P2",
     "quantity": 2,
     "nominal_inductance_uH": 1,
     "topology": "SW -> inductor pin1; pin2 -> filtered rail, local COUT, VOS and divider top.",
     "planning_check": {
       "load_envelope_A": 3,
       "inductance_initial_reduction_percent": 20,
-      "additional_bias_reduction_percent": 10,
+      "additional_bias_reduction_percent": 30,
       "frequency_reduction_sensitivity_percent": 10,
       "minimum_buck_peak_current_limit_A": 4,
-      "inductor_10_percent_drop_current_A": 3.8,
-      "inductor_30_percent_drop_current_A": 8.8,
-      "Irms_at_40C_rise_A": 12
+      "inductor_10_percent_drop_current_A": null,
+      "inductor_30_percent_drop_current_A": 4.7,
+      "Irms_at_40C_rise_A": 3.3,
+      "additional_temperature_reduction_sensitivity_percent": 10
     },
-    "status": "Selected TI-supported 1 uH filter for 2.5 MHz. Actual bridge load, transients, frequency corners and temperature require checks."
+    "status": "TI table 8-4 selection. Manufacturer land pattern and normal-load current margins checked. Winding loss increases; hardware startup, load steps, thermal and fault checks remain open.",
+    "previous_part": "XGL4020-102MEC"
   },
   "buck_output_capacitors": {
     "checked_on": "2026-10-18",
@@ -3479,11 +3552,12 @@
     }
   },
   "bridge_decoupling_parts": {
-    "checked_on": "2026-10-15",
+    "checked_on": "2026-10-28",
     "inventory_file": "../bridge-decoupling-parts.json",
-    "capacitor_quantity": 44,
+    "capacitor_quantity": 45,
     "jumper_quantity": 1,
-    "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending"
+    "status": "MPNs and footprints selected; effective capacitance, regulator compatibility and final PCB placement pending",
+    "cost_revision": "VCCA33 uses two CL21A106KAYNNNE 10 uF +/-10% parts instead of one 22 uF +/-20% part. Minimum nominal-tolerance sum is 18 versus 17.6 uF; typical bias comparison is not a guaranteed joint bound."
   },
   "document_cleanup": {
     "checked_on": "2026-10-23",
@@ -3747,5 +3821,11 @@
       "VDD": 1.130578512
     },
     "qualification": "Static voltage budget fits both bridge intervals. LC screening uses stated capacitance and frequency sensitivities. Hardware startup, ripple, thermal and load-step checks remain open."
+  },
+  "component_cost_revision": {
+    "dateLocal": "2026-10-28",
+    "reviewFile": "../manufacturing/component-cost-validation-2026-10-28.json",
+    "budgetAchieved": false,
+    "quoteUpdated": false
   }
 }

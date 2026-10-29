@@ -37,3 +37,12 @@ test("accepts only the exact authorized top-side addition and retains the origin
   expect(check([...moved, {...addition, center: {x: 47, y: 118}}], authorization).length).toBeGreaterThan(0);
   expect(check([...moved, addition], {...authorization, authorized: false}).length).toBeGreaterThan(0);
 });
+
+test("accepts exact authorized removals and rejects unrecorded or stale removals", () => {
+  const authorization = {authorized: true, removals: [{name: "R_CS", before: original[0]}]};
+  expect(check([original[1]], authorization)).toEqual([]);
+  expect(check(original, authorization).length).toBeGreaterThan(0);
+  expect(check([], authorization).length).toBeGreaterThan(0);
+  expect(check([original[1]], {...authorization, authorized: false}).length).toBeGreaterThan(0);
+  expect(check([original[1]], {...authorization, removals: [{name: "R_CS", before: {...original[0], center: {x: 2, y: 2}}}]}).length).toBeGreaterThan(0);
+});

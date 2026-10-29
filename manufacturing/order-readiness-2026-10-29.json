@@ -1,0 +1,3502 @@
+{
+  "checkedAtUtc": "2026-10-29T15:59:45.000291+00:00",
+  "decision": "HOLD_ORDER",
+  "readyToOrder": false,
+  "sourceBoardFile": "dist/order-readiness-2026-10-29/current.circuit.json",
+  "sourceBoardSha256": "b237ad3ac3f1abc70a7242f0c7996f5137c3d702efac4d32fd9b610c110f6c7a",
+  "freshBuildExactlyMatchesPreviousReview": true,
+  "scope": "Hardware and available local order-package readiness. No supplier contact, uploads, checkout changes or order. No hardware design edits.",
+  "hardwareVerdict": "The cost-reduced inductors and PCIe socket remain reasonable prototype selections under the recorded assumptions. They do not resolve the independent power-control findings. No new source changes closed those findings since the completed review.",
+  "blockers": [
+    {
+      "id": "unreleased-current-fabrication-package",
+      "status": "resolved by later native UI export",
+      "evidence": "The available downloadable package predates the cost revision. Its BOM has 20 changed-part mismatches, five obsolete indicator positions and five missing current passive positions. The paired Gerbers/CPL describe that old snapshot. Only pricing BOMs were refreshed for the latest revision.",
+      "requiredBeforeOrder": "Create and verify a matching native Gerber/BOM/CPL release from this exact source, including the new inductor lands, all current passive parts, current socket and omitted status circuit. Verify part matching/polarity/rotation in the assembly preview.",
+      "evidenceFile": "dist/order-readiness-2026-10-29/download-package-comparison.json",
+      "resolutionEvidence": "manufacturing/current-export-2026-10-29.json"
+    },
+    {
+      "id": "power-design-readiness",
+      "status": "open",
+      "evidence": "The fresh build exactly matches the reviewed design. The conditional VDD load-step envelope retains sub-millivolt margins in the selected case and out-of-range wider cases. Reset and slot-switch source-return models retain identified short-interruption failure cases.",
+      "requiredBeforeOrder": "Complete a pre-fabrication review of VDD dynamic response and reset/slot restart; fix applicable findings and verify the chosen operating envelope. Post-assembly measurements remain part of prototype bring-up; no fabricated measurements are implied.",
+      "evidenceFile": "manufacturing/hardware-cost-review-2026-10-29.json"
+    },
+    {
+      "id": "bga-assembly-acceptance",
+      "status": "not_recorded",
+      "evidence": "Local process record still has vendorAcceptance.received=false. The mixed-pitch bridge uses filled/capped via-in-pad lands and a proposed 0.06 mm local stencil. The saved quote has special stencil disabled; no current accepted stencil/land/mask process is recorded.",
+      "requiredBeforeOrder": "Obtain manufacturer acceptance of the actual BGA land/mask/paste, filled/capped vias and stencil plan, and confirm the correct stackup/fill process and inspection in production files.",
+      "evidenceFile": "manufacturing/bridge-bga/process.json"
+    }
+  ],
+  "checks": {
+    "freshSourceBuildPassed": true,
+    "sourceExactlyMatchesLastReviewedBuild": true,
+    "reusedRegression": {
+      "passed": 181,
+      "skipped": 8,
+      "failed": 0,
+      "rerunThisTurn": false,
+      "reuseBasis": "Identical entire Circuit JSON SHA-256; the last complete run remains applicable."
+    },
+    "previousFullBoardValidatorPassed": true,
+    "allAssembledPartsTop": true,
+    "usbPcieBgaGeometryUnchanged": true,
+    "hardwareQualified": false,
+    "freshGeometryValidation": {
+      "passed": true,
+      "report": "dist/order-readiness-2026-10-29/geometry-validation.json",
+      "scope": "All project source/netlist/native placement/routing and physical TS/JS audits, without re-running the Python solvers or CLI shorts/style. Prior full audit remains applicable to this exact board.",
+      "drcPassed": true,
+      "fabricationReady": false,
+      "drcFindings": [
+        {
+          "rule": "bga_oblong_process_review",
+          "severity": "warning",
+          "message": "76 oblong BGA pads and the candidate circular lands, filled/capped USB4 vias, mask and stencil need JLCPCB DFM/DFA acceptance. See manufacturing/bridge-bga/.",
+          "elementIds": [
+            "pcb_smtpad_3",
+            "pcb_smtpad_4",
+            "pcb_smtpad_5",
+            "pcb_smtpad_6",
+            "pcb_smtpad_7",
+            "pcb_smtpad_8",
+            "pcb_smtpad_9",
+            "pcb_smtpad_10",
+            "pcb_smtpad_11",
+            "pcb_smtpad_12",
+            "pcb_smtpad_13",
+            "pcb_smtpad_14",
+            "pcb_smtpad_15",
+            "pcb_smtpad_16",
+            "pcb_smtpad_17",
+            "pcb_smtpad_18",
+            "pcb_smtpad_19",
+            "pcb_smtpad_20",
+            "pcb_smtpad_21",
+            "pcb_smtpad_23",
+            "pcb_smtpad_43",
+            "pcb_smtpad_44",
+            "pcb_smtpad_47",
+            "pcb_smtpad_48",
+            "pcb_smtpad_62",
+            "pcb_smtpad_63",
+            "pcb_smtpad_77",
+            "pcb_smtpad_78",
+            "pcb_smtpad_92",
+            "pcb_smtpad_93",
+            "pcb_smtpad_96",
+            "pcb_smtpad_97",
+            "pcb_smtpad_111",
+            "pcb_smtpad_112",
+            "pcb_smtpad_126",
+            "pcb_smtpad_127",
+            "pcb_smtpad_130",
+            "pcb_smtpad_131",
+            "pcb_smtpad_145",
+            "pcb_smtpad_146",
+            "pcb_smtpad_149",
+            "pcb_smtpad_150",
+            "pcb_smtpad_164",
+            "pcb_smtpad_165",
+            "pcb_smtpad_179",
+            "pcb_smtpad_180",
+            "pcb_smtpad_183",
+            "pcb_smtpad_184",
+            "pcb_smtpad_198",
+            "pcb_smtpad_199",
+            "pcb_smtpad_213",
+            "pcb_smtpad_214",
+            "pcb_smtpad_228",
+            "pcb_smtpad_229",
+            "pcb_smtpad_232",
+            "pcb_smtpad_233",
+            "pcb_smtpad_253",
+            "pcb_smtpad_254",
+            "pcb_smtpad_255",
+            "pcb_smtpad_256",
+            "pcb_smtpad_257",
+            "pcb_smtpad_258",
+            "pcb_smtpad_259",
+            "pcb_smtpad_260",
+            "pcb_smtpad_261",
+            "pcb_smtpad_262",
+            "pcb_smtpad_263",
+            "pcb_smtpad_264",
+            "pcb_smtpad_265",
+            "pcb_smtpad_266",
+            "pcb_smtpad_267",
+            "pcb_smtpad_269",
+            "pcb_smtpad_270",
+            "pcb_smtpad_271",
+            "pcb_smtpad_272",
+            "pcb_smtpad_273"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.XO to C1.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_5",
+            "source_trace_5",
+            "saved_phase_null_4_1",
+            "pcb_component_557",
+            "pcb_component_566",
+            "pcb_port_1370",
+            "pcb_port_1433"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C1.pin1 to XCLK.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_7",
+            "source_trace_7",
+            "saved_phase_null_4_1",
+            "pcb_component_565",
+            "pcb_component_566",
+            "pcb_port_1431",
+            "pcb_port_1433"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.REFCLK_N0 to R_PCIE_REFCLK_N.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_9",
+            "source_trace_9",
+            "saved_phase_null_4_6",
+            "pcb_component_557",
+            "pcb_component_624",
+            "pcb_port_1374",
+            "pcb_port_1716"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VCCL_BUCK.VIN to C_VCCL_HF.pin1] is routed thinner than requested (requested: 0.5mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_13",
+            "source_trace_13",
+            "pcb_trace_365",
+            "pcb_component_690",
+            "pcb_component_699",
+            "pcb_port_1915",
+            "pcb_port_1935"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_CIN.pin1 to C_VCCL_HF.pin1] is routed thinner than requested (requested: 1mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_14",
+            "source_trace_14",
+            "pcb_trace_365",
+            "pcb_component_698",
+            "pcb_component_699",
+            "pcb_port_1933",
+            "pcb_port_1935"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [L_VCCL.pin2 to C_VCCL_COUT.pin1] is routed thinner than requested (requested: 2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_15",
+            "source_trace_15",
+            "pcb_trace_98",
+            "pcb_component_691",
+            "pcb_component_692",
+            "pcb_port_1920",
+            "pcb_port_1921"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [L_VCCL.pin2 to C_VCCL_COUT_B.pin1] is routed thinner than requested (requested: 2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_16",
+            "source_trace_16",
+            "pcb_trace_98",
+            "pcb_component_691",
+            "pcb_component_693",
+            "pcb_port_1920",
+            "pcb_port_1923"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VCCL_BUCK.VOS to C_VCCL_COUT.pin1] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_18",
+            "source_trace_18",
+            "pcb_trace_91",
+            "pcb_component_690",
+            "pcb_component_692",
+            "pcb_port_1912",
+            "pcb_port_1921"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VCCL_FBT.pin1 to C_VCCL_COUT_B.pin1] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_19",
+            "source_trace_19",
+            "pcb_trace_91",
+            "pcb_component_693",
+            "pcb_component_694",
+            "pcb_port_1923",
+            "pcb_port_1925"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VCCL_BUCK.GND to BUCK_GND_VCCL_IC.top] is routed thinner than requested (requested: 0.55mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_23",
+            "source_trace_23",
+            "pcb_trace_20",
+            "pcb_component_93",
+            "pcb_component_690",
+            "pcb_port_186",
+            "pcb_port_1913"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_HF.pin2 to BUCK_GND_VCCL_HF.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_24",
+            "source_trace_24",
+            "pcb_trace_20",
+            "pcb_component_94",
+            "pcb_component_699",
+            "pcb_port_188",
+            "pcb_port_1936"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_CIN.pin2 to BUCK_GND_VCCL_CIN.top] is routed thinner than requested (requested: 1mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_25",
+            "source_trace_25",
+            "pcb_trace_20",
+            "pcb_component_95",
+            "pcb_component_698",
+            "pcb_port_190",
+            "pcb_port_1934"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_COUT.pin2 to BUCK_GND_VCCL_COUT.top] is routed thinner than requested (requested: 1mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_26",
+            "source_trace_26",
+            "pcb_trace_20",
+            "pcb_component_96",
+            "pcb_component_692",
+            "pcb_port_192",
+            "pcb_port_1922"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VCCL_FBB.pin2 to BUCK_GND_VCCL_MODE.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_27",
+            "source_trace_27",
+            "pcb_trace_17",
+            "pcb_component_98",
+            "pcb_component_696",
+            "pcb_port_196",
+            "pcb_port_1930"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VCCL_MODE.pin2 to BUCK_GND_VCCL_MODE.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_28",
+            "source_trace_28",
+            "pcb_trace_17",
+            "pcb_component_98",
+            "pcb_component_697",
+            "pcb_port_196",
+            "pcb_port_1932"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_COUT_B.pin2 to BUCK_GND_VCCL_COUT_B.top] is routed thinner than requested (requested: 0.6mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_29",
+            "source_trace_29",
+            "pcb_trace_20",
+            "pcb_component_99",
+            "pcb_component_693",
+            "pcb_port_198",
+            "pcb_port_1924"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VDD_BUCK.VIN to C_VDD_HF.pin1] is routed thinner than requested (requested: 0.5mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_31",
+            "source_trace_31",
+            "pcb_trace_365",
+            "pcb_component_700",
+            "pcb_component_708",
+            "pcb_port_1942",
+            "pcb_port_1960"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_CIN.pin1 to C_VDD_HF.pin1] is routed thinner than requested (requested: 1mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_32",
+            "source_trace_32",
+            "pcb_trace_365",
+            "pcb_component_707",
+            "pcb_component_708",
+            "pcb_port_1958",
+            "pcb_port_1960"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [L_VDD.pin2 to C_VDD_COUT.pin1] is routed thinner than requested (requested: 2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_33",
+            "source_trace_33",
+            "pcb_trace_121",
+            "pcb_component_701",
+            "pcb_component_702",
+            "pcb_port_1947",
+            "pcb_port_1948"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [L_VDD.pin2 to C_VDD_COUT_B.pin1] is routed thinner than requested (requested: 2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_34",
+            "source_trace_34",
+            "pcb_trace_121",
+            "pcb_component_701",
+            "pcb_component_703",
+            "pcb_port_1947",
+            "pcb_port_1950"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VDD_BUCK.VOS to C_VDD_COUT.pin1] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_36",
+            "source_trace_36",
+            "pcb_trace_104",
+            "pcb_component_700",
+            "pcb_component_702",
+            "pcb_port_1939",
+            "pcb_port_1948"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VDD_FBT.pin1 to C_VDD_COUT_B.pin1] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_37",
+            "source_trace_37",
+            "pcb_trace_104",
+            "pcb_component_703",
+            "pcb_component_704",
+            "pcb_port_1950",
+            "pcb_port_1952"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VDD_BUCK.GND to BUCK_GND_VDD_IC.top] is routed thinner than requested (requested: 0.55mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_41",
+            "source_trace_41",
+            "pcb_trace_20",
+            "pcb_component_107",
+            "pcb_component_700",
+            "pcb_port_214",
+            "pcb_port_1940"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_HF.pin2 to BUCK_GND_VDD_HF.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_42",
+            "source_trace_42",
+            "pcb_trace_20",
+            "pcb_component_108",
+            "pcb_component_708",
+            "pcb_port_216",
+            "pcb_port_1961"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_CIN.pin2 to BUCK_GND_VDD_CIN.top] is routed thinner than requested (requested: 1mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_43",
+            "source_trace_43",
+            "pcb_trace_20",
+            "pcb_component_109",
+            "pcb_component_707",
+            "pcb_port_218",
+            "pcb_port_1959"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_COUT.pin2 to BUCK_GND_VDD_COUT.top] is routed thinner than requested (requested: 1mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_44",
+            "source_trace_44",
+            "pcb_trace_20",
+            "pcb_component_110",
+            "pcb_component_702",
+            "pcb_port_220",
+            "pcb_port_1949"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VDD_FBB.pin2 to BUCK_GND_VDD_FBB.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_45",
+            "source_trace_45",
+            "pcb_trace_17",
+            "pcb_component_111",
+            "pcb_component_705",
+            "pcb_port_222",
+            "pcb_port_1955"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VDD_MODE.pin2 to BUCK_GND_VDD_MODE.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_46",
+            "source_trace_46",
+            "pcb_trace_17",
+            "pcb_component_112",
+            "pcb_component_706",
+            "pcb_port_224",
+            "pcb_port_1957"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_COUT_B.pin2 to BUCK_GND_VDD_COUT_B.top] is routed thinner than requested (requested: 0.6mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_47",
+            "source_trace_47",
+            "pcb_trace_20",
+            "pcb_component_113",
+            "pcb_component_703",
+            "pcb_port_226",
+            "pcb_port_1951"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_25.pin1 to PDN_C_VCCL_25_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_66",
+            "source_trace_66",
+            "pcb_trace_91",
+            "pcb_component_162",
+            "pcb_component_588",
+            "pcb_port_324",
+            "pcb_port_1482"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_25.pin2 to PDN_C_VCCL_25_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_67",
+            "source_trace_67",
+            "pcb_trace_17",
+            "pcb_component_163",
+            "pcb_component_588",
+            "pcb_port_326",
+            "pcb_port_1483"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_29.pin1 to PDN_C_VCCL_29_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_68",
+            "source_trace_68",
+            "pcb_trace_91",
+            "pcb_component_164",
+            "pcb_component_589",
+            "pcb_port_328",
+            "pcb_port_1484"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_29.pin2 to PDN_C_VCCL_29_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_69",
+            "source_trace_69",
+            "pcb_trace_17",
+            "pcb_component_165",
+            "pcb_component_589",
+            "pcb_port_330",
+            "pcb_port_1485"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_33.pin1 to PDN_C_VCCL_33_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_70",
+            "source_trace_70",
+            "pcb_trace_91",
+            "pcb_component_166",
+            "pcb_component_590",
+            "pcb_port_332",
+            "pcb_port_1486"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_33.pin2 to PDN_C_VCCL_33_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_71",
+            "source_trace_71",
+            "pcb_trace_17",
+            "pcb_component_167",
+            "pcb_component_590",
+            "pcb_port_334",
+            "pcb_port_1487"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_46.pin2 to PDN_C_VCCL_46_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_72",
+            "source_trace_72",
+            "pcb_trace_17",
+            "pcb_component_177",
+            "pcb_component_595",
+            "pcb_port_354",
+            "pcb_port_1497"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_12.pin1 to PDN_C_VDD_12_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_73",
+            "source_trace_73",
+            "pcb_trace_104",
+            "pcb_component_208",
+            "pcb_component_611",
+            "pcb_port_416",
+            "pcb_port_1528"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_12.pin2 to PDN_C_VDD_12_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_74",
+            "source_trace_74",
+            "pcb_trace_17",
+            "pcb_component_209",
+            "pcb_component_611",
+            "pcb_port_418",
+            "pcb_port_1529"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_26.pin1 to PDN_C_VDD_26_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_75",
+            "source_trace_75",
+            "pcb_trace_104",
+            "pcb_component_212",
+            "pcb_component_613",
+            "pcb_port_424",
+            "pcb_port_1532"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_26.pin2 to PDN_C_VDD_26_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_76",
+            "source_trace_76",
+            "pcb_trace_17",
+            "pcb_component_213",
+            "pcb_component_613",
+            "pcb_port_426",
+            "pcb_port_1533"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_30.pin1 to PDN_C_VDD_30_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_77",
+            "source_trace_77",
+            "pcb_trace_104",
+            "pcb_component_214",
+            "pcb_component_614",
+            "pcb_port_428",
+            "pcb_port_1534"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_30.pin2 to C_VDD_34.pin2] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_78",
+            "source_trace_78",
+            "pcb_trace_17",
+            "pcb_component_614",
+            "pcb_component_615",
+            "pcb_port_1535",
+            "pcb_port_1537"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_34.pin1 to PDN_C_VDD_34_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_79",
+            "source_trace_79",
+            "pcb_trace_104",
+            "pcb_component_215",
+            "pcb_component_615",
+            "pcb_port_430",
+            "pcb_port_1536"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VDD_34.pin2 to PDN_C_VDD_34_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_80",
+            "source_trace_80",
+            "pcb_trace_17",
+            "pcb_component_216",
+            "pcb_component_615",
+            "pcb_port_432",
+            "pcb_port_1537"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_43.pin1 to PDN_C_VCCL_43_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_81",
+            "source_trace_81",
+            "pcb_trace_91",
+            "pcb_component_172",
+            "pcb_component_593",
+            "pcb_port_344",
+            "pcb_port_1492"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCL_43.pin2 to PDN_C_VCCL_43_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_82",
+            "source_trace_82",
+            "pcb_trace_17",
+            "pcb_component_173",
+            "pcb_component_593",
+            "pcb_port_346",
+            "pcb_port_1493"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.P16 to PDN_BGA_P16.top] is routed thinner than requested (requested: 0.29mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_164",
+            "source_trace_164",
+            "pcb_trace_94",
+            "pcb_component_150",
+            "pcb_component_557",
+            "pcb_port_300",
+            "pcb_port_1309"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.L17 to PDN_BGA_L17.top] is routed thinner than requested (requested: 0.29mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_167",
+            "source_trace_167",
+            "pcb_trace_94",
+            "pcb_component_140",
+            "pcb_component_557",
+            "pcb_port_280",
+            "pcb_port_1276"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.L11 to PDN_BGA_E16.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_185",
+            "source_trace_185",
+            "pcb_trace_104",
+            "pcb_component_125",
+            "pcb_component_557",
+            "pcb_port_250",
+            "pcb_port_1272"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.U11 to PDN_BGA_U11.top] is routed thinner than requested (requested: 0.13mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_213",
+            "source_trace_213",
+            "pcb_trace_91",
+            "pcb_component_154",
+            "pcb_component_557",
+            "pcb_port_308",
+            "pcb_port_1340"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VDD_RESERVE_FEED_0.top to R_VDD_DAMP_A.pin1] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_377",
+            "source_trace_377",
+            "pcb_trace_105",
+            "pcb_component_281",
+            "pcb_component_617",
+            "pcb_port_562",
+            "pcb_port_1540"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VDD_RESERVE_FEED_1.top to R_VDD_DAMP_A.pin1] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_379",
+            "source_trace_379",
+            "pcb_trace_105",
+            "pcb_component_282",
+            "pcb_component_617",
+            "pcb_port_564",
+            "pcb_port_1540"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VDD_DAMP_A.pin1 to R_VDD_DAMP_B.pin1] is routed thinner than requested (requested: 1.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_380",
+            "source_trace_380",
+            "pcb_trace_106",
+            "pcb_component_617",
+            "pcb_component_619",
+            "pcb_port_1540",
+            "pcb_port_1544"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [VCCH_R_SPI_CS_pin1.bottom to SPI.V3V3] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_383",
+            "source_trace_383",
+            "pcb_trace_204",
+            "pcb_component_287",
+            "pcb_component_570",
+            "pcb_port_575",
+            "pcb_port_1443"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_UART_TX.pin1 to VCCH_R_UART_TX_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_384",
+            "source_trace_384",
+            "pcb_trace_200",
+            "pcb_component_284",
+            "pcb_component_556",
+            "pcb_port_568",
+            "pcb_port_1134"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [W25Q32JVSSIQ.pin8 to VCCH_W25Q32JVSSIQ_pin8.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_385",
+            "source_trace_385",
+            "pcb_trace_204",
+            "pcb_component_285",
+            "pcb_component_560",
+            "pcb_port_570",
+            "pcb_port_1420"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_SPI_HOLD.pin1 to VCCH_R_SPI_HOLD_pin1.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_386",
+            "source_trace_386",
+            "pcb_trace_204",
+            "pcb_component_286",
+            "pcb_component_562",
+            "pcb_port_572",
+            "pcb_port_1423"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_SPI_CS.pin1 to VCCH_R_SPI_CS_pin1.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_387",
+            "source_trace_387",
+            "pcb_trace_204",
+            "pcb_component_287",
+            "pcb_component_563",
+            "pcb_port_574",
+            "pcb_port_1425"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_SPI_VCC.pin1 to VCCH_C_SPI_VCC_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_388",
+            "source_trace_388",
+            "pcb_trace_200",
+            "pcb_component_288",
+            "pcb_component_564",
+            "pcb_port_576",
+            "pcb_port_1427"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_SPI_VCC.pin2 to VCCH_C_SPI_VCC_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_389",
+            "source_trace_389",
+            "pcb_trace_17",
+            "pcb_component_289",
+            "pcb_component_564",
+            "pcb_port_578",
+            "pcb_port_1428"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_RST.pin1 to VCCH_R_RST_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_390",
+            "source_trace_390",
+            "pcb_trace_200",
+            "pcb_component_290",
+            "pcb_component_567",
+            "pcb_port_580",
+            "pcb_port_1435"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_3.pin2 to VCCH_C_VCCH_3_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_391",
+            "source_trace_391",
+            "pcb_trace_17",
+            "pcb_component_291",
+            "pcb_component_571",
+            "pcb_port_582",
+            "pcb_port_1449"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_3.pin1 to VCCH_C_VCCH_3_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_392",
+            "source_trace_392",
+            "pcb_trace_200",
+            "pcb_component_292",
+            "pcb_component_571",
+            "pcb_port_584",
+            "pcb_port_1448"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_11.pin2 to VCCH_C_VCCH_11_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_393",
+            "source_trace_393",
+            "pcb_trace_17",
+            "pcb_component_293",
+            "pcb_component_572",
+            "pcb_port_586",
+            "pcb_port_1451"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_11.pin1 to VCCH_C_VCCH_11_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_394",
+            "source_trace_394",
+            "pcb_trace_200",
+            "pcb_component_294",
+            "pcb_component_572",
+            "pcb_port_588",
+            "pcb_port_1450"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_16.pin2 to VCCH_C_VCCH_16_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_395",
+            "source_trace_395",
+            "pcb_trace_17",
+            "pcb_component_295",
+            "pcb_component_573",
+            "pcb_port_590",
+            "pcb_port_1453"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_16.pin1 to VCCH_C_VCCH_16_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_396",
+            "source_trace_396",
+            "pcb_trace_200",
+            "pcb_component_296",
+            "pcb_component_573",
+            "pcb_port_592",
+            "pcb_port_1452"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_19.pin2 to VCCH_C_VCCH_19_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_397",
+            "source_trace_397",
+            "pcb_trace_17",
+            "pcb_component_297",
+            "pcb_component_574",
+            "pcb_port_594",
+            "pcb_port_1455"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_19.pin1 to VCCH_C_VCCH_19_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_398",
+            "source_trace_398",
+            "pcb_trace_200",
+            "pcb_component_298",
+            "pcb_component_574",
+            "pcb_port_596",
+            "pcb_port_1454"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_6.pin1 to VCCH_C_VCCH_6_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_399",
+            "source_trace_399",
+            "pcb_trace_200",
+            "pcb_component_299",
+            "pcb_component_575",
+            "pcb_port_598",
+            "pcb_port_1456"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_6.pin2 to VCCH_C_VCCH_6_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_400",
+            "source_trace_400",
+            "pcb_trace_17",
+            "pcb_component_300",
+            "pcb_component_575",
+            "pcb_port_600",
+            "pcb_port_1457"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_14.pin2 to VCCH_C_VCCH_14_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_401",
+            "source_trace_401",
+            "pcb_trace_17",
+            "pcb_component_301",
+            "pcb_component_576",
+            "pcb_port_602",
+            "pcb_port_1459"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_14.pin1 to VCCH_C_VCCH_14_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_402",
+            "source_trace_402",
+            "pcb_trace_200",
+            "pcb_component_302",
+            "pcb_component_576",
+            "pcb_port_604",
+            "pcb_port_1458"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_23.pin2 to VCCH_C_VCCH_23_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_403",
+            "source_trace_403",
+            "pcb_trace_17",
+            "pcb_component_303",
+            "pcb_component_577",
+            "pcb_port_606",
+            "pcb_port_1461"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_23.pin1 to VCCH_C_VCCH_23_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_404",
+            "source_trace_404",
+            "pcb_trace_200",
+            "pcb_component_304",
+            "pcb_component_577",
+            "pcb_port_608",
+            "pcb_port_1460"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_27.pin2 to VCCH_C_VCCH_27_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_405",
+            "source_trace_405",
+            "pcb_trace_17",
+            "pcb_component_305",
+            "pcb_component_578",
+            "pcb_port_610",
+            "pcb_port_1463"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_27.pin1 to VCCH_C_VCCH_27_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_406",
+            "source_trace_406",
+            "pcb_trace_200",
+            "pcb_component_306",
+            "pcb_component_578",
+            "pcb_port_612",
+            "pcb_port_1462"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_31.pin2 to VCCH_C_VCCH_31_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_407",
+            "source_trace_407",
+            "pcb_trace_17",
+            "pcb_component_307",
+            "pcb_component_579",
+            "pcb_port_614",
+            "pcb_port_1465"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_31.pin1 to VCCH_C_VCCH_31_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_408",
+            "source_trace_408",
+            "pcb_trace_200",
+            "pcb_component_308",
+            "pcb_component_579",
+            "pcb_port_616",
+            "pcb_port_1464"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCH_35.pin1 to VCCH_C_VCCH_35_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_409",
+            "source_trace_409",
+            "pcb_trace_200",
+            "pcb_component_309",
+            "pcb_component_580",
+            "pcb_port_618",
+            "pcb_port_1466"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VCCA33_4.pin1 to VCCH_R_VCCA33_4_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_410",
+            "source_trace_410",
+            "pcb_trace_200",
+            "pcb_component_310",
+            "pcb_component_581",
+            "pcb_port_620",
+            "pcb_port_1468"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCA33_7.pin1 to VCCH_C_VCCA33_7_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_411",
+            "source_trace_411",
+            "pcb_trace_211",
+            "pcb_component_311",
+            "pcb_component_582",
+            "pcb_port_622",
+            "pcb_port_1470"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCA33_7.pin2 to VCCH_C_VCCA33_7_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_412",
+            "source_trace_412",
+            "pcb_trace_17",
+            "pcb_component_312",
+            "pcb_component_582",
+            "pcb_port_624",
+            "pcb_port_1471"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCA33_8.pin1 to VCCH_C_VCCA33_8_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_413",
+            "source_trace_413",
+            "pcb_trace_211",
+            "pcb_component_313",
+            "pcb_component_584",
+            "pcb_port_626",
+            "pcb_port_1474"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_PCIE_CLKREQ_PU.pin1 to VCCH_R_PCIE_CLKREQ_PU_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_414",
+            "source_trace_414",
+            "pcb_trace_200",
+            "pcb_component_314",
+            "pcb_component_626",
+            "pcb_port_628",
+            "pcb_port_1720"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_PCIE_PRESENT_PU.pin1 to VCCH_R_PCIE_PRESENT_PU_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_415",
+            "source_trace_415",
+            "pcb_trace_200",
+            "pcb_component_315",
+            "pcb_component_635",
+            "pcb_port_630",
+            "pcb_port_1738"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [Q_SLOT_3V3.pin1 to VCCH_Q_SLOT_3V3_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_416",
+            "source_trace_416",
+            "pcb_trace_200",
+            "pcb_component_316",
+            "pcb_component_643",
+            "pcb_port_632",
+            "pcb_port_1754"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [Q_SLOT_3V3.pin2 to VCCH_Q_SLOT_3V3_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_417",
+            "source_trace_417",
+            "pcb_trace_200",
+            "pcb_component_317",
+            "pcb_component_643",
+            "pcb_port_634",
+            "pcb_port_1757"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [Q_SLOT_3V3.pin3 to VCCH_Q_SLOT_3V3_pin3.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_418",
+            "source_trace_418",
+            "pcb_trace_200",
+            "pcb_component_318",
+            "pcb_component_643",
+            "pcb_port_636",
+            "pcb_port_1758"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_SLOT_OFF_3V3.pin1 to VCCH_R_SLOT_OFF_3V3_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_419",
+            "source_trace_419",
+            "pcb_trace_200",
+            "pcb_component_319",
+            "pcb_component_646",
+            "pcb_port_638",
+            "pcb_port_1764"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_SLOT_GATE_3V3.pin1 to VCCH_C_SLOT_GATE_3V3_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_420",
+            "source_trace_420",
+            "pcb_trace_200",
+            "pcb_component_320",
+            "pcb_component_650",
+            "pcb_port_640",
+            "pcb_port_1772"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [U_BUCK_EN.pin4 to VCCH_U_BUCK_EN_pin4.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_421",
+            "source_trace_421",
+            "pcb_trace_200",
+            "pcb_component_321",
+            "pcb_component_710",
+            "pcb_port_642",
+            "pcb_port_1967"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [U_BUCK_EN.pin2 to VCCH_U_BUCK_EN_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_422",
+            "source_trace_422",
+            "pcb_trace_17",
+            "pcb_component_322",
+            "pcb_component_710",
+            "pcb_port_644",
+            "pcb_port_1965"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [U_BUCK_EN.pin3 to VCCH_U_BUCK_EN_pin3.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_423",
+            "source_trace_423",
+            "pcb_trace_200",
+            "pcb_component_323",
+            "pcb_component_710",
+            "pcb_port_646",
+            "pcb_port_1966"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_BUCK_EN_TOP.pin1 to VCCH_R_BUCK_EN_TOP_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_424",
+            "source_trace_424",
+            "pcb_trace_200",
+            "pcb_component_324",
+            "pcb_component_711",
+            "pcb_port_648",
+            "pcb_port_1970"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_BUCK_EN_BOTTOM.pin2 to VCCH_R_BUCK_EN_BOTTOM_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_425",
+            "source_trace_425",
+            "pcb_trace_17",
+            "pcb_component_325",
+            "pcb_component_712",
+            "pcb_port_650",
+            "pcb_port_1973"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_BUCK_EN_PU.pin1 to VCCH_R_BUCK_EN_PU_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_426",
+            "source_trace_426",
+            "pcb_trace_200",
+            "pcb_component_326",
+            "pcb_component_713",
+            "pcb_port_652",
+            "pcb_port_1974"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_BUCK_EN.pin1 to VCCH_C_BUCK_EN_pin1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_427",
+            "source_trace_427",
+            "pcb_trace_200",
+            "pcb_component_327",
+            "pcb_component_714",
+            "pcb_port_654",
+            "pcb_port_1976"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_BUCK_EN.pin2 to VCCH_C_BUCK_EN_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_428",
+            "source_trace_428",
+            "pcb_trace_17",
+            "pcb_component_328",
+            "pcb_component_714",
+            "pcb_port_656",
+            "pcb_port_1977"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_SPI_WP.pin1 to VCCH_R_SPI_WP_pin1.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_429",
+            "source_trace_429",
+            "pcb_trace_204",
+            "pcb_component_329",
+            "pcb_component_561",
+            "pcb_port_658",
+            "pcb_port_1421"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VCCA33_4.pin2 to VCCH_C_VCCA33_8_pin1.top] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_430",
+            "source_trace_430",
+            "pcb_trace_211",
+            "pcb_component_313",
+            "pcb_component_581",
+            "pcb_port_626",
+            "pcb_port_1469"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCA33_9.pin2 to VCCH_C_VCCA33_9_pin2.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_443",
+            "source_trace_443",
+            "pcb_trace_17",
+            "pcb_component_336",
+            "pcb_component_583",
+            "pcb_port_672",
+            "pcb_port_1473"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ATX5V_VCCL_A.top to C_VCCL_CIN.pin1] is routed thinner than requested (requested: 0.8mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_497",
+            "source_trace_497",
+            "pcb_trace_365",
+            "pcb_component_337",
+            "pcb_component_698",
+            "pcb_port_674",
+            "pcb_port_1933"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ATX5V_VCCL_B.top to C_VCCL_CIN.pin1] is routed thinner than requested (requested: 0.8mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_499",
+            "source_trace_499",
+            "pcb_trace_365",
+            "pcb_component_338",
+            "pcb_component_698",
+            "pcb_port_676",
+            "pcb_port_1933"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ATX5V_VDD_A.top to C_VDD_CIN.pin1] is routed thinner than requested (requested: 0.8mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_501",
+            "source_trace_501",
+            "pcb_trace_365",
+            "pcb_component_339",
+            "pcb_component_707",
+            "pcb_port_678",
+            "pcb_port_1958"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ATX5V_VDD_B.top to C_VDD_CIN.pin1] is routed thinner than requested (requested: 0.8mm, actual: 0.25mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_503",
+            "source_trace_503",
+            "pcb_trace_365",
+            "pcb_component_340",
+            "pcb_component_707",
+            "pcb_port_680",
+            "pcb_port_1958"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_DRV_12V.bottom to SP_HDDPC_DRV_3V3.bottom] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_504",
+            "source_trace_504",
+            "pcb_trace_352",
+            "pcb_component_498",
+            "pcb_component_499",
+            "pcb_port_997",
+            "pcb_port_1001"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_ESC.inner3 to SP_HDDPC_FLASH_A.inner3] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_505",
+            "source_trace_505",
+            "pcb_trace_352",
+            "pcb_component_500",
+            "pcb_component_501",
+            "pcb_port_1005",
+            "pcb_port_1009"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_FLASH_A.inner2 to SP_HDDPC_FLASH_B.inner2] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_506",
+            "source_trace_506",
+            "pcb_trace_352",
+            "pcb_component_501",
+            "pcb_component_502",
+            "pcb_port_1008",
+            "pcb_port_1012"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_FLASH_B.inner3 to SP_HDDPC_BUCK.inner3] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_507",
+            "source_trace_507",
+            "pcb_trace_352",
+            "pcb_component_502",
+            "pcb_component_503",
+            "pcb_port_1013",
+            "pcb_port_1017"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_BUCK.inner2 to SP_HDDPC_DRV_3V3.inner2] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_508",
+            "source_trace_508",
+            "pcb_trace_352",
+            "pcb_component_498",
+            "pcb_component_503",
+            "pcb_port_998",
+            "pcb_port_1016"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_12V_BLEED_GND.top to R_SLOT_DISCHARGE_12V.pin2] is routed thinner than requested (requested: 0.6mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_552",
+            "source_trace_552",
+            "pcb_trace_20",
+            "pcb_component_368",
+            "pcb_component_657",
+            "pcb_port_736",
+            "pcb_port_1794"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_12V_DRIVER_GND.top to Q_SLOT_DRV_12V.S] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_554",
+            "source_trace_554",
+            "pcb_trace_20",
+            "pcb_component_369",
+            "pcb_component_653",
+            "pcb_port_738",
+            "pcb_port_1786"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_3V3_BLEED_GND.top to R_SLOT_DISCHARGE_3V3.pin2] is routed thinner than requested (requested: 0.6mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_558",
+            "source_trace_558",
+            "pcb_trace_20",
+            "pcb_component_371",
+            "pcb_component_651",
+            "pcb_port_742",
+            "pcb_port_1775"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_3V3_DRIVER_GND.top to Q_SLOT_DRV_3V3.S] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_560",
+            "source_trace_560",
+            "pcb_trace_20",
+            "pcb_component_372",
+            "pcb_component_644",
+            "pcb_port_744",
+            "pcb_port_1761"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_R_HDDPC_PD_GND.top to R_HDDPC_PD.pin2] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_562",
+            "source_trace_562",
+            "pcb_trace_20",
+            "pcb_component_373",
+            "pcb_component_658",
+            "pcb_port_746",
+            "pcb_port_1796"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_R_PSU_ON_GND.top to R_PSU_ON.pin2] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_564",
+            "source_trace_564",
+            "pcb_trace_20",
+            "pcb_component_374",
+            "pcb_component_688",
+            "pcb_port_748",
+            "pcb_port_1906"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin1.top to PCIe.pin1] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_598",
+            "source_trace_598",
+            "pcb_trace_20",
+            "pcb_component_391",
+            "pcb_component_621",
+            "pcb_port_782",
+            "pcb_port_1548"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin4.top to PCIe.pin4] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_600",
+            "source_trace_600",
+            "pcb_trace_20",
+            "pcb_component_392",
+            "pcb_component_621",
+            "pcb_port_784",
+            "pcb_port_1551"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin13.top to PCIe.pin13] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_602",
+            "source_trace_602",
+            "pcb_trace_20",
+            "pcb_component_393",
+            "pcb_component_621",
+            "pcb_port_786",
+            "pcb_port_1560"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin15.top to PCIe.pin15] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_604",
+            "source_trace_604",
+            "pcb_trace_20",
+            "pcb_component_394",
+            "pcb_component_621",
+            "pcb_port_788",
+            "pcb_port_1562"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin18.top to PCIe.pin18] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_606",
+            "source_trace_606",
+            "pcb_trace_20",
+            "pcb_component_395",
+            "pcb_component_621",
+            "pcb_port_790",
+            "pcb_port_1565"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin20.top to PCIe.pin20] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_608",
+            "source_trace_608",
+            "pcb_trace_20",
+            "pcb_component_396",
+            "pcb_component_621",
+            "pcb_port_792",
+            "pcb_port_1567"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin23.top to PCIe.pin23] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_610",
+            "source_trace_610",
+            "pcb_trace_20",
+            "pcb_component_397",
+            "pcb_component_621",
+            "pcb_port_794",
+            "pcb_port_1570"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin24.top to PCIe.pin24] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_612",
+            "source_trace_612",
+            "pcb_trace_20",
+            "pcb_component_398",
+            "pcb_component_621",
+            "pcb_port_796",
+            "pcb_port_1571"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin27.top to PCIe.pin27] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_614",
+            "source_trace_614",
+            "pcb_trace_20",
+            "pcb_component_399",
+            "pcb_component_621",
+            "pcb_port_798",
+            "pcb_port_1574"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin28.top to PCIe.pin28] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_616",
+            "source_trace_616",
+            "pcb_trace_20",
+            "pcb_component_400",
+            "pcb_component_621",
+            "pcb_port_800",
+            "pcb_port_1575"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin31.top to PCIe.pin31] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_618",
+            "source_trace_618",
+            "pcb_trace_20",
+            "pcb_component_401",
+            "pcb_component_621",
+            "pcb_port_802",
+            "pcb_port_1578"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin34.top to PCIe.pin34] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_620",
+            "source_trace_620",
+            "pcb_trace_20",
+            "pcb_component_402",
+            "pcb_component_621",
+            "pcb_port_804",
+            "pcb_port_1581"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin37.top to PCIe.pin37] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_622",
+            "source_trace_622",
+            "pcb_trace_20",
+            "pcb_component_403",
+            "pcb_component_621",
+            "pcb_port_806",
+            "pcb_port_1584"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin38.top to PCIe.pin38] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_624",
+            "source_trace_624",
+            "pcb_trace_20",
+            "pcb_component_404",
+            "pcb_component_621",
+            "pcb_port_808",
+            "pcb_port_1585"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin41.top to PCIe.pin41] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_626",
+            "source_trace_626",
+            "pcb_trace_20",
+            "pcb_component_405",
+            "pcb_component_621",
+            "pcb_port_810",
+            "pcb_port_1588"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin42.top to PCIe.pin42] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_628",
+            "source_trace_628",
+            "pcb_trace_20",
+            "pcb_component_406",
+            "pcb_component_621",
+            "pcb_port_812",
+            "pcb_port_1589"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin45.top to PCIe.pin45] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_630",
+            "source_trace_630",
+            "pcb_trace_20",
+            "pcb_component_407",
+            "pcb_component_621",
+            "pcb_port_814",
+            "pcb_port_1592"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin46.top to PCIe.pin46] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_632",
+            "source_trace_632",
+            "pcb_trace_20",
+            "pcb_component_408",
+            "pcb_component_621",
+            "pcb_port_816",
+            "pcb_port_1593"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin49.top to PCIe.pin49] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_634",
+            "source_trace_634",
+            "pcb_trace_20",
+            "pcb_component_409",
+            "pcb_component_621",
+            "pcb_port_818",
+            "pcb_port_1596"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin51.top to PCIe.pin51] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_636",
+            "source_trace_636",
+            "pcb_trace_20",
+            "pcb_component_410",
+            "pcb_component_621",
+            "pcb_port_820",
+            "pcb_port_1598"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin54.top to PCIe.pin54] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_638",
+            "source_trace_638",
+            "pcb_trace_20",
+            "pcb_component_411",
+            "pcb_component_621",
+            "pcb_port_822",
+            "pcb_port_1601"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin55.top to PCIe.pin55] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_640",
+            "source_trace_640",
+            "pcb_trace_20",
+            "pcb_component_412",
+            "pcb_component_621",
+            "pcb_port_824",
+            "pcb_port_1602"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin58.top to PCIe.pin58] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_642",
+            "source_trace_642",
+            "pcb_trace_20",
+            "pcb_component_413",
+            "pcb_component_621",
+            "pcb_port_826",
+            "pcb_port_1605"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin59.top to PCIe.pin59] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_644",
+            "source_trace_644",
+            "pcb_trace_20",
+            "pcb_component_414",
+            "pcb_component_621",
+            "pcb_port_828",
+            "pcb_port_1606"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin62.top to PCIe.pin62] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_646",
+            "source_trace_646",
+            "pcb_trace_20",
+            "pcb_component_415",
+            "pcb_component_621",
+            "pcb_port_830",
+            "pcb_port_1609"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin63.top to PCIe.pin63] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_648",
+            "source_trace_648",
+            "pcb_trace_20",
+            "pcb_component_416",
+            "pcb_component_621",
+            "pcb_port_832",
+            "pcb_port_1610"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin66.top to PCIe.pin66] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_650",
+            "source_trace_650",
+            "pcb_trace_20",
+            "pcb_component_417",
+            "pcb_component_621",
+            "pcb_port_834",
+            "pcb_port_1613"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin67.top to PCIe.pin67] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_652",
+            "source_trace_652",
+            "pcb_trace_20",
+            "pcb_component_418",
+            "pcb_component_621",
+            "pcb_port_836",
+            "pcb_port_1614"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin70.top to PCIe.pin70] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_654",
+            "source_trace_654",
+            "pcb_trace_20",
+            "pcb_component_419",
+            "pcb_component_621",
+            "pcb_port_838",
+            "pcb_port_1617"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin71.top to PCIe.pin71] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_656",
+            "source_trace_656",
+            "pcb_trace_20",
+            "pcb_component_420",
+            "pcb_component_621",
+            "pcb_port_840",
+            "pcb_port_1618"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin74.top to PCIe.pin74] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_658",
+            "source_trace_658",
+            "pcb_trace_20",
+            "pcb_component_421",
+            "pcb_component_621",
+            "pcb_port_842",
+            "pcb_port_1621"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin75.top to PCIe.pin75] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_660",
+            "source_trace_660",
+            "pcb_trace_20",
+            "pcb_component_422",
+            "pcb_component_621",
+            "pcb_port_844",
+            "pcb_port_1622"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin78.top to PCIe.pin78] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_662",
+            "source_trace_662",
+            "pcb_trace_20",
+            "pcb_component_423",
+            "pcb_component_621",
+            "pcb_port_846",
+            "pcb_port_1625"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin79.top to PCIe.pin79] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_664",
+            "source_trace_664",
+            "pcb_trace_20",
+            "pcb_component_424",
+            "pcb_component_621",
+            "pcb_port_848",
+            "pcb_port_1626"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin82.top to PCIe.pin82] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_666",
+            "source_trace_666",
+            "pcb_trace_20",
+            "pcb_component_425",
+            "pcb_component_621",
+            "pcb_port_850",
+            "pcb_port_1629"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin85.top to PCIe.pin85] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_668",
+            "source_trace_668",
+            "pcb_trace_20",
+            "pcb_component_426",
+            "pcb_component_621",
+            "pcb_port_852",
+            "pcb_port_1632"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin87.top to PCIe.pin87] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_670",
+            "source_trace_670",
+            "pcb_trace_20",
+            "pcb_component_427",
+            "pcb_component_621",
+            "pcb_port_854",
+            "pcb_port_1634"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin89.top to PCIe.pin89] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_672",
+            "source_trace_672",
+            "pcb_trace_20",
+            "pcb_component_428",
+            "pcb_component_621",
+            "pcb_port_856",
+            "pcb_port_1636"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin91.top to PCIe.pin91] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_674",
+            "source_trace_674",
+            "pcb_trace_20",
+            "pcb_component_429",
+            "pcb_component_621",
+            "pcb_port_858",
+            "pcb_port_1638"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin93.top to PCIe.pin93] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_676",
+            "source_trace_676",
+            "pcb_trace_20",
+            "pcb_component_430",
+            "pcb_component_621",
+            "pcb_port_860",
+            "pcb_port_1640"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin95.top to PCIe.pin95] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_678",
+            "source_trace_678",
+            "pcb_trace_20",
+            "pcb_component_431",
+            "pcb_component_621",
+            "pcb_port_862",
+            "pcb_port_1642"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin97.top to PCIe.pin97] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_680",
+            "source_trace_680",
+            "pcb_trace_20",
+            "pcb_component_432",
+            "pcb_component_621",
+            "pcb_port_864",
+            "pcb_port_1644"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin99.top to PCIe.pin99] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_682",
+            "source_trace_682",
+            "pcb_trace_20",
+            "pcb_component_433",
+            "pcb_component_621",
+            "pcb_port_866",
+            "pcb_port_1646"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin100.top to PCIe.pin100] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_684",
+            "source_trace_684",
+            "pcb_trace_20",
+            "pcb_component_434",
+            "pcb_component_621",
+            "pcb_port_868",
+            "pcb_port_1647"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin102.top to PCIe.pin102] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_686",
+            "source_trace_686",
+            "pcb_trace_20",
+            "pcb_component_435",
+            "pcb_component_621",
+            "pcb_port_870",
+            "pcb_port_1649"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin104.top to PCIe.pin104] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_688",
+            "source_trace_688",
+            "pcb_trace_20",
+            "pcb_component_436",
+            "pcb_component_621",
+            "pcb_port_872",
+            "pcb_port_1651"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin106.top to PCIe.pin106] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_690",
+            "source_trace_690",
+            "pcb_trace_20",
+            "pcb_component_437",
+            "pcb_component_621",
+            "pcb_port_874",
+            "pcb_port_1653"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin109.top to PCIe.pin109] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_692",
+            "source_trace_692",
+            "pcb_trace_20",
+            "pcb_component_438",
+            "pcb_component_621",
+            "pcb_port_876",
+            "pcb_port_1656"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin111.top to PCIe.pin111] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_694",
+            "source_trace_694",
+            "pcb_trace_20",
+            "pcb_component_439",
+            "pcb_component_621",
+            "pcb_port_878",
+            "pcb_port_1658"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin113.top to PCIe.pin113] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_696",
+            "source_trace_696",
+            "pcb_trace_20",
+            "pcb_component_440",
+            "pcb_component_621",
+            "pcb_port_880",
+            "pcb_port_1660"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin117.top to PCIe.pin117] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_698",
+            "source_trace_698",
+            "pcb_trace_20",
+            "pcb_component_441",
+            "pcb_component_621",
+            "pcb_port_882",
+            "pcb_port_1664"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin120.top to PCIe.pin120] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_700",
+            "source_trace_700",
+            "pcb_trace_20",
+            "pcb_component_442",
+            "pcb_component_621",
+            "pcb_port_884",
+            "pcb_port_1667"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin125.top to PCIe.pin125] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_702",
+            "source_trace_702",
+            "pcb_trace_20",
+            "pcb_component_443",
+            "pcb_component_621",
+            "pcb_port_886",
+            "pcb_port_1672"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin127.top to PCIe.pin127] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_704",
+            "source_trace_704",
+            "pcb_trace_20",
+            "pcb_component_444",
+            "pcb_component_621",
+            "pcb_port_888",
+            "pcb_port_1674"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin129.top to PCIe.pin129] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_706",
+            "source_trace_706",
+            "pcb_trace_20",
+            "pcb_component_445",
+            "pcb_component_621",
+            "pcb_port_890",
+            "pcb_port_1676"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin131.top to PCIe.pin131] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_708",
+            "source_trace_708",
+            "pcb_trace_20",
+            "pcb_component_446",
+            "pcb_component_621",
+            "pcb_port_892",
+            "pcb_port_1678"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin133.top to PCIe.pin133] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_710",
+            "source_trace_710",
+            "pcb_trace_20",
+            "pcb_component_447",
+            "pcb_component_621",
+            "pcb_port_894",
+            "pcb_port_1680"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin135.top to PCIe.pin135] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_712",
+            "source_trace_712",
+            "pcb_trace_20",
+            "pcb_component_448",
+            "pcb_component_621",
+            "pcb_port_896",
+            "pcb_port_1682"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin137.top to PCIe.pin137] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_714",
+            "source_trace_714",
+            "pcb_trace_20",
+            "pcb_component_449",
+            "pcb_component_621",
+            "pcb_port_898",
+            "pcb_port_1684"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin139.top to PCIe.pin139] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_716",
+            "source_trace_716",
+            "pcb_trace_20",
+            "pcb_component_450",
+            "pcb_component_621",
+            "pcb_port_900",
+            "pcb_port_1686"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin143.top to PCIe.pin143] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_718",
+            "source_trace_718",
+            "pcb_trace_20",
+            "pcb_component_451",
+            "pcb_component_621",
+            "pcb_port_902",
+            "pcb_port_1690"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin145.top to PCIe.pin145] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_720",
+            "source_trace_720",
+            "pcb_trace_20",
+            "pcb_component_452",
+            "pcb_component_621",
+            "pcb_port_904",
+            "pcb_port_1692"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin147.top to PCIe.pin147] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_722",
+            "source_trace_722",
+            "pcb_trace_20",
+            "pcb_component_453",
+            "pcb_component_621",
+            "pcb_port_906",
+            "pcb_port_1694"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin149.top to PCIe.pin149] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_724",
+            "source_trace_724",
+            "pcb_trace_20",
+            "pcb_component_454",
+            "pcb_component_621",
+            "pcb_port_908",
+            "pcb_port_1696"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin152.top to PCIe.pin152] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_726",
+            "source_trace_726",
+            "pcb_trace_20",
+            "pcb_component_455",
+            "pcb_component_621",
+            "pcb_port_910",
+            "pcb_port_1699"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin154.top to PCIe.pin154] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_728",
+            "source_trace_728",
+            "pcb_trace_20",
+            "pcb_component_456",
+            "pcb_component_621",
+            "pcb_port_912",
+            "pcb_port_1701"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin156.top to PCIe.pin156] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_730",
+            "source_trace_730",
+            "pcb_trace_20",
+            "pcb_component_457",
+            "pcb_component_621",
+            "pcb_port_914",
+            "pcb_port_1703"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin157.top to PCIe.pin157] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_732",
+            "source_trace_732",
+            "pcb_trace_20",
+            "pcb_component_458",
+            "pcb_component_621",
+            "pcb_port_916",
+            "pcb_port_1704"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_PCIE_GND_pin163.top to PCIe.pin163] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_734",
+            "source_trace_734",
+            "pcb_trace_20",
+            "pcb_component_459",
+            "pcb_component_621",
+            "pcb_port_918",
+            "pcb_port_1710"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C131_GND.top to C131.pin2] is routed thinner than requested (requested: 0.4mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_738",
+            "source_trace_738",
+            "pcb_trace_20",
+            "pcb_component_461",
+            "pcb_component_642",
+            "pcb_port_922",
+            "pcb_port_1753"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C132_GND.top to C132.pin2] is routed thinner than requested (requested: 0.6mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_742",
+            "source_trace_742",
+            "pcb_trace_20",
+            "pcb_component_463",
+            "pcb_component_638",
+            "pcb_port_926",
+            "pcb_port_1745"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C133_GND.top to C133.pin2] is routed thinner than requested (requested: 0.6mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_746",
+            "source_trace_746",
+            "pcb_trace_20",
+            "pcb_component_465",
+            "pcb_component_639",
+            "pcb_port_930",
+            "pcb_port_1747"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C134_pin2_38.top to C134.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_756",
+            "source_trace_756",
+            "pcb_trace_20",
+            "pcb_component_470",
+            "pcb_component_637",
+            "pcb_port_940",
+            "pcb_port_1742"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C134_pin2_39.top to C134.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_758",
+            "source_trace_758",
+            "pcb_trace_20",
+            "pcb_component_471",
+            "pcb_component_637",
+            "pcb_port_942",
+            "pcb_port_1742"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C134_pin2_40.top to C134.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_760",
+            "source_trace_760",
+            "pcb_trace_20",
+            "pcb_component_472",
+            "pcb_component_637",
+            "pcb_port_944",
+            "pcb_port_1742"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C134_pin2_41.top to C134.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_762",
+            "source_trace_762",
+            "pcb_trace_20",
+            "pcb_component_473",
+            "pcb_component_637",
+            "pcb_port_946",
+            "pcb_port_1742"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C135_pin2_45.top to C135.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_770",
+            "source_trace_770",
+            "pcb_trace_20",
+            "pcb_component_477",
+            "pcb_component_640",
+            "pcb_port_954",
+            "pcb_port_1748"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C135_pin2_46.top to C135.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_772",
+            "source_trace_772",
+            "pcb_trace_20",
+            "pcb_component_478",
+            "pcb_component_640",
+            "pcb_port_956",
+            "pcb_port_1748"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C135_pin2_47.top to C135.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_774",
+            "source_trace_774",
+            "pcb_trace_20",
+            "pcb_component_479",
+            "pcb_component_640",
+            "pcb_port_958",
+            "pcb_port_1748"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_DRV_3V3.top to Q_SLOT_DRV_3V3.G] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_776",
+            "source_trace_776",
+            "pcb_trace_352",
+            "pcb_component_498",
+            "pcb_component_644",
+            "pcb_port_996",
+            "pcb_port_1760"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_HDDPC_DRV_12V.top to Q_SLOT_DRV_12V.G] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_778",
+            "source_trace_778",
+            "pcb_trace_352",
+            "pcb_component_499",
+            "pcb_component_653",
+            "pcb_port_1000",
+            "pcb_port_1785"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C136_pin2_1.top to C136.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_791",
+            "source_trace_791",
+            "pcb_trace_20",
+            "pcb_component_507",
+            "pcb_component_641",
+            "pcb_port_1024",
+            "pcb_port_1750"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C136_pin2_2.top to C136.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_793",
+            "source_trace_793",
+            "pcb_trace_20",
+            "pcb_component_508",
+            "pcb_component_641",
+            "pcb_port_1026",
+            "pcb_port_1750"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SP_C136_pin2_3.top to C136.pin2] is routed thinner than requested (requested: 0.8mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_795",
+            "source_trace_795",
+            "pcb_trace_20",
+            "pcb_component_509",
+            "pcb_component_641",
+            "pcb_port_1028",
+            "pcb_port_1750"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_SLOT_GATE_3V3.pin1 to C_SLOT_GATE_3V3_B.pin1] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_808",
+            "source_trace_808",
+            "pcb_trace_200",
+            "pcb_component_649",
+            "pcb_component_650",
+            "pcb_port_1770",
+            "pcb_port_1772"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [USBC.A1 to VBUS_GND_A1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_831",
+            "source_trace_831",
+            "pcb_trace_17",
+            "pcb_component_527",
+            "pcb_component_659",
+            "pcb_port_1072",
+            "pcb_port_1824"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [USBC.A12 to VBUS_GND_A12.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_832",
+            "source_trace_832",
+            "pcb_trace_17",
+            "pcb_component_528",
+            "pcb_component_659",
+            "pcb_port_1075",
+            "pcb_port_1813"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [USBC.B1 to VBUS_GND_B1.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_833",
+            "source_trace_833",
+            "pcb_trace_17",
+            "pcb_component_529",
+            "pcb_component_659",
+            "pcb_port_1078",
+            "pcb_port_1812"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [USBC.B12 to USB_SHIELD_FENCE_18.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_834",
+            "source_trace_834",
+            "pcb_trace_17",
+            "pcb_component_46",
+            "pcb_component_659",
+            "pcb_port_92",
+            "pcb_port_1801"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_VBUS_BOTTOM.pin2 to USB_SHIELD_FENCE_37.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_835",
+            "source_trace_835",
+            "pcb_trace_17",
+            "pcb_component_65",
+            "pcb_component_685",
+            "pcb_port_130",
+            "pcb_port_1878"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VBUS_SENSE.pin2 to USB_SHIELD_FENCE_26.top] is routed thinner than requested (requested: 0.15mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_843",
+            "source_trace_843",
+            "pcb_trace_17",
+            "pcb_component_54",
+            "pcb_component_686",
+            "pcb_port_108",
+            "pcb_port_1880"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_RST_N.pin2 to GRET_R_RST_N.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_855",
+            "source_trace_855",
+            "pcb_trace_17",
+            "pcb_component_530",
+            "pcb_component_558",
+            "pcb_port_1081",
+            "pcb_port_1410"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_TEST_EN.pin2 to GRET_R_TEST_EN.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_856",
+            "source_trace_856",
+            "pcb_trace_17",
+            "pcb_component_531",
+            "pcb_component_559",
+            "pcb_port_1083",
+            "pcb_port_1412"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [W25Q32JVSSIQ.pin4 to GRET_W25Q32JVSSIQ.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_857",
+            "source_trace_857",
+            "pcb_trace_17",
+            "pcb_component_532",
+            "pcb_component_560",
+            "pcb_port_1085",
+            "pcb_port_1416"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_RST.pin2 to GRET_C_RST.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_858",
+            "source_trace_858",
+            "pcb_trace_17",
+            "pcb_component_533",
+            "pcb_component_568",
+            "pcb_port_1087",
+            "pcb_port_1438"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [SW_RESET.pin2 to GRET_SW_RESET.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_859",
+            "source_trace_859",
+            "pcb_trace_17",
+            "pcb_component_534",
+            "pcb_component_569",
+            "pcb_port_1089",
+            "pcb_port_1440"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_TX1_P.pin2 to GRET_R_USB_TX1_P.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_860",
+            "source_trace_860",
+            "pcb_trace_17",
+            "pcb_component_535",
+            "pcb_component_662",
+            "pcb_port_1091",
+            "pcb_port_1832"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_TX2_P.pin2 to GRET_R_USB_TX2_P.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_861",
+            "source_trace_861",
+            "pcb_trace_17",
+            "pcb_component_536",
+            "pcb_component_668",
+            "pcb_port_1093",
+            "pcb_port_1844"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_TX2_N.pin2 to GRET_R_USB_TX2_N.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_862",
+            "source_trace_862",
+            "pcb_trace_17",
+            "pcb_component_537",
+            "pcb_component_671",
+            "pcb_port_1095",
+            "pcb_port_1850"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_RX1_P.pin2 to GRET_R_USB_RX1_P.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_863",
+            "source_trace_863",
+            "pcb_trace_17",
+            "pcb_component_538",
+            "pcb_component_674",
+            "pcb_port_1097",
+            "pcb_port_1856"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_RX1_N.pin2 to GRET_R_USB_RX1_N.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_864",
+            "source_trace_864",
+            "pcb_trace_17",
+            "pcb_component_539",
+            "pcb_component_677",
+            "pcb_port_1099",
+            "pcb_port_1862"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_RX2_N.pin2 to GRET_R_USB_RX2_N.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_865",
+            "source_trace_865",
+            "pcb_trace_17",
+            "pcb_component_540",
+            "pcb_component_683",
+            "pcb_port_1101",
+            "pcb_port_1874"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_TX1_N.pin2 to USB_SHIELD_FENCE_29.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_866",
+            "source_trace_866",
+            "pcb_trace_17",
+            "pcb_component_57",
+            "pcb_component_664",
+            "pcb_port_114",
+            "pcb_port_1836"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_TX2_P.pin2 to USB_SHIELD_FENCE_34.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_867",
+            "source_trace_867",
+            "pcb_trace_17",
+            "pcb_component_62",
+            "pcb_component_667",
+            "pcb_port_124",
+            "pcb_port_1842"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_TX2_N.pin2 to USB_SHIELD_FENCE_32.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_868",
+            "source_trace_868",
+            "pcb_trace_17",
+            "pcb_component_60",
+            "pcb_component_670",
+            "pcb_port_120",
+            "pcb_port_1848"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_RX1_P.pin2 to USB_SHIELD_FENCE_6.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_869",
+            "source_trace_869",
+            "pcb_trace_17",
+            "pcb_component_34",
+            "pcb_component_673",
+            "pcb_port_68",
+            "pcb_port_1854"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_RX1_N.pin2 to USB4_GND_RETURN_1.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_870",
+            "source_trace_870",
+            "pcb_trace_17",
+            "pcb_component_542",
+            "pcb_component_676",
+            "pcb_port_1105",
+            "pcb_port_1860"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_RX2_P.pin2 to USB_SHIELD_FENCE_10.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_871",
+            "source_trace_871",
+            "pcb_trace_17",
+            "pcb_component_38",
+            "pcb_component_679",
+            "pcb_port_76",
+            "pcb_port_1866"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_RX2_P.pin2 to USB_SHIELD_FENCE_13.top] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_872",
+            "source_trace_872",
+            "pcb_trace_17",
+            "pcb_component_41",
+            "pcb_component_680",
+            "pcb_port_82",
+            "pcb_port_1868"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_USB_TX1_N.pin2 to USB2_GND_RETURN_2.top] is routed thinner than requested (requested: 0.2mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_873",
+            "source_trace_873",
+            "pcb_trace_17",
+            "pcb_component_86",
+            "pcb_component_665",
+            "pcb_port_172",
+            "pcb_port_1838"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.V2 to D_USB_TX2_P.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_882",
+            "source_trace_882",
+            "saved_phase_null_0_8",
+            "pcb_component_557",
+            "pcb_component_667",
+            "pcb_port_1349",
+            "pcb_port_1841"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_TX2_P.pin1 to C_USB_TX2_P.pin2] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_883",
+            "source_trace_883",
+            "saved_phase_null_0_8",
+            "pcb_component_666",
+            "pcb_component_667",
+            "pcb_port_1840",
+            "pcb_port_1841"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.V1 to D_USB_TX2_N.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_886",
+            "source_trace_886",
+            "saved_phase_null_0_12",
+            "pcb_component_557",
+            "pcb_component_670",
+            "pcb_port_1348",
+            "pcb_port_1847"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_TX2_N.pin1 to C_USB_TX2_N.pin2] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_887",
+            "source_trace_887",
+            "saved_phase_null_0_12",
+            "pcb_component_669",
+            "pcb_component_670",
+            "pcb_port_1846",
+            "pcb_port_1847"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.P1 to D_USB_RX1_P.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_890",
+            "source_trace_890",
+            "saved_phase_null_0_16",
+            "pcb_component_557",
+            "pcb_component_673",
+            "pcb_port_1299",
+            "pcb_port_1853"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_RX1_P.pin1 to C_USB_RX1_P.pin2] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_891",
+            "source_trace_891",
+            "saved_phase_null_0_16",
+            "pcb_component_672",
+            "pcb_component_673",
+            "pcb_port_1852",
+            "pcb_port_1853"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [ASM2464PDX.P2 to D_USB_RX1_N.pin1] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_894",
+            "source_trace_894",
+            "saved_phase_null_0_20",
+            "pcb_component_557",
+            "pcb_component_676",
+            "pcb_port_1300",
+            "pcb_port_1859"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [D_USB_RX1_N.pin1 to C_USB_RX1_N.pin2] is routed thinner than requested (requested: 0.1234mm, actual: 0.0762mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_895",
+            "source_trace_895",
+            "saved_phase_null_0_20",
+            "pcb_component_675",
+            "pcb_component_676",
+            "pcb_port_1858",
+            "pcb_port_1859"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [C_VCCA33_7.pin1 to C_VCCA33_9.pin1] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_1245",
+            "source_trace_1245",
+            "pcb_trace_211",
+            "pcb_component_582",
+            "pcb_component_583",
+            "pcb_port_1470",
+            "pcb_port_1472"
+          ]
+        },
+        {
+          "rule": "pcb_trace_warning",
+          "severity": "warning",
+          "message": "Trace [R_HDDPC_PD.pin1 to Q_SLOT_DRV_3V3.G] is routed thinner than requested (requested: 0.25mm, actual: 0.1mm).",
+          "elementIds": [
+            "pcb_trace_warning_source_trace_1530",
+            "source_trace_1530",
+            "pcb_trace_352",
+            "pcb_component_644",
+            "pcb_component_658",
+            "pcb_port_1760",
+            "pcb_port_1795"
+          ]
+        }
+      ]
+    }
+  },
+  "notBlockingOnTheirOwn": [
+    "Murata absence of a published 10%-inductance-drop rating: this was an extra audit criterion, not a failed TI requirement.",
+    "15 microinch PCIe plating: accepted prototype wear tradeoff.",
+    "Unchanged nearest-port capacitor-orientation heuristic: no placement DRC errors; actual copper checks passed."
+  ],
+  "budget": {
+    "projectedCheckoutUsd": "459.472530",
+    "supplierQuoteForCurrentRevisionConfirmed": false,
+    "allInTaxCollectionConfirmed": false,
+    "note": "Projection unchanged. No new all-in quote was confirmed during this review."
+  },
+  "stockGapQualification": "The five missing parts in the older quote have local in-stock replacements in the current design. This review does not assert they are still missing from an unseen current cart; it confirms the available local older package/quote is not the current release.",
+  "filesNotCurrent": [
+    "dist/download-export-2026-10-28/flamingo-cpl-2026-10-28.csv",
+    "dist/download-export-2026-10-28/flamingo-gerbers-2026-10-28.zip",
+    "dist/download-export-2026-10-28/flamingo-bom-2026-10-28.csv"
+  ],
+  "existingReview": "dist/reliability-review-2026-10-28/hardware-review.html",
+  "primaryManufacturingReferences": [
+    "https://jlcpcb.com/blog/bga-stencil-design-apertures-thickness-tips",
+    "https://jlcpcb.com/help/article/pcb-via-covering",
+    "https://jlcpcb.com/help/article/instructions-for-stencil-order"
+  ],
+  "laterExportUpdate": {
+    "dateLocal": "2026-10-29",
+    "folder": "/Users/jc/Downloads/Flamingo-RevA-2026-10-29",
+    "archive": "/Users/jc/Downloads/Flamingo-RevA-2026-10-29.zip",
+    "projectCopy": "dist/flamingo-order-2026-10-29",
+    "sourceBoardSha256": "b237ad3ac3f1abc70a7242f0c7996f5137c3d702efac4d32fd9b610c110f6c7a",
+    "nativeUiExport": true,
+    "verificationPassed": true,
+    "positionsPerBoard": 157,
+    "uniquePartNumbers": 40,
+    "allTop": true,
+    "viaCount": 685,
+    "openPlatedHoleCount": 45,
+    "npthCount": 4,
+    "manufacturerReviewRetained": true,
+    "hardwareQualificationChanged": false,
+    "supplierQuoteUpdated": false,
+    "orderPlaced": false
+  },
+  "laterPrototypeContext": "User clarified that the power and BGA review limits predate the cost revision, then requested current prototype files. The accepted prototype context retains those known limits and manufacturer review; no new hardware qualification pass is inferred."
+}

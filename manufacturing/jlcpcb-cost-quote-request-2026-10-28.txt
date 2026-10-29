@@ -1,0 +1,35 @@
+To: JLCPCB quotation and technical support
+Subject: Price review for two Flamingo PCBA prototypes, delivered to USA 94110
+
+Please review the price of this existing quotation:
+PCB: Y6-13814171A
+Assembly: SMT026102865716-13814171A
+PCB file number: 247d24db5b0244e5a3186e0fb1249a07
+
+The latest payable total shown to me is USD 507.90. I need two complete boards within a USD 410 total budget.
+
+Required build:
+- Five bare PCBs, two assembled. All components are on top.
+- Finished board: 52.5 x 123.62 mm; existing quoted rails: 70.5 x 123.62 mm.
+- Six layers, JLC06161H-3313, Nan Ya NP-155F, 1.6 mm nominal thickness.
+- Outer copper 1 oz; inner copper 0.5 oz.
+- ENIG, filled and capped vias, minimum existing drill/land 0.15/0.25 mm.
+- 85 ohm differential impedance with +/-10% fabrication control.
+- Use my two prepaid ASM2464PDX chips in My Parts, C9900153838. Do not buy new bridge chips.
+
+The revised price-review BOM has 158 placements per board and 46 distinct MPNs. It consolidates three feeder types and uses a lower-cost Murata inductor, TI inverter package, and XKB socket finish. The estimated merchandise reduction is USD 25.64, including conservative quantities and placement costs. Please verify purchasing quantities, attrition, minimums, and feeder charges against the attached BOM.
+
+Please provide an itemized final quotation, including:
+- PCB fabrication and all mandatory test/process fees.
+- Components, attrition, setup, stencil, feeder, assembly, and placement review.
+- The combined BGA pad, filled/capped via, mask, and 0.06 mm local stencil process review. Please include every required surcharge.
+- Shipping to USA ZIP 94110, import duty, disbursement, and any collected California tax.
+- All applicable discounts and coupon eligibility.
+
+The factory checkout target is USD 365 or less, including shipping, import charges, coupons, and every required review surcharge. This reserves USD 45 for any California use tax not collected at checkout. No external parts or extra overseas shipping are planned.
+
+Can an available discount or a reviewed manufacturing option meet that limit while preserving the required electrical and assembly construction? Please distinguish confirmed prices from conditional options. Do not change component substitutions, impedance, stackup, or via construction without review.
+
+This is a quotation inquiry only. Do not place an order, purchase parts, consume the consigned chips, or start production.
+
+The attached BOM is for price review. Several land patterns changed. It must not be manufactured with the old Gerbers; matching revised fabrication files must follow the final engineering review.

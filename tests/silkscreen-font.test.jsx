@@ -90,5 +90,6 @@ test("board rendering converts resolved header and revision labels to Iosevka ou
     && element.pcb_silkscreen_graphic_id.startsWith("iosevka_"));
   assert.equal(graphics.length, resolvedLabels.flatMap(outlineSilkscreenText).length);
   const artwork = Children.toArray(BoardArtwork().props.children);
-  assert.equal(artwork.length, 1, "only the badge is enabled; the flamingo stays hidden");
+  assert.equal(artwork.length, 2, "badge and revision caption are enabled; the flamingo stays hidden");
+  assert.equal(artwork[1].props.text, "rev 1");
 });

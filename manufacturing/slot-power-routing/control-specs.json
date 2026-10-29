@@ -1,9 +1,9 @@
 [
   {
     "name": "SP_3V3_GATE_OFF",
-    "from": "R_SLOT_OFF_3V3.pin2",
+    "from": "R_SLOT_OFF_3V3_B.pin2",
     "to": "Q_SLOT_3V3.pin4",
-    "select": "R_SLOT_OFF_3V3.pin2",
+    "select": "R_SLOT_OFF_3V3_B.pin2",
     "layer": "top",
     "width": 0.15
   },

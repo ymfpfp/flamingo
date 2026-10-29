@@ -1,7 +1,5 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
-import {Circuit} from "tscircuit";
-import {SN74AHCT1G14DBVR} from "../imports/SN74AHCT1G14DBVR";
 import {boardFixture} from "./board-fixture.mjs";
 
 const json = boardFixture();
@@ -56,56 +54,16 @@ test("the removable start link grounds PS_ON# without shorting a supply rail", (
   assert.equal(linkRemoved("R_PSU_ON", "pin2"), linkRemoved("ATX", "pin3"));
 });
 
-test("PWR_OK only senses through the TTL input and pull-down; the 5 V driver supplies LED current", () => {
-  assert.equal(component("U_PSU_LED").manufacturer_part_number, "SN74AHCT1G14DBVR");
-  assert.equal(component("LED_PSU_OK").manufacturer_part_number, "XL-1608UWC-04");
+test("external PWR_OK wire access stays isolated from automatic start, supplies and reset", () => {
+  assert.equal(net("ATX", "pin8"), net("PSU_ACCESS", "PWR_OK"));
+  assert.equal(net("ATX", "pin4"), net("PSU_ACCESS", "V5V"));
+  assert.equal(net("ATX", "pin3"), net("PSU_ACCESS", "GND"));
+  const access=component("PSU_ACCESS");
+  assert.ok(json.find(e=>e.type==="pcb_component" && e.source_component_id===access.source_component_id).do_not_place);
+  assert.equal(json.filter(e=>e.type==="pcb_plated_hole" && e.pcb_component_id===json.find(e=>e.type==="pcb_component" && e.source_component_id===access.source_component_id).pcb_component_id).length,3);
   const status = net("ATX", "pin8");
-  const ground = net("ATX", "pin3");
-  const main5V = net("ATX", "pin4");
-  assert.equal(net("U_PSU_LED", "pin2"), status);
-  assert.equal(net("R_PSU_OK_PD", "pin1"), status);
-  assert.equal(net("R_PSU_OK_PD", "pin2"), ground);
-  assert.equal(net("U_PSU_LED", "pin5"), main5V);
-  assert.equal(net("U_PSU_LED", "pin3"), ground);
-  assert.equal(net("C_PSU_LED", "pin1"), main5V);
-  assert.equal(net("C_PSU_LED", "pin2"), ground);
-  assert.equal(component("C_PSU_LED").capacitance, 100e-9);
-  assert.equal(net("R_PSU_LED", "pin1"), main5V);
-  assert.equal(net("R_PSU_LED", "pin2"), net("LED_PSU_OK", "anode"));
-  assert.equal(net("LED_PSU_OK", "cathode"), net("U_PSU_LED", "pin4"));
-  assert.equal(new Set([status, ground, main5V, net("LED_PSU_OK", "anode"),
-    net("LED_PSU_OK", "cathode"), net("ATX", "pin9")]).size, 6);
-  const directlyLoadedByStatus = ports.filter(p => net.port(p.source_port_id) === status)
-    .map(p => components.find(c => c.source_component_id === p.source_component_id).name);
-  assert.deepEqual([...new Set(directlyLoadedByStatus)].sort(), ["ATX", "R_PSU_OK_PD", "U_PSU_LED"]);
-});
-
-test("the status input and LED branch stay within their datasheet current budgets", () => {
-  // Intel PWR_OK: 2.4..5 V high, 200 uA guaranteed sourcing.
-  // TI AHCT1G14: VT+ <=2.0 V, input leakage <=1 uA, sink current <=8 mA.
-  const pullDownMin = component("R_PSU_OK_PD").resistance * 0.99;
-  const ledResistanceMin = component("R_PSU_LED").resistance * 0.99;
-  assert.ok(5 / pullDownMin + 1e-6 < 200e-6, "PWR_OK sources only pull-down current and input leakage");
-  // Conservative bound: ignore LED forward voltage and output saturation entirely.
-  assert.ok(5.25 / ledResistanceMin < 8e-3, "the LED branch cannot exceed the driver sink rating");
-  assert.ok(5.25 ** 2 / ledResistanceMin < 0.0625, "the 0402 resistor stays below 1/16 W");
-});
-
-test("PSU inverter lands retain clearance at every packing rotation", async () => {
-  for(const rotation of [0,90,180,270]) {
-    const c=new Circuit();c.schematicDisabled=true;
-    c.add(<board routingDisabled><SN74AHCT1G14DBVR name="U_TEST" pcbX={0} pcbY={0} pcbRotation={rotation}/></board>);
-    await c.renderUntilSettled();
-    const j=c.getCircuitJson(), pads=j.filter(e=>e.type==="pcb_smtpad");
-    assert.equal(pads.length,5);
-    assert.ok(!j.some(e=>e.type==="pcb_pad_pad_clearance_error"),`rotation ${rotation}`);
-    const adjacent=[1,2,3].map(pin=>pads.find(p=>p.port_hints.includes(`pin${pin}`)));
-    assert.ok(adjacent.every(Boolean));
-    for(let i=1;i<adjacent.length;i++) {
-      const a=adjacent[i-1],b=adjacent[i];
-      const dx=Math.abs(a.x-b.x)-(a.width+b.width)/2;
-      const dy=Math.abs(a.y-b.y)-(a.height+b.height)/2;
-      assert.ok(Math.max(dx,dy)>=0.349999,`adjacent pin clearance at ${rotation}`);
-    }
+  for (const [name, pin] of [["ATX", "pin3"], ["ATX", "pin16"], ["ATX", "pin4"],
+    ["U_BUCK_EN", "N_RESET"], ["ASM2464PDX", "RST_N"]]) {
+    assert.notEqual(status, net(name, pin), `${name}.${pin}`);
   }
 });

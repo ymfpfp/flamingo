@@ -679,5 +679,16 @@
     "selector": "ATX.pin1",
     "copperDiameter": 0.25,
     "drillDiameter": 0.15
+  },
+  {
+    "name": "VCCH_C_VCCA33_9_pin2",
+    "part": "C_VCCA33_9",
+    "pin": "pin2",
+    "net": "GND",
+    "x": 47.45,
+    "y": 90.05,
+    "selector": "C_VCCA33_9.pin2",
+    "copperDiameter": 0.4,
+    "drillDiameter": 0.2
   }
 ]

@@ -20,6 +20,8 @@ import {usbGuardBands, usbShieldFences} from "lib/usb-shielding";
 import {pcieConnectorRules, preparePcieConnectorRouting} from "lib/pcie-connector-routing";
 import {usb4Rules, usb4TraceRules} from "lib/high-speed-rules";
 import {configureSilkscreenFont} from "lib/silkscreen-font";
+import {BoardArtwork} from "components/BoardArtwork";
+import {PsuStatusAccess,PsuStatusAccessRouting} from "components/PsuStatusAccess";
 import {ControlRouting, controlNetProperties, type ControlAutorouting} from "components/ControlRouting";
 import {ControlSupportRoutes} from "components/ControlSupportRoutes";
 import {BridgeReset} from "components/BridgeReset";
@@ -31,26 +33,24 @@ import {VddReserve,VddSoftStart} from "components/VddReserve";
 import {BridgeVddDecoupling} from "components/BridgeVddDecoupling";
 import {BuckEnable} from "components/BuckEnable";
 import {BuckInputs} from "components/BuckInputs";
-import {PsuControl, PsuOkLed} from "components/PsuControl";
 import {PcieConnectorRouting} from "components/PcieConnectorRouting";
-import {PsuStatusRouting} from "components/PsuStatusRouting";
 import {SpiProgrammingHeader} from "components/SpiProgrammingHeader";
-import {SlotPower} from "components/SlotPower";
+import {SlotPower,SlotPowerCostRouting} from "components/SlotPower";
 import {SlotDecoupling} from "components/SlotDecoupling";
 import {UartHeader} from "components/UartHeader";
 import {Usb4Lanes, usb4Signals} from "components/Usb4Lanes";
 import {UsbVbusSense} from "components/UsbVbusSense";
 import {A_0402WGF0000TCE} from "imports/A_0402WGF0000TCE";
-import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
+import {RT0402BRD0710KL} from "imports/RT0402BRD0710KL";
 import {A_39301240} from "imports/A_39301240";
-import {CL05B104KO5NNNC} from "imports/CL05B104KO5NNNC";
+import {CL10B104KB8NNNC} from "imports/CL10B104KB8NNNC";
 import {CL05B224KO5NNNC} from "imports/CL05B224KO5NNNC";
 import ASM2464PDX from "imports/ASM2464PDX";
 import {GT_USB_7087B} from "imports/GT_USB_7087B";
-import {RC0402FR_0712K1L} from "imports/RC0402FR_0712K1L";
+import {RT0402BRD0712K1L} from "imports/RT0402BRD0712K1L";
 import {TCC0402COG100J500AT} from "imports/TCC0402COG100J500AT";
 import {W25Q32JVSSIQ} from "imports/W25Q32JVSSIQ";
-import {X1618WVS_164_9TV30} from "imports/X1618WVS_164_9TV30";
+import {X1618WVS_164_9TV15} from "imports/X1618WVS_164_9TV15";
 import {XXCBCLNANF_25M} from "imports/XXCBCLNANF_25M";
 
 // Coordinates place the bottom-left of each group's footprint/courtyard bounds.
@@ -62,7 +62,6 @@ export const pcbGroupPlacements = {
   "BRIDGE_CORE/OSCILLATOR": {pcbX: 8.2798845, pcbY: 21.179998}, // Short crystal loop above XI/XO; all parts remain on top.
   BRIDGE_UART: {pcbX: 43.07, pcbY: 59.95, pcbRotation: 90, offBoard: false}, // UART below SPI, near the bridge and right edge.
   R_UART_TX: {pcbX: 47.54, pcbY: 58.4, pcbRotation: 180, offBoard: false}, // Continue the UART column, 2.54 mm below GND.
-  LED_PSU_OK: {pcbX: 47.81655, pcbY: 28.05055, pcbRotation: 90, offBoard: false}, // Right-edge indicator beside its ATX control circuit.
   BRIDGE_SPI: {pcbX: 46.7, pcbY: 69.8, pcbRotation: 90, offBoard: false}, // Beside flash; same column as UART with 5.08 mm between their nearest holes.
   BRIDGE_RESET: {pcbX: 40.6, pcbY: 68.08, offBoard: false}, // Reset RC and button beside the SPI header; all parts stay on top.
 
@@ -111,13 +110,13 @@ export const pcbGroupPlacements = {
   USB4_LANES: {pcbX: 40.2, pcbY: 92.5653302, offBoard: false}, // Top-side banks, with bottom escapes returning before the ESD pads.
   USB_VBUS_SENSE: {pcbX: 37.434355, pcbY: 98.78, offBoard: false}, // Top-side filter outside the coupled USB4 corridors.
   ATX: {pcbX: 0, pcbY: 0, offBoard: false}, // Courtyard meets the bottom/left board edges.
-  R_PSU_ON: {pcbX: 47.50435, pcbY: 23.28, offBoard: false}, // Below the PSU LED near ATX, with clearance for rework.
+  PSU_ACCESS: {pcbX:38.69,pcbY:25.73,offBoard:false}, // Unpopulated 2.54 mm wire access.
+  R_PSU_ON: {pcbX: 47.50435, pcbY: 23.28, offBoard: false}, // Automatic-start link near ATX, with clearance for rework.
   // Local buck layouts keep VIN bypassing and the SW/inductor loops compact.
   // Offset VDD above/right of VCCL to clear the slot-power switch and bypasses.
-  VCCL_BUCK_INPUT: {pcbX: 21.995002, pcbY: 70.886, offBoard: false},
-  VDD_BUCK_INPUT: {pcbX: 31.595002, pcbY: 72.086, offBoard: false},
+  VCCL_BUCK_INPUT: {pcbX: 21.995002, pcbY: 70.729, offBoard: false},
+  VDD_BUCK_INPUT: {pcbX: 31.595002, pcbY: 71.929, offBoard: false},
   BUCK_ENABLE: {pcbX: 34, pcbY: 62, offBoard: false}, // Clear the slot-power switch and discharge resistor below the monitor.
-  PSU_CONTROL: {pcbX: 39.5, pcbY: 22.11, offBoard: false}, // Bypass below VCC, clear of the SOT-23 courtyard; driver and resistors retain their positions.
 } satisfies Record<string, PcbGroupPlacement>;
 
 function groupPlacement(name: string): PcbGroupPlacement {
@@ -229,7 +228,7 @@ function placePcbGroups(
   if (typeof node.type === "string" && pcbPartElements.has(node.type)) {
     const partName = String(props.name);
     // Only the access headers and reset button need labels on the assembled PCB.
-    const silkscreenStyle = ["UART", "SPI", "SW_RESET"].includes(partName) ? {} : {
+    const silkscreenStyle = ["UART", "SPI", "SW_RESET", "PSU_ACCESS"].includes(partName) ? {} : {
       pcbStyle: {...props.pcbStyle as Record<string, unknown>, silkscreenTextVisibility: "hidden"},
     };
     // Individual references listed in the map override schematic-section grouping.
@@ -349,6 +348,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
+      <BoardArtwork/>
       <net name="GND"/>
       <PowerDistributionSurfaceCopper/>
       <SlotPowerSurfaceCopper/>
@@ -376,7 +376,6 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
         connections={usb4RoutedContacts.flatMap(({name, ball}) => [`ASM2464PDX.${ball}`, `C_USB_${name}.pin1`])}
         pcbTracePaths={[]}/>
       <PcieConnectorRouting/>
-      <PsuStatusRouting/>
       <Usb2Routing/>
       <BridgeClockRouting/>
       <BuckRouting/>
@@ -385,6 +384,8 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
       <VcchRouting/>
       <Atx5vRouting/>
       <SlotPowerRouting/>
+      <SlotPowerCostRouting/>
+      <PsuStatusAccessRouting/>
       <VbusRouting/>
       <GroundReturns/>
       {/* Local return vias bridge the two GND references beside row transitions. */}
@@ -546,7 +547,8 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
                 fontSize={0.18} anchor="left"/>
             </Fragment>
           ))}
-          <RC0402FR_0712K1L
+          <RT0402BRD0712K1L
+            footprint="smdpads2_p0.8656mm_pw0.5657mm_ph0.54mm_cyw1.9313mm_cyh1.04mm"
             name="R_RST_N"
             pcbX={3.5} pcbY={11}
             schSectionName="BRIDGE_CHIP"
@@ -590,7 +592,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
             }}
           />
           {/* Standard SPI: bias WP/IO2 and unused IO3 high through separate pull-ups. */}
-          <A_0402WGF1002TCE
+          <RT0402BRD0710KL
             name="R_SPI_WP"
             pcbX={-4} pcbY={-7.1}
             schSectionName="BRIDGE_SPI"
@@ -604,7 +606,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
           {/* Winbond recommends an IO3 pull-up for non-Quad use:
               https://winbond.com/hq/support/faq/technical/?__locale=en
               We choose 10k to match CS; the FAQ specifies 10k explicitly only for CS. */}
-          <A_0402WGF1002TCE
+          <RT0402BRD0710KL
             name="R_SPI_HOLD"
             pcbX={-2} pcbY={-7.1} pcbRotation={180}
             schSectionName="BRIDGE_SPI"
@@ -625,7 +627,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
                 fontSize={0.18} anchor="left"/>
             </Fragment>
           ))}
-          <A_0402WGF1002TCE
+          <RT0402BRD0710KL
             name="R_SPI_CS"
             pcbX={0} pcbY={-7.1}
             schSectionName="BRIDGE_SPI"
@@ -637,9 +639,9 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
           <netlabel inline net="VCCH" connection="R_SPI_CS.pin1"/>
           <netlabel inline net="ASM_SPI_CS_N" connectsTo={["R_SPI_CS.pin2", "W25Q32JVSSIQ.N_CS"]}/>
           {/* C73 on ASMedia's reference schematic, sheet 3, is also 100nF. */}
-          <CL05B104KO5NNNC
+          <CL10B104KB8NNNC
             name="C_SPI_VCC"
-            pcbX={5} pcbY={-10.8} pcbRotation={90}
+            pcbX={5} pcbY={-11.05} pcbRotation={90}
             schSectionName="BRIDGE_SPI"
             schX={26}
             schY={8.8}
@@ -720,7 +722,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
         <schematictext text="AC-coupling capacitors" schX={-5.8} schY={1.4}
           fontSize={0.18} anchor="top_left"/>
         <schematictext text="PCIe x4 connection" schX={-11.6} schY={8.4} fontSize={0.18} anchor="left"/>
-        <X1618WVS_164_9TV30
+        <X1618WVS_164_9TV15
           name="PCIe"
           pcbStyle={{silkscreenTextVisibility: "hidden"}}
           schSectionName="PCIE_LINK"
@@ -822,7 +824,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
           net="ASM_CLKREQ_N"
           connection="R_PCIE_CLKREQ.pin1"
         />
-        <A_0402WGF1002TCE
+        <RT0402BRD0710KL
           schSectionName="PCIE_CONTROL"
           name="R_PCIE_CLKREQ_PU"
           layer="top" pcbRotation={180}
@@ -962,7 +964,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
           schSectionName="ATX_START"
           schX={-4}
           schY={0}
-          // This board uses the main rails; the standby output has no load.
+          // Main rails and unpopulated external PWR_OK access; no on-board indicator.
           noConnect={["pin9", "pin14", "pin20"]}
           connections={{
             pin1: "net.VCCH",
@@ -1001,11 +1003,10 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
         />
         <trace name="SP_PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1" routingPhaseIndex={14} width={.25} maxViaCount={0}/>
         <netlabel inline net="GND" connection="R_PSU_ON.pin2"/>
+        <PsuStatusAccess/>
         <BuckInputs/>
         <VddSoftStart/>
         <BuckEnable/>
-        <PsuControl/>
-        <PsuOkLed/>
       </schematicsheet>
       <ControlSupportRoutes omitNets={omitControlNets}/>
       {controlAutorouting && <ControlRouting routing={controlAutorouting}/>}

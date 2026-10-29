@@ -3,6 +3,7 @@ import {createHash} from "node:crypto";
 import {Circuit} from "tscircuit";
 import {createElement} from "react";
 import {circuitGraph} from "../lib/circuit-graph.mjs";
+import {slotGateNetwork} from "../lib/cost-passive-networks.mjs";
 import {qualifySlotPower} from "../tests/audits/power-qualification.mjs";
 import {createEngine} from "../simulations/power-reset/engine.mjs";
 import {OriginalGateDriver} from "../simulations/slot-power/OriginalGateDriver";
@@ -18,9 +19,9 @@ for (const suffix of ["12V", "3V3"]) {
 }
 const screening = qualifySlotPower(g);
 const rails = [screening.rail12, screening.rail3V3].map(({suffix, supplyV, rdsTestGateV: targetGateV}) => ({
-  suffix, supplyV, targetGateV, seriesOhm: g.component(`R_SLOT_GATE_${suffix}`).resistance,
-  pullupOhm: g.component(`R_SLOT_OFF_${suffix}`).resistance,
-  gateCapF: g.component(`C_SLOT_GATE_${suffix}`).capacitance,
+  suffix, supplyV, targetGateV, seriesOhm: slotGateNetwork(g,suffix).turnOnResistanceOhm,
+  pullupOhm: slotGateNetwork(g,suffix).turnOffResistanceOhm,
+  gateCapF: slotGateNetwork(g,suffix).gateCapacitanceF,
 }));
 const modelPath = "simulations/slot-power/vendor/2N7002K.spice.txt";
 const model = await readFile(modelPath, "utf8");

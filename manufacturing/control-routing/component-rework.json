@@ -126,7 +126,7 @@
       "after": {
         "name": "C_VCCL_37",
         "center": {
-          "x": 31.0,
+          "x": 31,
           "y": 106.7
         },
         "rotation": 180,
@@ -221,6 +221,556 @@
         "layer": "top"
       },
       "reason": "Move 0.1 mm up to clear the larger 0603 top feedback resistor courtyard."
+    },
+    {
+      "name": "Q_SLOT_3V3",
+      "before": {
+        "name": "Q_SLOT_3V3",
+        "center": {
+          "x": 31.682383050000002,
+          "y": 69.64000000000001
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "Q_SLOT_3V3",
+        "center": {
+          "x": 31.682383050000002,
+          "y": 69.64000000000001
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "Q_SLOT_DRV_3V3",
+      "before": {
+        "name": "Q_SLOT_DRV_3V3",
+        "center": {
+          "x": 32.065650000000005,
+          "y": 65.44
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "Q_SLOT_DRV_3V3",
+        "center": {
+          "x": 32.065650000000005,
+          "y": 65.44
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_SLOT_GATE_3V3",
+      "before": {
+        "name": "R_SLOT_GATE_3V3",
+        "center": {
+          "x": 28.865650000000006,
+          "y": 66.34
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_SLOT_GATE_3V3",
+        "center": {
+          "x": 28.865650000000006,
+          "y": 66.34
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_SLOT_OFF_3V3",
+      "before": {
+        "name": "R_SLOT_OFF_3V3",
+        "center": {
+          "x": 26.365650000000006,
+          "y": 63.940000000000005
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_SLOT_OFF_3V3",
+        "center": {
+          "x": 26.365650000000006,
+          "y": 63.940000000000005
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "C_SLOT_GATE_3V3",
+      "before": {
+        "name": "C_SLOT_GATE_3V3",
+        "center": {
+          "x": 26.365650000000006,
+          "y": 68.14000000000001
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_SLOT_GATE_3V3",
+        "center": {
+          "x": 26.135650000000005,
+          "y": 68.14000000000001
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Shift the existing gate capacitor 0.23 mm left to fit the shared-value parallel resistor while retaining manufacturer courtyards and short local contacts."
+    },
+    {
+      "name": "R_SLOT_DISCHARGE_3V3",
+      "before": {
+        "name": "R_SLOT_DISCHARGE_3V3",
+        "center": {
+          "x": 37.96565,
+          "y": 69.64000000000001
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_SLOT_DISCHARGE_3V3",
+        "center": {
+          "x": 37.96565,
+          "y": 69.59
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Retain the original top-side discharge resistor while moving it 0.05 mm toward the slot to preserve the full manufacturer courtyards after 0603 bypass consolidation."
+    },
+    {
+      "name": "Q_SLOT_12V",
+      "before": {
+        "name": "Q_SLOT_12V",
+        "center": {
+          "x": 32.065650000000005,
+          "y": 59.440000000000005
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "Q_SLOT_12V",
+        "center": {
+          "x": 32.065650000000005,
+          "y": 59.440000000000005
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "Q_SLOT_DRV_12V",
+      "before": {
+        "name": "Q_SLOT_DRV_12V",
+        "center": {
+          "x": 32.065650000000005,
+          "y": 54.74
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "Q_SLOT_DRV_12V",
+        "center": {
+          "x": 32.065650000000005,
+          "y": 54.74
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_SLOT_GATE_12V",
+      "before": {
+        "name": "R_SLOT_GATE_12V",
+        "center": {
+          "x": 28.56565,
+          "y": 54.34
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_SLOT_GATE_12V",
+        "center": {
+          "x": 28.56565,
+          "y": 54.34
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_SLOT_OFF_12V",
+      "before": {
+        "name": "R_SLOT_OFF_12V",
+        "center": {
+          "x": 25.96565,
+          "y": 54.34
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_SLOT_OFF_12V",
+        "center": {
+          "x": 25.96565,
+          "y": 54.34
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "C_SLOT_GATE_12V",
+      "before": {
+        "name": "C_SLOT_GATE_12V",
+        "center": {
+          "x": 26.365650000000006,
+          "y": 57.940000000000005
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_SLOT_GATE_12V",
+        "center": {
+          "x": 26.365650000000006,
+          "y": 57.940000000000005
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_SLOT_DISCHARGE_12V",
+      "before": {
+        "name": "R_SLOT_DISCHARGE_12V",
+        "center": {
+          "x": 37.96565,
+          "y": 58.040000000000006
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_SLOT_DISCHARGE_12V",
+        "center": {
+          "x": 37.96565,
+          "y": 58.040000000000006
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_HDDPC_PD",
+      "before": {
+        "name": "R_HDDPC_PD",
+        "center": {
+          "x": 35.46565,
+          "y": 68.24000000000001
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_HDDPC_PD",
+        "center": {
+          "x": 35.46565,
+          "y": 68.24000000000001
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "U_BUCK_EN",
+      "before": {
+        "name": "U_BUCK_EN",
+        "center": {
+          "x": 37.320001999999974,
+          "y": 64.52000199999998
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "U_BUCK_EN",
+        "center": {
+          "x": 37.320001999999974,
+          "y": 64.52000199999998
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_BUCK_EN_TOP",
+      "before": {
+        "name": "R_BUCK_EN_TOP",
+        "center": {
+          "x": 34.52000199999998,
+          "y": 65.52000199999998
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_BUCK_EN_TOP",
+        "center": {
+          "x": 34.52000199999998,
+          "y": 65.52000199999998
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_BUCK_EN_BOTTOM",
+      "before": {
+        "name": "R_BUCK_EN_BOTTOM",
+        "center": {
+          "x": 34.52000199999998,
+          "y": 63.22000199999998
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_BUCK_EN_BOTTOM",
+        "center": {
+          "x": 34.52000199999998,
+          "y": 63.22000199999998
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "R_BUCK_EN_PU",
+      "before": {
+        "name": "R_BUCK_EN_PU",
+        "center": {
+          "x": 40.12000199999997,
+          "y": 65.02000199999998
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_BUCK_EN_PU",
+        "center": {
+          "x": 40.12000199999997,
+          "y": 65.02000199999998
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Hold the existing position exactly while shared-part consolidation changes the group bounds."
+    },
+    {
+      "name": "C_VCCL_HF",
+      "before": {
+        "name": "C_VCCL_HF",
+        "center": {
+          "x": 26.220002,
+          "y": 73.69999999999999
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_HF",
+        "center": {
+          "x": 25.820002000000002,
+          "y": 73.66199999999999
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Fit the shared 0603 100 nF lands with a short VIN loop and intact assembly courtyards."
+    },
+    {
+      "name": "C_VDD_HF",
+      "before": {
+        "name": "C_VDD_HF",
+        "center": {
+          "x": 35.820002,
+          "y": 74.9
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VDD_HF",
+        "center": {
+          "x": 35.420002000000004,
+          "y": 74.86200000000001
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Fit the shared 0603 100 nF lands with a short VIN loop and intact assembly courtyards."
+    },
+    {
+      "name": "C_VCCL_CIN",
+      "before": {
+        "name": "C_VCCL_CIN",
+        "center": {
+          "x": 25.795002,
+          "y": 72
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VCCL_CIN",
+        "center": {
+          "x": 25.795002,
+          "y": 71.843
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Fit the shared 0603 100 nF lands with a short VIN loop and intact assembly courtyards."
+    },
+    {
+      "name": "C_VDD_CIN",
+      "before": {
+        "name": "C_VDD_CIN",
+        "center": {
+          "x": 35.395002000000005,
+          "y": 73.2
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_VDD_CIN",
+        "center": {
+          "x": 35.395002000000005,
+          "y": 73.043
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Fit the shared 0603 100 nF lands with a short VIN loop and intact assembly courtyards."
+    },
+    {
+      "name": "C_BUCK_EN",
+      "before": {
+        "name": "C_BUCK_EN",
+        "center": {
+          "x": 37.820001999999974,
+          "y": 62.52000199999998
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_BUCK_EN",
+        "center": {
+          "x": 37.820001999999974,
+          "y": 62.70000199999998
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Fit the shared 0603 100 nF lands with a short VIN loop and intact assembly courtyards."
+    },
+    {
+      "name": "R_VCCL_FBT",
+      "before": {
+        "name": "R_VCCL_FBT",
+        "center": {
+          "x": 29.520002,
+          "y": 77.064
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_VCCL_FBT",
+        "center": {
+          "x": 30.55,
+          "y": 78.25
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Place the output-side precision resistor beside the added series member, with full courtyards clear of the adjacent VDD capacitor."
+    },
+    {
+      "name": "R_VCCL_FBB",
+      "before": {
+        "name": "R_VCCL_FBB",
+        "center": {
+          "x": 29.520002,
+          "y": 78.264
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_VCCL_FBB",
+        "center": {
+          "x": 28.715,
+          "y": 75.9
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Keep the feedback node under 1.3 mm, away from switching copper, with a short ground contact to the existing MODE return via."
+    },
+    {
+      "name": "C_SPI_VCC",
+      "before": {
+        "name": "C_SPI_VCC",
+        "center": {
+          "x": 34.5,
+          "y": 86.60000740000005
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "after": {
+        "name": "C_SPI_VCC",
+        "center": {
+          "x": 34.5,
+          "y": 86.35000740000005
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "Move the shared 0603 bypass 0.25 mm down to retain clearance to the existing reset trace and all existing vias."
     }
   ],
   "additions": [
@@ -301,6 +851,151 @@
         "layer": "top"
       },
       "reason": "User requested VDD load-change repair: damped reserve capacitance and slower startup. Existing part positions are preserved."
+    },
+    {
+      "name": "C_VCCA33_9",
+      "after": {
+        "name": "C_VCCA33_9",
+        "center": {
+          "x": 46,
+          "y": 90.5
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Consolidate the VCCA33 bulk bank into two existing 10 uF / 25 V parts, all on top and below the USB connector."
+    },
+    {
+      "name": "R_SLOT_GATE_3V3_B",
+      "after": {
+        "name": "R_SLOT_GATE_3V3_B",
+        "center": {
+          "x": 27.82,
+          "y": 66.34
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "Reuse already stocked passive values to remove a unique feeder type; verify the complete series/parallel network and local copper."
+    },
+    {
+      "name": "R_SLOT_OFF_3V3_B",
+      "after": {
+        "name": "R_SLOT_OFF_3V3_B",
+        "center": {
+          "x": 24.7,
+          "y": 64.5
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "Reuse already stocked passive values to remove a unique feeder type; verify the complete series/parallel network and local copper."
+    },
+    {
+      "name": "C_SLOT_GATE_3V3_B",
+      "after": {
+        "name": "C_SLOT_GATE_3V3_B",
+        "center": {
+          "x": 24.2,
+          "y": 68.2
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "Reuse already stocked passive values to remove a unique feeder type; verify the complete series/parallel network and local copper."
+    },
+    {
+      "name": "R_VCCL_FBT_B",
+      "after": {
+        "name": "R_VCCL_FBT_B",
+        "center": {
+          "x": 28.615,
+          "y": 77.4
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Reuse already stocked passive values to remove a unique feeder type; verify the complete series/parallel network and local copper."
+    },
+    {
+      "name": "PSU_ACCESS",
+      "after": {
+        "name": "PSU_ACCESS",
+        "center": {
+          "x": 42.5,
+          "y": 27
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "User requested unpopulated holes for a future external indicator. Three standard 1 mm plated wire holes expose GND, 5 V and PWR_OK; no purchased header or on-board indicator."
+    }
+  ],
+  "removals": [
+    {
+      "name": "C_PSU_LED",
+      "before": {
+        "name": "C_PSU_LED",
+        "center": {
+          "x": 40.3,
+          "y": 23.03011549999995
+        },
+        "rotation": 270,
+        "layer": "top"
+      },
+      "reason": "User approved omitting the optional PWR_OK indicator for the USD 460 budget. Automatic PSU start, VCCH monitor, buck enable and reset remain."
+    },
+    {
+      "name": "LED_PSU_OK",
+      "before": {
+        "name": "LED_PSU_OK",
+        "center": {
+          "x": 48.47,
+          "y": 29.5
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "User approved omitting the optional PWR_OK indicator for the USD 460 budget. Automatic PSU start, VCCH monitor, buck enable and reset remain."
+    },
+    {
+      "name": "R_PSU_LED",
+      "before": {
+        "name": "R_PSU_LED",
+        "center": {
+          "x": 40.226512500000005,
+          "y": 28.965649999999954
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "User approved omitting the optional PWR_OK indicator for the USD 460 budget. Automatic PSU start, VCCH monitor, buck enable and reset remain."
+    },
+    {
+      "name": "R_PSU_OK_PD",
+      "before": {
+        "name": "R_PSU_OK_PD",
+        "center": {
+          "x": 45.220000000000006,
+          "y": 25.97499999999995
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "User approved omitting the optional PWR_OK indicator for the USD 460 budget. Automatic PSU start, VCCH monitor, buck enable and reset remain."
+    },
+    {
+      "name": "U_PSU_LED",
+      "before": {
+        "name": "U_PSU_LED",
+        "center": {
+          "x": 41.60000000000001,
+          "y": 25.499999999999954
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "User approved omitting the optional PWR_OK indicator for the USD 460 budget. Automatic PSU start, VCCH monitor, buck enable and reset remain."
     }
   ]
 }

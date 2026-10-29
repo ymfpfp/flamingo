@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {boardFixture} from "./board-fixture.mjs";
+import {circuitGraph} from "../lib/circuit-graph.mjs";
+import {buckFeedbackNetwork} from "../lib/cost-passive-networks.mjs";
 
 const json = boardFixture();
 const components = json.filter(e => e.type === "source_component");
@@ -79,22 +81,23 @@ test("each output capacitor bypasses the filtered rail to ground without touchin
 test("feedback dividers sense each filtered output, return to GND, and set the intended nominal voltage", () => {
   const ground = net("ATX", "pin3");
   const feedbackNets = [];
-  for (const [rail, topOhms, target] of [["VCCL", 26100, 1.9], ["VDD", 1870, 1.1342857142857141]]) {
+  for (const [rail, topOhms, target] of [["VCCL", 26200, 1.9], ["VDD", 1870, 1.1342857142857141]]) {
     const buck = `${rail}_BUCK`;
     const top = `R_${rail}_FBT`;
     const bottom = `R_${rail}_FBB`;
     const feedback = net(buck, "FB");
     const output = net(`L_${rail}`, "pin2");
-    assert.equal(component(top).resistance, topOhms);
+    const divider=buckFeedbackNetwork(circuitGraph(json),rail);
+    assert.equal(divider.topOhm, topOhms);
     assert.equal(component(bottom).resistance, rail === "VDD" ? 2100 : 12100);
     assert.equal(component(bottom).manufacturer_part_number, rail === "VDD" ? "PTFR0402B2K10N9" : "RT0402BRD0712K1L");
     assert.equal(net(top, "pin1"), output, "top resistor must sense the filtered output");
-    assert.equal(net(top, "pin2"), feedback);
+    assert.equal(net(rail === "VCCL" ? "R_VCCL_FBT_B" : top, "pin2"), feedback);
     assert.equal(net(bottom, "pin1"), feedback);
     assert.equal(net(bottom, "pin2"), net(buck, "GND"));
     assert.equal(new Set([feedback, output, ground, net(buck, "SW"), net("ATX", "pin4")]).size, 5,
       "the divider midpoint must remain separate from output, switching, ground and input");
-    const nominal = 0.6 * (1 + component(top).resistance / component(bottom).resistance);
+    const nominal = 0.6 * (1 + divider.topOhm / component(bottom).resistance);
     assert.ok(Math.abs(nominal - target) / target < 0.004, `${rail} nominal target`);
     assert.ok(0.6 / component(bottom).resistance > 2e-6, "divider current exceeds the TI minimum");
     feedbackNets.push(feedback);
@@ -109,7 +112,7 @@ test("each buck drives its own bridge rail through one 1 uH inductor", () => {
   for (const rail of ["VCCL", "VDD"]) {
     const buck = `${rail}_BUCK`;
     const name = `L_${rail}`;
-    assert.equal(component(name).manufacturer_part_number, "XGL4020-102MEC");
+    assert.equal(component(name).manufacturer_part_number, "DFE252012F-1R0M=P2");
     assert.equal(component(name).inductance, "1uH");
     const switching = net(name, "pin1");
     const output = net(name, "pin2");

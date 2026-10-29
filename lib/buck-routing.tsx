@@ -29,11 +29,11 @@ export const buckConnections:Connection[]=buckRails.flatMap(r=>[
   {name:`BUCK_${r}_MODE`,from:`${r}_BUCK.MODE`,to:`R_${r}_MODE.pin1`,select:`${r}_BUCK.MODE`,phase:5,width:.25,maxVias:0},
   {name:`BUCK_${r}_VOS`,from:`${r}_BUCK.VOS`,to:`C_${r}_COUT.pin1`,select:`${r}_BUCK.VOS`,phase:6,width:.15,maxVias:0},
   {name:`BUCK_${r}_FB_SENSE`,from:`R_${r}_FBT.pin1`,to:`C_${r}_COUT_B.pin1`,select:`R_${r}_FBT.pin1`,phase:6,width:.15,maxVias:0},
-  {name:`BUCK_${r}_FB_INPUT`,from:`${r}_BUCK.FB`,to:`R_${r}_FBT.pin2`,select:`${r}_BUCK.FB`,phase:6,width:.15,maxVias:0},
-  {name:`BUCK_${r}_FB_DIVIDER`,from:`R_${r}_FBB.pin1`,to:`R_${r}_FBT.pin2`,select:`R_${r}_FBB.pin1`,phase:6,width:.15,maxVias:0},
+  {name:`BUCK_${r}_FB_INPUT`,from:`${r}_BUCK.FB`,to:r==="VCCL"?"R_VCCL_FBT_B.pin2":"R_VDD_FBT.pin2",select:`${r}_BUCK.FB`,phase:6,width:.15,maxVias:0},
+  {name:`BUCK_${r}_FB_DIVIDER`,from:`R_${r}_FBB.pin1`,to:r==="VCCL"?"R_VCCL_FBT_B.pin2":"R_VDD_FBT.pin2",select:`R_${r}_FBB.pin1`,phase:6,width:.15,maxVias:0},
   {name:`BUCK_${r}_EN_ESCAPE`,from:`${r}_BUCK.EN`,to:`BUCK_EN_${r}.top`,select:`${r}_BUCK.EN`,phase:5,width:.25,maxVias:0},
-  ...grounded.map(g=>({name:`BUCK_${r}_GND_${g.suffix}`,from:g.part(r),to:`BUCK_GND_${r}_${g.suffix}.top`,
-    select:`BUCK_GND_${r}_${g.suffix}.top`,phase:5 as const,width:g.width,maxVias:0})),
+  ...grounded.map(g=>({name:`BUCK_${r}_GND_${g.suffix}`,from:g.part(r),to:`BUCK_GND_${r}_${r==="VCCL"&&g.suffix==="FBB"?"MODE":g.suffix}.top`,
+    select:r==="VCCL"&&(g.suffix==="FBB"||g.suffix==="MODE")?g.part(r):`BUCK_GND_${r}_${g.suffix}.top`,phase:5 as const,width:g.width,maxVias:0})),
 ]);
 buckConnections.push(
   {name:"BUCK_ENABLE_LINK",from:"BUCK_EN_VCCL.bottom",to:"BUCK_EN_VDD.bottom",select:"BUCK_EN_VCCL.bottom",phase:6,width:.25,maxVias:0},
@@ -95,28 +95,35 @@ export function prepareBuckRouting(board:Board,phase:AutoroutingPhase){
     // Coincident contacts keep width changes beyond the adjacent IC lands.
     set("SW",[end(`${r}_BUCK.SW`,.5),w(-.424942,1.5,.5),w(-.424942,1.5,.8),
       w(0,1.924942,.8),w(0,1.924942,1.2),end(`L_${r}.pin1`,1.2)]);
-    set("VIN",[end(`${r}_BUCK.VIN`,.5),w(.07493,-.95,.5),w(.420116,-1.295186,.5),
-      w(.420116,-1.295186,.9),end(`C_${r}_HF.pin1`,.9)]);
+    set("VIN",[end(`${r}_BUCK.VIN`,.5),w(.07493,-.95,.5),w(.400024,-1.275094,.5),
+      w(.400024,-1.275094,.9),w(.400024,-1.802,.9),end(`C_${r}_HF.pin1`,.9)]);
     set("INPUT_BULK",[end(`C_${r}_CIN.pin1`,1),w(1.1676,-2.8,1),w(1.1676,-2.8,.7),
-      w(.420116,-2.052516,.7),end(`C_${r}_HF.pin1`,.7)]);
+      w(.300024,-1.932424,.7),end(`C_${r}_HF.pin1`,.7)]);
     set("OUTPUT_A",[end(`C_${r}_COUT.pin1`,2),w(-3.3,3,2),w(-1.61509,4.68491,2),end(`L_${r}.pin2`,2)]);
     set("OUTPUT_B",[end(`C_${r}_COUT_B.pin1`,2),w(3.28491,4.68491,2),end(`L_${r}.pin2`,2)]);
     set("MODE",[end(`${r}_BUCK.MODE`,.25),w(1.4,-.500126,.25),w(3.28269,-2.382816,.25),end(`R_${r}_MODE.pin1`,.25)]);
     set("VOS",[end(`${r}_BUCK.VOS`,.15),w(-1.45,.625094,.15),w(-3.3,2.475094,.15),end(`C_${r}_COUT.pin1`,.15)]);
-    const sensePad=pos(`R_${r}_FBT.pin1`),fbPad=pos(`R_${r}_FBT.pin2`),bottomPad=pos(`R_${r}_FBB.pin1`);
+    const sensePad=pos(`R_${r}_FBT.pin1`),fbPad=pos(r==="VCCL"?"R_VCCL_FBT_B.pin2":"R_VDD_FBT.pin2"),bottomPad=pos(`R_${r}_FBB.pin1`);
     set("FB_SENSE",r==="VDD"
       ?[wire(sensePad,.15),wire({x:sensePad.x,y:c.y+2.3-Math.abs(sensePad.x-(c.x+4.7))},.15),
         w(4.7,2.3,.15),w(4.7,4.7,.15),end(`C_${r}_COUT_B.pin1`,.15)]
-      :[wire(sensePad,.15),w(4.532816,2.3,.15),w(4.7,2.3,.15),w(4.7,4.7,.15),end(`C_${r}_COUT_B.pin1`,.15)]);
-    set("FB_INPUT",[end(`${r}_BUCK.FB`,.15),w(1.4,.499872,.15),
-      r==="VDD"?w(2.300128,1.4,.15):w(2.400128,1.5,.15),wire(fbPad,.15)]);
-    set("FB_DIVIDER",[wire(bottomPad,.15),...(r==="VDD"?[wire({x:bottomPad.x,y:fbPad.y+Math.abs(bottomPad.x-fbPad.x)},.15)]:[]),wire(fbPad,.15)]);
+      :[wire(sensePad,.15),wire({x:c.x+4.7,y:sensePad.y+Math.abs(sensePad.x-(c.x+4.7))},.15),w(4.7,4.7,.15),end(`C_${r}_COUT_B.pin1`,.15)]);
+    set("FB_INPUT",r==="VCCL"
+      ?[end(`${r}_BUCK.FB`,.15),wire({x:27.82,y:76.063872},.15),wire({x:27.82,y:77.0578},.15),wire(fbPad,.15)]
+      :[end(`${r}_BUCK.FB`,.15),w(1.4,.499872,.15),w(2.300128,1.4,.15),wire(fbPad,.15)]);
+    set("FB_DIVIDER",[wire(bottomPad,.15),wire(r==="VCCL"
+      ?{x:bottomPad.x,y:fbPad.y-Math.abs(bottomPad.x-fbPad.x)}
+      :{x:bottomPad.x,y:fbPad.y+Math.abs(bottomPad.x-fbPad.x)},.15),wire(fbPad,.15)]);
     set("EN_ESCAPE",[end(`${r}_BUCK.EN`,.25),end(`BUCK_EN_${r}.top`,.25)]);
     for(const g of grounded){
-      const start=pos(g.part(r)),finish=pos(`BUCK_GND_${r}_${g.suffix}.top`);
+      const start=pos(g.part(r)),finish=pos(`BUCK_GND_${r}_${r==="VCCL"&&g.suffix==="FBB"?"MODE":g.suffix}.top`);
       let points:Point[]=[start,finish];
-      if(g.suffix==="FBB")points=[start,{x:finish.x,y:start.y+Math.abs(finish.x-start.x)},finish];
-      set(`GND_${g.suffix}`,points.reverse().map(q=>wire(q,g.width)));
+      if(g.suffix==="FBB")points=r==="VCCL"
+        ?[start,{x:start.x,y:finish.y+Math.abs(finish.x-start.x)},finish]
+        :[start,{x:finish.x,y:start.y+Math.abs(finish.x-start.x)},finish];
+      if(g.suffix==="HF")points=[start,{x:start.x-Math.abs(start.y-finish.y),y:finish.y},finish];
+      if(g.suffix==="CIN")points=[start,{x:start.x-Math.abs(start.y-finish.y),y:finish.y},finish];
+      set(`GND_${g.suffix}`,(r==="VCCL"&&(g.suffix==="FBB"||g.suffix==="MODE")?points:points.reverse()).map(q=>wire(q,g.width)));
     }
   }
   const a=pos("BUCK_EN_VCCL.bottom"),b=pos("BUCK_EN_VDD.bottom");
