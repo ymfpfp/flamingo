@@ -3,7 +3,7 @@ import {dirname} from "node:path";
 import {RootCircuit} from "tscircuit";
 import Board from "../index.circuit";
 
-export async function loadBoard(file, {omitControlNets=[],pcbOnly=false} = {}) {
+export async function loadBoard(file, {omitControlNets=[],pcbOnly=false,onSolver} = {}) {
   if (file) {
     const raw = JSON.parse(readFileSync(file, "utf8"));
     return raw.circuitJson ?? raw;
@@ -11,6 +11,7 @@ export async function loadBoard(file, {omitControlNets=[],pcbOnly=false} = {}) {
   // Keep source and placement diagnostics. The validator checks routed copper.
   const circuit = new RootCircuit({platform: {partsEngineDisabled: true, routingDrcChecksDisabled: true}});
   circuit.schematicDisabled=pcbOnly;
+  if(onSolver)circuit.on('solver:started',onSolver);
   circuit.add(Board({omitControlNets,preview:false}));
   const progress=process.env.BOARD_BUILD_PROGRESS==='1';
   if(progress)circuit.on('solver:started',({solverName,componentName})=>console.log('Native solver:',solverName,componentName));

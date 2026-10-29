@@ -1,0 +1,269 @@
+{
+  "date": "2026-10-26",
+  "scope": {
+    "boardsCompleted": 2,
+    "barePcbQty": 5,
+    "alreadyPaidBridgePurchasesExcluded": true,
+    "psuCableToolsSuppliesExcluded": true,
+    "allComponentsTop": true
+  },
+  "originalQuote": {
+    "source": "Read the user's open JLCPCB Quote & Order and Bill of Materials pages through the browser UI; original total reverified after inspection.",
+    "currency": "USD",
+    "barePcbQuantity": 5,
+    "assembledBoardQuantity": 2,
+    "assemblyType": "Standard",
+    "assemblySide": "Top",
+    "finishedBoardMm": [
+      52.5,
+      123.62
+    ],
+    "quotedFrameMm": [
+      70.5,
+      123.62
+    ],
+    "pcb": {
+      "engineering": 33,
+      "viaCovering": 0,
+      "stackup": 66.89,
+      "innerCopper": 16.9,
+      "board": 5.7,
+      "material": 7.19,
+      "impedanceControl": 33.08,
+      "kelvinTest": 17.12,
+      "smallVias": 35.25,
+      "confirmProductionFile": 1.05,
+      "total": 216.18
+    },
+    "pcba": {
+      "setup": 25.75,
+      "stencil": 8.27,
+      "panel": 0,
+      "largeSize": 0,
+      "components": 76.32,
+      "distinctItems": 44,
+      "feederLoading": 66.65,
+      "smtAssembly": 4.19,
+      "confirmPlacement": 0.45,
+      "handSolderingLabor": 3.61,
+      "manualAssembly": 0.79,
+      "xray": 3.3,
+      "packaging": 0.5,
+      "specialComponents": 0.06,
+      "total": 189.89
+    },
+    "total": 406.07,
+    "shippingIncluded": false,
+    "bridgeProcurement": "ASM2464PDX appears as My Parts / C9900153838 with quantity 2 and no component price. This quote does not establish its procurement cost or whether that cost has already been paid."
+  },
+  "manufacturingPriceComparableAcrossVendors": false,
+  "simulationsRerun": false,
+  "boardSourceModified": false,
+  "groupedCostsUsd": [
+    {
+      "item": "PCB base, engineering, material, file confirmation",
+      "usd": "46.94"
+    },
+    {
+      "item": "Selected stackup surcharge",
+      "usd": "66.89"
+    },
+    {
+      "item": "1 oz inner copper surcharge",
+      "usd": "16.90"
+    },
+    {
+      "item": "Small-via process",
+      "usd": "35.25"
+    },
+    {
+      "item": "4-wire Kelvin test",
+      "usd": "17.12"
+    },
+    {
+      "item": "Controlled impedance",
+      "usd": "33.08"
+    },
+    {
+      "item": "Factory components, excluding already-paid bridge purchases",
+      "usd": "76.32"
+    },
+    {
+      "item": "Assembly feeder loading",
+      "usd": "66.65"
+    },
+    {
+      "item": "Assembly setup and stencil",
+      "usd": "34.02"
+    },
+    {
+      "item": "Placement, manual labor, inspection, packaging and other assembly",
+      "usd": "12.90"
+    }
+  ],
+  "0201Decision": {
+    "countPerBoard": 24,
+    "groups": [
+      {
+        "role": "TX coupling capacitors",
+        "count": 4,
+        "value": "220 nF"
+      },
+      {
+        "role": "RX coupling capacitors",
+        "count": 4,
+        "value": "330 nF"
+      },
+      {
+        "role": "Discharge resistors",
+        "count": 8,
+        "value": "220 kohm"
+      },
+      {
+        "role": "Low-capacitance ESD diodes",
+        "count": 8,
+        "part": "ESD150-B1-W0201"
+      }
+    ],
+    "asmediaGuidePage": 3,
+    "asmediaRecommendation": "0201 for USB4 coupling capacitors and discharge resistors; PCIe page 5 permits 0402 coupling capacitors.",
+    "usbIfSupport": "2019 USB4 system presentation, slide 49: smaller components improve return loss; this is design guidance, not universal proof that every 0402 implementation fails.",
+    "decision": "Retain in this revision. A larger footprint is a channel redesign requiring parasitic/layout verification, not a like-for-like substitution.",
+    "distinct0201Types": 4,
+    "maxFeederSavingsIfAllFourRemovedUsd": "6.20",
+    "economicAssemblyStillBlockedByBridgePitch": true
+  },
+  "handAssemblyDecision": {
+    "existing0402ResistorsPerBoard": 34,
+    "distinctResistorTypes": 13,
+    "maxResistorFeederSavingsUsd": "20.15",
+    "allExisting0402PerBoard": 85,
+    "allDistinct0402Types": 18,
+    "maxFeederPlusPlacementSavingsAll0402BeforeLoosePurchasesUsd": "28.44",
+    "existing33PartSplitFactoryInvoiceReductionUsd": "51.64",
+    "existing33PartSplitLoosePartsDeliveredUsd": "36.57",
+    "existing33PartSplitNetSavingWithJlcFreightHeldFixedUsd": "15.07",
+    "limits": "New resistor/0402 shopping costs and minimum quantities not quoted. Accessibility, soldering time and rework risk remain. Hand assembly of existing geometry does not require enlarging footprints."
+  },
+  "resistorConsolidationCandidates": [
+    {
+      "change": "Use the same 0.1% 12.1 kohm selection for the existing 1% R_RST_N and the buck divider bottoms.",
+      "grossFeederSavingUsd": "1.55",
+      "status": "BOM candidate only; verify footprint, ratings and current price/stock."
+    },
+    {
+      "change": "Use a single appropriate 0.1% 10 kohm type for the existing ordinary 10 kohm roles and the precision supervisor divider bottom.",
+      "grossFeederSavingUsd": "1.55",
+      "status": "May increase unit cost; retain ratings and required divider tolerance."
+    }
+  ],
+  "stackupDecision": {
+    "selected": "JLC061611-3313G",
+    "nominalScreenOhms": 85.17,
+    "qualification": "Uniform nominal line screen only; not whole-channel or hardware qualification.",
+    "specificCodeIsNonNegotiable": false,
+    "free1OzDefaultScreenOhms": 98.28,
+    "free1OzDefaultDropInAccepted": false,
+    "lessExpensive1OzCandidate": "JLC061611-2116",
+    "lessExpensive1OzNominalOhms": 89.04,
+    "lessExpensive1OzIsolationFailures": 13,
+    "lessExpensive1OzStackupSurchargeObservedOct23Usd": "33.35",
+    "lessExpensive1OzSurchargeSavingsApproxUsd": "33",
+    "halfOzCandidate": "JLC06161H-3313",
+    "halfOzCombinedStackupAndCopperSavingQuotedUsd": "83.79",
+    "halfOzRevalidation": [
+      "DC rail drop and temperature",
+      "Via and connector current distribution",
+      "Pair impedance, isolation and return paths",
+      "Wideband channel effects and full board DRC"
+    ],
+    "selectedLaminateLossQualified": false
+  },
+  "nonNegotiableOutcomes": [
+    "Correct netlist, pinout, firmware and power sequencing",
+    "Controlled differential impedance, continuous reference planes, loss and skew/via limits",
+    "Supply voltage at bridge pins, current and transient/thermal margins",
+    "Manufacturable BGA lands, mask, paste and filled/capped via-in-pad",
+    "Assembly inspection and prototype bring-up measurements",
+    "Top-side components only per user instruction"
+  ],
+  "conditionalCurrentManufacturingRequirements": [
+    "Keep ENIG for the current 0.20-0.25 mm BGA lands unless JLC explicitly approves OSP for the exact construction.",
+    "Retain 0.15/0.25 mm vias and fill/cap for current exports; price settings cannot replace a fanout redesign.",
+    "Filled/capped via covering is USD 0 in the quoted six-layer job; deleting it has no quoted saving.",
+    "Standard assembly is required by the current 0.46 mm bridge pitch and 0201 parts; replacing passives alone does not unlock Economic."
+  ],
+  "findingsNotClosedByCostAudit": [
+    "VDD transient margin",
+    "Bridge reset on short power interruptions",
+    "Slot switch startup/restart SOA",
+    "Cooling and full channel qualification"
+  ],
+  "conclusion": "USD 406.07 is consistent with this specific JLCPCB prototype configuration and its published assembly fee model. It is not evidence of an optimized design or the lowest market quote. The best large cost-reduction candidate is a validated cheaper stackup/power construction, not replacing the USB4 0201 network. No verified two-board USD 200 delivered design was established.",
+  "sources": [
+    {
+      "title": "ASMedia PCB guideline, pages 2, 3, 5",
+      "path": "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf"
+    },
+    {
+      "title": "ASMedia recommended voltage limits, page 16",
+      "path": "datasheets/ASM2464PDX_DataSheet_R0_3.pdf"
+    },
+    {
+      "title": "JLCPCB assembly price",
+      "url": "https://jlcpcb.com/help/article/pcb-assembly-price"
+    },
+    {
+      "title": "JLCPCB assembly capabilities",
+      "url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities"
+    },
+    {
+      "title": "USB-IF USB4 Cable Electricals and System Design, slides 49-51",
+      "url": "https://www.usb.org/sites/default/files/D2T2-2%20-%20USB4%20Cable%20and%20System.pdf"
+    },
+    {
+      "title": "Infineon ESD150-B1-W0201",
+      "url": "https://www.infineon.com/part/ESD150-B1-W0201"
+    },
+    {
+      "title": "TI TPS62903",
+      "url": "https://www.ti.com/product/TPS62903"
+    },
+    {
+      "title": "Coilcraft XGL4020-102",
+      "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl4020/xgl4020-102/"
+    },
+    {
+      "title": "JLCPCB BGA manufacturing guidance",
+      "url": "https://jlcpcb.com/blog/bga-pcb-design-complete-guide-layout-and-routing-guidelines"
+    },
+    {
+      "title": "PCBGOGO assembly calculator; incomplete service-only screen",
+      "url": "https://www.pcbgogo.com/pcba-quote.html"
+    }
+  ],
+  "sourceHashes": {
+    "components/Usb4Lanes.tsx": "c46cf54f3df5bdeecd9bc0234b2818860b39c02b0aa36db0fb5233defb103635",
+    "manufacturing/stackup/selected.json": "6b735f92ca78dca956f0ebf01def379da12bdc075b2b03a7490cb876c1394791",
+    "manufacturing/reliability-review-2026-10-23.json": "1002729430f2bfc2054943db53a59e3feda721501e2cbfa185bc3249bc62806a",
+    "dist/jlcpcb/2026-10-23-si4497/flamingo-bom-usbc-verified.csv": "34d661219b409788402137d1fd93d8e0b43ca1625e52dce59e61620c337f6695"
+  },
+  "competitorAssemblyScreen": {
+    "vendor": "PCBGOGO",
+    "mode": "Combo",
+    "boards": 2,
+    "uniqueParts": 44,
+    "smdComponentsPerBoard": 151,
+    "throughHolePinsPerBoardInput": 24,
+    "side": "top",
+    "xray": true,
+    "stencil": true,
+    "roughAssemblyServiceEstimateUsd": "50.00",
+    "comparableJlcAssemblyServiceExcludingPartsUsd": "113.57",
+    "pcbPartsShippingTaxExcluded": true,
+    "filesUploaded": false,
+    "reviewedManufacturingQuote": false,
+    "scopeLimits": "Exact footprint, stencil, consignment, materials, copper weights and stackup require engineering review. No comparable full-project competitor price established.",
+    "evidence": "dist/quotes/2026-10-26-stripped/pcbgogo-assembly-benchmark.jpg"
+  }
+}

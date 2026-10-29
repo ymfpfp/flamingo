@@ -1,5 +1,5 @@
 {
-  "revision": "1.2",
+  "revision": "1.3",
   "sources": [
     "datasheets/ASM2464PD-PDX-PCB-Guideline-Mid-loss-R1.0.pdf pages 5-6",
     "datasheets/ASM2464PDX_DataSheet_R0_3.pdf power-supply limits and maximum-current TBD entries",
@@ -43,7 +43,17 @@
       "primaryLayer": "inner2",
       "parallelFeedLayer": "inner3",
       "bridgeBalls": 17,
-      "bypassCapacitors": 14
+      "bypassCapacitors": 14,
+      "surfaceFeed": {
+        "layers": [
+          "top",
+          "bottom"
+        ],
+        "coveredWithSolderMask": true,
+        "mainPadClearanceMm": 0.205,
+        "mainTraceClearanceMm": 0.4,
+        "addedVias": 4
+      }
     },
     "VDD": {
       "primaryLayer": "inner3",
@@ -56,10 +66,10 @@
         "mainPadClearanceMm": 0.205,
         "mainTraceClearanceMm": 0.4,
         "bgaPadClearanceMm": 0.15,
-        "bgaTraceClearanceMm": 0.2,
+        "bgaTraceClearanceMm": 0.15,
         "bgaPourClearanceMm": 0.2,
         "existingContactsRetained": true,
-        "addedVias": 0
+        "addedVias": 25
       }
     }
   },
@@ -71,15 +81,18 @@
   "mainPowerSpacingGuidelineMm": 0.2032,
   "mainPowerRegionClearanceMm": 0.205,
   "localBgaContactMinimumWidthMm": 0.1,
-  "localContactNote": "Short BGA and capacitor contacts use fine geometry where the pad pitch prevents a 15 mil track. Broad regions carry the main rail current. The emitted-copper DC screen checks these contacts as part of each supply path.",
+  "localContactNote": "Short BGA and capacitor contacts use fine geometry where the pad pitch prevents a 15 mil track. Broad regions carry the main rail current. The emitted-copper DC screen checks these contacts as part of each supply path. The 0.5 oz revision uses 0.155 mm inner via-land antipads; the separate drill-to-plane checks still enforce 0.20 mm for vias and 0.30 mm for plated component holes. The BGA top fill uses 0.15 mm trace/pad clearance and 0.20 mm inter-pour clearance. Main region clearance remains 0.205 mm.",
   "outerCopperThicknessMm": 0.035,
-  "innerCopperThicknessMm": 0.03,
+  "innerCopperThicknessMm": 0.0152,
   "vias": {
     "span": "top to bottom",
     "minimumCopperDiameterMm": 0.25,
     "minimumDrillMm": 0.15,
     "filledAndCapped": true,
-    "blindOrMicrovias": false
+    "blindOrMicrovias": false,
+    "innerPowerPadMarginMm": 0.155,
+    "vddFeedDrillMm": 0.25,
+    "vddFeedCount": 12
   },
   "projectDcScreen": {
     "loadEnvelopePerRailA": 3,
@@ -90,7 +103,7 @@
     "maximumConductorDropWithMeshAllowanceMV": 8,
     "minimumMeshAllowancePercent": 20,
     "reference": "Local output capacitor feedback contact",
-    "scope": "Actual top copper, both assigned inner power regions, and plated via barrels."
+    "scope": "Actual top and bottom copper, both assigned inner power regions, and plated via barrels."
   },
   "qualification": {
     "actualLoadVoltageQualified": false,
@@ -99,6 +112,6 @@
     "acPdnQualified": false,
     "thermalQualified": false,
     "regulatorTransientsQualified": false,
-    "note": "The 3 A load is a project screen, not an ASMedia current specification. The VDD distribution review records 7.924 mV at 3 A and 4.848 mV for VCCL at its 1 A planning load. Both include the unchanged mesh allowance and meet the 8 mV project limit. The retained VCCL 3 A stress screen is 14.545 mV and remains open. Actual-load voltage qualification remains open. Package losses, ground return, capacitor impedance, unequal ball currents, ripple and load steps require separate qualification."
+    "note": "The 2026-10-27 0.5 oz layout review records 7.839 mV on VDD at its 3 A planning load and 5.727 mV on VCCL at its 1 A planning load, including the unchanged mesh allowance. Both meet the 8 mV project limit. The retained VCCL 3 A stress screen is 17.180 mV and remains open. Actual-load voltage qualification remains open. Package losses, ground return, capacitor impedance, unequal ball currents, ripple and load steps require separate qualification."
   }
 }

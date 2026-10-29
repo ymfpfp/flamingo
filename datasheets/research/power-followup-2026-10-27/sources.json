@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-27",
+  "status": "Research candidates only; no component selected or integrated",
+  "sources": [
+    {
+      "file": "datasheets/research/power-followup-2026-10-27/TPS543620.pdf",
+      "url": "https://www.ti.com/lit/ds/symlink/tps543620.pdf",
+      "sha256": "3feba77d95e23794baf984ffbf8fcb2c9e4048361e8e95edfccf84f933bb4a1b"
+    },
+    {
+      "file": "datasheets/research/power-followup-2026-10-27/TPS25982.pdf",
+      "url": "https://www.ti.com/lit/ds/symlink/tps25982.pdf",
+      "sha256": "655c21dbf6b91a3c98b7ab26cd3bf0020d3eb7d765f411c71030d22fa4b6bc1f"
+    },
+    {
+      "file": "datasheets/research/power-followup-2026-10-27/TPS543620-transient.zip",
+      "url": "https://www.ti.com/lit/zip/slum787",
+      "sha256": "6d335ba1c367aeed5340d26ec9d954be63b2a30960c966f0ca5b50b3e54f9c7d"
+    }
+  ],
+  "findings": [
+    "TPS543620 uses a 0.5 V reference with 0.5% tolerance over temperature; 14-pin 2.5 x 3 mm package is not a drop-in for TPS62903.",
+    "TI transient library begins ENCRYPTED_LIB and CDNENCSTART_ADV2; the local ngspice engine cannot simulate that library.",
+    "TPS25982 provides inrush control, current limiting, UVLO and thermal shutdown; startup thermal limits under card load must be evaluated before selecting it.",
+    "Supplier import attempts for C585770 and C2876700 failed because EasyEDA data were unavailable. An exact custom footprint or another import source would be required."
+  ]
+}

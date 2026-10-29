@@ -1,7 +1,7 @@
 {
-  "revision": "1.0.42",
+  "revision": "1.0.43",
   "source": "https://jlcpcb.com/capabilities/pcb-capabilities",
-  "reviewedOn": "2026-10-22",
+  "reviewedOn": "2026-10-27",
   "process": {
     "surfaceFinish": "ENIG",
     "assembly": "standard",
@@ -14,7 +14,7 @@
   },
   "copper": {
     "outerOz": 1,
-    "innerOz": 1,
+    "innerOz": 0.5,
     "layers": 6
   },
   "minimumMm": {
@@ -46,5 +46,5 @@
     "status": "scoped_matched_top_escapes",
     "note": "USB4 RX1/TX2 PHY_A traces use matched 0.0762 mm necks within x=33.5..34.7 mm, y=98.1..101 mm. PCIe RX3 uses scoped top escapes in isPcieRxNeckSegment. CLOCK_XO_BRIDGE and CLOCK_REFCLK_N_PHY use scoped top necks in isClockNeckSegment within y=101.5..102.35001 mm. All copper clearances retain the global limits, including 0.10 mm pad-to-trace. Vendor process acceptance remains required."
   },
-  "note": "Trace spacing is conservative for 1 oz multilayer fabrication. Motor-power-to-pad 0.15 mm and via-to-pad 0.125 mm are board targets above the general 0.10 mm copper spacing. No power-pad clearance exceptions are permitted."
+  "note": "The original trace and pad minima are retained for the selected 0.5 oz inner-copper construction. Motor-power-to-pad 0.15 mm and via-to-pad 0.125 mm are board targets above the general 0.10 mm copper spacing. No power-pad clearance exceptions are permitted."
 }

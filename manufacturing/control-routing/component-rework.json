@@ -177,6 +177,50 @@
         "layer": "top"
       },
       "reason": "User-authorized local bulk-bypass placement for CC routing. Move the 2.2 uF part and both via-in-pad contacts together; retain the local loop and all fast bypass and PCIe/USB signal geometry, and recheck placement, references and power."
+    },
+    {
+      "name": "R_VDD_FBT",
+      "before": {
+        "name": "R_VDD_FBT",
+        "center": {
+          "x": 39.120002,
+          "y": 78.264
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_VDD_FBT",
+        "center": {
+          "x": 40.020002,
+          "y": 78.164
+        },
+        "rotation": 180,
+        "layer": "top"
+      },
+      "reason": "Stock substitution: use 0603 0.1% / 10 ppm feedback resistor with manufacturer lands; move 0.9 mm right and 0.1 mm down to preserve coil and soft-start clearance."
+    },
+    {
+      "name": "R_VDD_FBB",
+      "before": {
+        "name": "R_VDD_FBB",
+        "center": {
+          "x": 39.120002,
+          "y": 79.464
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "after": {
+        "name": "R_VDD_FBB",
+        "center": {
+          "x": 39.120002,
+          "y": 79.564
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "Move 0.1 mm up to clear the larger 0603 top feedback resistor courtyard."
     }
   ],
   "additions": [
@@ -192,6 +236,71 @@
         "layer": "top"
       },
       "reason": "User-authorized second 330 uF slot bulk capacitor in the upper-right corner, paired with C135."
+    },
+    {
+      "name": "C_VDD_RESERVE_A",
+      "after": {
+        "name": "C_VDD_RESERVE_A",
+        "center": {
+          "x": 43.55,
+          "y": 112.6
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "User requested VDD load-change repair: damped reserve capacitance and slower startup. Existing part positions are preserved."
+    },
+    {
+      "name": "C_VDD_RESERVE_B",
+      "after": {
+        "name": "C_VDD_RESERVE_B",
+        "center": {
+          "x": 48.8,
+          "y": 112.6
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "User requested VDD load-change repair: damped reserve capacitance and slower startup. Existing part positions are preserved."
+    },
+    {
+      "name": "R_VDD_DAMP_A",
+      "after": {
+        "name": "R_VDD_DAMP_A",
+        "center": {
+          "x": 43.55,
+          "y": 108.4
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "2026-10-28 in-stock part substitution: move larger 1206 damping resistor 0.7 mm toward USB-C to clear the reserve capacitor courtyard; retain top assembly."
+    },
+    {
+      "name": "R_VDD_DAMP_B",
+      "after": {
+        "name": "R_VDD_DAMP_B",
+        "center": {
+          "x": 48.8,
+          "y": 108.4
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      "reason": "2026-10-28 in-stock part substitution: move larger 1206 damping resistor 0.7 mm toward USB-C to clear the reserve capacitor courtyard; retain top assembly."
+    },
+    {
+      "name": "C_VDD_SS",
+      "after": {
+        "name": "C_VDD_SS",
+        "center": {
+          "x": 38.6,
+          "y": 76.764
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      "reason": "User requested VDD load-change repair: damped reserve capacitance and slower startup. Existing part positions are preserved."
     }
   ]
 }

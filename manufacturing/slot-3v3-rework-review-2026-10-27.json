@@ -1,0 +1,110 @@
+{
+  "dateLocal": "2026-10-27",
+  "status": "Slot 3.3 V DC repair checked; full power qualification remains open",
+  "sourceFile": "dist/slot-3v3-rework-2026-10-27/final2.circuit.json",
+  "sourceSha256": "c403f9758df288fe8c57e807d7304043fa61dbe9567d5a86078df6594681afe7",
+  "stackupCode": "JLC06161H-3313",
+  "hardwareQualified": false,
+  "corePlannedLoads": [
+    {
+      "rail": "VCCL",
+      "loadA": 1,
+      "conductorLossMV": 5.857518337240261,
+      "limitMV": 8,
+      "passed": true
+    },
+    {
+      "rail": "VDD",
+      "loadA": 3,
+      "conductorLossMV": 7.839440671263266,
+      "limitMV": 8,
+      "passed": true
+    }
+  ],
+  "slot3V3": {
+    "slot3AAndBridge100mA_bridgeVCCH_conductorUpperMV": 25.053002825311783,
+    "slot3AAndBridge100mA_analogInput_conductorUpperMV": 18.593765348601696,
+    "slot3AAndBridge100mA_slotSwitchSource_conductorUpperMV": 32.76776558898956,
+    "bridgeOnly100mA_bridgeVCCH_conductorUpperMV": 14.759754576415887,
+    "bridgeOnly100mA_analogInput_conductorUpperMV": 8.300517099735828,
+    "bridgeOnly100mA_slotSwitchSource_conductorUpperMV": 0.4468647949775013,
+    "analogCopper100mA_conductorUpperMV": 5.416658798536841,
+    "slot3AAndBridge100mA_analogPin_excluding0OhmLinkMV": 24.010424147138536,
+    "bridgeOnly100mA_analogPin_excluding0OhmLinkMV": 13.717175898272668,
+    "slot3AAndBridge100mA_slotDropIncluding25CFetMV": 100.87369206222422,
+    "slotVoltageFromNominal3p3V": 3.1991263079377754,
+    "slotVoltageFromATXMinus5PercentV": 3.0341263079377754,
+    "slotMinimumFromCEM9PercentV": 3.003,
+    "slotMarginFromATXMinus5PercentMV": 31.126307937775437,
+    "slotOutputCopperUpperMV": 38.70592647323466,
+    "mosfet25CMaxRdsDropMV": 29.4,
+    "slotLowInputDcScreenPassed": true,
+    "slotMarginWith2xFetResistanceSensitivityMV": 1.726307937775438
+  },
+  "slot12V": {
+    "loadA": 5.5,
+    "conductorLossMV": 170.36683893105706,
+    "lossIncluding25CFetMV": 195.66683893105707,
+    "voltageAt11p4VInput": 11.204333161068943,
+    "voltageAt11p2VInput": 11.004333161068942,
+    "slotMinimumV": 11.04,
+    "minimumInputBeforeUnmodeledLossesV": 11.235666838931056,
+    "qualified": false
+  },
+  "atx5V": [
+    {
+      "rail": "VCCL",
+      "inputCurrentA": 2,
+      "conductorDropMV": 52.7888393264052,
+      "withMeshAllowanceMV": 66.70599597713527,
+      "passed": true
+    },
+    {
+      "rail": "VDD",
+      "inputCurrentA": 2,
+      "conductorDropMV": 55.46648407221108,
+      "withMeshAllowanceMV": 70.30659917278855,
+      "passed": true
+    }
+  ],
+  "bridgeAndExternalLoadsPassed": true,
+  "preservation": {
+    "passed": true,
+    "assembledComponents": 154,
+    "allOnTop": true,
+    "componentPositionsUnchanged": true,
+    "traceGeometryUnchanged": true,
+    "comparisonPolicy": "Route geometry exact; generated port IDs ignored. Electrical connectivity checked independently by full board validation.",
+    "pcbTraceCount": 638,
+    "newViaCount": 8,
+    "sourceSha256": "c403f9758df288fe8c57e807d7304043fa61dbe9567d5a86078df6594681afe7"
+  },
+  "tests": {
+    "passed": 171,
+    "skipped": 8,
+    "failed": 0
+  },
+  "inputSha256": {
+    "manufacturing/stackup/selected.json": "ccc24f1b29d0d28bd55802bf2e17dc1cfbdce2bb69b7dcabf57ef4489303952c",
+    "manufacturing/power-distribution/cost-reduction-copper.json": "bfa7c456b8cd46c4626cf37733dffe729b474990ac9f617343232e3b4e760a65",
+    "manufacturing/power-distribution/surface-si-moats.json": "5b4433c696206abcd16427a018f9e9d9ca2b6bb132a3e108f45d0696bc695153",
+    "manufacturing/slot-power-routing/regions.json": "30b9399175b568f607e8606fa89e61320da3e340759d6098dfc7d6ea42a07a61",
+    "manufacturing/slot-power-routing/surface-regions.json": "33e0383e0f227a5395f7f3df1bad7bb80b23f615a6fba9d1288cdcb19fe87f5e",
+    "manufacturing/slot-power-routing/terminals.json": "b6372f2d6ca53dafd3c5cc3c4efd7212ae2929942af40e32ff6d0b93434fc50a",
+    "manufacturing/vcch-routing/regions.json": "a253584e2edf8809537c52b30b856040b4c84b9d75111ca11aa26fa4a4a9911d",
+    "scripts/validate-board.mjs": "7cfaf294929e2208ba2357a046d0854b47c4bb7c0c03c3a382120d3f56cafa7d",
+    "simulations/power-distribution/check_3v3_dc.py": "dc40c1141f4259ff6105bba5b8bd6febcf317224354cb0fd2e25ee49f11ad954",
+    "simulations/power-distribution/check_slot_dc.py": "58364ddf6af8c004caca7a83e41c8f7c660defd8eea76f3c3d8308ed2c2ff00e",
+    "simulations/power-distribution/prepare_surface_moats.py": "f8d126951cd1386546d4c3d55b1866c5d96c6684bc335b5d581df2d7db7db12a",
+    "scripts/prepare-slot3v3-rework-stitches.mjs": "ce38bcb6c68d1dc9f52f5712186b5a4d120324d2b16f48ef42b27c15cf109ce1",
+    "simulations/power-distribution/check_slot_stitch_sites.py": "ed2102a5fe434d62236cba7f908fc15b70fffcc7320589b5883d054f6ea34612",
+    "scripts/render-slot3v3-rework-review.py": "5fc61474aca44f4a87875bbe7400aaeab7ccbf838f2586a5420c53d7b061ee64"
+  },
+  "openItems": [
+    "VDD conditional load-step failures persist; no validated TPS62903 closed-loop model.",
+    "12 V does not meet the slot floor at the ATX 3.x 11.2 V minimum in this conductor-plus-25 C FET model.",
+    "Ground return, mating contacts, guaranteed hot MOSFET resistance, ripple and transients remain outside the slot DC screen.",
+    "Accepted bridge currents are project assumptions, not manufacturer maxima. VCCL 3 A stress criterion remains open.",
+    "JLCPCB BGA, via, mask and stencil acceptance and hardware measurements remain open."
+  ]
+}

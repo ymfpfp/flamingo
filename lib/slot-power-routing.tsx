@@ -20,7 +20,13 @@ function attachInnerContacts(via:Via|null){
   }
 }
 
+// These stitch two already continuous surface regions. They are not new
+// component terminals or replacements for the existing inner power core.
+const surfaceFeedStitches=[{x:1.8,y:79.5},{x:1.4,y:80.5},{x:36,y:66.5},{x:34.5,y:68.2},{x:36.8,y:66.5},{x:34.5,y:69}];
 export function SlotPowerRouting(){return <>
+  {surfaceFeedStitches.map((p,i)=><Fragment key={`surface-feed-${i}`}><via
+    name={`SP_12V_SURFACE_FEED_${i}`} pcbX={p.x} pcbY={p.y} connectsTo="net.SLOT_12V"
+    fromLayer="top" toLayer="bottom" outerDiameter={.8} holeDiameter={.4}/></Fragment>)}
   <autoroutingphase name="SLOT_POWER_CONTROL" phaseIndex={14} minTraceWidth={.15} pcbTracePaths={[]}/>
   {controlSpecs.filter(p=>p.name.startsWith("SP_HDDPC")&&p.name!=="SP_HDDPC_PULLDOWN").map(p=><Fragment key={p.name}>
     <trace name={p.name} from={p.from} to={p.to} routingPhaseIndex={14} width={p.width} maxViaCount={0}/>

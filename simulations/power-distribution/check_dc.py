@@ -26,12 +26,12 @@ for i,layer in enumerate(STACK['copperLayers']):
 def solve(j,rail,step,*,diagnostic_dir=None):
     j,sc,sp,pp,st,vias,pours,copper,nets,root,via_net,port=model(j)
     net=nets[rail]
-    planes=[l for l in ['inner2','inner3'] if any(o['net']==net and l in o['layers'] and o['label'] in pours for o in copper)]
+    planes=[l for l in ['inner2','inner3','bottom'] if any(o['net']==net and l in o['layers'] and o['label'] in pours for o in copper)]
     maps={};offset=0;row=[];col=[];data=[]
     thickness={l['tscircuitLayer']:l['thicknessMm'] for l in STACK['copperLayers']}
     for layer,t in [('top',thickness['top'])]+[(p,thickness[p]) for p in planes]:
-        pitch=step/3 if layer=='top' else step
-        xs=np.arange(0,46.5+pitch/2,pitch);ys=np.arange(69.5,114.5+pitch/2,pitch)
+        pitch=step/3 if layer in ['top','bottom'] else step
+        xs=np.arange(0,52.5+pitch/2,pitch);ys=np.arange(69.5,114.5+pitch/2,pitch)
         xx,yy=np.meshgrid(xs,ys)
         shapes=[o['shape'] for o in copper if o['net']==net and layer in o['layers']]
         # Plated via lands exist on every traversed copper layer. Include them
@@ -121,7 +121,7 @@ if __name__=='__main__':
         print(rail,'3 A / 80 C conductor drop:',round(fine['maximumDropMV'],3),'mV; mesh allowance:',round(bound,3),'mV')
     report={'passed':not failures,'failures':failures,'results':results,'viaPlatingAssumedMm':PLATING,
         'sourceFile':str(file),'sourceSha256':hashlib.sha256(raw).hexdigest(),
-        'scope':'Top copper, assigned power region and parallel plated feed/contact vias. Equal current per bridge supply ball; regulator feedback sampled at the output capacitor.',
+        'scope':'Top and bottom surface copper, assigned inner power regions and parallel plated feed/contact vias. Equal current per bridge supply ball; regulator feedback sampled at the output capacitor.',
         'limitations':'DC screening only. Plating thickness is an assumption pending vendor confirmation. Ground return, package/inductor losses, unequal internal ball loading, AC PDN impedance, ripple, transients, startup and thermal performance remain separate qualification.'}
     (ROOT/'dist/power-distribution/dc-audit.json').write_text(json.dumps(report,indent=2))
     for f in failures:print(f)

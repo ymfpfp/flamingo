@@ -62,7 +62,9 @@ export function pcieTxCenterline(lane: number, ballY: number, capCenter: number)
   if (lane === 0) return [{x: 23.5, y: ballY}, {x: 22.9, y: ballY},
     {x: 22.9 - (ballY - capCenter), y: capCenter}, {x: 2.1, y: capCenter}];
   const x = [0, 27.7, 28.9, 32.4][lane];
-  const y = [0, 100.0, 101.48, 102.8][lane];
+  // The 0.5 oz construction needs >0.7952 mm trunk isolation. Lower TX1
+  // by 0.028 mm as a pair to retain margin below the neighboring TX2 launch.
+  const y = [0, 99.972, 101.48, 102.8][lane];
   const startX = [0, 27.1, 27.15, 31.8][lane], turnY = [0, 95, 90.1, 86.7][lane];
   if (lane === 2) {
     // Descend before passing below TX3's Y15 land via. Keep the original
@@ -93,11 +95,12 @@ export function createPcieTxRoutes(position: (selector: string) => Point): Fanou
       topLaunches = [[b[0]], [b[1], {x: 24.5, y: b[1].y},
         {x: 24.4, y: b[1].y - 0.1}, {x: 24.4, y: b[1].y - h}]];
     } else if (lane === 1) {
+      // Preserve the validated top dogbone and filled via.
       const a = 0.39;
-      // N now approaches the lowered launch from above. Match that lead and
-      // the unchanged trunk bends with the existing P top dogbone.
+      // The 0.028 mm pair shift leaves 0.0232 mm P/N skew, below the
+      // unchanged 0.025 mm limit. Keep the top dogbone at its original site.
       const h = (a * (1 - k) + Math.abs(b[0].x - b[1].x)
-        - k * (2 * centerline[0].y - b[0].y - b[1].y) + bendSkew) / Math.SQRT2;
+        - k * (2 * 100 - b[0].y - b[1].y) + bendSkew) / Math.SQRT2;
       topLaunches = [[b[0], {x: b[0].x + a, y: b[0].y - a},
         {x: b[0].x + a, y: b[0].y - h}], [b[1]]];
     } else if (lane === 2) {

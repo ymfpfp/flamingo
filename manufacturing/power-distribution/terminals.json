@@ -2741,7 +2741,7 @@
     "x": 34.920002000000004,
     "y": 81.19891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2752,7 +2752,7 @@
     "x": 35.520002000000005,
     "y": 81.19891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2763,7 +2763,7 @@
     "x": 36.120002,
     "y": 81.19891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2774,7 +2774,7 @@
     "x": 36.720002,
     "y": 81.19891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2785,7 +2785,7 @@
     "x": 34.920002000000004,
     "y": 81.69891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2796,7 +2796,7 @@
     "x": 35.520002000000005,
     "y": 81.69891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2807,7 +2807,7 @@
     "x": 36.120002,
     "y": 81.69891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2818,7 +2818,7 @@
     "x": 36.720002,
     "y": 81.69891,
     "copperDiameter": 0.4,
-    "drillDiameter": 0.2,
+    "drillDiameter": 0.25,
     "role": "feed"
   },
   {
@@ -2985,5 +2985,324 @@
     "copperDiameter": 0.25,
     "drillDiameter": 0.15,
     "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_0",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 32.75,
+    "y": 83,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_1",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 29.75,
+    "y": 83.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_2",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 31,
+    "y": 87.75,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_3",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 30.5,
+    "y": 95.75,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_4",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 31.75,
+    "y": 83.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_5",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 32.25,
+    "y": 83.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_6",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 33.75,
+    "y": 83.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_7",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 34,
+    "y": 84.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_8",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 29.75,
+    "y": 88.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_9",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 30.75,
+    "y": 88.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_10",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 29.25,
+    "y": 88.75,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_11",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 29.75,
+    "y": 88.75,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VDD_12",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 30.75,
+    "y": 88.75,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VCCL_13",
+    "part": "L_VCCL",
+    "port": "pin2",
+    "net": "VCCL",
+    "x": 16.5,
+    "y": 80.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VCCL_14",
+    "part": "L_VCCL",
+    "port": "pin2",
+    "net": "VCCL",
+    "x": 18,
+    "y": 80.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_VCCL_15",
+    "part": "L_VCCL",
+    "port": "pin2",
+    "net": "VCCL",
+    "x": 16.5,
+    "y": 95.75,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.15,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_0",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 37.75,
+    "y": 87,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_1",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 42,
+    "y": 87,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_2",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 35.5,
+    "y": 87.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_3",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 42.5,
+    "y": 87.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_4",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 43,
+    "y": 87.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_5",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 43.5,
+    "y": 87.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_6",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 44,
+    "y": 87.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VDD_7",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 44.5,
+    "y": 87.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_COST_EXTRA_VCCL_8",
+    "part": "L_VCCL",
+    "port": "pin2",
+    "net": "VCCL",
+    "x": 24,
+    "y": 80.25,
+    "copperDiameter": 0.3,
+    "drillDiameter": 0.2,
+    "role": "stitch"
+  },
+  {
+    "name": "PDN_VDD_EXTRA_FEED_0_0",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 34.320002,
+    "y": 81.19891,
+    "copperDiameter": 0.4,
+    "drillDiameter": 0.25,
+    "role": "feed"
+  },
+  {
+    "name": "PDN_VDD_EXTRA_FEED_0_1",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 37.320002,
+    "y": 81.19891,
+    "copperDiameter": 0.4,
+    "drillDiameter": 0.25,
+    "role": "feed"
+  },
+  {
+    "name": "PDN_VDD_EXTRA_FEED_1_0",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 34.320002,
+    "y": 81.69891,
+    "copperDiameter": 0.4,
+    "drillDiameter": 0.25,
+    "role": "feed"
+  },
+  {
+    "name": "PDN_VDD_EXTRA_FEED_1_1",
+    "part": "L_VDD",
+    "port": "pin2",
+    "net": "VDD",
+    "x": 37.320002,
+    "y": 81.69891,
+    "copperDiameter": 0.4,
+    "drillDiameter": 0.25,
+    "role": "feed"
   }
 ]

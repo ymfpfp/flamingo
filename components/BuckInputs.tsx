@@ -5,7 +5,7 @@ import {CL31B106KAHNNNE} from "imports/CL31B106KAHNNNE";
 import {XGL4020_102MEC} from "imports/XGL4020_102MEC";
 import {TPS62903RPJR} from "imports/TPS62903RPJR";
 import {RC0402FR_078K87L} from "imports/RC0402FR_078K87L";
-import {RT0402BRD0710K7L} from "imports/RT0402BRD0710K7L";
+import {VddPrecisionFeedback} from "imports/VddPrecisionFeedback";
 import {RT0402BRD0712K1L} from "imports/RT0402BRD0712K1L";
 import {RT0402BRD0726K1L} from "imports/RT0402BRD0726K1L";
 
@@ -16,7 +16,8 @@ export function BuckInputs() {
       {(["VCCL", "VDD"] as const).map((rail, index) => {
         const name = `${rail}_BUCK`;
         const section = `${rail}_BUCK_INPUT`;
-        const TopResistor = rail === "VCCL" ? RT0402BRD0726K1L : RT0402BRD0710K7L;
+        const BottomResistor = rail === "VDD" ? VddPrecisionFeedback : RT0402BRD0712K1L;
+        const TopResistor = rail === "VCCL" ? RT0402BRD0726K1L : VddPrecisionFeedback;
         return (
           <group key={rail} name={section} schX={3 + index * 14} schY={8} pcbRelative
             pcbStyle={{silkscreenTextVisibility: "hidden"}}>
@@ -26,7 +27,7 @@ export function BuckInputs() {
             <TPS62903RPJR
               name={name} schSectionName={section} schX={0} schY={0}
               pcbX={0} pcbY={0} pcbRotation={270} layer="top"
-              noConnect={["SS", "PG"]}
+              noConnect={rail === "VDD" ? ["PG"] : ["SS", "PG"]}
               schPinArrangement={{
                 leftSide: {direction: "top-to-bottom", pins: ["VIN", "EN", "MODE", "SS", "GND"]},
                 rightSide: {direction: "top-to-bottom", pins: ["SW", "VOS", "FB", "PG"]},
@@ -71,11 +72,11 @@ export function BuckInputs() {
                 Keep the divider beside FB on the quiet right side. One output
                 capacitor sits toward VOS/GND; the other faces the inductor output. */}
             <TopResistor name={`R_${rail}_FBT`} schSectionName={section}
-              pcbX={3.3} pcbY={1.5} pcbRotation={180} layer="top"
+              pcbX={rail === "VDD" ? 4.2 : 3.3} pcbY={rail === "VDD" ? 1.4 : 1.5} pcbRotation={180} layer="top"
               schX={2.5} schY={-1} schOrientation="vertical"
               connections={{pin2: `net.FB_${rail}`}}/>
-            <RT0402BRD0712K1L name={`R_${rail}_FBB`} schSectionName={section}
-              pcbX={3.3} pcbY={2.7} pcbRotation={0} layer="top"
+            <BottomResistor {...(rail === "VDD" ? {bottom:true} : {})} name={`R_${rail}_FBB`} schSectionName={section}
+              pcbX={3.3} pcbY={rail === "VDD" ? 2.8 : 2.7} pcbRotation={0} layer="top"
               schX={2.5} schY={-2.2} schOrientation="vertical"
               connections={{pin2: "net.GND"}}/>
             <netlabel inline net={`FB_${rail}`} connectsTo={[`R_${rail}_FBT.pin2`, `R_${rail}_FBB.pin1`]}/>

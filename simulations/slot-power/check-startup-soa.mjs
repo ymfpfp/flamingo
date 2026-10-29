@@ -2,11 +2,19 @@ import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {circuitGraph} from '../../lib/circuit-graph.mjs';
 import {createEngine} from '../power-reset/engine.mjs';
+import {sourceInterruption, restartSensitivityCases} from './restart-cases.mjs';
 
 // This runner screens the existing circuit. It does not change component values.
 const input = process.argv[2] ?? 'dist/board.circuit.json';
 const out = process.argv[3] ?? 'dist/slot-startup-soa-2026-10-22';
 const quick = process.argv.includes('--quick');
+const restartSweep = process.argv.includes('--restart-sweep');
+const initialTempArg = process.argv.find(a => a.startsWith('--initial-temp='));
+const initialTemp = initialTempArg ? Number(initialTempArg.split('=')[1]) : null;
+if (initialTemp !== null && (!Number.isFinite(initialTemp) || initialTemp < -15 || initialTemp > 125))
+  throw Error('Initial switch temperature must be between -15 and 125 C');
+const selectedRail = process.argv.find(a => a.startsWith('--rail='))?.slice(7);
+if (selectedRail && !['3V3', '12V'].includes(selectedRail)) throw Error('Unknown slot rail: '+selectedRail);
 await mkdir(out, {recursive:true});
 await mkdir(`${out}/cases`, {recursive:true});
 const raw=await readFile(input), board=JSON.parse(raw), g=circuitGraph(board);
@@ -18,7 +26,7 @@ const vendor=vendorRaw.replace(/\r/g,'').replace(/^\.SIMULATOR DEFAULT\s*$/gmi,'
 const configs=[
   {rail:'3V3',v:3.3,amps:3,part:'DMP2008UFG-7',soaPart:'DMP2008UFG',bulk:['C135','C136'],ceramic:['C131'],esr:.010,uvlo:[2.3,2.8]},
   {rail:'12V',v:12,amps:5.5,part:'AO4407A',soaPart:'AO4407A',bulk:['C134'],ceramic:['C132','C133'],esr:.012,uvlo:[8,10]},
-];
+].filter(c => !selectedRail || c.rail === selectedRail);
 for(const c of configs){
   if(g.component(`Q_SLOT_${c.rail}`).manufacturer_part_number!==c.part)throw Error('Unexpected MOSFET');
   c.rgate=g.component(`R_SLOT_GATE_${c.rail}`).resistance;
@@ -111,6 +119,9 @@ for(const c of configs){
   if(c.rail==='12V')for(const modelVariant of ['low-threshold','high-threshold','strong','weak'])
   for(const kind of ['cold','control-restart'])add(c,{kind,offMs:1000,modelVariant});
 }
+if (restartSweep) for (const c of configs)
+  for (const q of restartSensitivityCases(c.rail)) add(c, q);
+if (initialTemp !== null) for (const q of cases) q.temp = initialTemp;
 const results=[],selected=new Map();
 const start=Date.now();
 for(let ix=0;ix<cases.length;ix++){
@@ -119,7 +130,7 @@ for(let ix=0;ix<cases.length;ix++){
   const control=q.kind==='cold'?`PWL(0 0 2m 0 2.001m 2.4 ${end}m 2.4)`
     :q.kind==='source-restart'&&q.sourceControl==='stays-high'?`PWL(0 0 2m 0 2.001m 2.4 ${end}m 2.4)`
     :`PWL(0 0 2m 0 2.001m 2.4 ${off}m 2.4 ${off+.001}m 0 ${re}m 0 ${re+.001}m 2.4 ${end}m 2.4)`;
-  const vin=q.kind==='source-restart'?`PWL(0 0 .1m ${supply} ${off}m ${supply} ${off+.1}m 0 ${re}m 0 ${re+.1}m ${supply} ${end}m ${supply})`
+  const vin=q.kind==='source-restart'?`PWL(${sourceInterruption({supplyV:supply,offMs:q.offMs,endMs:end,lowFraction:q.lowFraction??0}).map(([t,v])=>`${t}m ${v}`).join(' ')})`
     :`PWL(0 0 .1m ${supply} ${end}m ${supply})`;
   const bulk=c.bulkF.map((f,i)=>`R_ESR${i} out bulk${i} ${c.esr+.003}\nC_BULK${i} bulk${i} 0 ${f*1.44} IC=0`).join('\n');
   const load=q.load==='idle'?'R_LOAD out 0 1e9':q.load==='resistive'?`R_LOAD out 0 ${c.v/c.amps}`
@@ -188,6 +199,7 @@ ${c.rail==='3V3'?vendor:aoModel(q.temp,q.modelVariant)}
   const at=time=>ts.findIndex(t=>t>=time);
   const r={index:ix,...q,solverAttempt,part:c.part,sourceV:supply,gateCapacitanceUF:c.cgate*q.gateFactor*1e6,
     boardCapacitanceUF:c.bulkF.reduce((a,b)=>a+b,0)*1.44e6,events,
+    preEnableOutputV:vout[at(1.9)],preEnableOffPassed:vout[at(1.9)]<.1*supply,
     finalOutputV:vout.at(-1),finalGateV:vg.at(-1),settled:vout.at(-1)>=.9*supply,
     chargeBalance:{integratedC:netCharge,expectedC:expectedCharge,relativeResidual:Math.abs(netCharge-expectedCharge)/Math.max(Math.abs(expectedCharge),1e-9)},
     voltageBeforeRestartV:q.kind==='cold'?null:vout[at(re)-1],gateBeforeRestartV:q.kind==='cold'?null:vg[at(re)-1],
@@ -213,17 +225,20 @@ ${c.rail==='3V3'?vendor:aoModel(q.temp,q.modelVariant)}
 const summary=configs.map(c=>{
   const rr=results.filter(r=>r.rail===c.rail),worst=key=>rr.reduce((a,b)=>b[key]>a[key]?b:a);
   return {rail:c.rail,part:c.part,cases:rr.length,unsettled:rr.filter(r=>!r.settled).length,
+    preEnableOffFailures:rr.filter(r=>!r.preEnableOffPassed).length,
     outsideEquivalentScreen:rr.filter(r=>r.largestEquivalentRatio>1).length,
     worstEquivalent:worst('largestEquivalentRatio'),worstBounding:worst('largestBoundingRatio')};
 });
-const report={date:'2026-10-22',sourceFile:input,sourceSha256:hash(raw),runnerSha256:hash(await readFile(new URL(import.meta.url))),
+const report={date:'2026-10-27',sourceFile:input,sourceSha256:hash(raw),runnerSha256:hash(await readFile(new URL(import.meta.url))),
+  caseGeneratorSha256:hash(await readFile(new URL('./restart-cases.mjs',import.meta.url))),restartSweep,requestedInitialTemperatureC:initialTemp,
   scope:'Existing discrete slot switches: cold startup, preheated startup, control off/on, and source off/on. No hardware or BOM change.',
   configs,models:{DMP2008UFG:{type:'Vendor typical electrical SPICE',file:'simulations/slot-power/vendor/DMP2008UFG.spice.txt',sha256:hash(vendorRaw),adaptations:['Remove simulator directive','Remove unsupported MOS N parameter','Replace 1e-20 ohm with 1e-6 ohm for numerical convergence']},
     AO4407A:{type:'Approximate Level-1 fit, not a vendor model',kp25:22.05,vto25:2.3,seriesResistanceOhm:.003,
       assumedThresholdTemperatureCoefficientVPerC:-.004,assumedMobilityExponent:-1.5,modelSource:aoModel(25)}},
   assumptions:{sourceResistanceOhm:.025,sourceInductanceNH:200,sourceRiseUS:100,gateDriver:'10 mA ceiling / 2.8 ohm, plus uncapped sensitivity. Approximate reverse body diode includes 20 pF / 10 ns regularization for source-cycle convergence.',
-    bulkFactor:1.44,cardUF:'0 / 1000, plus 2000 sensitivity',load:'Idle, resistive full load, and UVLO-ramped full current. Each rail checked independently.',
-    initialTemperatureC:[25,85,125],hotRestartDefinition:'Preheated fixed electrical temperature, continuous gate and output-capacitor state across disable/enable. Source interruption is a separate case.',
+    bulkFactor:1.44,cardUF:'0 / 1000, plus 2000 sensitivity',sourceFallUS:'min(100, interruption length / 3); chronological PWL edges',
+    load:'Idle, resistive full load, and UVLO-ramped full current. Each rail checked independently.',
+    initialTemperatureC:[...new Set(cases.map(q=>q.temp))],hotRestartDefinition:'Preheated fixed electrical temperature, continuous gate and output-capacitor state across disable/enable. Source interruption is a separate case.',
     equivalentPulse:'Integrate positive VDS*ID during forward conduction with VDS > max(50 mV, 3% nominal rail) and ID > 50 mA. Equivalent duration E/Ppeak. Evaluate Ppeak/VDSmax against the interpolated SOA at VDSmax.',
     boundingPulse:'Compare every point against the SOA for the complete forward-linear event duration.',
     hotDerating:'(150 - initialTemperatureC)/125, plus 10% curve-reading reserve. Ambient-reference curve extension is an estimate.'},

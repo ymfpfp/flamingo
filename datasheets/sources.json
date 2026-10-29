@@ -237,7 +237,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ]
     },
@@ -501,7 +501,6 @@
       "placed_on_board": true,
       "board_references": [
         "R_RST",
-        "R_SLOT_OFF_3V3",
         "R_PSU_OK_PD"
       ],
       "documents": [
@@ -518,10 +517,9 @@
         "inventory_file": "../slot-power-parts.json",
         "implementation_file": "../components/SlotPower.tsx",
         "sheet": "slot_power",
-        "quantity": 1,
-        "board_references": [
-          "R_SLOT_OFF_3V3"
-        ]
+        "quantity": 0,
+        "board_references": [],
+        "replacement_note": "3.3 V gate pull-up changed to 22 kohm on 2026-10-27 to shorten shutdown."
       }
     },
     {
@@ -594,17 +592,25 @@
       "manufacturer": "Vishay Siliconix",
       "component_file": "imports/SI4497DY_T1_GE3.tsx",
       "placed_on_board": true,
-      "board_references": ["Q_SLOT_12V"],
-      "supplier_part_numbers": {"jlcpcb": ["C143044"]},
+      "board_references": [
+        "Q_SLOT_12V"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C143044"
+        ]
+      },
       "product_url": "https://www.lcsc.com/product-detail/C143044.html",
-      "documents": [{
-        "file": "research/slot-mosfet-startup-2026-10-22/Si4497DY.pdf",
-        "source_url": "https://www.vishay.com/docs/65748/si4497dy.pdf",
-        "origin": "manufacturer datasheet",
-        "pages": 9,
-        "sha256": "4a75c9ef2fe30549247644127245b36c70f7ae69ff5c37ac42a0efd38e683c19",
-        "notes": "30 V P-channel, +/-20 V gate; 4.6 milliohm maximum at -4.5 V / 25 C. Sources 1-3, gate 4, drains 5-8 match retained lands. Both 12 V gate resistors are 10 kohm; existing 10 uF source-to-gate capacitor and NX3008NBK driver retained."
-      }],
+      "documents": [
+        {
+          "file": "research/slot-mosfet-startup-2026-10-22/Si4497DY.pdf",
+          "source_url": "https://www.vishay.com/docs/65748/si4497dy.pdf",
+          "origin": "manufacturer datasheet",
+          "pages": 9,
+          "sha256": "4a75c9ef2fe30549247644127245b36c70f7ae69ff5c37ac42a0efd38e683c19",
+          "notes": "30 V P-channel, +/-20 V gate; 4.6 milliohm maximum at -4.5 V / 25 C. Sources 1-3, gate 4, drains 5-8 match retained lands. Both 12 V gate resistors are 10 kohm; existing 10 uF source-to-gate capacitor and NX3008NBK driver retained."
+        }
+      ],
       "footprint_review": {
         "reviewed_on": "2026-10-23",
         "source": "manufacturing/slot-power-routing/mosfet-replacement-review-2026-10-22.json",
@@ -1198,10 +1204,8 @@
       "manufacturer_part_number": "RT0402BRD0710K7L",
       "manufacturer": "Yageo",
       "component_file": "imports/RT0402BRD0710K7L.tsx",
-      "placed_on_board": true,
-      "board_references": [
-        "R_VDD_FBT"
-      ],
+      "placed_on_board": false,
+      "board_references": [],
       "supplier_part_numbers": {
         "jlcpcb": [
           "C852482"
@@ -1235,8 +1239,7 @@
       "component_file": "imports/RT0402BRD0712K1L.tsx",
       "placed_on_board": true,
       "board_references": [
-        "R_VCCL_FBB",
-        "R_VDD_FBB"
+        "R_VCCL_FBB"
       ],
       "supplier_part_numbers": {
         "jlcpcb": [
@@ -1266,7 +1269,7 @@
       }
     },
     {
-      "manufacturer_part_number": "0402 ±1% 21K",
+      "manufacturer_part_number": "0402 \u00b11% 21K",
       "manufacturer": "VO",
       "component_file": null,
       "placed_on_board": false,
@@ -1696,14 +1699,14 @@
         "C134"
       ],
       "product_url": "https://industrial.panasonic.com/ww/products/pt/os-con/models/25SVPK470M",
-      "placed_on_board": true,
+      "placed_on_board": false,
       "supplier_part_numbers": {
         "jlcpcb": [
           "C454276"
         ]
       },
       "inventory_file": "../slot-power-parts.json",
-      "selection_status": "Selected for C134 after stock review on 2026-10-16. Manufacturer F12 lands and polarity checked. Thermal, inrush and final PCB placement remain unqualified.",
+      "selection_status": "Replaced 2026-10-28: insufficient JLCPCB stock for two boards. See manufacturing/stock-replacements-2026-10-28.json.",
       "catalog_stock_snapshot": {
         "checked_on": "2026-10-16",
         "stock": 706,
@@ -1923,7 +1926,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ],
       "placed_on_board": false,
@@ -1941,7 +1944,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ],
       "placed_on_board": true,
@@ -1962,7 +1965,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ],
       "placed_on_board": false,
@@ -1980,7 +1983,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ],
       "placed_on_board": false,
@@ -1998,7 +2001,7 @@
           "origin": "downloaded",
           "pages": 11,
           "sha256": "e7dbabb0611925227ccfc429c14c8833a7b1f2c755684444124446f20b22a229",
-          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 kΩ, ±1%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
+          "notes": "Manufacturer RC_L series datasheet supplied for JLCPCB C132157. R1 is a 0402, 12.1 k\u03a9, \u00b11%, 62.5 mW resistor connecting ASM2464PDX REXT to GND."
         }
       ],
       "placed_on_board": false,
@@ -2141,6 +2144,291 @@
         "source": "KiCad generic CP_Elec_6.3x5.8, converted from original VRML with baked transforms.",
         "manufacturer_specific": false
       }
+    },
+    {
+      "manufacturer_part_number": "ERA-2ARB1072X",
+      "manufacturer": "Panasonic",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "documents": [
+        {
+          "file": "Panasonic-ERA-A.pdf",
+          "source_url": "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf",
+          "sha256": "2ffb715174964a986d8cd22f38607a14465c938bb5ff9817e0948124ebb69a5b",
+          "notes": "0.1%, 10 ppm/K, 10.7 kohm. Existing lands and routing retained."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "ERA-2ARB123X",
+      "manufacturer": "Panasonic",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": false,
+      "board_references": [],
+      "documents": [
+        {
+          "file": "Panasonic-ERA-A.pdf",
+          "source_url": "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf",
+          "sha256": "2ffb715174964a986d8cd22f38607a14465c938bb5ff9817e0948124ebb69a5b",
+          "notes": "0.1%, 10 ppm/K, 12 kohm; VDD nominal 1.135 V."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "WSL0805R0220FEA",
+      "manufacturer": "Vishay",
+      "component_file": "components/VddReserve.tsx",
+      "placed_on_board": false,
+      "board_references": [
+        "R_VDD_DAMP_A",
+        "R_VDD_DAMP_B"
+      ],
+      "documents": [
+        {
+          "file": "Vishay-WSL.pdf",
+          "source_url": "https://www.vishay.com/docs/30100/wsl.pdf",
+          "sha256": "96c2dc89ae1e3039815ed6c41f566a6e9f6b53035f8e45ea2ada1697935a44dc",
+          "notes": "22 milliohm, 1%, 75 ppm/K, 0.125 W. Explicit damping; no capacitor ESR minimum credited."
+        }
+      ],
+      "selection_status": "Replaced 2026-10-28: insufficient JLCPCB stock for two boards. See manufacturing/stock-replacements-2026-10-28.json."
+    },
+    {
+      "manufacturer_part_number": "T520B337M2R5ATE009",
+      "manufacturer": "KEMET",
+      "component_file": "imports/T520B337M2R5ATE009.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_VDD_RESERVE_A",
+        "C_VDD_RESERVE_B"
+      ],
+      "documents": [
+        {
+          "file": "T520B337M2R5ATE009.pdf",
+          "source_url": "https://search.kemet.com/download/specsheet/T520B337M2R5ATE009",
+          "sha256": "2ef316fcf9bb531b8d6d3df83972c69e44548ffc011c2785c24bec9c392fad45",
+          "notes": "330 uF, 2.5 V, +/-20%, 9 milliohm maximum ESR at 25 C and 300\u2013500 kHz. Placed behind explicit series resistors. T52X Table 2 density B lands: 1.8 x 2.23 mm, 1.12 mm gap; marked end positive. Temperature/aging and loop dynamics remain sensitivity cases."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "CL05B473KO5NNNC",
+      "manufacturer": "Samsung",
+      "component_file": "imports/CL05B473KO5NNNC.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C_VDD_SS"
+      ],
+      "documents": [
+        {
+          "file": "CL05B473KO5NNNC.pdf",
+          "source_url": "https://media.digikey.com/pdf/Data%20Sheets/Samsung%20PDFs/CL05B473KO5NNNC_Spec.pdf",
+          "sha256": "b2e84c41721bd6c5e76ebaf77cba21653d5b7c3cc4c9d381136957394a3578e5",
+          "notes": "Manufacturer spec sheet hosted by distributor. 47 nF, 16 V, X7R, +/-10%; controls the VDD startup ramp."
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "ERA-2ARB1871X",
+      "manufacturer": "Panasonic",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": false,
+      "board_references": [
+        "R_VDD_FBT"
+      ],
+      "documents": [
+        {
+          "file": "Panasonic-ERA-A.pdf",
+          "source_url": "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf",
+          "sha256": "2ffb715174964a986d8cd22f38607a14465c938bb5ff9817e0948124ebb69a5b",
+          "notes": "0.1%, 10 ppm/K, 1.87 kohm. Lower divider resistance reduces the 70 nA feedback leakage error. VDD nominal 1.1342857 V; existing lands and routes retained."
+        }
+      ],
+      "selection_status": "Replaced 2026-10-28: insufficient JLCPCB stock for two boards. See manufacturing/stock-replacements-2026-10-28.json."
+    },
+    {
+      "manufacturer_part_number": "ERA-2ARB2101X",
+      "manufacturer": "Panasonic",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": false,
+      "board_references": [
+        "R_VDD_FBB"
+      ],
+      "documents": [
+        {
+          "file": "Panasonic-ERA-A.pdf",
+          "source_url": "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C307.pdf",
+          "sha256": "2ffb715174964a986d8cd22f38607a14465c938bb5ff9817e0948124ebb69a5b",
+          "notes": "0.1%, 10 ppm/K, 2.10 kohm. Lower divider resistance reduces the 70 nA feedback leakage error. VDD nominal 1.1342857 V; existing lands and routes retained."
+        }
+      ],
+      "selection_status": "Replaced 2026-10-28: insufficient JLCPCB stock for two boards. See manufacturing/stock-replacements-2026-10-28.json."
+    },
+    {
+      "manufacturer_part_number": "0402WGF2202TCE",
+      "manufacturer": "UNI-ROYAL",
+      "component_file": "imports/A_0402WGF2202TCE.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_SLOT_OFF_3V3"
+      ],
+      "documents": [
+        {
+          "file": "0402WGF1003TCE.pdf",
+          "source_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25741",
+          "origin": "existing manufacturer family specification",
+          "pages": 9,
+          "sha256": "11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef",
+          "notes": "22 kohm, 1%, 0402, 1/16 W; JLCPCB C25768. Exact retained gate-resistor lands. Reduces nominal 3.3 V gate-off RC from 1 s to 220 ms; startup RC changes by less than 2%."
+        }
+      ],
+      "slot_power_use": {
+        "implementation_file": "../components/SlotPower.tsx",
+        "quantity": 1,
+        "board_references": [
+          "R_SLOT_OFF_3V3"
+        ]
+      }
+    },
+    {
+      "manufacturer_part_number": "RYHV25V470UF10*10",
+      "manufacturer": "Honor Elec",
+      "component_file": "imports/RYHV25V470UF10_10.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "C134"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C48970606"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/HonorElec-RYHV25V470UF1010/C48970606",
+      "documents": [
+        {
+          "file": "Honor-RYHV-C48970606.pdf",
+          "origin": "Manufacturer series datasheet linked by JLCPCB; downloaded 2026-10-28",
+          "source_url": "https://jlcpcb.com/partdetail/HonorElec-RYHV25V470UF1010/C48970606",
+          "sha256": "af56b02109393405cef68ac780ffa7e35d059968d33d6bdb723354f33e5897ab"
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "PE1206FRM070R022L",
+      "manufacturer": "Yageo",
+      "component_file": "components/VddReserve.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VDD_DAMP_A",
+        "R_VDD_DAMP_B"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C875657"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/YAGEO-PE1206FRM070R022L/C875657",
+      "documents": [
+        {
+          "file": "Yageo-PE-L-C875657.pdf",
+          "origin": "Manufacturer series datasheet linked by JLCPCB; downloaded 2026-10-28",
+          "source_url": "https://jlcpcb.com/partdetail/YAGEO-PE1206FRM070R022L/C875657",
+          "sha256": "74d1173d27dab38b19a58b98cd351e860603dc64bc65a8817fe8b410fea5db0e"
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD071K87L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": false,
+      "board_references": [
+        "R_VDD_FBT"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C852620"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/YAGEO-RT0402BRD071K87L/C852620",
+      "documents": [
+        {
+          "file": "Yageo-RT-C852620.pdf",
+          "origin": "Manufacturer series datasheet linked by JLCPCB; downloaded 2026-10-28",
+          "source_url": "https://jlcpcb.com/partdetail/YAGEO-RT0402BRD071K87L/C852620",
+          "sha256": "0a729d144519a7021c82a0ef242b064e467c70d44afcf9eabd6c7ffdc4b673a3"
+        }
+      ],
+      "selection_status": "Rejected candidate: 25 ppm/K reduces the existing VDD tolerance margin. Replaced with 10 ppm/K RESI PTFR parts."
+    },
+    {
+      "manufacturer_part_number": "RT0402BRD072K1L",
+      "manufacturer": "Yageo",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": false,
+      "board_references": [
+        "R_VDD_FBB"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C852695"
+        ]
+      },
+      "product_url": "https://jlcpcb.com/partdetail/YAGEO-RT0402BRD072K1L/C852695",
+      "documents": [
+        {
+          "file": "Yageo-RT-C852620.pdf",
+          "origin": "Manufacturer series datasheet linked by JLCPCB; downloaded 2026-10-28",
+          "source_url": "https://jlcpcb.com/partdetail/YAGEO-RT0402BRD072K1L/C852695",
+          "sha256": "0a729d144519a7021c82a0ef242b064e467c70d44afcf9eabd6c7ffdc4b673a3"
+        }
+      ],
+      "selection_status": "Rejected candidate: 25 ppm/K reduces the existing VDD tolerance margin. Replaced with 10 ppm/K RESI PTFR parts."
+    },
+    {
+      "manufacturer_part_number": "PTFR0603B1K87N9",
+      "manufacturer": "RESI",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VDD_FBT"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C2692849"
+        ]
+      },
+      "documents": [
+        {
+          "file": "RESI-PTFR-C2692849.pdf",
+          "source_url": "https://jlcpcb.com/partdetail/RESI-PTFR0603B1K87N9/C2692849",
+          "origin": "Manufacturer PTFR series datasheet linked by JLCPCB; downloaded 2026-10-28. Pages 2-3 specify 0.1%, N=10 ppm/K, temperature -55 to +155 C and recommended lands. JLC catalogue temperature text is older.",
+          "sha256": "ce6a100ade2073ba8416627461be900b0efb807a330bea476227f7f9128a7ec8"
+        }
+      ]
+    },
+    {
+      "manufacturer_part_number": "PTFR0402B2K10N9",
+      "manufacturer": "RESI",
+      "component_file": "imports/VddPrecisionFeedback.tsx",
+      "placed_on_board": true,
+      "board_references": [
+        "R_VDD_FBB"
+      ],
+      "supplier_part_numbers": {
+        "jlcpcb": [
+          "C2693008"
+        ]
+      },
+      "documents": [
+        {
+          "file": "RESI-PTFR-C2692849.pdf",
+          "source_url": "https://jlcpcb.com/partdetail/RESI-PTFR0603B1K87N9/C2692849",
+          "origin": "Manufacturer PTFR series datasheet linked by JLCPCB; downloaded 2026-10-28. Pages 2-3 specify 0.1%, N=10 ppm/K, temperature -55 to +155 C and recommended lands. JLC catalogue temperature text is older.",
+          "sha256": "ce6a100ade2073ba8416627461be900b0efb807a330bea476227f7f9128a7ec8"
+        }
+      ]
     }
   ],
   "retired_components": [
@@ -2532,7 +2820,7 @@
       "public_reference_design_checks": [
         {
           "source_url": "https://github.com/canmi21/ASM2464PD/blob/main/PCBA%20Project%20-%20BOM%20Quotation%20for%202230%20USB4%20Enclosure.xlsx",
-          "sheet": "PCBA1-BOM报价明细",
+          "sheet": "PCBA1-BOM\u62a5\u4ef7\u660e\u7ec6",
           "cells": "D17:J17",
           "RX_part": "GRM033R60J334ME90D",
           "finding": "Quote assigns 330 nF, 0201, 6.3 V, +/-20% to C62,C63,C72,C73. Fails voltage and tolerance targets. Public author design, not ASMedia qualification."

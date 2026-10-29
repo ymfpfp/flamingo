@@ -1,0 +1,77 @@
+{
+  "reviewedOnLocal": "2026-10-26",
+  "timezone": "America/Los_Angeles",
+  "budgetUsd": 200,
+  "userAllowsHandAssemblyOfLargerParts": true,
+  "quote": {
+    "source": "Read the user's open JLCPCB Quote & Order and Bill of Materials pages through the browser UI; original total reverified after inspection.",
+    "currency": "USD",
+    "barePcbQuantity": 5,
+    "assembledBoardQuantity": 2,
+    "assemblyType": "Standard",
+    "assemblySide": "Top",
+    "finishedBoardMm": [52.5, 123.62],
+    "quotedFrameMm": [70.5, 123.62],
+    "pcb": {
+      "engineering": 33,
+      "viaCovering": 0,
+      "stackup": 66.89,
+      "innerCopper": 16.9,
+      "board": 5.7,
+      "material": 7.19,
+      "impedanceControl": 33.08,
+      "kelvinTest": 17.12,
+      "smallVias": 35.25,
+      "confirmProductionFile": 1.05,
+      "total": 216.18
+    },
+    "pcba": {
+      "setup": 25.75,
+      "stencil": 8.27,
+      "panel": 0,
+      "largeSize": 0,
+      "components": 76.32,
+      "distinctItems": 44,
+      "feederLoading": 66.65,
+      "smtAssembly": 4.19,
+      "confirmPlacement": 0.45,
+      "handSolderingLabor": 3.61,
+      "manualAssembly": 0.79,
+      "xray": 3.3,
+      "packaging": 0.5,
+      "specialComponents": 0.06,
+      "total": 189.89
+    },
+    "total": 406.07,
+    "shippingIncluded": false,
+    "bridgeProcurement": "ASM2464PDX appears as My Parts / C9900153838 with quantity 2 and no component price. This quote does not establish its procurement cost or whether that cost has already been paid."
+  },
+  "findings": [
+    "The current bare-PCB quote alone exceeds the entire budget by USD 16.18. Assembly-only savings cannot meet the budget with this fabrication configuration.",
+    "Standard PCBA charges feeder loading for Basic and Extended parts. Basic substitutions do not by themselves remove these charges.",
+    "The actual design includes 0.15 mm drill / 0.25 mm copper vias and via-in-pad. Do not request larger minimum vias or remove fill/cap requirements without a layout change and validation.",
+    "The existing 1 oz free-stackup comparison found no accepted drop-in replacement. See dist/stackup-cost-review-2026-10-23/comparison.json.",
+    "A separate, file-free quote exploration showed USD 98.26 for a 0.5 oz inner-copper construction with no accepted stackup or impedance-control commitment, keeping the panel dimensions, 0.15 mm vias, filled/capped covering and NP-155F material. This is an unqualified pricing screen, not a manufacturable alternative to the current exports.",
+    "The older JLC06161H-3313 candidate uses 15.2 um inner copper and 0.0994 mm outer dielectric; the current selected construction uses 30 um inner copper and 0.092 mm outer dielectric. Reverting requires power-distribution, impedance, spacing and full-board revalidation.",
+    "Hand assembly of larger parts reduces some feeder and labor charges but requires buying those parts separately. Their removal from the factory component subtotal is not an equal reduction in total project cost.",
+    "No verified complete build below USD 200 was established. A lower fabrication price and substantial additional assembly/BOM savings are both needed."
+  ],
+  "arithmeticScreen": {
+    "description": "Optimistic subtraction only; not a new quote. Assumes stackup, inner-copper and impedance surcharges all disappear with other prices unchanged.",
+    "assumedFabricationSavings": 116.87,
+    "remainingQuotedSubtotal": 289.2,
+    "remainingGapBeforeShippingAndUnpaidBridgeCosts": 89.2
+  },
+  "sources": [
+    "https://jlcpcb.com/help/article/pcb-assembly-price",
+    "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+    "https://jlcpcb.com/impedance",
+    "manufacturing/stackup/selected.json",
+    "manufacturing/stackup/JLC06161H-3313.json",
+    "manufacturing/bridge-bga/process.json",
+    "dist/stackup-cost-review-2026-10-23/comparison.json",
+    "dist/jlcpcb/2026-10-23-si4497/manifest.json"
+  ],
+  "boardModified": false,
+  "orderPlaced": false
+}

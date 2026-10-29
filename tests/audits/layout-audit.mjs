@@ -5,6 +5,8 @@ import clockRework from "../../manufacturing/control-routing/clock-rework.json";
 import localRework from "../../manufacturing/control-routing/local-control-rework.json";
 import componentRework from "../../manufacturing/control-routing/component-rework.json";
 import tx3Rework from "../../manufacturing/bridge-bga/tx3-rework.json";
+import costReductionRework from "../../manufacturing/stackup/cost-reduction-rework.json";
+import stockRework from "../../manufacturing/stock-replacement-rework.json";
 import {checkAssemblyRework} from "../../lib/assembly-rework.mjs";
 import {assembledPlacements, layoutDigest, routeDigest, traceConnections} from "../../lib/layout-geometry.mjs";
 import {checkTracesAreContiguous} from "@tscircuit/checks";
@@ -23,7 +25,13 @@ export function auditLayoutPreservation(json) {
   }
   for (const {connection, digest} of baseline.traces) {
     const authorized = changes.find(change => change.name === connection && change.before === digest);
-    const key = `${connection}:${authorized?.after ?? digest}`, count = actual.get(key) ?? 0;
+    // The cost revision starts from the previously accepted routed board.
+    // Require that exact predecessor, including earlier authorized rework.
+    const predecessor = authorized?.after ?? digest;
+    const costRevision = costReductionRework.traceChanges.find(change => change.name === connection && change.before === predecessor);
+    const beforeStock=costRevision?.after ?? predecessor;
+    const stockRevision=stockRework.authorized && stockRework.traceChanges.find(change=>change.name===connection && change.before===beforeStock);
+    const key = `${connection}:${stockRevision?.after ?? beforeStock}`, count = actual.get(key) ?? 0;
     if (!count) failures.push(`Existing route geometry changed: ${connection}`);
     else actual.set(key, count - 1);
   }

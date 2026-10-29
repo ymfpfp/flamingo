@@ -1,0 +1,304 @@
+{
+  "reviewedOnLocal": "2026-10-26",
+  "timezone": "America/Los_Angeles",
+  "budgetUsd": "200.00",
+  "currency": "USD",
+  "scope": {
+    "barePcbQuantity": 5,
+    "factoryAssemblyQuantity": 2,
+    "completedBoardsBudgeted": 2,
+    "factoryComponentsPerBoard": 119,
+    "factoryPartTypes": 30,
+    "handComponentsPerBoard": 33,
+    "handPartTypes": 14,
+    "allComponentsTop": true,
+    "bridgePurchaseCostExcludedByUser": true,
+    "boardSourceAndRoutingChanged": false
+  },
+  "currentConstruction": {
+    "status": "Live JLCPCB cart, corrected to ENIG; fabrication and assembly acceptance remain separate",
+    "stackup": "JLC061611-3313G",
+    "innerCopperOz": 1,
+    "pcbUsd": "233.78",
+    "assemblyIncludingFactoryPartsUsd": "138.25",
+    "merchandiseUsd": "372.03",
+    "shippingEstimateUsd": "32.92",
+    "couponUsd": "-30.00",
+    "jlcCartSubtotalUsd": "374.95",
+    "loosePartsDeliveredEstimateUsd": "36.57",
+    "combinedEstimateUsd": "411.52"
+  },
+  "cheaperConstructionCandidate": {
+    "status": "Fabrication price verified on a separate public quote. Combined total is a projection using the live partial-assembly price and current-cart shipping/coupon. Layout not revised or validated for this construction.",
+    "stackup": "JLC06161H-3313",
+    "nominalThicknessMm": 1.6,
+    "publishedFinishedThicknessMm": 1.5384,
+    "innerCopperOz": 0.5,
+    "pcbUsd": "149.99",
+    "assemblyIncludingFactoryPartsUsd": "138.25",
+    "merchandiseUsd": "288.24",
+    "shippingEstimateCarriedFromCurrentCartUsd": "32.92",
+    "assumedCouponUsd": "-30.00",
+    "projectedJlcSubtotalUsd": "291.16",
+    "loosePartsDeliveredEstimateUsd": "36.57",
+    "combinedEstimateUsd": "327.73",
+    "overBudgetBeforeUnquotedTaxesUsd": "127.73",
+    "boardRevalidationRequired": true,
+    "requiredChecks": [
+      "Power-distribution DC drop and thermal performance with 15.2 um inner copper",
+      "Impedance and isolation with 0.0994 mm outer dielectric",
+      "Routing completeness, clearances and full-board validation"
+    ]
+  },
+  "candidateFabricationRequirements": {
+    "panelDimensionsMm": [
+      70.5,
+      123.62
+    ],
+    "surfaceFinish": "ENIG, 1 microinch option",
+    "material": "Nan Ya NP-155F",
+    "outerCopperOz": 1,
+    "filledAndCappedVias": true,
+    "minimumViaDrillAndPadMm": [
+      0.15,
+      0.25
+    ],
+    "kelvinTest": true,
+    "impedanceTolerance": "\u00b110%",
+    "confirmProductionFile": true,
+    "stackupFeeUsd": "0.00",
+    "impedanceFeeUsd": "33.08",
+    "surfaceFinishFeeUsd": "17.60"
+  },
+  "looseParts": {
+    "supplier": "LCSC",
+    "merchandiseUsd": "26.79",
+    "discountUsd": "-0.02",
+    "shippingUsd": "9.80",
+    "totalUsd": "36.57",
+    "shippingDestinationCountry": "United States",
+    "shippingMethod": "Global Direct Standard Line, 7\u201315 business days",
+    "all14LinesObservedInStock": true,
+    "installedQuantityForTwoBoards": 66,
+    "purchaseQuantityIncludingMinimumOrderMultiples": 358,
+    "lines": [
+      {
+        "mpn": "W25Q32JVSSIQ",
+        "lcsc": "C179173",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "W25Q32JVSSIQ"
+        ],
+        "footprint": "SOIC-8",
+        "purchaseQuantity": 2,
+        "unitPriceUsd": "1.495",
+        "linePriceUsd": "2.99",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C179173.html"
+      },
+      {
+        "mpn": "TS-1088-AR02016",
+        "lcsc": "C720477",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "SW_RESET"
+        ],
+        "footprint": "SMD 2-pin pushbutton",
+        "purchaseQuantity": 10,
+        "unitPriceUsd": "0.0505",
+        "linePriceUsd": "0.51",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C720477.html"
+      },
+      {
+        "mpn": "CL21A106KAYNNNE",
+        "lcsc": "C15850",
+        "quantityForTwoBoards": 24,
+        "designators": [
+          "C_VCCH_6",
+          "C_VCCH_14",
+          "C_VCCL_5",
+          "C_VCCL_13",
+          "C_VCCL_20",
+          "C_VDD_4",
+          "C_VDD_12",
+          "C_VDD_18",
+          "C_VCCL_COUT",
+          "C_VCCL_COUT_B",
+          "C_VDD_COUT",
+          "C_VDD_COUT_B"
+        ],
+        "footprint": "0805",
+        "purchaseQuantity": 40,
+        "unitPriceUsd": "0.0441",
+        "linePriceUsd": "1.76",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C15850.html"
+      },
+      {
+        "mpn": "CL21A226MAYNNNE",
+        "lcsc": "C602037",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "C_VCCA33_7"
+        ],
+        "footprint": "0805",
+        "purchaseQuantity": 10,
+        "unitPriceUsd": "0.1582",
+        "linePriceUsd": "1.58",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C602037.html"
+      },
+      {
+        "mpn": "25SVPK470M",
+        "lcsc": "C454276",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "C134"
+        ],
+        "footprint": "SMD polymer capacitor F12",
+        "purchaseQuantity": 2,
+        "unitPriceUsd": "1.5508",
+        "linePriceUsd": "3.10",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C454276.html"
+      },
+      {
+        "mpn": "CL10B104KB8NNNC",
+        "lcsc": "C1591",
+        "quantityForTwoBoards": 6,
+        "designators": [
+          "C132",
+          "C133",
+          "C131"
+        ],
+        "footprint": "0603",
+        "purchaseQuantity": 100,
+        "unitPriceUsd": "0.0078",
+        "linePriceUsd": "0.78",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C1591.html"
+      },
+      {
+        "mpn": "APXF6R3ARA331MF61G",
+        "lcsc": "C133476",
+        "quantityForTwoBoards": 4,
+        "designators": [
+          "C135",
+          "C136"
+        ],
+        "footprint": "SMD polymer capacitor F61",
+        "purchaseQuantity": 5,
+        "unitPriceUsd": "0.2982",
+        "linePriceUsd": "1.49",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C133476.html"
+      },
+      {
+        "mpn": "NX3008NBK,215",
+        "lcsc": "C179399",
+        "quantityForTwoBoards": 4,
+        "designators": [
+          "Q_SLOT_DRV_3V3",
+          "Q_SLOT_DRV_12V"
+        ],
+        "footprint": "SOT-23",
+        "purchaseQuantity": 10,
+        "unitPriceUsd": "0.0407",
+        "linePriceUsd": "0.41",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C179399.html"
+      },
+      {
+        "mpn": "CL31B106KAHNNNE",
+        "lcsc": "C14860",
+        "quantityForTwoBoards": 8,
+        "designators": [
+          "C_SLOT_GATE_3V3",
+          "C_SLOT_GATE_12V",
+          "C_VCCL_CIN",
+          "C_VDD_CIN"
+        ],
+        "footprint": "1206",
+        "purchaseQuantity": 20,
+        "unitPriceUsd": "0.1502",
+        "linePriceUsd": "3.00",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C14860.html"
+      },
+      {
+        "mpn": "RC1206FR-071KL",
+        "lcsc": "C131398",
+        "quantityForTwoBoards": 4,
+        "designators": [
+          "R_SLOT_DISCHARGE_3V3",
+          "R_SLOT_DISCHARGE_12V"
+        ],
+        "footprint": "1206",
+        "purchaseQuantity": 50,
+        "unitPriceUsd": "0.0086",
+        "linePriceUsd": "0.43",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C131398.html"
+      },
+      {
+        "mpn": "SI4497DY-T1-GE3",
+        "lcsc": "C143044",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "Q_SLOT_12V"
+        ],
+        "footprint": "SO-8",
+        "purchaseQuantity": 2,
+        "unitPriceUsd": "2.9515",
+        "linePriceUsd": "5.90",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C143044.html"
+      },
+      {
+        "mpn": "39301240",
+        "lcsc": "C492347",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "ATX"
+        ],
+        "footprint": "ATX connector 24-pin 4.2mm pitch",
+        "purchaseQuantity": 2,
+        "unitPriceUsd": "1.3723",
+        "linePriceUsd": "2.74",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C492347.html"
+      },
+      {
+        "mpn": "SN74AHCT1G14DBVR",
+        "lcsc": "C55250",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "U_PSU_LED"
+        ],
+        "footprint": "SOT-23-5",
+        "purchaseQuantity": 5,
+        "unitPriceUsd": "0.3167",
+        "linePriceUsd": "1.58",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C55250.html"
+      },
+      {
+        "mpn": "XL-1608UWC-04",
+        "lcsc": "C965808",
+        "quantityForTwoBoards": 2,
+        "designators": [
+          "LED_PSU_OK"
+        ],
+        "footprint": "0603 LED",
+        "purchaseQuantity": 100,
+        "unitPriceUsd": "0.005",
+        "linePriceUsd": "0.50",
+        "sourceUrl": "https://www.lcsc.com/product-detail/C965808.html"
+      }
+    ]
+  },
+  "limits": [
+    "Shipping costs are country-level estimates. No street address or final tax/duty calculation was submitted.",
+    "The JLCPCB checkout requested a shipping address; work stopped before entering personal information or continuing checkout.",
+    "The cheaper candidate assumes the same USD 30 coupon and USD 32.92 delivery estimate; it is not a saved assembled-board cart.",
+    "New consignment or forwarding charges for bridge chips, if still unpaid, are not quoted. Bridge purchase cost is excluded as instructed.",
+    "No soldering equipment, consumables, GPU, PSU or USB4 cable purchase is included.",
+    "The original quote used OSP. ENIG, as specified in fabrication notes, adds USD 17.60."
+  ],
+  "conclusion": "Neither the current construction nor the cheaper controlled-impedance candidate fits USD 200. The cheaper candidate is USD 285.01 even with both shipping charges removed and the observed discounts included, before unquoted taxes.",
+  "draftState": "JLCPCB cart contains the 119-part top-side assembly draft with ENIG. LCSC browser cart contains all 14 hand-assembly part types. No purchase or production order was placed.",
+  "evidenceDirectory": "dist/quotes/2026-10-26-stripped",
+  "sources": [
+    "https://jlcpcb.com/help/article/pcb-assembly-price",
+    "https://jlcpcb.com/impedance",
+    "https://www.lcsc.com/cart"
+  ]
+}

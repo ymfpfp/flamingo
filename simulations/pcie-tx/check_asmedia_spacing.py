@@ -14,9 +14,10 @@ ROOT=Path(__file__).resolve().parents[2]
 CONTACTS={"TX":[('R20','R21','B14','B15'),('U20','U21','B19','B20'),('Y17','AA17','B23','B24'),('Y15','AA15','B27','B28')],
           "RX":[('N21','N20','A16','A17'),('W21','W20','A21','A22'),('Y19','AA19','A25','A26'),('AA13','Y13','A29','A30')]}
 
-def audit(j, isolation_regions=None):
+def audit(j, isolation_regions=None, *, stack=None):
     if isinstance(j,dict): j=j['circuitJson']
-    stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
+    if stack is None:
+        stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
     required=8*stack['dielectrics'][0]['thicknessMm']
     comp={c['name']:c['source_component_id'] for c in j if c['type']=='source_component'}
     names={c['pcb_component_id']:next((s.get('name',c['pcb_component_id']) for s in j if s['type']=='source_component' and s['source_component_id']==c.get('source_component_id')),c['pcb_component_id']) for c in j if c['type']=='pcb_component'}

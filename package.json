@@ -18,6 +18,7 @@
     "sim:setup": "bun scripts/setup-spice.mjs",
     "sim:power-reset": "bun scripts/simulate-power-reset.jsx",
     "sim:check": "bun scripts/simulate-power-reset.jsx --check",
+    "sim:all": "bun scripts/simulate-reliability.mjs",
     "audit:schematic": "bun run build:json && bun scripts/audit-schematic.mjs",
     "push": "tsci push",
     "snapshot": "tsci snapshot",

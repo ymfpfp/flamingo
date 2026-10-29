@@ -1,0 +1,169 @@
+{
+  "dateLocal": "2026-10-28",
+  "status": "Budget not achieved: costed redesign target only; no validated or orderable build below USD 410",
+  "scope": {
+    "completedBoards": 2,
+    "bareBoards": 5,
+    "prepaidBridgePartsExcludedFromNewSpend": true,
+    "allComponentsTop": true,
+    "usExternalPartsUsd": "0.00",
+    "usExternalShippingUsd": "0.00",
+    "externalFullReelRequired": false,
+    "scopeNote": "Two completed PCBs; no new PSU, GPU, cable, tools, or consumables priced."
+  },
+  "baselineCheckoutUsd": {
+    "merchandise": "351.34",
+    "shipping": "41.00",
+    "customsDuty": "122.98",
+    "importDisbursement": "7.52",
+    "grandTotal": "522.84",
+    "appliedCoupon": "0.00",
+    "stateSalesUseTaxShown": false
+  },
+  "coupon": {
+    "amountUsd": "30.00",
+    "availability": "User confirmed available this turn",
+    "appliedToRevisedCheckout": false,
+    "budgetMethod": "Deduct after duty; assume no associated duty reduction."
+  },
+  "tax": {
+    "ratePercent": "8.625",
+    "source": "https://cdtfa.ca.gov/taxes-and-fees/rates.aspx",
+    "foreignPurchaseSource": "https://cdtfa.ca.gov/taxes-and-fees/use-tax/foreign-purchases.htm",
+    "note": "Customs duty is separate from California sales/use tax. Reserve tax separately unless invoice proves collection or an exemption applies. Duty/import fees included conservatively in reserve; actual treatment depends on importer/invoice. Separately stated common-carrier freight excluded. No claim that the screenshot already collects California tax."
+  },
+  "pricedCuts": [
+    {
+      "change": "Surcharge-free via redesign plus 100 mm framed height",
+      "merchandiseSavingUsd": "59.38",
+      "basis": "Same six-layer JLC06161H-3313, NP-155F, ENIG, fill/cap and +/-10% impedance; file-free calculator USD 149.99 to USD 90.61. USD 52.37 is the via/Kelvin cut; USD 7.01 is the additional size cut.",
+      "status": "Not implemented or validated. Existing layout cannot simply use these quote options."
+    },
+    {
+      "change": "Replace four XGL4020 inductors with MWSA0402S-1R0MT / C408332",
+      "merchandiseSavingUsd": "15.1088",
+      "basis": "Current JLC cost USD 18.1848; allow purchase of 20 replacement pieces at USD 0.1538 each (USD 3.076), including 16 spares. Keep one feeder type; no feeder saving counted.",
+      "status": "Catalog price/stock verified; footprint and circuit rework required, not a drop-in."
+    },
+    {
+      "change": "Omit optional PSU indicator circuit",
+      "merchandiseSavingUsd": "4.777",
+      "basis": "U_PSU_LED + LED_PSU_OK component total USD 1.677 and two feeder types USD 3.10. No savings credited for shared passive MOQ or placement. PSU automatic start remains required.",
+      "status": "Proposed feature omission, not applied."
+    },
+    {
+      "change": "Omit manual reset switch, retain reset RC",
+      "merchandiseSavingUsd": "1.8668",
+      "basis": "SW_RESET component total USD 0.3168 plus one feeder USD 1.55. No placement saving counted.",
+      "status": "Proposed feature omission, not applied."
+    },
+    {
+      "change": "Consolidate ordinary 12.1k and 10k resistors into already-selected precision types",
+      "merchandiseSavingUsd": "3.10",
+      "basis": "Two fewer feeder types. Candidate assumes current 20-piece procurement allowance covers revised quantities (4 and 18 respectively); must verify new BOM quote, including MOQ/attrition. No deleted part cost credited.",
+      "status": "Conditional cost floor, not a verified revised BOM price."
+    },
+    {
+      "change": "Replace all zero-ohm links with direct copper",
+      "merchandiseSavingUsd": "1.55",
+      "basis": "One fewer feeder type; no component or placement savings counted. Requires netlist/routing updates for supply, PS_ON, presence, reset/clock links.",
+      "status": "Proposed routing change, not applied."
+    }
+  ],
+  "conditionalRedesignEstimateUsd": {
+    "merchandise": "265.56",
+    "duty": "92.97",
+    "shipping": "41.00",
+    "importDisbursement": "7.52",
+    "coupon": "-30.00",
+    "stateTaxReserve": "31.57",
+    "usParts": "0.00",
+    "usShipping": "0.00",
+    "total": "408.62",
+    "remainingBudget": "1.38",
+    "manufacturerReviewExtra": null,
+    "status": "Arithmetic only. Conditional savings are not accepted as achieved."
+  },
+  "fabricationScreens": [
+    {
+      "drillMm": 0.2,
+      "landMm": 0.3,
+      "pcbUsd": "132.36",
+      "savingUsd": "17.63",
+      "nativeExistingLayoutErrors": 10,
+      "kelvinRequired": true
+    },
+    {
+      "drillMm": 0.25,
+      "landMm": 0.35,
+      "pcbUsd": "132.00",
+      "savingUsd": "17.99",
+      "nativeExistingLayoutErrors": 47,
+      "kelvinRequired": true
+    },
+    {
+      "drillMm": 0.3,
+      "landMm": 0.4,
+      "pcbUsd": "97.62",
+      "savingUsd": "52.37",
+      "nativeExistingLayoutErrors": 95,
+      "kelvinRequired": false
+    },
+    {
+      "drillMm": 0.2,
+      "landMm": 0.45,
+      "pcbUsd": null,
+      "nativeExistingLayoutErrors": 120,
+      "note": "Published JLC surcharge exception; exact mixed-via construction and Kelvin selection require reviewed quote."
+    }
+  ],
+  "nativeFanoutTrials": {
+    "connectedBridgePins": 214,
+    "localDogbone030040": "No complete local dogbone assignment within clearance/search limits",
+    "localDogbone020045": "No complete local dogbone assignment within clearance/search limits",
+    "boundaryWithExplicitTargets": "Winding fanout failed: declared breakout edges need 160.26 mm but expose only 15.53 mm. These are bounded test fixtures, not proof of physical impossibility.",
+    "zeroTraceTrials": "Discarded as invalid feasibility evidence; no routes or vias produced."
+  },
+  "inductor": {
+    "mpn": "MWSA0402S-1R0MT",
+    "jlcCode": "C408332",
+    "stockObserved": 13169,
+    "availableOrderQtyObserved": 12419,
+    "minimum": 1,
+    "unitUsd": "0.1538",
+    "fullReel": 3000,
+    "fullReelPurchaseRequired": false,
+    "source": "https://jlcpcb.com/partdetail/Sunlord-MWSA0402S1R0MT/C408332",
+    "datasheet": "dist/cost-cut-2026-10-28/Sunlord-MWSA-S.pdf",
+    "nativeFootprintScreenErrors": 23,
+    "nativeFootprintScreenNote": "Manufacturer land pattern at original centers overlaps buck pads and nearby bypass parts. Placement and switch-loop rework necessary. Pours not refilled. No replacement accepted."
+  },
+  "rejectedBudgetShortcuts": [
+    "Do not drop ENIG for existing 0.20-0.25 mm BGA lands.",
+    "Do not drop measured impedance control as an established equivalent.",
+    "No additional saving from the already-selected 0.5 oz inner copper.",
+    "Filled/capped vias are already USD 0; removing them saves nothing.",
+    "Do not count gross removed-component cost as net US sourcing savings.",
+    "A thinner PCB did not remove small-via or Kelvin fees."
+  ],
+  "remainingReleaseGates": [
+    "Complete a legal surcharge-free BGA/control/USB/PCIe fanout and full-board routing.",
+    "Validate shorter-board component placement, ATX mechanical orientation and power routing.",
+    "Validate replacement inductor land pattern, layout, ripple, loss, transient and thermal margins.",
+    "Obtain exact revised BOM/assembly quote, including MOQ/attrition and feeder count.",
+    "Complete native source/netlist/schematic/placement/shorts/style checks and project electrical audits.",
+    "Obtain JLC approval and price for combined BGA land, fill/cap, mask and local stencil requirements. Current assembly remarks are quoted after review.",
+    "Recheck destination-specific shipping, duty, California-tax treatment, fees and actual coupon application."
+  ],
+  "evidence": {
+    "originalQuote": "dist/quotes/2026-10-28-stock-replacements/quote.json",
+    "fabCurrentSize": "dist/cost-cut-2026-10-28/fab-030-current-size.txt",
+    "fab100Mm": "dist/cost-cut-2026-10-28/fab-030-100mm.txt",
+    "inductorStock": "dist/cost-cut-2026-10-28/inductor-price-stock.txt",
+    "screenDirectory": "dist/cost-cut-2026-10-28",
+    "originalBoardSha256": "561dcfa7683146459eccb19d0d9f073193dcaed48777dbd79d82898fb0e04775"
+  },
+  "boardSourceModifiedForThisReview": false,
+  "orderPlaced": false,
+  "conclusion": "Enough potential cost reduction is identified to put a new revision near USD 409 including conservative state tax, but the existing layout fails the required changes. There is no established complete build under USD 410. The USD 1.38 arithmetic margin also cannot absorb unquoted manufacturer-review extras."
+}

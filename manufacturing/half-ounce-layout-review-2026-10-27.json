@@ -1,0 +1,160 @@
+{
+  "dateLocal": "2026-10-27",
+  "status": "Layout and planned-load conductor screens passed; fabrication release open",
+  "stackupCode": "JLC06161H-3313",
+  "sourceFile": "dist/half-ounce-layout-2026-10-27/final.circuit.json",
+  "sourceSha256": "9cf188c5f864d4950f28dc328fbe0934eca649ce2ed8d210bdf258f756f234e2",
+  "pcbOnlyBaselineSha256": "9c7ae50269ab1a78a86fee3443bb6d90974eaa868c3b3be5c81ab9f292c47bba",
+  "plannedLoadDc": [
+    {
+      "rail": "VCCL",
+      "currentA": 1,
+      "upperDropMV": 5.726592067743627,
+      "limitMV": 8,
+      "passed": true,
+      "retained3AStressUpperDropMV": 17.17977620323088
+    },
+    {
+      "rail": "VDD",
+      "currentA": 3,
+      "upperDropMV": 7.839284589278686,
+      "limitMV": 8,
+      "passed": true,
+      "retained3AStressUpperDropMV": 7.8392845892786855
+    }
+  ],
+  "tests": {
+    "passed": 171,
+    "skipped": 8,
+    "failed": 0
+  },
+  "preservation": {
+    "passed": true,
+    "assemblyParts": 154,
+    "allOnTop": true,
+    "assemblyPlacementUnchanged": true,
+    "bomAttributesAndInternalConnectionsUnchanged": true,
+    "originalTraces": 638,
+    "currentTraces": 638,
+    "changedTraces": [
+      {
+        "name": "CONTROL_ASM_CC2_SECTION_0",
+        "before": "168a4312396d859917fdea5e776fe7b4b34806cff87459428627cf4093dedfa3",
+        "after": "a506f4a281d4efbfa3a7adbd197e4fa217933eb4b99c1d4b04b6ea1904d3889e"
+      },
+      {
+        "name": "CONTROL_ASM_CC2_SECTION_1",
+        "before": "3f3ce7bbb8b925cbf15b8d4c37bf7233171fc7e51909f3b673e3825b3a5eb0b5",
+        "after": "c3ea3e369fbd1379b0aa576d1ccd3046172fd857d7f231e53a7dd4859a8f9d31"
+      },
+      {
+        "name": "ASM2464PDX.PTXP1|net.ASM_PTXP1",
+        "before": "2677afbbabd1cb03a61ef80ff7da02eac33db365382438fe52310e1e751b7075",
+        "after": "834ef89b15805fa30ed1231333796f95f058e60ce37d3dbee6983f76330a0082"
+      },
+      {
+        "name": "ASM2464PDX.PTXN1|net.ASM_PTXN1",
+        "before": "042caa4bab9fe48537b0fc30357290ad98b0a0b1f4784517cdbbde2a24c5b90b",
+        "after": "a60e4ac0f52fc832997b3ec17a138f5ffdd10880a85abdd84a8a912a22b7210a"
+      }
+    ]
+  },
+  "placementAssessment": {
+    "nativePlacementErrors": 0,
+    "nativePlacementWarnings": 0,
+    "cliHeuristicExitCode": 1,
+    "flaggedComponent": "C_VDD_28",
+    "disposition": "Non-actionable orientation advisory; original placement retained.",
+    "basis": "Both capacitor pads connect vertically through their own via-in-pad to VDD and GND inner copper. The heuristic uses straight logical connections toward the bridge, rather than the emitted multilayer paths. The 0.8402 mm-separated via centers coincide with the two pad centers. Component placement and the existing contacts match the baseline; physical power continuity and the independent copper shorts/clearance checks remain required.",
+    "padVias": [
+      {
+        "net": "VDD",
+        "x": 33.8201,
+        "y": 110.3
+      },
+      {
+        "net": "GND",
+        "x": 32.9799,
+        "y": 110.3
+      }
+    ]
+  },
+  "nominalDifferentialOhm": 87.12074902417442,
+  "newViaCounts": {
+    "coreStitches": 25,
+    "coreFeed": 4,
+    "flashTransfer": 1,
+    "slotFeedTransfer": 1,
+    "total": 31
+  },
+  "changedExistingVddFeedVias": {
+    "count": 8,
+    "drillBeforeMm": 0.2,
+    "drillAfterMm": 0.25,
+    "landMm": 0.4
+  },
+  "clearances": {
+    "mainRegionMm": 0.205,
+    "innerViaLandMm": 0.155,
+    "innerViaDrillMinimumMm": 0.2,
+    "componentPthDrillMinimumMm": 0.3,
+    "bgaTopTraceAndPadMm": 0.15
+  },
+  "price": {
+    "barePcbQuantity": 5,
+    "factoryAssemblyQuantity": 2,
+    "priorEstimateBeforeShippingTaxUSD": 285.01,
+    "assumedCouponUSD": 30,
+    "priorFreightUSD": 42.72,
+    "priorEstimateWithFreightBeforeTaxUSD": 327.73,
+    "revisedLayoutQuoted": false,
+    "bridgePurchaseExcludedAlreadyPaid": true,
+    "bridgeForwardingFreightKnown": false
+  },
+  "qualification": {
+    "fabricationReleased": false,
+    "vendorDfmAccepted": false,
+    "hardwareValidated": false,
+    "completeChannelEyeOrBerValidated": false,
+    "regulatorClosedLoopValidated": false,
+    "vccL3AStressPassed": false
+  },
+  "openIssues": [
+    "VDD load-step sensitivity still violates the voltage limits; the original 1 oz layout also failed this model.",
+    "Actual PDX maximum currents and current edges are not verified. The 1 A / 3 A values are provisional design loads.",
+    "VCCL retains a separate 3 A stress-screen failure. This is not its accepted 1 A planning load.",
+    "Vendor filled/capped-via, BGA pad, mask and stencil acceptance remains open.",
+    "The slot 12 V path trades some conductor loss for core-supply width. Cable, connector, hot-FET and thermal margins remain separate.",
+    "Full channel 3D, eye/BER, regulator closed-loop response, startup, reset and existing SOA qualification remain separate."
+  ],
+  "inputSha256": {
+    "index.circuit.tsx": "151e07561d99d90e941c99f76e6e6cfb88d1be9117f11d4788b5af0cca74bc7a",
+    "lib/power-distribution.tsx": "4c77357a58f84b30753519bd70e28ef29d97a566b9b4dbb61ae2d3e49e024ee2",
+    "lib/pcie-tx-routing.ts": "5759cdf7e5aa5df795724bcd1eee013de8f46dad3b14c3a07a6b9cd5279ba3fc",
+    "jlcpcb-clearance-rules.json": "6d2f9b71a88db9599cff808faa266bd040ad064d8e2273438f0f98bb7bf0d1a1",
+    "manufacturing/stackup/selected.json": "ccc24f1b29d0d28bd55802bf2e17dc1cfbdce2bb69b7dcabf57ef4489303952c",
+    "manufacturing/stackup/cost-reduction-rework.json": "fa1e88a242cebd0993606f9c00e4a515c5179e9b360c197888cb55b769ec2d05",
+    "manufacturing/power-distribution/requirements.json": "cb5f283f9262ad2e906f909b82d599983ea8046ab9b03f42605e46e73fd9d194",
+    "manufacturing/power-distribution/terminals.json": "01b9da04651c251be207beeac78633a67cd23b483bd312c8a9d95bccc30b6a89",
+    "manufacturing/power-distribution/bga-copper.json": "95a3bde9b19bdc8bf62f463cc7134a5a41e416d37eead4d15b76cc517739fcea",
+    "manufacturing/power-distribution/cost-reduction-copper.json": "9d5708903c3c2dbb05ffda837e00b05d634e4c0c7db8a569200e5292316142a2",
+    "manufacturing/power-distribution/surface-si-moats.json": "85c22cf80b779611fc209bfbb4a09db4b3f02fc01507553cd6bfc56d08358cfc",
+    "manufacturing/control-routing/routed-surface.json": "c14e10d5e60d6e9df716b2a6fa037d960396094105d1935d34c1555509008a9a",
+    "manufacturing/control-routing/cc-pour-clearance.json": "0bca9fc76140c43a8889c941e766317657d9d256cc233ac0802802f8486eebcd",
+    "manufacturing/atx5v-routing/regions.json": "c25b6b9474386ad449f4b797be4ed83f4539d1663a2c7aa56947b4e06b6f4acb",
+    "manufacturing/vcch-routing/regions.json": "0b22cc6165d23522e048a269fb611ac9cb9fea0701fc32ef87c295c3fe17f420",
+    "manufacturing/vcch-routing/terminals.json": "81af7e63eb2672dffae16991fe3a707bac3948595042bdb9fcc8e1514fc49413",
+    "manufacturing/slot-power-routing/regions.json": "080f04a3e5d69c5a3b5c55995f5d271186cdd0efd208310998b9a02f6ed6272c",
+    "manufacturing/slot-power-routing/terminals.json": "b56371ad5816067c105f3d52a9b3d220734907b924689377a8d3b84361975956",
+    "simulations/power-distribution/check_dc.py": "56d570627498f2debfde573d23aa6d61a5f6562653f889a64427374a99d69861",
+    "simulations/power-distribution/check_layout.py": "b4224245529f1f651fa35884152a581247b19a034761e35a7c479390afca05da",
+    "simulations/power-distribution/prepare_surface_moats.py": "ae6403c02628a92af69e04ee3f9c8c475985271d25f507350fd4d1f5b80c8a96",
+    "tests/audits/layout-audit.mjs": "19bde8c56c69fc9bef764a9aa37603bc5a4b5c3c88ffcc0c308f840ca036d753",
+    "simulations/pcie-tx/check_asmedia_spacing.py": "1757a80ebfcab80178dedc91dead871fe5215f41c914ab7ee9c5091493b273a4",
+    "simulations/usb4/check_layout.py": "00d13e57618eaceb207c9dfe7a9f93658040a7d421719626a5f71b52e59d2ebe",
+    "simulations/bridge-clocks/check_layout.py": "e9cb9e7e018d63fb54fbabdf14baa73ce6d22282987a5155d096d893f67b0b55",
+    "tests/layout-preservation.test.mjs": "aa1fe3e7d0825092491c25bb09f5fad11415cfdc47241909f7bc4fe9cb4bd1d1",
+    "scripts/build-board.mjs": "3ab09dddca360df9db6edc9edcd3045b9693ce0aa3b2547d45c9fc147817e719",
+    "scripts/render-half-ounce-layout-review.py": "a914074d58cf74c6296c13fe48c26604aac71fb0542c0d41426221cd3fc13426"
+  }
+}

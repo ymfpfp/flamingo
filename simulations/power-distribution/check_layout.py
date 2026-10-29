@@ -94,8 +94,10 @@ def audit(j):
         if floating:failures.append(rail+': floating inner copper '+str(floating))
         floating_top=[s.area for i,(l,s) in enumerate(regions) if l=='top' and origin is not None and find(i)!=find(origin) and s.area>.001]
         if floating_top:failures.append(rail+': floating top copper '+str(floating_top))
+        floating_bottom=[s.area for i,(l,s) in enumerate(regions) if l=='bottom' and origin is not None and find(i)!=find(origin) and s.area>.001]
+        if floating_bottom:failures.append(rail+': floating bottom copper '+str(floating_bottom))
         records.append({'rail':rail,'layer':layer,'bridgePins':sum(name.startswith('ASM') for name,p in expected),
-            'bypassPins':sum(not name.startswith('ASM') for name,p in expected),'disconnected':disconnected,'planeAreaMm2':plane.area,'floatingCopperMm2':floating,'floatingTopCopperMm2':floating_top})
+            'bypassPins':sum(not name.startswith('ASM') for name,p in expected),'disconnected':disconnected,'planeAreaMm2':plane.area,'floatingCopperMm2':floating,'floatingTopCopperMm2':floating_top,'floatingBottomCopperMm2':floating_bottom})
     # Verify each bypass ground and all bridge GND/GNDA pins physically reach
     # either reference plane through a top copper region and a grounded via.
     n=nets['GND'];top=unary_union([o['shape'] for o in copper if o['net']==n and 'top' in o['layers']]).buffer(1e-7)
@@ -117,13 +119,13 @@ def audit(j):
     # Every outer power region/trace retains the general copper clearance.
     # Existing signal-specific 8h shielding is checked by its own audits.
     for o in copper:
-        if o['net'] not in [nets['VCCL'],nets['VDD']] or 'top' not in o['layers']:continue
+        if o['net'] not in [nets['VCCL'],nets['VDD']] or not any(l in o['layers'] for l in ['top','bottom']):continue
         if o['trace'] and not st.get(next((e.get('source_trace_id') for e in j if e.get('pcb_trace_id')==o['trace'] and e['type']=='pcb_trace'),None),{}).get('name','').startswith('PDN_'):continue
         if o['port'] or o['label'] in vias:continue
         for other in copper:
-            if other['net']==o['net'] or 'top' not in other['layers']:continue
+            if other['net']==o['net'] or not set(o['layers']).intersection(other['layers']).intersection(['top','bottom']):continue
             gap=o['shape'].distance(other['shape']);new_top.append(gap)
-            if gap<.1-1e-5:failures.append(f"{o['label']} to {other['label']}: top power copper gap {gap:.6f} mm < 0.1 mm")
+            if gap<.1-1e-5:failures.append(f"{o['label']} to {other['label']}: surface power copper gap {gap:.6f} mm < 0.1 mm")
     for o in copper:
         if not any(l in o['layers'] for l in ['inner1','inner2','inner3','inner4']) or o['label'] not in pours:continue
         for v in vias.values():
@@ -150,6 +152,7 @@ def audit(j):
         'minimumForeignViaDrillToInnerCopperMm':min(drill,default=None),
         'minimumForeignPlatedDrillToInnerCopperMm':min(pth,default=None),'minimumMechanicalHoleToInnerCopperMm':min(mechanical,default=None),
         'minimumTopPowerCopperGapMm':min(new_top,default=None),
+        'minimumSurfacePowerCopperGapMm':min(new_top,default=None),
         'minimumPowerPourToBoardEdgeMm':min(edge,default=None),
         'scope':'Emitted rail copper, feed-to-every-ball and bypass continuity, bridge and bypass ground returns, and inner via drill clearance.',
         'limitations':'No package model, AC PDN impedance, regulator transient or thermal qualification.'}

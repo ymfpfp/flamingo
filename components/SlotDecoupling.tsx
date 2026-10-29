@@ -1,7 +1,7 @@
 import {Fragment} from "react";
 import {APXF6R3ARA331MF61G} from "imports/APXF6R3ARA331MF61G";
 import {CL10B104KB8NNNC} from "imports/CL10B104KB8NNNC";
-import {A_25SVPK470M} from "imports/A_25SVPK470M";
+import {RYHV25V470UF10_10} from "imports/RYHV25V470UF10_10";
 
 /** ASMedia reference sheet 6: CE1/C132/C133 and CE2/C131.
  * All capacitors shunt the switched slot outputs to GND.
@@ -16,7 +16,7 @@ export function SlotDecoupling() {
       <schematicline x1={-3.05} y1={-8.2125} x2={-3.05} y2={6.0625}
         strokeWidth={0.02} color="#000000" isDashed/>
       {([
-        {rail: "12V", Bulk: A_25SVPK470M, bulkNames: ["C134"], ceramics: ["C132", "C133"], y: 0, label: "12 V: 470uF / 25V + 2 x 100nF / 50V"},
+        {rail: "12V", Bulk: RYHV25V470UF10_10, bulkNames: ["C134"], ceramics: ["C132", "C133"], y: 0, label: "12 V: 470uF / 25V + 2 x 100nF / 50V"},
         {rail: "3V3", Bulk: APXF6R3ARA331MF61G, bulkNames: ["C135", "C136"], ceramics: ["C131"], y: -5, label: "3.3 V: 2 x 330uF / 6.3V + 100nF / 50V"},
       ] as const).map(({rail, Bulk, bulkNames, ceramics, y, label}) => (
         <Fragment key={rail}>

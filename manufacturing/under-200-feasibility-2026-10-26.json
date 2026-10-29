@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-26",
+  "budgetUsd": "200.00",
+  "requiredCompleteBoards": 2,
+  "scope": "All PCBs, factory assembly and parts, hand-assembly parts including MOQs, shipping, and taxes. Already paid bridge purchases excluded. PSU, USB4 cable, soldering tools and supplies excluded by user.",
+  "candidatePcbAndFactoryUsd": "288.24",
+  "handPartsDeliveredUsd": "36.57",
+  "jlcShippingUsd": "32.92",
+  "jlcCouponUsd": "30.00",
+  "pcbAndFactoryAllowanceBeforeTaxesUsd": "160.51",
+  "furtherSavingsBeforeTaxesUsd": "127.73",
+  "smallerFrameScreen": {
+    "dimensionsMm": [
+      70.5,
+      100
+    ],
+    "pcbQty": 5,
+    "pcbUsd": "142.45",
+    "stackup": "JLC06161H-3313",
+    "innerCopperOz": 0.5,
+    "outerCopperOz": 1,
+    "finish": "ENIG",
+    "laminate": "NP-155F",
+    "viaCovering": "epoxy filled and copper capped",
+    "minimumViaDrillAndCopperMm": [
+      0.15,
+      0.25
+    ],
+    "impedanceTolerancePercent": 10,
+    "status": "File-free hypothetical fabrication quote. No resized layout exists; assembled shipping not recalculated."
+  },
+  "passiveAssemblyScreen": {
+    "0402ComponentsPerBoard": 85,
+    "distinct0402Types": 18,
+    "maximumFeederSavingsUsd": "27.90",
+    "status": "Upper bound if all were moved out of factory assembly. Larger footprints, decoupling validity and new loose-part costs are not established."
+  },
+  "fineViaFeeScreen": {
+    "smallViaUsd": "35.25",
+    "kelvinUsd": "17.12",
+    "combinedUsd": "52.37",
+    "status": "A legal larger-via fanout is not established for the 0.46 mm pitch bridge. These fees cannot simply be deselected."
+  },
+  "conclusion": "No verified two-board custom ASM2464PDX build below USD 200. A smaller outline and hand assembly of larger parts do not close the gap. A different fabrication/assembly arrangement or preassembled bridge architecture needs a new complete quote.",
+  "boardModified": false,
+  "savedCartModifiedThisTurn": false,
+  "orderPlaced": false,
+  "sources": [
+    "https://jlcpcb.com/help/article/pcb-assembly-price",
+    "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+    "dist/quotes/2026-10-26-stripped/smaller-frame-what-if.txt",
+    "manufacturing/stripped-quote-2026-10-26.json"
+  ]
+}

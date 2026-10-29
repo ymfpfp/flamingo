@@ -3,7 +3,7 @@ import {test} from "node:test";
 import {Circuit} from "tscircuit";
 import {Children} from "react";
 import {ChemiConF61F80Footprint} from "../imports/ChemiConF61F80Footprint";
-import {A_25SVPK470M} from "../imports/A_25SVPK470M";
+import {RYHV25V470UF10_10} from "../imports/RYHV25V470UF10_10";
 import {Sot23Nmos} from "../imports/Sot23Nmos";
 import {NX3008NBK_215} from "../imports/NX3008NBK_215";
 import {boardFixture} from "./board-fixture.mjs";
@@ -88,7 +88,7 @@ test("all bridge ground balls connect to every ATX COM pin", () => {
 test("slot bulk and ceramic capacitors bypass only the switched rails to PSU ground", () => {
   const banks = [
     {rail: "12V", contact: "A2", input: "pin10", capacitance: 470e-6, voltage: 25,
-      mpn: "25SVPK470M", bulk: ["C134"], ceramics: ["C132", "C133"]},
+      mpn: "RYHV25V470UF10*10", bulk: ["C134"], ceramics: ["C132", "C133"]},
     {rail: "3V3", contact: "A9", input: "pin1", capacitance: 330e-6, voltage: 6.3,
       mpn: "APXF6R3ARA331MF61G", bulk: ["C135", "C136"], ceramics: ["C131"]},
   ];
@@ -123,9 +123,9 @@ test("startup screening includes both parallel bulk capacitors", () => {
   assert.equal(screening.rail12.capacitorOnlyStartupEnergyJ, smaller.rail12.capacitorOnlyStartupEnergyJ);
 });
 
-test("C134 uses Panasonic F12 lands with positive pin 1 on the slot rail", () => {
-  const capacitor = A_25SVPK470M({name: "C134"}).props;
-  assert.deepEqual(capacitor.supplierPartNumbers.jlcpcb, ["C454276"]);
+test("C134 retains compatible F12 lands and positive pin 1 on the slot rail", () => {
+  const capacitor = RYHV25V470UF10_10({name: "C134"}).props;
+  assert.deepEqual(capacitor.supplierPartNumbers.jlcpcb, ["C48970606"]);
   assert.equal(capacitor.polarized, true);
   const pads = Children.toArray(capacitor.footprint.props.children)
     .filter(element => element.type === "smtpad").map(element => element.props);
@@ -208,7 +208,7 @@ test("each gate has a source-referenced RC network and its own driver series res
     assert.equal(net(series, "pin1"), net(`Q_SLOT_DRV_${suffix}`, "D"));
     assert.equal(net(series, "pin2"), gate);
     assert.notEqual(net(series, "pin1"), gate, "series resistor is not bypassed");
-    assert.equal(component(pullup).resistance, suffix === "12V" ? 10000 : 100000);
+    assert.equal(component(pullup).resistance, suffix === "12V" ? 10000 : 22000);
     assert.equal(net(pullup, "pin1"), input);
     assert.equal(net(pullup, "pin2"), gate);
     assert.ok(Math.abs(component(capacitor).capacitance - 10e-6) < 1e-12);

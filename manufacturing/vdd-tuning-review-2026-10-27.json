@@ -1,0 +1,100 @@
+{
+  "dateLocal": "2026-10-27",
+  "status": "Tuning tried; VDD repair remains unverified",
+  "completedAttempt": true,
+  "verifiedVddFix": false,
+  "hardwareChanged": false,
+  "sourceFile": "dist/vdd-tuning-2026-10-27/checked.circuit.json",
+  "sourceSha256": "e31da2e3a2216bb8ed73b45872a0732387fb4656e2ad31e122e4f9c0615c3e7b",
+  "regulator": "TPS62903RPJR",
+  "regulatorReplaced": false,
+  "closedLoopValidated": false,
+  "stackup": "JLC06161H-3313",
+  "stackupSha256": "ccc24f1b29d0d28bd55802bf2e17dc1cfbdce2bb69b7dcabf57ef4489303952c",
+  "bankParameterTargets": 108,
+  "dampingCriterionPassTargets": 32,
+  "dampingAndStartupScreenPassTargets": 17,
+  "bankTargetsPassingVoltageStress": 0,
+  "dividerTargets": 8,
+  "bankTargetsPassingVoltageOnlyButRejectedForOtherCriteria": 16,
+  "feedforwardNetworkValuesIncludingBaseline": 10,
+  "feedforwardTransientSimulationExecuted": false,
+  "currentBoardStressRangeBeforeRippleV": [
+    1.0518810190853027,
+    1.2094562333539318
+  ],
+  "bestPreliminaryBankTarget": {
+    "branches": 4,
+    "capacitancePerBranchUF": 330,
+    "resistancePerBranchMilliohm": 47,
+    "minimumExplicitParallelDampingMilliohm": 11.5234453125,
+    "dampingCriterionPass": true,
+    "startupPeakCurrentScreenA": 3.8549165940405192,
+    "startupCurrentLimitScreenPass": true,
+    "physicalPartsAndLayoutVerified": false,
+    "nominalSetpointV": 1.1342857142857141,
+    "lowVBeforeRipple": 1.0659126384817978,
+    "highVBeforeRipple": 1.1953327717069089,
+    "spanMVBeforeRipple": 129.42013322511104,
+    "marginMVBeforeRipple": -35.33277170690896,
+    "optimisticCenteredSetpointV": 1.1336630091913606,
+    "optimisticCenteredMarginMV": -34.710066612555515
+  },
+  "bestPreliminaryBankStressRangeBeforeRippleV": [
+    1.0657457940052952,
+    1.1953665479990776
+  ],
+  "voltageLimitsV": [
+    1.1,
+    1.16
+  ],
+  "tests": {
+    "pass": 175,
+    "skip": 8,
+    "fail": 0
+  },
+  "fullBoardValidatorPassed": true,
+  "separateVccl3AStressQualified": false,
+  "independentPassiveNumericCrosscheckPassed": true,
+  "normalStartupEnvelope": {
+    "cases": 18,
+    "minimumMarginMs": 2.2609768700850026,
+    "failedCases": [],
+    "assumptions": [
+      "5 V and 3.3 V have matched start and rise times, with matching +/-5% endpoint variation.",
+      "Supervisor release occurs within 1 ms of the calculated high threshold. This is a test allowance, not a datasheet maximum.",
+      "VCCL reaches its target within 5 ms after that release. VDD uses 4 ms delay plus a prescribed 16 ms ramp, with no overshoot. The VDD ramp bounds the 47 nF soft-start RC sensitivity at 2.3 uA and the high reference corner; this is not a regulator prediction.",
+      "Reset effective capacitance is at least 0.5 uF. This is a sensitivity floor, not a guaranteed manufacturer limit.",
+      "Bridge loading, regulator stability, input clamps and capacitor nonlinearities are not simulated."
+    ]
+  },
+  "hardwareSourceChangesSinceSnapshot": [],
+  "decision": "Retain the existing physical circuit and existing manufacturing files. No candidate was promoted to the board because none passed the unchanged voltage stress and no feed-forward loop response was verified.",
+  "openItems": [
+    "A measured or supported TPS62903 control-loop/transient response is still required for feed-forward selection.",
+    "The actual bridge current-step amplitude/rate and the PCB inductances remain unmeasured.",
+    "The current board still has VDD stress-screen failures. This attempt does not prove that the real board fails.",
+    "The larger-capacitance candidates were model targets; they were not routed, sourced, purchased, or assembled.",
+    "Existing reset, slot restart, thermal, firmware and manufacturer-acceptance issues remain separate."
+  ],
+  "resultsFile": "dist/vdd-tuning-2026-10-27/screen/tuning-results.json",
+  "reportFile": "dist/vdd-tuning-2026-10-27/report.html",
+  "references": [
+    {
+      "title": "TPS62903 datasheet: LC, feedback network and distributed capacitance",
+      "url": "https://www.ti.com/lit/ds/symlink/tps62903.pdf"
+    },
+    {
+      "title": "Feedforward capacitor selection requires original crossover measurement",
+      "url": "https://www.ti.com/lit/an/slva466a/slva466a.pdf"
+    },
+    {
+      "title": "Optimizing transient response with feedforward capacitor",
+      "url": "https://www.ti.com/lit/an/slva289b/slva289b.pdf"
+    }
+  ],
+  "scriptSha256": {
+    "simulations/power-dynamics/tune_current_vdd.py": "9742093a28584ae2a57e27549dfabc6db3fe343afb9b73043ea87548c10e8cbd",
+    "scripts/render-vdd-tuning-review.py": "03899fd07906e97d47d28b809c638d0d1ad1f275a4eb186795d6cbd951f2cc27"
+  }
+}

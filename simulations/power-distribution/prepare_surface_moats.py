@@ -5,9 +5,9 @@ Usage: python prepare_surface_moats.py board.circuit.json output.json
 
 This converts constraints, not routes. Native tscircuit fills the authored power
 outlines. Every emitted board must still pass the physical and isolation audits.
-The power pours must retain at least 0.205 mm pad margin. A conservative 0.19 mm
+The power pours must retain at least 0.15 mm pad margin. A conservative 0.14 mm
 part of the native foreign-via antipad completes the moat around those vias.
-VCCL/VDD vias are never assumed to receive antipads from either power pour.
+Vias on any added surface power net are never counted as foreign antipads.
 """
 import hashlib
 import json
@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 from shapely import from_wkb
-from shapely.geometry import Point, box, LineString
+from shapely.geometry import Point, box, LineString, Polygon
 from shapely.ops import unary_union
 from shapely.prepared import prep
 
@@ -42,18 +42,21 @@ def generate(j):
             shapeWkbHex=LineString(points).buffer(section['width']/2, quad_segs=64).wkb_hex))
     _, _, _, _, _, vias, _, _, nets, _, via_net, _ = model(j)
     keepouts, proofs = [], []
-    # Union of the authored surface outlines. No new power region extends into
-    # the excluded western area above y=99.5 mm.
-    window = unary_union([box(.5, 78.4, 46, 99.5), box(22, 99.5, 46, 108)])
+    # Derive added windows from the authored pours, so an extended power feed
+    # cannot silently fall outside the high-speed isolation constraints.
+    extra = json.loads((ROOT/'manufacturing/power-distribution/cost-reduction-copper.json').read_text())
+    window = unary_union([box(.5, 78.4, 46, 99.5), box(22, 99.5, 46, 108),
+                          *[Polygon([(p['x'], p['y']) for p in r['outline']]) for r in extra]])
+    surface_nets = {nets[n] for n in ['VCCL', 'VDD', *[r['net'] for r in extra]]}
     for layer in ['top', 'bottom']:
         wanted = unary_union([
             from_wkb(bytes.fromhex(r['shapeWkbHex'])).buffer(r['requiredGapMm']+.006, quad_segs=64)
             for r in isolation['isolationRegions'] if r['layer'] == layer
         ]).intersection(window)
         antipads = unary_union([
-            Point(v['x'], v['y']).buffer(v['outer_diameter']/2+.19, quad_segs=64)
+            Point(v['x'], v['y']).buffer(v['outer_diameter']/2+.14, quad_segs=64)
             for v in vias.values() if layer in v['layers']
-            and via_net(v) not in [nets['VCCL'], nets['VDD']]
+            and via_net(v) not in surface_nets
         ])
         desired = wanted.difference(antipads)
         # Native placement checks include vias even with allowTraces and
@@ -97,8 +100,8 @@ def generate(j):
                 shape='rect', center={'x': (x0+x1)/2, 'y': (y0+y1)/2},
                 width=x1-x0, height=y1-y0, layers=[layer], allow_traces=True, allow_placements=True))
         proofs.append(dict(layer=layer, missedAreaMm2=missed, rectangles=len(rectangles),
-            minimumViaGapMm=minimum_via_gap, minimumNativePadMarginMm=.205,
-            conservativeForeignViaAntipadMarginMm=.19, isolationReserveMm=.006))
+            minimumViaGapMm=minimum_via_gap, minimumNativePadMarginMm=.15,
+            conservativeForeignViaAntipadMarginMm=.14, isolationReserveMm=.006))
     routes = sorted(json.dumps(e['route'], sort_keys=True, separators=(',', ':'))
                     for e in j if e['type'] == 'pcb_trace')
     return dict(proofs=proofs, keepouts=keepouts,
@@ -117,17 +120,17 @@ if __name__ == '__main__':
     if planned:
         planned_raw = Path(planned).read_bytes()
         for terminal in json.loads(planned_raw):
-            if terminal['role'] != 'stitch':
+            if terminal['role'] not in ['stitch', 'feed']:
                 continue
             if any(e['type'] == 'pcb_via' and abs(e['x']-terminal['x']) < 1e-7
                    and abs(e['y']-terminal['y']) < 1e-7 for e in j):
                 continue
-            net = next(e['source_net_id'] for e in j if e['type'] == 'source_net' and e['name'] == terminal['net'])
-            j.append(dict(type='pcb_via', pcb_via_id=terminal['name'], source_net_id=net,
+            net = next(e for e in j if e['type'] == 'source_net' and e['name'] == terminal['net'])
+            j.append(dict(type='pcb_via', pcb_via_id=terminal['name'], source_net_id=net['source_net_id'],
                 x=terminal['x'], y=terminal['y'], hole_diameter=terminal['drillDiameter'],
                 outer_diameter=terminal['copperDiameter'],
                 layers=['top', 'inner1', 'inner2', 'inner3', 'inner4', 'bottom'],
-                from_layer='top', to_layer='bottom', subcircuit_id='subcircuit_source_group_22'))
+                from_layer='top', to_layer='bottom', subcircuit_id=net['subcircuit_id']))
             planned_records.append(terminal)
     result = generate(j)
     result['sourceSha256'] = hashlib.sha256(raw).hexdigest()

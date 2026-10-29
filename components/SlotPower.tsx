@@ -3,7 +3,7 @@ import {SI4497DY_T1_GE3} from "imports/SI4497DY_T1_GE3";
 import {DMP2008UFG_7} from "imports/DMP2008UFG_7";
 import {NX3008NBK_215} from "imports/NX3008NBK_215";
 import {A_0402WGF1001TCE} from "imports/A_0402WGF1001TCE";
-import {A_0402WGF1003TCE} from "imports/A_0402WGF1003TCE";
+import {A_0402WGF2202TCE} from "imports/A_0402WGF2202TCE";
 import {A_0402WGF1002TCE} from "imports/A_0402WGF1002TCE";
 import {A_0402WGF5100TCE} from "imports/A_0402WGF5100TCE";
 import {RC1206FR_071KL} from "imports/RC1206FR_071KL";
@@ -77,7 +77,9 @@ export function SlotPower() {
         const discharge = `R_SLOT_DISCHARGE_${suffix}`;
         const section = `SLOT_POWER_${suffix}`;
         const SeriesResistor = suffix === "12V" ? A_0402WGF1002TCE : A_0402WGF5100TCE;
-        const OffResistor = suffix === "12V" ? A_0402WGF1002TCE : A_0402WGF1003TCE;
+        // Reduce 3.3 V gate-off RC from 1 s to 220 ms. The 510-ohm
+        // turn-on resistor and 10-uF capacitor retain almost the same startup ramp.
+        const OffResistor = suffix === "12V" ? A_0402WGF1002TCE : A_0402WGF2202TCE;
         // Retain the exact original lands; the 10k import has slightly different pads.
         const gateResistorFootprint = "smdpads2_p0.8656mm_pw0.5657mm_ph0.54mm_cyw1.9313mm_cyh1.04mm";
         const commonPowerProps = {

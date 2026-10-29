@@ -2,6 +2,7 @@ import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {createEngine} from '../power-reset/engine.mjs';
 import {circuitGraph} from '../../lib/circuit-graph.mjs';
+import {slot12BulkSpec} from '../../lib/slot-bulk-spec.mjs';
 
 // Candidate evaluation from either the original board or the installed rc10k setup.
 // This runner does not edit the board or the BOM.
@@ -12,6 +13,9 @@ await writeFile(`${out}/runner.mjs`,runnerRaw);
 const boardFile=process.env.SLOT_BOARD_FILE??'dist/board.circuit.json';
 const boardRaw=await readFile(boardFile),g=circuitGraph(JSON.parse(boardRaw));
 const installed=g.component('Q_SLOT_12V').manufacturer_part_number==='SI4497DY-T1-GE3';
+const bulkSpec=slot12BulkSpec(g.component('C134'));
+const bulkEsrOhm=Number(process.env.SLOT_BULK_ESR_OHM??bulkSpec.esrMaxOhm);
+if(!Number.isFinite(bulkEsrOhm)||bulkEsrOhm<0||bulkEsrOhm>bulkSpec.esrMaxOhm)throw Error('Invalid slot bulk ESR');
 for(const [name,field,value] of [['Q_SLOT_12V','manufacturer_part_number',installed?'SI4497DY-T1-GE3':'AO4407A'],['R_SLOT_GATE_12V','resistance',installed?10000:510],['R_SLOT_OFF_12V','resistance',installed?10000:100000],['C_SLOT_GATE_12V','capacitance',10e-6],['C134','capacitance',470e-6],['R_SLOT_DISCHARGE_12V','resistance',1000],['Q_SLOT_DRV_12V','manufacturer_part_number','NX3008NBK,215']]){
   if(g.component(name)[field]!==value)throw Error(`Board assumptions changed: ${name}.${field}`);
 }
@@ -40,6 +44,9 @@ const detailed=process.argv.includes('--full');
 const focused=process.argv.includes('--focus');
 const sourceStudy=process.argv.includes('--source-study');
 const configsWanted=(process.env.SLOT_CONFIGS??Object.keys(configs).join(',')).split(',');
+const initialTempArg=process.argv.find(a=>a.startsWith('--initial-temp='));
+const initialTemp=initialTempArg?Number(initialTempArg.split('=')[1]):null;
+if(initialTemp!==null&&(!Number.isFinite(initialTemp)||initialTemp < -15||initialTemp>125))throw Error('Invalid initial temperature');
 const cases=[];
 for(const config of configsWanted){
   if(!configs[config])throw Error('Unknown config '+config);
@@ -68,6 +75,7 @@ for(const config of configsWanted){
   for(const cardUF of [2000])for(const temp of [25,125])for(const gateFactor of [.5,1.1])add({cardUF,temp,gateFactor});
   for(const sourceR of [.005,.1])for(const kind of ['control','source'])add({sourceR,kind,sourceControl:'high',offMs:100});
 }
+if(initialTemp!==null)for(const q of cases)q.temp=initialTemp;
 const rows=[];
 const pulse=([t,v])=>`${t}m ${v}`;
 for(let index=0;index<cases.length;index++){
@@ -96,7 +104,7 @@ C_GATE ${c.capNode} gate ${c.cap*q.gateFactor} IC=0
 ${c.miller?`C_MILLER out gate ${c.miller*q.gateFactor} IC=0`:''}
 X_POWER drain gate source Si4497DY
 V_DRAIN drain out 0
-R_ESR out bulk .015
+R_ESR out bulk ${Math.max(bulkEsrOhm,1e-6)+.001}
 C_BULK bulk 0 ${470e-6*1.44} IC=0
 ${q.cardUF?`R_CARD out card .02\nC_CARD card 0 ${q.cardUF*1e-6} IC=0`:''}
 C_CERAMIC out 0 .2u IC=0
@@ -148,7 +156,7 @@ ${vendor}
   const expected=470e-6*1.44*(vb.at(-1)-vb[0])+.2e-6*(vout.at(-1)-vout[0])+(vc?q.cardUF*1e-6*(vc.at(-1)-vc[0]):0)
     +((c.capNode==='out'?c.cap:0)+(c.miller??0))*q.gateFactor*((vout.at(-1)-sourceV.at(-1)+vg.at(-1))-(vout[0]-sourceV[0]+vg[0]));
   const at=time=>ts.findIndex(t=>t>=time);
-  const row={index,...q,...c,attempt,events,finalOutputV:vout.at(-1),finalGateV:vg.at(-1),
+  const row={index,...q,...c,bulkEsrOhm,attempt,events,finalOutputV:vout.at(-1),finalGateV:vg.at(-1),
     minimumGateV:vg.reduce((a,v)=>Math.min(a,v),Infinity),maximumGateV:vg.reduce((a,v)=>Math.max(a,v),-Infinity),peakDriverA:idriver.reduce((a,v)=>Math.max(a,Math.abs(v)),0),
     outputBeforeRestartV:vout[at(re)-1],gateBeforeRestartV:vg[at(re)-1],
     maximumOutputBeforeEnableV:ts.reduce((a,t,i)=>t<2?Math.max(a,vout[i]):a,0),

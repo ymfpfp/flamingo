@@ -1,0 +1,112 @@
+{
+  "checkedAt": "2026-10-28T21:46:23.534104+00:00",
+  "source": "JLCPCB live parts catalogue in Chrome, 2026-10-28. Availability is a snapshot, not reserved stock.",
+  "replacements": [
+    {
+      "refs": [
+        "C134"
+      ],
+      "oldMPN": "25SVPK470M",
+      "newMPN": "RYHV25V470UF10*10",
+      "jlc": "C48970606",
+      "stock": 928,
+      "quantityForTwoBoards": 2,
+      "unitPriceUSD": 0.3517,
+      "change": "470 uF / 25 V / +/-20% retained. Max ESR 14 -> 28 mOhm; ripple rating 5 -> 3.15 A at 100 kHz; upper temperature 125 -> 105 C; body height 12.6 -> 10.5 mm. Existing copper lands contain the new terminal envelope.",
+      "productUrl": "https://jlcpcb.com/partdetail/HonorElec-RYHV25V470UF1010/C48970606"
+    },
+    {
+      "refs": [
+        "R_VDD_DAMP_A",
+        "R_VDD_DAMP_B"
+      ],
+      "oldMPN": "WSL0805R0220FEA",
+      "newMPN": "PE1206FRM070R022L",
+      "jlc": "C875657",
+      "stock": 2178,
+      "quantityForTwoBoards": 4,
+      "unitPriceUSD": 0.0775,
+      "change": "22 mOhm, +/-1%, +/-75 ppm/K retained. Power 125 -> 250 mW; footprint 0805 -> 1206.",
+      "productUrl": "https://jlcpcb.com/partdetail/YAGEO-PE1206FRM070R022L/C875657"
+    },
+    {
+      "refs": [
+        "R_VDD_FBT"
+      ],
+      "oldMPN": "ERA-2ARB1871X",
+      "newMPN": "PTFR0603B1K87N9",
+      "jlc": "C2692849",
+      "stock": 88,
+      "quantityForTwoBoards": 2,
+      "unitPriceUSD": 0.1848,
+      "change": "1.87 kOhm, +/-0.1%, +/-10 ppm/K retained. 0402 -> 0603 with manufacturer lands; move 0.9 mm right and 0.1 mm down with three local feedback traces adapted.",
+      "productUrl": "https://jlcpcb.com/partdetail/RESI-PTFR0603B1K87N9/C2692849"
+    },
+    {
+      "refs": [
+        "R_VDD_FBB"
+      ],
+      "oldMPN": "ERA-2ARB2101X",
+      "newMPN": "PTFR0402B2K10N9",
+      "jlc": "C2693008",
+      "stock": 2926,
+      "quantityForTwoBoards": 2,
+      "unitPriceUSD": 0.1263,
+      "change": "2.1 kOhm, +/-0.1%, +/-10 ppm/K and 0402 retained. Move 0.1 mm up to clear the top resistor.",
+      "productUrl": "https://jlcpcb.com/partdetail/RESI-PTFR0402B2K10N9/C2693008"
+    }
+  ],
+  "cataloguePartsCostForTwoBoardsUSD": 1.6356,
+  "quoteFeesIncluded": false,
+  "status": "implemented and verified; original hardware qualification limits remain open",
+  "limits": [
+    "No change to the accepted open Rev A hardware qualification items.",
+    "VDD static tolerance screening is not a closed-loop load-step simulation."
+  ],
+  "rejectedFeedbackCandidate": {
+    "parts": [
+      "RT0402BRD071K87L",
+      "RT0402BRD072K1L"
+    ],
+    "reason": "25 ppm/K worsened static headroom by about 2 mV and caused additional failures in the existing conditional VDD load-step model. Use 10 ppm/K parts instead."
+  },
+  "completedAt": "2026-10-28T22:30:01.041619+00:00",
+  "verification": {
+    "sourceBoardSha256": "561dcfa7683146459eccb19d0d9f073193dcaed48777dbd79d82898fb0e04775",
+    "regression": {
+      "passed": 176,
+      "skipped": 8,
+      "failed": 0
+    },
+    "typecheckPassed": true,
+    "fullBoardValidatorPassed": true,
+    "newConditionalPowerFailures": 0,
+    "slotStartupCases": 216,
+    "nativeGerberComparisonPassed": true,
+    "hardwareQualified": false
+  },
+  "feedbackTraceReview": {
+    "passed": true,
+    "original": {
+      "name": "BUCK_VDD_FB_DIVIDER",
+      "lengthMm": 1.2000000000000028,
+      "exposedLengthMm": 0.6599959999999925,
+      "minimumWidthMm": 0.15,
+      "viaCount": 0,
+      "resistance20Ohm": 0.003940571428571438,
+      "lineSegmentDropAt3A80CMV": 14.60927451428575
+    },
+    "current": {
+      "name": "BUCK_VDD_FB_DIVIDER",
+      "lengthMm": 1.537856900974753,
+      "exposedLengthMm": 0.529997999999992,
+      "minimumWidthMm": 0.15,
+      "viaCount": 0,
+      "resistance20Ohm": 0.005050029137677094,
+      "lineSegmentDropAt3A80CMV": 18.722478025024056
+    },
+    "retainedExposedWireBudgetMm": 0.76,
+    "sourceFile": "dist/rev-a-stock-replacements-2026-10-28/board.circuit.json",
+    "explanation": "The 0603 manufacturer land contains more of the route. The exposed wire is shorter than before. Keep the 0.76 mm exposed-wire budget, zero vias and 0.15 mm trace width; allow up to 1.6 mm between pad centers for this exact part only. Exact route hashes constrain all four changed local connections."
+  }
+}

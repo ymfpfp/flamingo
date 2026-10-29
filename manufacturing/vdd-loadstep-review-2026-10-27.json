@@ -1,0 +1,129 @@
+{
+  "dateLocal": "2026-10-27",
+  "status": "VDD verification remains open. A supported TI-model simulation or hardware measurements are required.",
+  "completedRequestedFix": false,
+  "currentVddClosedLoopValidated": false,
+  "hardwareQualified": false,
+  "hardwareChanged": false,
+  "sourceFile": "dist/power-followup-2026-10-27/turnoff-fix.circuit.json",
+  "sourceSha256": "e31da2e3a2216bb8ed73b45872a0732387fb4656e2ad31e122e4f9c0615c3e7b",
+  "stackupCode": "JLC06161H-3313",
+  "stackupSha256": "ccc24f1b29d0d28bd55802bf2e17dc1cfbdce2bb69b7dcabf57ef4489303952c",
+  "currentRegulator": "TPS62903RPJR",
+  "currentRegulatorExecution": "Official PSpice and SIMPLIS models remain encrypted. No supported local engine is available. WEBENCH stalled while loading simulation types.",
+  "alternative": {
+    "part": "TPS62816QWRWYRQ1",
+    "applied": false,
+    "vendorModelFile": "datasheets/research/vdd-loadstep-2026-10-27/model/TPS62816-Q1_PSPICE_TRANS/TPS62816-Q1_TRANS.LIB",
+    "vendorModelSha256": "b49d09e7a99cb2866b812a02e237d82ee1f527eba80b512b581b7338a219d9a4",
+    "port": "Only nested VALUE-expression braces and .ic syntax changed for LTspice. LTspice then clamped the vendor ideal-diode N parameters to 0.1.",
+    "baseline": {
+      "status": "Simplified research fixture completed; does not represent the Flamingo PCB.",
+      "simulator": "LTspice 17.2.4 for macOS",
+      "log": "dist/vdd-loadstep-2026-10-27/lt-port.log",
+      "waveform": "dist/vdd-loadstep-2026-10-27/lt-output.raw",
+      "inputV": 5,
+      "inductanceUH": 0.47,
+      "capacitanceUF": 150,
+      "pcbDistributionIncluded": false,
+      "stepA": 1.5,
+      "edgeNS": 200,
+      "minimumNominalV": 1.1182736158370972,
+      "maximumNominalV": 1.149996042251587,
+      "conclusion": "Nominal results use most of the voltage allowance before static tolerances. This fixture does not establish a replacement design."
+    },
+    "detailedCandidates": "The distributed-bank and faster-inductor candidates stopped with time-step errors before reaching their load changes. These are simulator failures, not evidence of hardware failure.",
+    "modelReferenceValidated": false,
+    "schematicAndLayoutModified": false
+  },
+  "failedAndIncompleteRuns": [
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/native-trial.log",
+      "sha256": "f9211c044f08dc54dfba0f049b184e8a36a0764deb7356cc77e5f17560ad9ec3",
+      "errors": []
+    },
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/probe-uic.log",
+      "sha256": "498aa7f296e76de607a22da061823a2f46b07caea44b0b1338320dcb429c9253",
+      "errors": [
+        "doAnalyses: TRAN:  Timestep too small; time = 0.000323535, timestep = 1.25e-20: cause unrecorded."
+      ]
+    },
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/ng-gear.log",
+      "sha256": "735822a5fdc6b0a847a3910626df19123857747824e8c4c74f9e8e6fb5a4bf4d",
+      "errors": [
+        "stderr doAnalyses: TRAN:  Timestep too small; time = 0.000323822, timestep = 1.25e-20: cause unrecorded."
+      ]
+    },
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/ng-ltclamp.log",
+      "sha256": "bcaa7c29f60a10264eb9b653e02cdf45d331a98777b60d651aec945bfef4c560",
+      "errors": []
+    },
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/candidate.log",
+      "sha256": "81a5f5e4321a3576509ef7b67a1545f95b85d47b752bd479eecf9f34c84508b7",
+      "errors": [
+        "Heightened Def Con from 2.42434e-05 ++++++++++++++++++++++++++++++++++++++++++++++++++Fatal Error: Analysis:  Time step too small; time = 2.42434e-05, timestep = 1.25e-19: trouble with u:_u9_s26:_u9_s26-instance s:u:_u9_s26:_u9_s26"
+      ]
+    },
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/candidate2.log",
+      "sha256": "3ae7cba5470c6cf4a8c4a4159bb8952534a7637a2bb4159f366054b85a523550",
+      "errors": [
+        "Heightened Def Con from 0.000314795 ++++++++++++++++++++++++++++++++++++++++++++++++++Fatal Error: Analysis:  Time step too small; time = 0.000314795, timestep = 1.25e-19: trouble with u:_u9_s26:_u9_s26-instance s:u:_u9_s26:_u9_s26"
+      ]
+    },
+    {
+      "file": "dist/vdd-loadstep-2026-10-27/candidate-gear.log",
+      "sha256": "092d5481a1325ba81dd970aa71d35f0a56c347c0af4248a2722e92cc7bc35f1d",
+      "errors": [
+        "Heightened Def Con from 0.000333219 ++++++++++++++++++++++++++++++++++++++++++++++++++Fatal Error: Analysis:  Time step too small; time = 0.000333219, timestep = 1.25e-19: trouble with u:_u9_s26:_u9_s26-instance s:u:_u9_s26:_u9_s26"
+      ]
+    }
+  ],
+  "currentDesignHandoff": {
+    "directory": "dist/vdd-loadstep-2026-10-27/pspice-current",
+    "manifest": "dist/vdd-loadstep-2026-10-27/pspice-current/handoff.json",
+    "caseCount": 12,
+    "simulationRun": false,
+    "windowsWrapperRun": false,
+    "includesOriginalVendorSignature": true,
+    "exportChecks": "dist/vdd-loadstep-2026-10-27/export-audit.json",
+    "hashMismatchRejected": true
+  },
+  "nextRequiredEvidence": "Run the original TPS62903 model with the current circuit in a compatible PSpice engine and review the voltage range and settling. Hardware measurements remain an alternative.",
+  "releaseDecision": "No VDD pass or manufacturing approval was issued.",
+  "sources": [
+    {
+      "title": "TI TPS62903 product and models",
+      "url": "https://www.ti.com/product/TPS62903"
+    },
+    {
+      "title": "TI TPS62816-Q1 product and unencrypted model",
+      "url": "https://www.ti.com/product/TPS62816-Q1"
+    },
+    {
+      "title": "PSpice for TI",
+      "url": "https://www.ti.com/tool/PSPICE-FOR-TI"
+    },
+    {
+      "title": "Cadence PSpice reference guide hosted by TI",
+      "url": "https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/234/PSpice_5F00_ReferenceguideOrCAD.pdf"
+    }
+  ],
+  "macOnlyFollowup": {
+    "userHasWindowsPC": false,
+    "existingUTMGuests": [
+      {
+        "name": "Linux",
+        "status": "stopped"
+      }
+    ],
+    "windowsVmInstalledByThisTask": false,
+    "supportRequestDraft": "dist/vdd-loadstep-2026-10-27/TI-support-request.txt",
+    "supportRequestSent": false,
+    "nextAction": "Request an unencrypted TPS62903 model or a TI-run review of the current circuit. External contact requires user authorization."
+  }
+}

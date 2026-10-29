@@ -103,9 +103,14 @@ export function prepareBuckRouting(board:Board,phase:AutoroutingPhase){
     set("OUTPUT_B",[end(`C_${r}_COUT_B.pin1`,2),w(3.28491,4.68491,2),end(`L_${r}.pin2`,2)]);
     set("MODE",[end(`${r}_BUCK.MODE`,.25),w(1.4,-.500126,.25),w(3.28269,-2.382816,.25),end(`R_${r}_MODE.pin1`,.25)]);
     set("VOS",[end(`${r}_BUCK.VOS`,.15),w(-1.45,.625094,.15),w(-3.3,2.475094,.15),end(`C_${r}_COUT.pin1`,.15)]);
-    set("FB_SENSE",[end(`R_${r}_FBT.pin1`,.15),w(4.532816,2.3,.15),w(4.7,2.3,.15),w(4.7,4.7,.15),end(`C_${r}_COUT_B.pin1`,.15)]);
-    set("FB_INPUT",[end(`${r}_BUCK.FB`,.15),w(1.4,.499872,.15),w(2.400128,1.5,.15),end(`R_${r}_FBT.pin2`,.15)]);
-    set("FB_DIVIDER",[end(`R_${r}_FBB.pin1`,.15),end(`R_${r}_FBT.pin2`,.15)]);
+    const sensePad=pos(`R_${r}_FBT.pin1`),fbPad=pos(`R_${r}_FBT.pin2`),bottomPad=pos(`R_${r}_FBB.pin1`);
+    set("FB_SENSE",r==="VDD"
+      ?[wire(sensePad,.15),wire({x:sensePad.x,y:c.y+2.3-Math.abs(sensePad.x-(c.x+4.7))},.15),
+        w(4.7,2.3,.15),w(4.7,4.7,.15),end(`C_${r}_COUT_B.pin1`,.15)]
+      :[wire(sensePad,.15),w(4.532816,2.3,.15),w(4.7,2.3,.15),w(4.7,4.7,.15),end(`C_${r}_COUT_B.pin1`,.15)]);
+    set("FB_INPUT",[end(`${r}_BUCK.FB`,.15),w(1.4,.499872,.15),
+      r==="VDD"?w(2.300128,1.4,.15):w(2.400128,1.5,.15),wire(fbPad,.15)]);
+    set("FB_DIVIDER",[wire(bottomPad,.15),...(r==="VDD"?[wire({x:bottomPad.x,y:fbPad.y+Math.abs(bottomPad.x-fbPad.x)},.15)]:[]),wire(fbPad,.15)]);
     set("EN_ESCAPE",[end(`${r}_BUCK.EN`,.25),end(`BUCK_EN_${r}.top`,.25)]);
     for(const g of grounded){
       const start=pos(g.part(r)),finish=pos(`BUCK_GND_${r}_${g.suffix}.top`);

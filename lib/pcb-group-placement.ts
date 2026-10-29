@@ -102,7 +102,7 @@ export function applyPcbGroupPlacements(
   }
   // Apply explicit, user-authorized individual moves after group alignment.
   // Moving a support part must not recenter every member of its old group.
-  for (const change of componentRework.changes) {
+  for (const change of [...componentRework.changes,...componentRework.additions]) {
     const part = parts.get(sources.get(change.name)!);
     if (!componentRework.authorized || !part || change.after.layer !== "top" || part.layer !== "top")
       throw new Error(`Invalid top-side component move: ${change.name}`);

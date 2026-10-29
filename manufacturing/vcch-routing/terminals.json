@@ -668,5 +668,16 @@
     "copperDiameter": 0.4,
     "drillDiameter": 0.2,
     "role": "stitch"
+  },
+  {
+    "name": "VCCH_FLASH_LAYER_TRANSFER",
+    "part": "ATX",
+    "pin": "pin1",
+    "net": "VCCH",
+    "x": 24.705,
+    "y": 90.825,
+    "selector": "ATX.pin1",
+    "copperDiameter": 0.25,
+    "drillDiameter": 0.15
   }
 ]

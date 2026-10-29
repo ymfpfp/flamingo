@@ -1,0 +1,206 @@
+{
+  "reviewedOn": "2026-10-26",
+  "status": "analysis-complete; candidate-needs-layout-revision",
+  "selectedStackup": "JLC061611-3313G",
+  "candidateStackup": "JLC06161H-3313",
+  "sourceSha256": "9c7ae50269ab1a78a86fee3443bb6d90974eaa868c3b3be5c81ab9f292c47bba",
+  "productionRecipeChanged": false,
+  "boardCopperChanged": false,
+  "candidateFabricationReady": false,
+  "independent2DImpedanceOhms": [
+    85.10195492734279,
+    87.12074902417442
+  ],
+  "spacingChanges": [
+    {
+      "name": "TX1_N bridge",
+      "layer": "bottom",
+      "checkedLengthMm": 30.821514437597074,
+      "minimumGapMm": 0.7797883081732806,
+      "closestObject": "saved_phase_null_1_12",
+      "violations": [
+        {
+          "object": "saved_phase_null_1_12",
+          "gapMm": 0.7797883081732806
+        }
+      ]
+    },
+    {
+      "name": "TX3_P bridge",
+      "layer": "bottom",
+      "checkedLengthMm": 48.79491764963356,
+      "minimumGapMm": 0.7892248169690631,
+      "closestObject": "pcb_via_576",
+      "violations": [
+        {
+          "object": "pcb_via_576",
+          "gapMm": 0.7892248169690631
+        }
+      ]
+    }
+  ],
+  "powerComparison": [
+    [
+      "VCCL chip supply",
+      "1 A",
+      "4.84 mV",
+      "9.14 mV",
+      "8 mV project target; candidate exceeds it"
+    ],
+    [
+      "VDD chip supply",
+      "3 A",
+      "7.92 mV",
+      "13.41 mV",
+      "8 mV project target; candidate exceeds it"
+    ],
+    [
+      "12 V slot path",
+      "5.5 A",
+      "99.42 mV",
+      "144.11 mV",
+      "Copper only; excludes switch and contact/cable loss"
+    ],
+    [
+      "3.3 V slot path",
+      "3 A",
+      "57.95 mV",
+      "110.80 mV",
+      "Copper only; excludes switch and contact/cable loss"
+    ],
+    [
+      "5 V feed to the buck converters",
+      "2 A each; 4 A total",
+      "50.65 mV",
+      "93.84 mV",
+      "Below 100 mV project target, with less margin"
+    ]
+  ],
+  "remainingStaticMarginAfterRipple": [
+    [
+      "VCCL",
+      "9.37 mV",
+      "5.24 mV"
+    ],
+    [
+      "VDD",
+      "6.93 mV",
+      "1.53 mV"
+    ]
+  ],
+  "channelInsertionLossChanges": [
+    {
+      "name": "USB4_TX1",
+      "minimumDB": -0.02358282176650439,
+      "maximumDB": 0.025746420415578397
+    },
+    {
+      "name": "USB4_TX2",
+      "minimumDB": -0.0493316411702851,
+      "maximumDB": -0.03357240587877941
+    },
+    {
+      "name": "USB4_RX1",
+      "minimumDB": -0.05415661707997366,
+      "maximumDB": 0.019168772091543218
+    },
+    {
+      "name": "USB4_RX2",
+      "minimumDB": -0.04664348294109111,
+      "maximumDB": -0.018103221505987754
+    },
+    {
+      "name": "PCIE_TX0",
+      "minimumDB": -0.14988176190537672,
+      "maximumDB": -0.11346404945334987
+    },
+    {
+      "name": "PCIE_TX1",
+      "minimumDB": -0.16806267842449252,
+      "maximumDB": -0.11656668470024867
+    },
+    {
+      "name": "PCIE_TX2",
+      "minimumDB": -0.17116321545025492,
+      "maximumDB": -0.10691645379888737
+    },
+    {
+      "name": "PCIE_TX3",
+      "minimumDB": -0.19819967916974424,
+      "maximumDB": -0.1237916785384412
+    },
+    {
+      "name": "PCIE_RX0",
+      "minimumDB": -0.2251022605854267,
+      "maximumDB": -0.14791983096294237
+    },
+    {
+      "name": "PCIE_RX1",
+      "minimumDB": -0.24432819205936607,
+      "maximumDB": -0.17641206238365825
+    },
+    {
+      "name": "PCIE_RX2",
+      "minimumDB": -0.2223391114664457,
+      "maximumDB": -0.12390728782786686
+    },
+    {
+      "name": "PCIE_RX3",
+      "minimumDB": -0.21148783973719,
+      "maximumDB": -0.18255480912678923
+    }
+  ],
+  "requiredWork": [
+    "Increase the copper conductance of the two chip supply paths. Wider inner power areas or parallel outer copper are options. Roughly twice the inner path width restores the old cross-sectional copper area where the geometry permits it. This is a sizing estimate, not a checked layout.",
+    "Increase clearance beside PCIe TX1_N and TX3_P. The two checked gaps miss the new limit by about 0.016 mm and 0.006 mm. The obstacles are the neighboring PCIe TX2_P route and the ASM_CC2 via. Move copper with useful margin, then recheck both pairs and the CC2 net.",
+    "Review the slot supply paths and the 5 V feed. Their losses increase. Include switch, source, connector and ground-return loss before accepting the voltage budget.",
+    "Recheck the supply response to load changes. VDD already fails the conditional transient model on the current stackup. The cheaper stackup reduces its margin further. Improving DC copper alone does not prove a cure.",
+    "Repeat routing, clearance, reference-plane, impedance, supply and fabrication checks on the revised board. Keep all assembled parts on top and keep the two continuous ground planes."
+  ],
+  "priceUsd": {
+    "pcb": 149.99,
+    "partialFactoryAssembly": 138.25,
+    "loosePartsAfterDiscount": 26.77,
+    "beforeShippingAfter30Coupon": 285.01,
+    "estimatedJlcShipping": 32.92,
+    "estimatedLoosePartsShipping": 9.8,
+    "estimatedDeliveredBeforeTax": 327.73,
+    "savingAgainstOriginalEnigPcb": 83.79
+  },
+  "priceLimits": "Two assembled boards plus hand parts; five bare PCBs; already-paid bridge purchases excluded. Shipping and coupon transferred from earlier quotes. Taxes and unpaid bridge forwarding freight remain unknown. No quote for a revised layout has been obtained.",
+  "reports": {
+    "signal": "dist/stackup-half-ounce-review-2026-10-26/signal.json",
+    "power": "dist/stackup-half-ounce-review-2026-10-26/power.json",
+    "channels": "dist/stackup-half-ounce-review-2026-10-26/channels.json"
+  },
+  "inputSha256": {
+    "manufacturing/stackup/selected.json": "6b735f92ca78dca956f0ebf01def379da12bdc075b2b03a7490cb876c1394791",
+    "manufacturing/stackup/JLC06161H-3313.json": "1f6f81ac0a31b018c69ed740f5f46879f046700b938e14325c65597e79eb17db",
+    "simulations/pcie-tx/cross_section.py": "2e2fb4a4be6c705f42ea2bf4422a0933da279bde101530d39ba173350b0cf57b",
+    "simulations/pcie-tx/check_asmedia_spacing.py": "1757a80ebfcab80178dedc91dead871fe5215f41c914ab7ee9c5091493b273a4",
+    "simulations/usb4/check_layout.py": "00d13e57618eaceb207c9dfe7a9f93658040a7d421719626a5f71b52e59d2ebe",
+    "simulations/bridge-clocks/check_layout.py": "e9cb9e7e018d63fb54fbabdf14baa73ce6d22282987a5155d096d893f67b0b55",
+    "simulations/control-routing/check_impedance.py": "3f523eefef50b8e4e18467947fcc938c7f29767b6912d91c758c4fa75f105ef7",
+    "simulations/power-distribution/check_dc.py": "f2b907d0ee032cf6b09db94452d234ed8d1df08649405dd7b562c2798a42a998",
+    "simulations/power-distribution/check_slot_dc.py": "f42b21ae0ed4f5512de51b3fcf115471dfdeba3cc3c35170692a9856af87409f",
+    "simulations/power-distribution/check_atx5v_dc.py": "b77e2ffa0a6bfa3f5d93a02daa80817807ca4300a8236a24538a090d170be316",
+    "simulations/power-distribution/check_ground_returns.py": "8e1de42c9e55f409acbc0aa45648ef9a2ba2d75298c367989146c006b9c254df",
+    "simulations/power-dynamics/run_review.py": "b45e7a300cdbb9ba054c30daae99d9552a0cbb206c4689247f5bb316adeb56c4",
+    "simulations/power-dynamics/provisional-loads.json": "0bf592621ffad547275b90afc44ac44ed71de17f88a57f7f2f830ab457d6d5a3",
+    "simulations/power-dynamics/reference-curves.json": "1680a5838ecd81e0acb558c152853d8ae8be5cb8a9ba19b7c44801c26edf48be",
+    "tests/audits/schematic-audit.mjs": "12067f20ec1253bf8d306853b386b2e1b98c9120b2eab4df773148f7adea1093",
+    "scripts/review-half-ounce-stackup.py": "199fc07d8316cd5dd06dbda7f91dc90f390f74da96be4bb20e5116734ce81394",
+    "scripts/review-half-ounce-channels.py": "29dadc8a00fe5cc71596436b0ee1a6a34fb1f6f2d9ed6ae6186ec5941098e39d",
+    "scripts/render-half-ounce-review.py": "1899d8fe1244a5b425a35229cc874787ce92989bd2b4219188cd77b27d2a6066",
+    "dist/stackup-half-ounce-review-2026-10-26/board.circuit.json": "9c7ae50269ab1a78a86fee3443bb6d90974eaa868c3b3be5c81ab9f292c47bba",
+    "dist/stackup-half-ounce-review-2026-10-26/signal.json": "b1c76b19f7fd68a7701ac8f2bd8867a7de3b2412a504bcdc6e2ed9245a2f9724",
+    "dist/stackup-half-ounce-review-2026-10-26/power.json": "a3e50bf57867a6f144db91d314c4bd3df3a470514cf2fa8303043f954efa704b",
+    "dist/stackup-half-ounce-review-2026-10-26/channels.json": "88e18d81cf40fbf6d17c786fc6e023f15f9b02ced2ecf4480c72657448e94811",
+    "dist/stackup-half-ounce-review-2026-10-26/dynamics-selected/review-input.json": "51bd02b726be8901756a2fcb87513752190d1e6a651720992fabd25c71944c5d",
+    "dist/stackup-half-ounce-review-2026-10-26/dynamics-selected/results.json": "c0b283a9675c22bb5d479e7ce53d20bc7403fbf7d3d3773d52636c0969d09137",
+    "dist/stackup-half-ounce-review-2026-10-26/dynamics-half-ounce/review-input.json": "5fdf46118a7f8bbe284a6d3c3a394144edf8217562f0806063872ff2e0dba4c6",
+    "dist/stackup-half-ounce-review-2026-10-26/dynamics-half-ounce/results.json": "3e6eebb6243ded568d7d90d3015a5617e48171a5f67082289e9fdfbefca23cb5",
+    "dist/stackup-half-ounce-review-2026-10-26/static-voltage-input.json": "20604b5a2a0a442e00f445f5f0041d6f04ef8c95d1b88155dced96fd9b756c56",
+    "dist/stackup-half-ounce-review-2026-10-26/parameter-controls.json": "db24b2315e80f6cca8260760b06ff33ed5e20753b4cbbd6b14e1107fda427ef8"
+  }
+}

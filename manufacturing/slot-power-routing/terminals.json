@@ -1791,5 +1791,104 @@
     "drillDiameter": 0.4,
     "width": 0.8,
     "contact": true
+  },
+  {
+    "name": "SP_12V_LEFT_FEED_TRANSFER",
+    "selector": "Q_SLOT_12V.pin5",
+    "net": "SLOT_12V",
+    "x": 45.2,
+    "y": 78.6,
+    "copperDiameter": 0.6,
+    "drillDiameter": 0.3,
+    "width": 0.6,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_FEED_TRANSFER",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 28,
+    "y": 75.6,
+    "copperDiameter": 0.6,
+    "drillDiameter": 0.3,
+    "width": 0.6,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_STITCH_0",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 83.9,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_STITCH_1",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 86.9,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_STITCH_2",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 91.3,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_STITCH_3",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 94.9,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_HANDOFF_0",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 74.89999999999999,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_HANDOFF_1",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 76.5,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
+  },
+  {
+    "name": "SP_3V3_BOTTOM_HANDOFF_2",
+    "selector": "Q_SLOT_3V3.pin5",
+    "net": "SLOT_3V3",
+    "x": 8.200000000000001,
+    "y": 80.3,
+    "copperDiameter": 0.5,
+    "drillDiameter": 0.25,
+    "width": 0.5,
+    "contact": false
   }
 ]

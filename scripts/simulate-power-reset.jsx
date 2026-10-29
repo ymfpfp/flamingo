@@ -1,3 +1,7 @@
+import {readFileSync} from "node:fs";
+import {createHash} from "node:crypto";
+import {circuitGraph} from "../lib/circuit-graph.mjs";
+import {electricalMargins} from "../tests/audits/schematic-audit.mjs";
 import {mkdir, writeFile} from "node:fs/promises";
 import {fileURLToPath} from "node:url";
 import {createEngine, runtimeHash} from "../simulations/power-reset/engine.mjs";
@@ -5,10 +9,20 @@ import {simulateScenario} from "../simulations/power-reset/run.mjs";
 import {scenarios, startupEnvelopeScenarios} from "../simulations/power-reset/scenarios";
 import {requirements} from "../simulations/power-reset/analyze.mjs";
 
+const boardFile=process.argv.find(a=>a.startsWith("--board="))?.slice(8);
+let sourceBinding={};
+if(boardFile){
+  const raw=readFileSync(boardFile),board=JSON.parse(raw),g=circuitGraph(board),m=electricalMargins(board);
+  if(g.component("R_RST").resistance!==100000||g.component("C_RST").capacitance!==1e-6
+    ||Math.abs(m.converter.find(c=>c.rail==="VDD").nominalV-1.1342857142857141)>1e-10
+    ||m.startup?.nominalCapacitanceNF!==47)throw Error("Reset stimulus does not match this board");
+  sourceBinding={sourceFile:boardFile,sourceSha256:createHash('sha256').update(raw).digest('hex'),
+    scenariosSha256:createHash('sha256').update(readFileSync('simulations/power-reset/scenarios.ts')).digest('hex')};
+}
 const output = new URL("../dist/power-reset/", import.meta.url);
 await mkdir(output, {recursive: true});
 const engine = await createEngine();
-const report = {scope: "Reset RC and approximate VCCH supervisor; buck outputs are prescribed stimuli, not regulator predictions.",
+const report = {...sourceBinding,scope: "Reset RC and approximate VCCH supervisor; buck outputs are prescribed stimuli, not regulator predictions.",
   runtimeSha256: runtimeHash, requirements, results: []};
 for (const scenario of [...scenarios, ...startupEnvelopeScenarios]) {
   const run = await simulateScenario(engine, scenario);

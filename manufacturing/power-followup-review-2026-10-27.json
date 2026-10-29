@@ -1,0 +1,193 @@
+{
+  "dateLocal": "2026-10-27",
+  "status": "Shutdown improved; VDD and rapid source-restart screens remain open",
+  "completedRequestedFixes": false,
+  "hardwareQualified": false,
+  "ambientLimitC": 40,
+  "sourceFile": "dist/power-followup-2026-10-27/turnoff-fix.circuit.json",
+  "sourceSha256": "e31da2e3a2216bb8ed73b45872a0732387fb4656e2ad31e122e4f9c0615c3e7b",
+  "stackupCode": "JLC06161H-3313",
+  "stackupSha256": "ccc24f1b29d0d28bd55802bf2e17dc1cfbdce2bb69b7dcabf57ef4489303952c",
+  "hardwareChange": {
+    "component": "R_SLOT_OFF_3V3",
+    "fromOhm": 100000,
+    "toOhm": 22000,
+    "part": "0402WGF2202TCE",
+    "supplier": "JLCPCB C25768",
+    "offTimeConstantMs": {
+      "old": 1000,
+      "new": 220
+    },
+    "onTimeConstantMs": {
+      "old": 5.074121977912646,
+      "new": 4.984451354953355
+    },
+    "scope": "Same lands, position, timing capacitor and 510 ohm turn-on resistor. No power or signal route changes."
+  },
+  "shutdownScreen": {
+    "oldWorstEquivalentRatio": 2.7383726041051686,
+    "newWorstEquivalentRatio": 0.7486179898357611,
+    "oldOutsideCases": 5,
+    "newOutsideCases": 0
+  },
+  "slot3v3": {
+    "originalCases": 130,
+    "originalOutsideEquivalentScreen": 4,
+    "additionalCases": 148,
+    "additionalOutsideEquivalentScreen": 144,
+    "unsettled": 0,
+    "preEnableOffFailures": 0,
+    "at65C": {
+      "cases": 278,
+      "outsideEquivalentScreen": 132,
+      "controlRestartOutsideCases": 0
+    }
+  },
+  "operatingTemperatureScreen": {
+    "ambientC": 40,
+    "initialSwitchTemperatureC": 65,
+    "basis": "Reference-board steady heating with twice the 25 C maximum Rds gives about 64.2 C for 3.3 V and 62.3 C for 12 V; rounded to 65 C.",
+    "limitation": "This estimate excludes heat from the bridge, measured PCB thermal resistance and accumulated switching heat. It is not a guaranteed junction-temperature bound."
+  },
+  "slot12vAt65C": {
+    "cases": 108,
+    "worstEquivalentRatio": 0.511805268879661,
+    "numericsPassed": true,
+    "sourceSha256": "ab9f4f57d8650bbeb1add08d5395c0b42ba57504738aa711c69fd1133792ae57",
+    "applicability": "Same complete 12 V circuit and copper. Only the independent 3.3 V gate pull-up changed afterward."
+  },
+  "vdd": {
+    "closedLoopValidated": false,
+    "worstRetainedCase": {
+      "rail": "VDD",
+      "profile": "half_nominal_sensitivity",
+      "linkNH": 20,
+      "mountPerCapNH": 0.2,
+      "esrFactor": 1,
+      "stepFractionOfSelectedCurrent": 1,
+      "currentBasis": "Agreed provisional PDX design load",
+      "stepA": 3,
+      "initialCurrentA": 3,
+      "finalCurrentA": 0,
+      "direction": "down",
+      "assumedDelayUS": 2,
+      "loadRiseNS": 200,
+      "assumedCurrentRiseUS": 3.2097901449420942,
+      "minimumInputAtBuckV": 4.676844736111264,
+      "initialNominalPinV": 1.1264462176920687,
+      "finalNominalStaticPinV": 1.1342857142857141,
+      "nominalMinimumV": 1.1264462176920684,
+      "nominalMaximumV": 1.1966850724760665,
+      "lowToleranceMinimumV": 1.1137291535166391,
+      "highToleranceMaximumV": 1.2094562333539318,
+      "extraUndershootBelowFinalStaticMV": 7.8394965936456895,
+      "droopFromInitialMV": 2.220446049250313e-13,
+      "overshootFromInitialMV": 70.23885478399782,
+      "effectiveCapacitanceUF": 556.7181,
+      "reserveBranches": [
+        [
+          0.000264,
+          0.0374283125,
+          5e-09
+        ],
+        [
+          0.000264,
+          0.0404283125,
+          5e-09
+        ]
+      ],
+      "reservePeakCurrentA": [
+        1.6122980795286768,
+        1.508634850319364
+      ],
+      "reserveResistorEnergyJ": [
+        1.3342452005737764e-07,
+        1.1752037418738563e-07
+      ],
+      "lowCornerMarginBeforeRippleMV": 13.729153516639059,
+      "highCornerMarginBeforeRippleMV": -49.4562333539319,
+      "lowCornerMarginWithRippleMV": 13.223215292726373,
+      "highCornerMarginWithRippleMV": -50.0367934407616
+    },
+    "status": "Retained full-load, delay, inductance and degraded-ESR sensitivities still exceed limits.",
+    "blockedBy": "The official TPS62903 and TPS543620 transient libraries are encrypted and cannot run in the local ngspice engine. TI WEBENCH did not finish generating a design after selected-part and generic retries.",
+    "handoffFile": "pspice-handoff/handoff.json",
+    "handoffStatus": "Four source-bound TI PSpice decks exported, not executed or validated.",
+    "latestAttemptFile": "manufacturing/vdd-loadstep-review-2026-10-27.json",
+    "latestAttemptStatus": "VDD verification remains open. A supported TI-model simulation or hardware measurements are required."
+  },
+  "preservation": {
+    "sourceSha256": "e31da2e3a2216bb8ed73b45872a0732387fb4656e2ad31e122e4f9c0615c3e7b",
+    "priorSourceSha256": "ab9f4f57d8650bbeb1add08d5395c0b42ba57504738aa711c69fd1133792ae57",
+    "componentCount": 159,
+    "traceCount": 642,
+    "changedPositions": [],
+    "changedRoutes": [],
+    "addedParts": [],
+    "removedParts": [],
+    "changedBOM": [
+      {
+        "name": "R_SLOT_OFF_3V3",
+        "oldPart": "0402WGF1003TCE",
+        "newPart": "0402WGF2202TCE",
+        "oldResistance": 100000,
+        "newResistance": 22000
+      }
+    ],
+    "stackupCode": "JLC06161H-3313",
+    "passed": true
+  },
+  "tests": {
+    "pass": 175,
+    "skip": 8,
+    "fail": 0
+  },
+  "executionFile": "dist/power-followup-2026-10-27/final/execution-final.json",
+  "freshChecks": {
+    "validation": {
+      "file": "dist/power-followup-2026-10-27/final/validation.json",
+      "sha256": "7d0f06ba6de45e6f62ccbe0b0c1f90fbbb8963024c923d0bf313a217a497919f"
+    },
+    "coreDC": {
+      "file": "dist/power-followup-2026-10-27/final/coreDC.json",
+      "sha256": "99ab129332f100af90580f8ff466b9cf556a70a53ec158f06b179bbb55981299"
+    },
+    "slotDC": {
+      "file": "dist/power-followup-2026-10-27/final/slotDC.json",
+      "sha256": "58a4d6f1ea08e37e8799eee50028bbd395eee6a243b0abab8688150d3a0cd4c8"
+    },
+    "shared3v3DC": {
+      "file": "dist/power-followup-2026-10-27/final/shared3v3DC.json",
+      "sha256": "702f41ee766197deca7d14a4ffee6631c5684bcc344a0fa4d066e9214a2bc2d8"
+    },
+    "input5vDC": {
+      "file": "dist/power-followup-2026-10-27/final/input5vDC.json",
+      "sha256": "65ada616ff858f605ffc619ad0af2b3d90c67d334815c1bd766c11b3f3ede1c1"
+    }
+  },
+  "openItems": [
+    "Rapid source-interruption cases remain outside the approximate 3.3 V SOA screen. The model uses a bidirectional voltage source; it can absorb reverse capacitor current and is not a validated ATX shutdown model.",
+    "The hypothetical 125 C preheated cases remain available as stress tests. A 40 C air requirement does not by itself prove switch temperature.",
+    "The SOA procedure derates an approximate ohmic boundary as well as the power envelope. Its low-VDS flags need model review; they are not proof of thermal failure. No criterion was relaxed to mark the hardware fixed.",
+    "VDD requires a usable controller simulation or measured load-step response before a larger capacitor bank or replacement converter can be verified.",
+    "The existing reset RC still does not monitor every late, missing or brownout rail fault.",
+    "The separate VCCL 3 A stress case and doubled-resistance 3.3 V DC sensitivity remain outside their targets.",
+    "No new delivered quote or fabrication release was produced."
+  ],
+  "rejectedTrials": [
+    "A 2.2 uF gate capacitor passed the original grid but missed shorter interruptions. It was not applied.",
+    "Faster 12 V RC variants increased startup power substantially and were not applied.",
+    "An exploratory Schottky fit failed off-state behavior; it was invalid for part selection and was not applied.",
+    "Ideal source-disconnect models did not complete numerical validation and were not used to claim a pass."
+  ],
+  "sources": [
+    {
+      "title": "TI TPS62903",
+      "url": "https://www.ti.com/lit/ds/symlink/tps62903.pdf"
+    },
+    {
+      "title": "Nexperia SOA methods",
+      "url": "https://www.nexperia.com/applications/interactive-app-notes/IAN50006_Power_MOSFETs_in_linear_mode"
+    }
+  ]
+}

@@ -14,7 +14,9 @@ The PCB configuration now specifies six layers and a thickness of 1.6 mm.
 The bridge footprint and assembly process are candidates pending vendor acceptance.
 The board outline is 52.5 × 123.62 mm.
 The PCIe courtyard has 5 mm of space from ATX below and about 5 mm from the top and left edges.
-Fixed groups define component placements. Reviewed high-speed and power routes are present; other signals still need routing.
+Fixed groups define component placements.
+The current build passes routing connectivity, shorts, and layout checks.
+Electrical qualification and manufacturing acceptance remain open.
 Hardware operation and throughput remain unmeasured.
 
 [index.circuit.tsx](index.circuit.tsx) contains five schematic sheets:
@@ -26,6 +28,40 @@ Hardware operation and throughput remain unmeasured.
 | `power` | ATX input, automatic PSU start, PSU status LED, buck converters, and enable supervisor |
 | `usb` | USB-C receptacle, USB4 coupling and ESD protection, and VBUS sensing |
 | `pcie` | PCIe x4 data and control signals, card presence, slot power switches, and slot decoupling |
+
+## Simulation campaign, 23 October 2026
+
+The [current campaign report](dist/reliability-2026-10-23/report.html) contains 2,629 model cases, comparisons, and numerical refinements.
+The fresh regression has 169 passes, eight historical-fixture skips, and no failures.
+The board passes the full layout validator, including routing completeness, shorts, and schematic placement.
+These results do not establish hardware operation or manufacturing acceptance.
+
+The main electrical findings remain open:
+
+- VDD exceeds its voltage window in the selected passive load-step and release examples at the accepted 3 A budget.
+- Short power interruptions can leave the reset capacitor charged.
+- Rapid supply return and hot slot-switch cycles exceed parts of the modeled current and SOA envelopes.
+- The accepted bridge power allowance needs a defined heatsink and airflow plan.
+- Complete channel models and measured link behavior remain unavailable.
+
+The campaign preserves the circuit, BOM, copper, and all top-side component placements.
+The DC solver now includes connector plated-hole barrels.
+A regression confirms that the SPI header barrel provides a necessary physical path for a VCCH branch.
+The [retained review](manufacturing/reliability-review-2026-10-23.json) records the findings and model limits.
+
+Run the complete campaign with a Python environment that contains NumPy, SciPy, Shapely, and Matplotlib:
+
+```sh
+PCIE_SI_PYTHON=/path/to/si-python bun run sim:all
+```
+
+The runner builds the board once and retains logs, source hashes, SPICE decks, plots, and model reports.
+Use `--board=path/to/board.circuit.json` to review an existing build.
+Use `--out=dist/review-name` to select another report directory.
+The SPICE runtime must already be cached with `bun run sim:setup`.
+The reduced channel screen requires the manufacturer model files recorded in `simulations/channel-si/model-sources.json`.
+Those files currently reside in `dist/si-channel-review/references/`.
+The command reports computation failures separately from electrical findings in the generated report.
 
 ## Bridge current budgets
 
@@ -248,14 +284,18 @@ The [bridge process record](manufacturing/bridge-bga/process.json) records the g
 **Vendor acceptance is pending; the bridge manufacturing gate remains open.**
 ASMedia does not specify a circular land diameter in the available document.
 Changing the circular lands does not establish solder-joint reliability or approve the custom mask/stencil process.
-The selected stackup is [JLC061611-3313G](manufacturing/stackup/selected.json).
-The nominal order thickness is 1.6 mm. The selected manufacturer layer dimensions sum to 1.568 mm. The nominal order thickness tolerance is ±10%.
-The published 1 oz inner construction uses 0.030 mm copper. Resistance models use that thickness.
+The selected stackup is [JLC06161H-3313](manufacturing/stackup/selected.json).
+The nominal order thickness is 1.6 mm. The selected manufacturer layer dimensions sum to 1.5384 mm. The nominal order thickness tolerance is ±10%.
+The published 0.5 oz inner construction uses 0.0152 mm copper. Resistance models use that thickness.
 L1 carries high-speed signals. L2 and L5 are continuous ground planes. L3 and L4 carry power regions.
 L6 carries control signals and selected USB4 and PCIe trace sections.
-The outer dielectric thickness is 0.092 mm. The outer copper thickness is 0.035 mm. The inner copper thickness is 0.030 mm.
+The outer dielectric thickness is 0.0994 mm. The outer copper thickness is 0.035 mm. The inner copper thickness is 0.0152 mm.
 The existing 0.1234 mm trace width and 0.1001 mm pair gap remain in use.
-The independent nominal cross-section calculation gives approximately 85.17 Ω on the selected stackup.
+The independent nominal cross-section calculation gives approximately 87.12 Ω on the selected stackup.
+The [October 27 layout review](manufacturing/half-ounce-layout-review-2026-10-27.json) records the widened power paths, PCIe clearance fixes and current qualification limits.
+The planned-load conductor screens pass at 1 A VCCL and 3 A VDD. Supply load-step and vendor process qualification remain open.
+The [slot 3.3 V rework review](manufacturing/slot-3v3-rework-review-2026-10-27.json) records the later widened L4 and bottom feeds and eight added vias.
+The low-input slot 3.3 V DC screen passes with the planned bridge and external loads. The 12 V margin at an 11.2 V input and VDD load-change response remain open.
 This calculation uses a non-coplanar model with solder mask and L2 as the reference plane.
 Nearby copper, BGA necks, and pad launches require separate checks before these dimensions become routing rules.
 The requested fabrication impedance tolerance is ±10%. The calculator's ±0.5% search tolerance does not specify fabrication accuracy.
@@ -352,7 +392,7 @@ The white `PSU OK` LED indicates ATX `PWR_OK`, not local regulator readiness or 
 HDDPC high enables both supplies. HDDPC low disables both supplies.
 The 12 V path uses Si4497DY-T1-GE3, with 10 kΩ gate-series and source-to-gate pull-up resistors.
 Its 10 µF source-to-gate capacitor, NX3008NBK driver, lands, placement and routing are retained.
-The 3.3 V path retains DMP2008UFG-7 and its 510 Ω / 100 kΩ / 10 µF gate network.
+The 3.3 V path retains DMP2008UFG-7 and its 510 Ω / 22 kΩ / 10 µF gate network.
 They have no local current limit, power limit, or fault latch.
 The 75 W combined card budget remains a selection constraint rather than a circuit-enforced limit.
 Independent conduction checks use 5.5 A at 12 V and 3 A at 3.3 V.
@@ -362,16 +402,17 @@ Install and remove cards with power off.
 
 | Slot rail | Bulk capacitor | Ceramic capacitors |
 | --- | --- | --- |
-| `SLOT_12V` | Panasonic 25SVPK470M, 470 µF, 25 V, ±20%, polymer | Two Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
-| `SLOT_3V3` | Chemi-Con APXJ6R3ARA561MF80G, 560 µF, 6.3 V, ±20%, polymer | One Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
+| `SLOT_12V` | Honor `RYHV25V470UF10*10`, 470 µF, 25 V, ±20%, polymer | Two Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
+| `SLOT_3V3` | Two Chemi-Con APXF6R3ARA331MF61G, each 330 µF, 6.3 V, ±20%, polymer | One Samsung CL10B104KB8NNNC, 100 nF, 50 V, X7R, 0603 |
 
-The nominal capacitances and quantities match ASMedia reference sheet 6.
+The 12 V bank retains 470 µF; the revised 3.3 V bank has 660 µF of bulk capacitance.
 Bulk positive terminals connect to the slot rails, and negative terminals connect to `GND`.
-The Panasonic part uses the manufacturer F12 land dimensions. The Chemi-Con part uses the manufacturer F80 land dimensions.
-The Panasonic ripple limit is 5 A at or below 105 °C and 1.59 A above 105 °C, at 100 kHz.
-Its endurance rating is 1000 hours at 125 °C. Slot thermal and transient qualification remain incomplete.
+The Honor terminals fit the retained F12 copper lands. The Chemi-Con parts use the shared F61/F80 land dimensions.
+The Honor part has a 28 mΩ maximum ESR, a 3.15 A ripple rating at 100 kHz, and a 105 °C upper temperature rating.
+Its endurance rating is 2000 hours at 105 °C. Slot thermal and transient qualification remain incomplete.
+The [stock substitution review](manufacturing/stock-replacements-2026-10-28.json) records the part choices and verification results.
 Final placement belongs beside the slot power contacts, with short rail connections and nearby ground vias.
-The local banks alone draw approximately 0.564 A at 12 V and 0.185 A at 3.3 V during a linear 10 ms ramp.
+The local banks alone draw approximately 0.564 A at 12 V and 0.218 A at 3.3 V during a linear 10 ms ramp.
 This example excludes card capacitance and load current.
 The closure report includes startup and MOSFET safe-operating-area calculations with the reviewed card-capacitance allowance.
 Measure gate completion, discharge, reset timing, temperature, and transients on the prototype.

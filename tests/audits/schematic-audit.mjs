@@ -1,5 +1,7 @@
+import {vddReserveSpec} from "../../lib/vdd-reserve-spec.mjs";
 import {qualifySlotPower} from "./power-qualification.mjs";
 import {circuitGraph} from "../../lib/circuit-graph.mjs";
+import {feedbackResistorError} from "../../lib/feedback-resistor-spec.mjs";
 
 export function auditCircuit(json) {
   const g = circuitGraph(json, {zeroOhm: true});
@@ -63,7 +65,8 @@ export function electricalMargins(json) {
   const capacitor = name => value(name, "capacitance");
   const converter = ["VCCL", "VDD"].map(rail => {
     const top = resistor(`R_${rail}_FBT`), bottom = resistor(`R_${rail}_FBB`);
-    const resistorError = 0.001 + 25e-6 * 125;
+    const feedbackParts = [`R_${rail}_FBT`,`R_${rail}_FBB`].map(n=>g.component(n).manufacturer_part_number);
+    const resistorError = Math.max(...[`R_${rail}_FBT`,`R_${rail}_FBB`].map(n=>feedbackResistorError(g.component(n))));
     const nominalV = 0.6 * (1 + top / bottom);
     const part = g.component(`${rail}_BUCK`).manufacturer_part_number;
     const isTps62903 = part === "TPS62903RPJR";
@@ -91,7 +94,7 @@ export function electricalMargins(json) {
     const peakA = rippleA === null ? null : loadA + rippleA / 2;
     const rmsA = rippleA === null ? null : Math.sqrt(loadA ** 2 + rippleA ** 2 / 12);
     const [railMinimum, railMaximum] = rail === "VCCL" ? [1.85, 1.95] : [1.10, 1.16];
-    return {rail, part, nominalV, minimumV, maximumV,
+    return {rail, part, nominalV, minimumV, maximumV, feedbackParts, feedbackResistorErrorFraction:resistorError,
       staticVoltageRangePass: minimumV !== null && maximumV !== null && minimumV >= railMinimum && maximumV <= railMaximum,
       remainingLowerMarginMV: minimumV === null ? null : (minimumV - railMinimum) * 1000,
       remainingUpperMarginMV: maximumV === null ? null : (railMaximum - maximumV) * 1000,
@@ -115,6 +118,19 @@ export function electricalMargins(json) {
   const supervisor = {nominalRisingV: 1.157 * (1 + top / bottom),
     maximumRisingV: 1.157 * 1.01 * (1 + top * 1.001 / (bottom * 0.999)),
     atx3V3MinimumV: 3.135};
+  const reserveBranches=vddReserveSpec(json);
+  const vdd=converter.find(c=>c.rail==='VDD');
+  const startup=reserveBranches.length ? {
+    capacitor:'C_VDD_SS',nominalCapacitanceNF:47,
+    minimumRampMS:(.6*.991*47e-9*.9*.85*.5/2.7e-6)*1000,
+    maximumOutputCapacitanceUF:vdd.maximumEffectiveCapacitanceUF+660*1.2*1.2,
+    note:'Prescribed ramp charge-current screen, not a closed-loop startup simulation. Ceramic soft-start capacitance uses the existing conservative derating sensitivity; polymer maximum adds 20% initial and 20% temperature sensitivity.',
+  } : null;
+  if(startup){
+    startup.capacitorChargeCurrentA=startup.maximumOutputCapacitanceUF*1e-6*vdd.maximumV/(startup.minimumRampMS/1000);
+    startup.peakCurrentAt3ALoadA=3+startup.capacitorChargeCurrentA+vdd.peakToPeakInductorRippleA/2;
+    startup.currentLimitScreenPass=startup.peakCurrentAt3ALoadA<vdd.minimumBuckPeakCurrentLimitA;
+  }
   const slot = qualifySlotPower(g);
   const vbusTop = resistor("R_VBUS_TOP"), vbusBottom = resistor("R_VBUS_BOTTOM");
   const vbus = {at5VNominalV: 5 * vbusBottom / (vbusTop + vbusBottom),
@@ -136,5 +152,5 @@ export function electricalMargins(json) {
     sources: ["datasheets/TPS62903RPJR.pdf sections 6.5, 7.3.4, 8.2.2.3 and 8.3.2", "datasheets/TPS389001DSET.pdf sections 7.5 and 7.6",
       "datasheets/XGL4020.pdf", "datasheets/ASM2464PDX_DataSheet_R0_3.pdf sections 5 and 6.3.6",
       slot.rail12.datasheet, slot.rail3V3.datasheet, "https://assets.nexperia.com/documents/data-sheet/NX3008NBK.pdf"],
-    converter, supervisor, slot, vbus, driver};
+    converter, reserveBranches, startup, supervisor, slot, vbus, driver};
 }

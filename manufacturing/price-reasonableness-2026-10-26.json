@@ -1,0 +1,63 @@
+{
+  "reviewedOn": "2026-10-26",
+  "question": "Is the original USD 406.07 quote reasonable?",
+  "scope": {
+    "barePcbQuantity": 5,
+    "fullyAssembledQuantity": 2,
+    "surfaceFinishInOriginal": "OSP",
+    "bridgeChipPurchaseCostAlreadyPaid": true,
+    "shippingAndTaxIncluded": false
+  },
+  "originalBreakdownUsd": {
+    "fabrication": "216.18",
+    "components": "76.32",
+    "assemblySetupStencilFeeders": "100.67",
+    "otherAssemblyInspection": "12.90",
+    "total": "406.07"
+  },
+  "publishedJlcComparisonUsd": {
+    "setupPublished": "25.56",
+    "setupQuoted": "25.75",
+    "stencilPublished": "8.21",
+    "stencilQuoted": "8.27",
+    "feederPerTypePublished": "1.53",
+    "feederPerTypeImpliedByQuote": "1.55",
+    "feederTypesCharged": 43,
+    "xrayEachPublished": "1.64",
+    "xrayForTwoQuoted": "3.30"
+  },
+  "selectedFabricationFeesUsd": {
+    "stackupAndHeavierInnerCopper": "83.79",
+    "smallViasAndKelvin": "52.37",
+    "impedanceControl": "33.08"
+  },
+  "competitorScreen": {
+    "vendor": "PCBGOGO",
+    "mode": "Combo",
+    "boards": 2,
+    "uniqueParts": 44,
+    "smdComponentsPerBoard": 151,
+    "throughHolePinsPerBoardInput": 24,
+    "side": "top",
+    "xray": true,
+    "stencil": true,
+    "roughAssemblyServiceEstimateUsd": "50.00",
+    "comparableJlcAssemblyServiceExcludingPartsUsd": "113.57",
+    "pcbPartsShippingTaxExcluded": true,
+    "filesUploaded": false,
+    "reviewedManufacturingQuote": false,
+    "scopeLimits": "Exact footprint, stencil, consignment, materials, copper weights and stackup require engineering review. No comparable full-project competitor price established.",
+    "evidence": "dist/quotes/2026-10-26-stripped/pcbgogo-assembly-benchmark.jpg"
+  },
+  "assessment": "The original quote is consistent with JLCPCB Standard rates and its chosen fabrication requirements. It is a plausible low-volume manufacturing price, not demonstrated to be the lowest market price. The competitor assembly calculator provides a reason to seek a reviewed complete quote; it does not establish a cheaper delivered build.",
+  "enigCorrectedFullAssemblySubtotalUsd": "423.67",
+  "sources": [
+    "https://jlcpcb.com/help/article/pcb-assembly-price",
+    "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+    "https://jlcpcb.com/help/article/in-what-cases-will-there-be-charged-extra",
+    "https://www.pcbgogo.com/pcba-quote.html",
+    "https://www.pcbgogo.com/capabilities/pcba-capabilities.html",
+    "https://www.pcbway.com/quotesmt.aspx?fromLink=1&txtBoardNumq1=20",
+    "https://www.pcbway.com/pcb_prototype/PCB_Via_in_Pad.html"
+  ]
+}

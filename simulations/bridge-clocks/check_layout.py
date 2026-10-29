@@ -13,11 +13,12 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'simulations/pcie-tx'))
 from copper_geometry import copper_objects
 
-def audit(j, isolation_regions=None):
+def audit(j, isolation_regions=None, *, stack=None):
     if isinstance(j,dict):j=j['circuitJson']
     sources={e['source_trace_id']:e for e in j if e['type']=='source_trace'}
     traces={sources.get(t.get('source_trace_id'),{}).get('name'):t for t in j if t['type']=='pcb_trace'}
-    stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
+    if stack is None:
+        stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
     width=.1234; gap=.1001; pitch=width+gap; required=8*stack['dielectrics'][0]['thicknessMm']
     planes={e['layer']:Polygon([(v['x'],v['y']) for v in e['brep_shape']['outer_ring']['vertices']],
         [[(v['x'],v['y']) for v in r['vertices']] for r in e['brep_shape'].get('inner_rings',[])])

@@ -1,0 +1,130 @@
+{
+  "sourceSha256": "7a73e7bf9f1271c65a22a1b26688eacdc68a92dcc6bee75faffa3ca537e52dd4",
+  "counts": {
+    "powerRipple": 288,
+    "powerTransients": 1440,
+    "powerEdgeSensitivities": 32,
+    "historicalGuardbandComparisons": 16,
+    "hypotheticalPowerTargets": 28,
+    "resetBaseline": 28,
+    "gateDriver": 28,
+    "slot3v3CapacitorComparisons": 96,
+    "slot12v": 108,
+    "slot12vBlockingSource": 18,
+    "slot3v3StartupAndRestart": 130,
+    "vbus": 96,
+    "resetCycles": 96,
+    "passiveRefinements": 3,
+    "slot12vRefinements": 6,
+    "channelNetworks": 216
+  },
+  "power": [
+    {
+      "rail": "VCCL",
+      "currentA": 1,
+      "staticMarginMV": 9.368927660940217,
+      "stepMinimumV": 1.8530254561896258,
+      "releaseMaximumV": 1.9289921449862646,
+      "stepLowerMarginWithRippleMV": 2.440058553150793,
+      "releaseUpperMarginWithRippleMV": 20.36248768635064
+    },
+    {
+      "rail": "VDD",
+      "currentA": 3,
+      "staticMarginMV": 6.926368229084204,
+      "stepMinimumV": 1.0830779613362576,
+      "releaseMaximumV": 1.1852099482329237,
+      "stepLowerMarginWithRippleMV": -17.40385855797839,
+      "releaseUpperMarginWithRippleMV": -25.766182555887447
+    }
+  ],
+  "thermal": {
+    "railPowerAllowanceW": 5.619999999999999,
+    "requiredThetaJA35C": 9.786476868327403,
+    "requiredThetaJA50C": 7.11743772241993,
+    "referenceStillAirThetaJA": 17.38,
+    "referenceAirflowThetaJA": 8.24,
+    "limitation": "All accepted bridge rail power is treated as local heat. Reference heatsink data do not predict this assembly."
+  },
+  "findings": [
+    {
+      "priority": 1,
+      "title": "VDD transient margin remains open",
+      "evidence": "The selected 1.5 A to 3 A step reaches 1.08308 V at the low regulator corner. The matching release reaches 1.18521 V at the high corner, before ripple.",
+      "action": "Measure both load-step directions at the bridge pads. Obtain compatible TPS62903 closed-loop results. Evaluate capacitance, interconnect inductance and regulator response together."
+    },
+    {
+      "priority": 1,
+      "title": "Power cycling does not guarantee a bridge reset",
+      "evidence": "68 of 96 passive cycle cases never reach the guaranteed 0.8 V reset-low level before power returns.",
+      "action": "Evaluate reset discharge and multi-rail supervision. Capture VCCH, VCCL, VDD and RST# during short interruptions and during USB attach with ATX off."
+    },
+    {
+      "priority": 1,
+      "title": "Rapid 12 V return exceeds the modeled pulse envelope",
+      "evidence": "The forced-collapse model reaches 170.3 A forward current. The blocking-source model still reaches 163.2 A. The recorded pulse ceiling is 70 A.",
+      "action": "Evaluate gate reset or controlled restart. Measure the actual PSU return ramp. Keep live card insertion outside the operating envelope until a separate review."
+    },
+    {
+      "priority": 1,
+      "title": "The 3.3 V switch still has hot shutdown and restart findings",
+      "evidence": "9 of 130 scenarios exceed the estimated equivalent-pulse SOA screen. All scenarios settle, which does not establish SOA margin.",
+      "action": "Evaluate faster turn-off and restart control. Measure current and VDS during enable cycles and supply return. Check the trajectory at the measured switch temperature."
+    },
+    {
+      "priority": 2,
+      "title": "Cooling must cover the accepted power allowance",
+      "evidence": "The bridge rail budgets sum to 5.62 W. A 35 C ambient requires thetaJA at most 9.79 C/W if all this power becomes local heat.",
+      "action": "Use a defined heatsink and airflow fixture for the first board. Measure package temperature under sustained traffic. Reference thermal data alone cannot qualify the board."
+    },
+    {
+      "priority": 2,
+      "title": "Signal integrity still needs complete channel models",
+      "evidence": "All twelve differential channels have reduced-network sensitivity results. Package, connector, cable/card and receiver models remain incomplete. No valid eye or BER pass exists.",
+      "action": "Obtain wideband connector and package models where available. Measure link training, negotiated speed, error counters and sustained transfers across cables and endpoints."
+    },
+    {
+      "priority": 2,
+      "title": "VCCL retains the separate 3 A conductor finding",
+      "evidence": "The 80 C mesh screen gives a 14.52 mV upper drop at 3 A against the 8 mV project budget. The accepted planning load is 1 A.",
+      "action": "Retain the 1 A design assumption explicitly. Measure rail current and voltage at the bridge. Revisit copper if the measured current or transient demand exceeds the available margin."
+    }
+  ],
+  "boardValidationPassed": true,
+  "fabricationReady": false,
+  "dateLocal": "2026-10-23",
+  "hardwareChangesApplied": false,
+  "hardwareQualified": false,
+  "reportFile": "dist/reliability-2026-10-23/report.html",
+  "executionRecord": "dist/reliability-2026-10-23/execution.json",
+  "regression": {
+    "passed": 169,
+    "skipped": 8,
+    "failed": 0
+  },
+  "modelLimits": [
+    "Prescribed passive current response does not predict the TPS62903 control loop.",
+    "Fixed-temperature switch models and estimated hot SOA extensions omit thermal accumulation.",
+    "Incomplete package, connector, cable and endpoint models prevent valid eye, BER or full-channel qualification.",
+    "Reset and VBUS models omit chip internals and powered-off input behavior.",
+    "Power budgets are accepted engineering assumptions, not measured bridge currents."
+  ],
+  "sourceFiles": [
+    "scripts/simulate-reliability.mjs",
+    "simulations/reliability/passive-corners.mjs",
+    "simulations/reliability/check-slot12.mjs",
+    "simulations/reliability/test_plated_barrels.py",
+    "simulations/reliability/render_report.py",
+    "simulations/power-distribution/check_slot_dc.py",
+    "simulations/slot-power/check-startup-soa.mjs"
+  ],
+  "modelSha256": {
+    "scripts/simulate-reliability.mjs": "3ae2fc29d12bea230ad8bf8cd94250c536723f0f48377ee1fb24adedb95d2414",
+    "simulations/reliability/passive-corners.mjs": "a28120f148ce36164d2b243138c76163440fecb45e894fab97f0c7152b01c84e",
+    "simulations/reliability/check-slot12.mjs": "822c0efd787d5b3a0274604268790e9b8e6944a43fdd9e4da2db56f0cca5e24f",
+    "simulations/reliability/test_plated_barrels.py": "54fe02b7f48416747ac947ffdec3b3667f38889c19369bc51fffcf2ccf3aa1fb",
+    "simulations/reliability/render_report.py": "685015422a52cf4af68592fa31f67f930374d2d9f29d4e0e9cebb2059f91411b",
+    "simulations/power-distribution/check_slot_dc.py": "f42b21ae0ed4f5512de51b3fcf115471dfdeba3cc3c35170692a9856af87409f",
+    "simulations/slot-power/check-startup-soa.mjs": "9b3416c783d5938ad124d0683ccb186c35fd547c608e321e2643f9b59def6267"
+  }
+}

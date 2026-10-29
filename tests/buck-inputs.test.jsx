@@ -79,15 +79,15 @@ test("each output capacitor bypasses the filtered rail to ground without touchin
 test("feedback dividers sense each filtered output, return to GND, and set the intended nominal voltage", () => {
   const ground = net("ATX", "pin3");
   const feedbackNets = [];
-  for (const [rail, topOhms, target] of [["VCCL", 26100, 1.9], ["VDD", 10700, 1.13]]) {
+  for (const [rail, topOhms, target] of [["VCCL", 26100, 1.9], ["VDD", 1870, 1.1342857142857141]]) {
     const buck = `${rail}_BUCK`;
     const top = `R_${rail}_FBT`;
     const bottom = `R_${rail}_FBB`;
     const feedback = net(buck, "FB");
     const output = net(`L_${rail}`, "pin2");
     assert.equal(component(top).resistance, topOhms);
-    assert.equal(component(bottom).resistance, 12100);
-    assert.equal(component(bottom).manufacturer_part_number, "RT0402BRD0712K1L");
+    assert.equal(component(bottom).resistance, rail === "VDD" ? 2100 : 12100);
+    assert.equal(component(bottom).manufacturer_part_number, rail === "VDD" ? "PTFR0402B2K10N9" : "RT0402BRD0712K1L");
     assert.equal(net(top, "pin1"), output, "top resistor must sense the filtered output");
     assert.equal(net(top, "pin2"), feedback);
     assert.equal(net(bottom, "pin1"), feedback);
@@ -146,7 +146,7 @@ test("TPS62903 physical pins, 2.5 MHz mode resistors and unused outputs match TI
     assert.equal(net(mode, "pin1"), net(buck, "MODE"));
     assert.equal(net(mode, "pin2"), net("ATX", "pin3"));
     assert.notEqual(net(buck, "MODE"), net(buck, "FB"));
-    for (const signal of ["PG", "SS"]) {
+    for (const signal of (rail === "VDD" ? ["PG"] : ["PG", "SS"])) {
       const p = buckPorts.find(p => p.port_hints.includes(signal));
       assert.equal(p.do_not_connect, true, `${buck}.${signal}`);
       assert.ok(!json.some(e => e.type === "source_trace" && e.connected_source_port_ids.includes(p.source_port_id)));

@@ -19,7 +19,6 @@ import {GroundReturns} from "lib/ground-returns";
 import {usbGuardBands, usbShieldFences} from "lib/usb-shielding";
 import {pcieConnectorRules, preparePcieConnectorRouting} from "lib/pcie-connector-routing";
 import {usb4Rules, usb4TraceRules} from "lib/high-speed-rules";
-import {BoardArtwork} from "components/BoardArtwork";
 import {configureSilkscreenFont} from "lib/silkscreen-font";
 import {ControlRouting, controlNetProperties, type ControlAutorouting} from "components/ControlRouting";
 import {ControlSupportRoutes} from "components/ControlSupportRoutes";
@@ -27,6 +26,8 @@ import {BridgeReset} from "components/BridgeReset";
 import {BridgeVcca33Decoupling} from "components/BridgeVcca33Decoupling";
 import {BridgeVcchDecoupling} from "components/BridgeVcchDecoupling";
 import {BridgeVcclDecoupling} from "components/BridgeVcclDecoupling";
+import {VddReserveRouting} from "lib/vdd-reserve-routing";
+import {VddReserve,VddSoftStart} from "components/VddReserve";
 import {BridgeVddDecoupling} from "components/BridgeVddDecoupling";
 import {BuckEnable} from "components/BuckEnable";
 import {BuckInputs} from "components/BuckInputs";
@@ -69,6 +70,8 @@ export const pcbGroupPlacements = {
   VCCH_DECOUPLING: {pcbX: 34.045, pcbY: 83.575, offBoard: false},
   VCCA33_DECOUPLING: {pcbX: 35.83435, pcbY: 88.545, offBoard: false},
   VCCL_DECOUPLING: {pcbX: 23.545, pcbY: 103.78, offBoard: false},
+  VDD_RESERVE: {pcbX:0,pcbY:0,offBoard:false},
+  VDD_SOFT_START: {pcbX:0,pcbY:0,offBoard:false},
   VDD_DECOUPLING: {pcbX: 20.445, pcbY: 81.375, offBoard: false},
   "VDD_DECOUPLING/0": {pcbX: 1.0349, pcbY: 28.405},
   "VDD_DECOUPLING/1": {pcbX: 0, pcbY: 0},
@@ -181,8 +184,8 @@ function bottomLeftGroupLayout(controlRoutingEnabled = false, preview = true) {
       if(pdnPhase)preparePowerDistribution(board,pdnPhase);
       if(vcchPhase)prepareVcchRouting(board,vcchPhase);
       for(const phase of slotPowerPhases)prepareSlotPowerRouting(board,phase);
-      // Omit footprint outlines, but retain board artwork and the bridge's A1 corner marker.
-      // Keep text, circular pin markers, and placement courtyards.
+      // Omit footprint outlines, but retain the bridge's A1 corner marker.
+      // Keep circular pin markers and placement courtyards.
       const {db} = board.root!;
       const bridgeSource = db.source_component.list().find(part => part.name === "ASM2464PDX");
       const bridgePcb = db.pcb_component.list().find(part => part.source_component_id === bridgeSource?.source_component_id);
@@ -224,17 +227,18 @@ function placePcbGroups(
 
   const props = node.props;
   if (typeof node.type === "string" && pcbPartElements.has(node.type)) {
-    const capacitorStyle = node.type === "capacitor" ? {
-      pcbStyle: {...props.pcbStyle as Record<string, unknown>, silkscreenTextVisibility: "hidden"},
-    } : {};
-    // Individual references listed in the map override schematic-section grouping.
     const partName = String(props.name);
+    // Only the access headers and reset button need labels on the assembled PCB.
+    const silkscreenStyle = ["UART", "SPI", "SW_RESET"].includes(partName) ? {} : {
+      pcbStyle: {...props.pcbStyle as Record<string, unknown>, silkscreenTextVisibility: "hidden"},
+    };
+    // Individual references listed in the map override schematic-section grouping.
     const name = context?.name ?? (partName in pcbGroupPlacements ? partName : String(props.schSectionName));
     layout.addPart(name, partName);
     if (context) {
       const index = context.partIndex++;
       return cloneElement(node, {
-        ...capacitorStyle,
+        ...silkscreenStyle,
         // Groups containing independently positioned subgroups cannot be packed.
         // Give their remaining parts a preliminary local layout instead.
         ...(context.manualLayout && props.pcbX === undefined && props.pcbY === undefined
@@ -255,7 +259,7 @@ function placePcbGroups(
     const y = localX * Math.sin(angle) + localY * Math.cos(angle);
     layout.looseOffsets[partName] = {x, y};
     return cloneElement(node, {
-      ...capacitorStyle,
+      ...silkscreenStyle,
       pcbX: x,
       pcbY: y,
       pcbRotation: (placement.pcbRotation ?? 0) + Number(props.pcbRotation ?? 0),
@@ -341,13 +345,10 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
       routeRemaining={Boolean(controlAutorouting)}
       layers={6}
       // Nominal order thickness. manufacturing/stackup/selected.json records
-      // JLC061611-3313G with 1 oz inner copper and a 1.568 mm layer sum.
+      // JLC06161H-3313 with 0.5 oz inner copper and a 1.5384 mm layer sum.
       thickness="1.6mm"
       schLayout={{ layoutMode: "none" }}
     >
-      <BoardArtwork/>
-      <silkscreentext text="rev 1" pcbX={48.9} pcbY={36.5} pcbRotation={90} fontSize={0.8}
-        layer="top" anchorAlignment="center"/>
       <net name="GND"/>
       <PowerDistributionSurfaceCopper/>
       <SlotPowerSurfaceCopper/>
@@ -380,6 +381,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
       <BridgeClockRouting/>
       <BuckRouting/>
       <PowerDistribution/>
+      <VddReserveRouting/>
       <VcchRouting/>
       <Atx5vRouting/>
       <SlotPowerRouting/>
@@ -689,7 +691,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
           </Fragment>
         ))}
       </schematicsheet>
-      <schematicsheet name="bridge_decoupling" displayName="Bridge Decoupling" sheetIndex={2}>
+      <schematicsheet name="bridge_decoupling" displayName="Bridge Decoupling" sheetIndex={2} sheetSize="A4">
         {/* Center each capacitor bank within its section. */}
         <schematicline x1={-14} y1={3.5} x2={14} y2={3.5}
           strokeWidth={0.02} color="#000000" isDashed/>
@@ -701,6 +703,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
         <BridgeVcca33Decoupling/>
         <BridgeVcclDecoupling/>
         <BridgeVddDecoupling/>
+        <VddReserve/>
       </schematicsheet>
       <schematicsheet name="pcie" displayName="PCIe x4" sheetIndex={5} sheetSize="ANSI_B">
         {/* Keep these dividers fixed when the component columns change width. */}
@@ -999,6 +1002,7 @@ export default function Board({controlAutorouting, omitControlNets=[], preview=t
         <trace name="SP_PSU_START" from=".ATX > .pin16" to=".R_PSU_ON > .pin1" routingPhaseIndex={14} width={.25} maxViaCount={0}/>
         <netlabel inline net="GND" connection="R_PSU_ON.pin2"/>
         <BuckInputs/>
+        <VddSoftStart/>
         <BuckEnable/>
         <PsuControl/>
         <PsuOkLed/>

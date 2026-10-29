@@ -1,0 +1,193 @@
+{
+  "dateLocal": "2026-10-27",
+  "sourceFile": "dist/power-fix-2026-10-27/verified-final.circuit.json",
+  "sourceSha256": "ab9f4f57d8650bbeb1add08d5395c0b42ba57504738aa711c69fd1133792ae57",
+  "stackupCode": "JLC06161H-3313",
+  "status": "DC and selected conditional first-response screens pass; full qualification remains open",
+  "hardwareQualified": false,
+  "corePlannedLoads": [
+    {
+      "rail": "VCCL",
+      "currentA": 1,
+      "upperCopperLossMV": 5.857518344084475,
+      "limitMV": 8,
+      "passed": true
+    },
+    {
+      "rail": "VDD",
+      "currentA": 3,
+      "upperCopperLossMV": 7.839496593645445,
+      "limitMV": 8,
+      "passed": true
+    }
+  ],
+  "slot12V": {
+    "rail": "12V",
+    "mosfet": "SI4497DY-T1-GE3",
+    "rdsTestGateV": 4.5,
+    "currentA": 5.5,
+    "conductorUpperDropMV": 105.0880764725405,
+    "mosfetDrop25CMaxRdsMV": 25.3,
+    "mosfetDissipation25CMaxRdsW": 0.13915,
+    "totalColdFetLossMV": 130.3880764725405,
+    "voltageFrom11p2VInput": 11.069611923527459,
+    "floorV": 11.04,
+    "marginMV": 29.61192352745951,
+    "marginAt2xFetResistanceSensitivityMV": 4.311923527459509,
+    "hardwareQualified": false
+  },
+  "slot3V3": {
+    "slot3AAndBridge100mA_bridgeVCCH_conductorUpperMV": 24.96384507886625,
+    "slot3AAndBridge100mA_analogInput_conductorUpperMV": 18.50460760215642,
+    "slot3AAndBridge100mA_slotSwitchSource_conductorUpperMV": 33.81144703968945,
+    "bridgeOnly100mA_bridgeVCCH_conductorUpperMV": 14.760652953172865,
+    "bridgeOnly100mA_analogInput_conductorUpperMV": 8.301415476492808,
+    "bridgeOnly100mA_slotSwitchSource_conductorUpperMV": 0.44519083124599074,
+    "analogCopper100mA_conductorUpperMV": 5.416658798536841,
+    "slot3AAndBridge100mA_analogPin_excluding0OhmLinkMV": 23.92126640069326,
+    "bridgeOnly100mA_analogPin_excluding0OhmLinkMV": 13.71807427502965,
+    "slot3AAndBridge100mA_slotDropIncluding25CFetMV": 103.5596806209079,
+    "slotVoltageFromNominal3p3V": 3.196440319379092,
+    "slotVoltageFromATXMinus5PercentV": 3.031440319379092,
+    "slotMinimumFromCEM9PercentV": 3.003,
+    "slotMarginFromATXMinus5PercentMV": 28.44031937909176,
+    "slotOutputCopperUpperMV": 40.34823358121845,
+    "mosfet25CMaxRdsDropMV": 29.4,
+    "slotLowInputDcScreenPassed": true,
+    "slotMarginWith2xFetResistanceSensitivityMV": -0.9596806209082374
+  },
+  "vddConditionalExample": {
+    "currentStepA": 1.5,
+    "loadEdgeNS": 200,
+    "assumedCurrentResponseDelayUS": 0.5,
+    "assumedLinkNH": 5,
+    "assumedReserveBranchNH": 5,
+    "lowV": 1.1006135446586616,
+    "highV": 1.1593813755566622,
+    "limitsV": [
+      1.1,
+      1.16
+    ],
+    "passed": true,
+    "closedLoopValidated": false
+  },
+  "startup": {
+    "capacitor": "C_VDD_SS",
+    "nominalCapacitanceNF": 47,
+    "minimumRampMS": 3.9590449999999997,
+    "maximumOutputCapacitanceUF": 1045.3762,
+    "note": "Prescribed ramp charge-current screen, not a closed-loop startup simulation. Ceramic soft-start capacitance uses the existing conservative derating sensitivity; polymer maximum adds 20% initial and 20% temperature sensitivity.",
+    "capacitorChargeCurrentA": 0.30287757712841784,
+    "peakCurrentAt3ALoadA": 3.5795565377250527,
+    "currentLimitScreenPass": true
+  },
+  "normalStartupEnvelope": {
+    "cases": 18,
+    "minimumMarginMs": 2.2609768700850026,
+    "failedCases": [],
+    "assumptions": [
+      "5 V and 3.3 V have matched start and rise times, with matching +/-5% endpoint variation.",
+      "Supervisor release occurs within 1 ms of the calculated high threshold. This is a test allowance, not a datasheet maximum.",
+      "VCCL reaches its target within 5 ms after that release. VDD uses 4 ms delay plus a prescribed 16 ms ramp, with no overshoot. The VDD ramp bounds the 47 nF soft-start RC sensitivity at 2.3 uA and the high reference corner; this is not a regulator prediction.",
+      "Reset effective capacitance is at least 0.5 uF. This is a sensitivity floor, not a guaranteed manufacturer limit.",
+      "Bridge loading, regulator stability, input clamps and capacitor nonlinearities are not simulated."
+    ]
+  },
+  "preservation": {
+    "sourceSha256": "ab9f4f57d8650bbeb1add08d5395c0b42ba57504738aa711c69fd1133792ae57",
+    "passed": true,
+    "failures": [],
+    "preservedTraceCount": 467,
+    "unchangedPriorParts": 154,
+    "changedPriorParts": [],
+    "unchangedPriorRoutes": 638,
+    "changedPriorRoutes": [],
+    "addedParts": [
+      {
+        "name": "C_VDD_RESERVE_A",
+        "center": {
+          "x": 43.55,
+          "y": 112.6
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "C_VDD_RESERVE_B",
+        "center": {
+          "x": 48.8,
+          "y": 112.6
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "C_VDD_SS",
+        "center": {
+          "x": 38.6,
+          "y": 76.764
+        },
+        "rotation": 0,
+        "layer": "top"
+      },
+      {
+        "name": "R_VDD_DAMP_A",
+        "center": {
+          "x": 43.55,
+          "y": 109.1
+        },
+        "rotation": 90,
+        "layer": "top"
+      },
+      {
+        "name": "R_VDD_DAMP_B",
+        "center": {
+          "x": 48.8,
+          "y": 109.1
+        },
+        "rotation": 90,
+        "layer": "top"
+      }
+    ]
+  },
+  "tests": {
+    "passed": 173,
+    "skipped": 8,
+    "failed": 0
+  },
+  "inputSha256": {
+    "index.circuit.tsx": "6264ea3040aca4f12852116dd818117bec950a7cc36c9db11278c1c079fa8c53",
+    "components/BuckInputs.tsx": "acb15db48aa0953823e08ad0a418b313c3b3344d2370075c3f9698da92a82167",
+    "components/VddReserve.tsx": "203fb2db160a3c92859c2dc90f1fca9da544f0da8da43fe35eb83f28251a23c7",
+    "imports/VddPrecisionFeedback.tsx": "31074f0fbdd89e422d2cbe36c745f8eb3be5c56f144ef88c50d0f7b72430422a",
+    "imports/CL05B473KO5NNNC.tsx": "4c781a98f98821ebfb4c8d5c12017bba9da3bd8fd114f5d993af73cfcff79111",
+    "imports/T520B337M2R5ATE009.tsx": "e352fe10e7855a230c07320f313b12de07baf3d5224dd6bb871b677895098455",
+    "lib/vdd-reserve-routing.tsx": "fca1c8482a762f6f8479645adc6bff3639eba6606b233c4b5b542acc6941e73f",
+    "lib/vdd-reserve-spec.mjs": "2be4e6dedbd01440e3738e10a92f45bdbe51e410a1a2513f03e706205cea42f0",
+    "lib/pcb-group-placement.ts": "c998b1e8263326eb214ab70400d501102894c39744791f2aeaefed533f53626b",
+    "lib/slot-power-routing.tsx": "316c06b1a9abd5cb489342d4c5f2f7271f34ed88069c7f6de20745f43b65c2df",
+    "manufacturing/control-routing/component-rework.json": "4952e663ba6610beb783dc6579ae17142ac548cd75b80f2b080021cfe14ab236",
+    "manufacturing/power-distribution/cost-reduction-copper.json": "19e73179d512efb3a280f49bb4789a98b65951daddbb65d6475b964bb701d397",
+    "manufacturing/power-distribution/surface-si-moats.json": "d235ba958efb85f37aa86bdb7ca83a9c65023c84b604b1f467a83523854d1b85",
+    "manufacturing/slot-power-routing/regions.json": "b6910d819b1169511e030d993c2651ffd0050f4ed61b6f96a8289682d0690c10",
+    "manufacturing/stackup/selected.json": "ccc24f1b29d0d28bd55802bf2e17dc1cfbdce2bb69b7dcabf57ef4489303952c",
+    "simulations/power-dynamics/run_review.py": "5d72c74174576c2c5d2c38b664bbe39e0d0df4dce5d2ba6f7b0282124697a891",
+    "simulations/power-dynamics/damped_bank.py": "f46394705ca4d72fc80288c3760188ec128417a5e2e7330f3e087c477fe888b2",
+    "simulations/power-dynamics/prepare_current.mjs": "18e351aca23a35e70dd4e534a154e2bd699a5c5c36dfb133f1a60178d4f06c84",
+    "simulations/power-distribution/check_dc.py": "2f6f9ed617f49d5e2c339882e5edfd8e2aae3cf21f045a498875155e3c236fee",
+    "simulations/power-distribution/check_ground_returns.py": "e1417d42ea2e5a8ea2aa44dece60001e9ef5cfaf1914d6c7f052721cbac75b45",
+    "simulations/power-reset/scenarios.ts": "df67eebdd2977f6ce2000d74a5b3a9e6d301350cffaef1bcd2ce56823f3d366a",
+    "tests/audits/schematic-audit.mjs": "33c132051f3279204958aaac8c0906168b10ac4c01960a5dc3581c57bbd01c51",
+    "tests/audits/buck-routing-audit.ts": "28fe5b9a4bed6ac48970f7a0a0d9cd82e950565448879d3ae4d9cdc1f133d4c5",
+    "scripts/render-power-fix-review.py": "14c677436cf6fdf0fe6a33875451642854a612c063d3d4d21e66e2a4b4268761"
+  },
+  "openItems": [
+    "VDD controller response and interconnect inductance remain unvalidated. The retained 3 A-step, long-delay, high-inductance and degraded-ESR sensitivity cases still include failures.",
+    "The separate VCCL 3 A / 8 mV stress target remains open; the agreed 1 A load passes.",
+    "Slot ground-return, mating contacts, cable loss and guaranteed hot FET resistance remain outside the DC model.",
+    "The discrete 3.3 V slot-switch hot/restart SOA sensitivity still has cases outside its equivalent-pulse screen.",
+    "The existing reset RC does not monitor all rail faults; the retained late/missing-rail and brownout cases remain open.",
+    "Component sourcing, assembler process acceptance and a fresh delivered quote remain open. No hardware qualification or purchase is implied.",
+    "The 3.3 V doubled-FET-resistance sensitivity is below its floor by 0.960 mV. This is a sensitivity case, not a guaranteed hot-resistance bound."
+  ]
+}

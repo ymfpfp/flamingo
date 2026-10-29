@@ -1,0 +1,25 @@
+{
+  "reason": "User-authorized 0.5 oz stackup revision: lower the TX1 pair by 0.028 mm, preserve its original top dogbone and via, and move the adjacent CC2 via by (+0.05,-0.05) mm. Maximum TX1 copper skew is 0.0232 mm against the unchanged 0.025 mm limit.",
+  "traceChanges": [
+    {
+      "name": "CONTROL_ASM_CC2_SECTION_0",
+      "before": "168a4312396d859917fdea5e776fe7b4b34806cff87459428627cf4093dedfa3",
+      "after": "a506f4a281d4efbfa3a7adbd197e4fa217933eb4b99c1d4b04b6ea1904d3889e"
+    },
+    {
+      "name": "CONTROL_ASM_CC2_SECTION_1",
+      "before": "3f3ce7bbb8b925cbf15b8d4c37bf7233171fc7e51909f3b673e3825b3a5eb0b5",
+      "after": "c3ea3e369fbd1379b0aa576d1ccd3046172fd857d7f231e53a7dd4859a8f9d31"
+    },
+    {
+      "name": "ASM2464PDX.PTXP1|net.ASM_PTXP1",
+      "before": "2677afbbabd1cb03a61ef80ff7da02eac33db365382438fe52310e1e751b7075",
+      "after": "834ef89b15805fa30ed1231333796f95f058e60ce37d3dbee6983f76330a0082"
+    },
+    {
+      "name": "ASM2464PDX.PTXN1|net.ASM_PTXN1",
+      "before": "042caa4bab9fe48537b0fc30357290ad98b0a0b1f4784517cdbbde2a24c5b90b",
+      "after": "a60e4ac0f52fc832997b3ec17a138f5ffdd10880a85abdd84a8a912a22b7210a"
+    }
+  ]
+}

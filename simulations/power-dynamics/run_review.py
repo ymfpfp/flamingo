@@ -15,6 +15,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.linalg import expm
+from damped_bank import system as damped_system, initial_state
 
 ROOT = Path(__file__).resolve().parents[2]
 parser=argparse.ArgumentParser(description=__doc__)
@@ -96,6 +97,7 @@ for r in review["rails"]:
     current = loads['rails'][name]['designCurrentA'] if loads else review["bridgeCurrentProxy"]["research"]["pdxProxy"]["baselineCurrentA"][name]
     rail_inputs.append({**r, "requiredMaximumV": 1.95 if name == "VCCL" else 1.16,
                         "currentA": current, "sourceCaps": source_caps, "loadCaps": load_caps,
+                        "reserveBranches": review.get("reserveBranches",{}).get(name,[]),
                         "linkResistanceOhm": r["dcDropWithMeshAllowanceAt3AMV"]/3000})
 
 
@@ -116,6 +118,7 @@ def ripple(r, profile, link_nh, mount_nh, vin, inductance, frequency, harmonics=
                 admittance += 1/(esr+1j*w*(esl+mount_nh*1e-9)+1/(1j*w*cap))
             return 1/admittance
         z0, z1 = impedance(r["sourceCaps"]), impedance(r["loadCaps"])
+        z1=1/(1/z1+sum(1/(rb+1j*w*lb+1/(1j*w*cb)) for cb,rb,lb in reserve_values(r)))
         zl = r["linkResistanceOhm"]+1j*w*link_nh*1e-9
         cn = delta_i*(np.exp(-2j*np.pi*h*duty)-1)/((2*np.pi*h)**2*duty*(1-duty))
         src = z0*(zl+z1)/(z0+zl+z1)
@@ -130,18 +133,25 @@ def ripple(r, profile, link_nh, mount_nh, vin, inductance, frequency, harmonics=
             "loadTroughMV": float(-load.min()*1000), "loadPeakMV": float(load.max()*1000)}
 
 
+def reserve_values(r):
+    result=[]
+    for branch in r.get("reserveBranches",[]):
+        cap = branch["capacitanceF"]*(1-branch["capacitanceToleranceFraction"])*r.get("reserveCapFactor",1)
+        resistance = (branch["seriesResistanceOhm"]*(1+branch["resistorToleranceFraction"])
+            *(1+branch["resistorTcrPpmK"]*1e-6*125)+branch["capacitorEsrOhm"]*r.get("reserveEsrFactor",1)
+            +branch["contactResistanceSensitivityOhm"])
+        esl = r.get("reserveBranchNH",branch["branchInductanceSensitivityNH"])*1e-9
+        result.append((cap,resistance,esl))
+    return result
+
+
 def matrices(r, profile, link_nh, mount_nh, esr_factor=1):
-    c0, e0, l0 = bank(r["sourceCaps"], r["regulatorNominalV"], profile, mount_nh, esr_factor)
-    c1, e1, l1 = bank(r["loadCaps"], r["regulatorNominalV"], profile, mount_nh, esr_factor)
-    resistance = r["linkResistanceOhm"]
-    inductance = link_nh*1e-9+l0+l1
-    # State: capacitor voltages and link current. Inputs: source/load currents
-    # and their slopes. KVL includes bank ESR, ESL and the board resistance.
-    A = np.array([[0,0,-1/c0],[0,0,1/c1],[1/inductance,-1/inductance,-(resistance+e0+e1)/inductance]])
-    B = np.array([[1/c0,0,0,0],[0,-1/c1,0,0],[e0/inductance,e1/inductance,l0/inductance,l1/inductance]])
-    C = np.array([0,1,e1])+l1*A[2]
-    D = np.array([0,-e1,0,-l1])+l1*B[2]
-    return A, B, C, D, dict(C0=c0,C1=c1,R0=e0,R1=e1,L0=l0,L1=l1,Rlink=resistance,Llink=link_nh*1e-9)
+    source = bank(r["sourceCaps"],r["regulatorNominalV"],profile,mount_nh,esr_factor)
+    load = bank(r["loadCaps"],r["regulatorNominalV"],profile,mount_nh,esr_factor)
+    branches=reserve_values(r)
+    A,B,C,D=damped_system(source,load,r["linkResistanceOhm"],link_nh*1e-9,branches)
+    return A,B,C,D,dict(C0=source[0],R0=source[1],L0=source[2],C1=load[0],R1=load[1],L1=load[2],
+        Rlink=r["linkResistanceOhm"],Llink=link_nh*1e-9,reserve=branches)
 
 
 def ramp(t, start, duration):
@@ -159,7 +169,7 @@ def transient(r, profile, link_nh, mount_nh, fraction, delay_us, direction, rise
     rise = rise_ns*1e-9
     # Optimistically fast buck current slew after an assumed detection delay.
     # No actual controller, voltage recovery, package or ground is modeled.
-    slew = ((4.75-r["regulatorNominalV"]) if direction == "up" else r["regulatorNominalV"])/1.2e-6
+    slew = ((r.get("minimumInputAtBuckV",4.75)-r["regulatorMaximumV"]) if direction == "up" else r["regulatorMinimumV"])/1.2e-6
     response_rise = max(rise, di/slew)
     t0 = .25e-6
     end = t0+delay_us*1e-6+response_rise+2e-6
@@ -169,21 +179,27 @@ def transient(r, profile, link_nh, mount_nh, fraction, delay_us, direction, rise
     lr, ld = ramp(t, t0, rise)
     rr, rd = ramp(t, t0+delay_us*1e-6, response_rise)
     U = np.array([initial_load+sign*di*rr, initial_load+sign*di*lr, sign*di*rd, sign*di*ld]).T
-    x = np.array([r["regulatorNominalV"], r["regulatorNominalV"]-params["Rlink"]*initial_load, initial_load])
+    x = initial_state(r["regulatorNominalV"], r["regulatorNominalV"]-params["Rlink"]*initial_load, initial_load,len(params["reserve"]))
     # Exact first-order-hold state transition for each interval. Derivative
     # discontinuities are resolved by the sample-convergence check below.
     dt = t[1]-t[0]
-    aug = np.zeros((11,11))
-    aug[:3,:3] = A
-    aug[:3,3:7] = B
-    aug[3:7,7:11] = np.eye(4)
+    n=A.shape[0]
+    aug = np.zeros((n+8,n+8))
+    aug[:n,:n] = A
+    aug[:n,n:n+4] = B
+    aug[n:n+4,n+4:n+8] = np.eye(4)
     E = expm(aug*dt)
     y = np.empty(len(t))
+    reserve_peak=np.zeros(len(params["reserve"]));reserve_energy=np.zeros(len(params["reserve"]))
     for k in range(len(t)):
         y[k] = C@x+D@U[k]
+        if len(reserve_peak):
+            ib=x[3+len(reserve_peak):]
+            reserve_peak=np.maximum(reserve_peak,np.abs(ib))
+            reserve_energy += ib**2*dt*np.array([b["seriesResistanceOhm"] for b in r["reserveBranches"]])
         if k+1 < len(t):
             z = E@np.r_[x,U[k],(U[k+1]-U[k])/dt]
-            x = z[:3]
+            x = z[:n]
     initial_v = r["regulatorNominalV"]-params["Rlink"]*initial_load
     final_load = initial_load+sign*di
     final_static = r["regulatorNominalV"]-params["Rlink"]*final_load
@@ -193,14 +209,16 @@ def transient(r, profile, link_nh, mount_nh, fraction, delay_us, direction, rise
               "stepFractionOfSelectedCurrent":fraction,
               **({"stepFractionOfPDMaximum":fraction} if loads is None else {}),
               "currentBasis":current_label,"stepA":di,"initialCurrentA":initial_load,"finalCurrentA":final_load,
-              "direction":direction,"assumedDelayUS":delay_us,"loadRiseNS":rise_ns,"assumedCurrentRiseUS":response_rise*1e6,
+              "direction":direction,"assumedDelayUS":delay_us,"loadRiseNS":rise_ns,"assumedCurrentRiseUS":response_rise*1e6,"minimumInputAtBuckV":r.get("minimumInputAtBuckV",4.75),
               "initialNominalPinV":initial_v,"finalNominalStaticPinV":final_static,
               "nominalMinimumV":float(y.min()),"nominalMaximumV":float(y.max()),
               "lowToleranceMinimumV":float(low_corner.min()),"highToleranceMaximumV":float(high_corner.max()),
               "extraUndershootBelowFinalStaticMV":float(max(0,final_static-y.min())*1000),
               "droopFromInitialMV":float((initial_v-y.min())*1000),
               "overshootFromInitialMV":float((y.max()-initial_v)*1000),
-              "effectiveCapacitanceUF":(params["C0"]+params["C1"])*1e6,
+              "effectiveCapacitanceUF":(params["C0"]+params["C1"]+sum(b[0] for b in params["reserve"]))*1e6,
+              "reserveBranches":params["reserve"],"reservePeakCurrentA":reserve_peak.tolist(),
+              "reserveResistorEnergyJ":reserve_energy.tolist(),
               "lowCornerMarginBeforeRippleMV":float((low_corner.min()-r["minimumRequiredV"])*1000),
               "highCornerMarginBeforeRippleMV":float((r["requiredMaximumV"]-high_corner.max())*1000)}
     if return_wave:
@@ -215,6 +233,14 @@ transient_cases = [transient(r,p,link,mount,fraction,delay,direction) for r,p,li
     rail_inputs,profiles,[1,5,20],[.2,1],[.1,.25,.5,1],[0,.2,.5,1,2], ["up","down"])]
 edge_cases = [transient(r,"low_ac_sensitivity",5,1,.5,.5,direction,rise_ns=rise,esr_factor=esr)
               for r,direction,rise,esr in itertools.product(rail_inputs,["up","down"],[50,200,1000,10000],[.5,2])]
+reserve_cases=[]
+for r in rail_inputs:
+    if not r.get("reserveBranches"): continue
+    for cap,esr,nh,direction in itertools.product([.8,1],[0,1,2],[2,5,10,20],["up","down"]):
+        modified={**r,"reserveCapFactor":cap,"reserveEsrFactor":esr,"reserveBranchNH":nh}
+        c=transient(modified,"low_ac_sensitivity",5,1,.5,.5,direction)
+        c.update(reserveCapFactor=cap,reserveEsrFactor=esr,reserveBranchNH=nh)
+        reserve_cases.append(c)
 guardband_cases=[]
 for r in rail_inputs:
     guarded={**r,"currentA":review["bridgeCurrentProxy"]["research"]["pdxProxy"]["roundedGuardbandCaseA"][r["rail"]]}
@@ -230,7 +256,7 @@ for r in rail_inputs:
     nominal_transient = [transient(r,"low_ac_sensitivity",5,1,.5,.5,d) for d in ["up","down"]]
     trough = max(c["loadTroughMV"] for c in rs)
     peak = max(c["loadPeakMV"] for c in rs)
-    for c in transient_cases+edge_cases+guardband_cases+nominal_transient:
+    for c in transient_cases+edge_cases+reserve_cases+guardband_cases+nominal_transient:
         if c["rail"] == r["rail"]:
             c["lowCornerMarginWithRippleMV"] = c["lowCornerMarginBeforeRippleMV"]-trough
             c["highCornerMarginWithRippleMV"] = c["highCornerMarginBeforeRippleMV"]-peak
@@ -249,13 +275,13 @@ checks = []
 for r in rail_inputs:
     A,B,C,D,p = matrices(r,"low_ac_sensitivity",5,1)
     i = r["currentA"]
-    x = np.array([r["regulatorNominalV"],r["regulatorNominalV"]-p["Rlink"]*i,i])
+    x = initial_state(r["regulatorNominalV"],r["regulatorNominalV"]-p["Rlink"]*i,i,len(p["reserve"]))
     derivative = A@x+B@np.array([i,i,0,0])
     residual = float(np.max(np.abs(derivative)))
     checks.append({"name":r["rail"]+" DC equilibrium", "maxStateDerivative":residual,"passed":residual<1e-5})
     drive=np.array([i*.8,i*.3,1e5,-2e5])
     dx=A@x+B@drive
-    error=abs(p["C0"]*dx[0]+p["C1"]*dx[1]-(drive[0]-drive[1]))
+    error=abs(p["C0"]*dx[0]+p["C1"]*dx[1]+sum(b[0]*dx[2+k] for k,b in enumerate(p["reserve"]))-(drive[0]-drive[1]))
     checks.append({"name":r["rail"]+" capacitor charge conservation","currentBalanceErrorA":float(error),"passed":bool(error<1e-10)})
     a = transient(r,"low_ac_sensitivity",5,1,.5,.5,"up",samples_per_us=200)
     b = transient(r,"low_ac_sensitivity",5,1,.5,.5,"up",samples_per_us=800)
@@ -271,6 +297,7 @@ case,t,y,U,p = transient(selected,"low_ac_sensitivity",5,1,.5,.5,"up",samples_pe
 def pwl(column):
     # Preserve the original response breakpoints and sample interpolation.
     return "PWL("+" ".join(f"{ti:.12g} {ui:.12g}" for ti,ui in zip(t,column))+")"
+reserve_deck="\n".join(f"RB{k} load r{k} {rb:.15g}\nLB{k} r{k} c{k} {lb:.15g} IC=0\nCB{k} c{k} 0 {cb:.15g} IC={case['initialNominalPinV']:.15g}" for k,(cb,rb,lb) in enumerate(p['reserve']))
 deck = f"""VDD passive first-response cross-check (no regulator model)
 Isource 0 source {pwl(U[:,0])}
 Iload load 0 {pwl(U[:,1])}
@@ -282,6 +309,7 @@ C0 cc0 0 {p['C0']:.15g} IC={selected['regulatorNominalV']:.15g}
 R1 load cs1 {p['R1']:.15g}
 L1 cs1 cc1 {p['L1']:.15g} IC=0
 C1 cc1 0 {p['C1']:.15g} IC={case['initialNominalPinV']:.15g}
+{reserve_deck}
 .options reltol=1e-7 abstol=1e-10 vntol=1e-9 method=gear
 .tran 1n {np.floor(t[-1]/1e-7)*1e-7:.10g} 0 1n UIC
 .end
@@ -316,8 +344,9 @@ limitations = [
     "Samsung curves are typical at their stated measurement conditions. Multiplying DC-bias, 10 mV AC, tolerance and temperature factors is a sensitivity construction, not a guaranteed joint capacitor model. Low AC amplitude below 10 mV is outside the published curve.",
     "Switching frequency 2.25–2.75 MHz and inductor 0.72–1.2 uH are sensitivity assumptions. They are not guaranteed switching-frequency limits.",
     "Interconnect inductance 1–20 nH and mounting inductance 0.2–1 nH per capacitor are assumed, not extracted. The 80 C board resistance and mesh allowance come from the previous DC analysis; ground and package losses remain excluded.",
-    "The transient network reduces each physical capacitor bank to one series RLC using low-frequency moments and typical ESR at 2.5 MHz. ESR x0.5/x2 and edge-rate cases are separate sensitivities. Distributed branch antiresonance and unequal ball currents remain unmodeled.",
-    "Transient source current starts after a prescribed 0–2 us delay, then catches up at the ideal maximum buck slew with a 1.2 uH inductor. This is optimistic after the assumed delay, not a TPS62903 transfer function. It predicts a conditional first dip/peak only; the apparent later offset is not a voltage recovery prediction.",
+    "Damped reserve branches retain separate RLC states. Their 6/9 mOhm contact and 5 nH loop values are assumptions. ESR specifications apply at stated measurement conditions; temperature, aging, frequency and layout require additional sensitivity and measurements.",
+    "The transient network reduces each physical ceramic capacitor bank to one series RLC using low-frequency moments and typical ESR at 2.5 MHz. ESR x0.5/x2 and edge-rate cases are separate sensitivities. Distributed branch antiresonance and unequal ball currents remain unmodeled.",
+    "Transient source current starts after a prescribed 0–2 us delay, then catches up at the ideal maximum buck slew with a 1.2 uH inductor. When supplied, the 5 V branch DC bound reduces the minimum input; slow voltage-tolerance corners bound each slew direction. This is optimistic after the assumed delay, not a TPS62903 transfer function. It predicts a conditional first dip/peak only; the apparent later offset is not a voltage recovery prediction.",
     "Minimum and maximum voltage corners are evaluated separately. Ripple phase is conservatively aligned with the transient extremum. No pass fraction is a probability.",
     "No startup, short circuit, thermal qualification, complete SI/BER simulation or hardware measurement is added by this analysis."
 ]
@@ -326,14 +355,14 @@ result = {"sourceFile":review["sourceFile"],"sourceSha256":sha,"dateLocal":revie
           "closedLoopValidated":False,"currentResearchFile":loads['currentResearchFile'] if loads else review["bridgeCurrentProxy"]["researchFile"],
           "currentAssumptions":{"label":current_label,"file":str(loads_path.relative_to(ROOT)) if loads_path else None,
           "rails":loads['rails'] if loads else {r['rail']:{'designCurrentA':r['currentA']} for r in rail_inputs}},
-          "summary":summaries,"capacitanceCases":[{"rail":r["rail"],"profile":profile,
+          "summary":summaries,"reserveBranches":review.get("reserveBranches",{}),"capacitanceCases":[{"rail":r["rail"],"profile":profile,
           "sourceUF":bank(r["sourceCaps"],r["regulatorNominalV"],profile,1)[0]*1e6,
           "loadUF":bank(r["loadCaps"],r["regulatorNominalV"],profile,1)[0]*1e6} for r,profile in itertools.product(rail_inputs,profiles)],
-          "rippleCases":ripple_cases,"transientCases":transient_cases,"edgeAndEsrCases":edge_cases,"guardbandCases":guardband_cases,"numericChecks":checks,
+          "rippleCases":ripple_cases,"transientCases":transient_cases,"edgeAndEsrCases":edge_cases,"reserveSensitivityCases":reserve_cases,"guardbandCases":guardband_cases,"numericChecks":checks,
           "limitations":limitations,"references":[{"title":"TI TPS62903 datasheet","url":"https://www.ti.com/lit/ds/symlink/tps62903.pdf"},
           {"title":"TI TPS62903 EVM user guide","url":"https://www.ti.com/lit/ug/snvu745a/snvu745a.pdf"},
           *[{"title":k,"url":v["url"]} for k,v in curves.items()]],
-          "inputSha256":{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),curves_path,board_path,review_path,ROOT/review["bridgeCurrentProxy"]["researchFile"],*([loads_path, ROOT/loads['currentResearchFile']] if loads_path else [])]}}
+          "inputSha256":{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),curves_path,Path(__file__).with_name("damped_bank.py"),board_path,review_path,ROOT/review["bridgeCurrentProxy"]["researchFile"],*([loads_path, ROOT/loads['currentResearchFile']] if loads_path else [])]}}
 (OUT/"results.json").write_text(json.dumps(result,indent=2)+"\n")
 print(json.dumps({"sourceSha256":sha,"summary":summaries,"capacitanceCases":result["capacitanceCases"],"numericChecks":checks},indent=2))
 assert all(c["passed"] for c in checks), "Numeric control failed"

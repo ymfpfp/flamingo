@@ -27,7 +27,7 @@ const scopes = {
   pdn: {audits: [auditPowerDistribution], python: ["power-distribution/check_layout.py"]},
   vcch: {audits: [auditVcchRouting], python: ["power-distribution/check_vcch.py"]},
   atx5v: {audits: [auditAtx5vRouting], python: ["power-distribution/check_atx5v.py", "power-distribution/check_atx5v_dc.py"]},
-  slot: {audits: [auditSlotPowerRouting], python: ["power-distribution/check_slot.py", "power-distribution/check_slot_dc.py"]},
+  slot: {audits: [auditSlotPowerRouting], python: ["power-distribution/check_slot.py", "power-distribution/check_slot_dc.py", "power-distribution/check_3v3_dc.py"]},
   vbus: {audits: [auditVbusRouting], python: ["power-distribution/check_vbus.py"]},
   grounds: {audits: [auditGroundReturns], python: ["power-distribution/check_ground_returns.py"]},
 };

@@ -13,9 +13,10 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'simulations/pcie-tx'))
 from copper_geometry import copper_objects
 
-def audit(j, isolation_regions=None):
+def audit(j, isolation_regions=None, *, stack=None):
     if isinstance(j,dict): j=j['circuitJson']
-    stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
+    if stack is None:
+        stack=json.loads((ROOT/'manufacturing/stackup/selected.json').read_text())
     profile=stack['impedanceProfiles'][0]
     width=profile['calculatedTraceWidthMm']; gap=profile['calculatedPairGapMm']
     required=8*stack['dielectrics'][0]['thicknessMm']

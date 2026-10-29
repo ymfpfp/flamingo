@@ -1,0 +1,30 @@
+{
+  "authorized": true,
+  "reason": "User requested in-stock component replacements and verification. Preserve 10 ppm VDD feedback precision with a 0603 top resistor. Only its three feedback connections and the bottom resistor ground contact may change.",
+  "traceChanges": [
+    {
+      "name": "BUCK_VDD_FB_SENSE",
+      "before": "ec990a8154bd2cac33278fd5126863c127d9b08e8d20361e610cdc9878fda9bb",
+      "after": "ac4eb5a930458dd1e0a9296b5d21604d8b7eed4e55becb8b0e1acb149ba46fba",
+      "reason": "Adapt only local feedback and ground contacts for the in-stock precision resistors; preserve existing widths and quiet routing."
+    },
+    {
+      "name": "BUCK_VDD_FB_INPUT",
+      "before": "b8e8b16371bbcd6ef67fe1b1c031d1b19340e6749d92621ea5e6df88e6fc638d",
+      "after": "8cbd0c8bc9d39ed10006b3e8d8e7be493c33495fe9384d17de26f81246b94004",
+      "reason": "Adapt only local feedback and ground contacts for the in-stock precision resistors; preserve existing widths and quiet routing."
+    },
+    {
+      "name": "BUCK_VDD_FB_DIVIDER",
+      "before": "bf3dbe2db34afd55c31953848d4e3573a8c9746508eddfb37ae94027fbe736f2",
+      "after": "4610d2e7732a371cb667d749219dafdbcb001ee010e32d77c51cc63d5a555ac3",
+      "reason": "Adapt only local feedback and ground contacts for the in-stock precision resistors; preserve existing widths and quiet routing."
+    },
+    {
+      "name": "BUCK_VDD_GND_FBB",
+      "before": "285a940a37f659f51130421fbc9c8422b4f0a439bdef1d1008a2be6365767d13",
+      "after": "e618da263fa65d4fba18f332a04ed630c86a66b13e3f9c8c5d68e3273f67a917",
+      "reason": "Adapt only local feedback and ground contacts for the in-stock precision resistors; preserve existing widths and quiet routing."
+    }
+  ]
+}

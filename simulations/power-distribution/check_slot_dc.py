@@ -38,7 +38,7 @@ def solve(raw,case,step,diagnostic_dir=None,*,layer_thickness_mm=None,via_conduc
    voltage=np.zeros(entry['size']);voltage[entry['free']]=entry['factor'].solve(current[entry['free']])
    drops={name:float(-voltage[nodes].min()*1000) for name,nodes in entry['loadNodes'].items()}
    return dict(gridMm=step,meshNodes=entry['meshNodes'],dropMV=max(drops.values()),terminalsMV=drops,
-    meshReuse=dict(cacheHit=True,coldVsReusedFactorizationErrorMV=entry['validationErrorMV']))
+    platedHoleBarrels=entry['platedHoleBarrels'],meshReuse=dict(cacheHit=True,coldVsReusedFactorizationErrorMV=entry['validationErrorMV']))
  j,sc,sp,pp,st,vias,pours,copper,nets,root,via_net,port=model(raw);n=nets[rail];maps={};offset=0;rows=[];cols=[];data=[]
  holes=unary_union([Point(e['x'],e['y']).buffer(e['hole_diameter']/2,quad_segs=24) for e in j if e['type'] in ['pcb_via','pcb_plated_hole'] and 'hole_diameter' in e])
  for layer,t in thickness.items():
@@ -52,8 +52,15 @@ def solve(raw,case,step,diagnostic_dir=None,*,layer_thickness_mm=None,via_conduc
     if index[ry,rx]>=0:near.append((math.hypot(xs[rx]-x,ys[ry]-y),index[ry,rx]))
   if not near or min(near)[0]>pitch*1.6:return None
   return int(min(near)[1])
- for v in vias.values():
-  if via_net(v)!=n:continue
+ # Header and connector barrels also conduct between layers. Omitting them
+ # falsely disconnects branches that return through an unpopulated header.
+ plated_holes=[h for h in j if h['type']=='pcb_plated_hole'
+  and h.get('pcb_port_id') in pp
+  and root(pp[h['pcb_port_id']]['source_port_id'])==n]
+ if any(h.get('shape')!='circle' or 'hole_diameter' not in h or 'outer_diameter' not in h for h in plated_holes):
+  raise ValueError('DC model requires circular plated holes with explicit diameters')
+ barrels=[v for v in vias.values() if via_net(v)==n]+plated_holes
+ for v in barrels:
   radius=(v['hole_diameter']+v['outer_diameter'])/4
   for dx,dy in [(radius,0),(-radius,0),(0,radius),(0,-radius)]:
    touching=[(l,node(l,v['x']+dx,v['y']+dy)) for l in maps if l in v['layers']];touching=[(l,a) for l,a in touching if a is not None]
@@ -79,14 +86,15 @@ def solve(raw,case,step,diagnostic_dir=None,*,layer_thickness_mm=None,via_conduc
   factor=splu(matrix[free][:,free].tocsc())
   error=float(np.max(np.abs(factor.solve(current[free])-voltage[free]))*1000)
   if error>=1e-8:raise ValueError('Cold and reused matrix factorizations disagree')
-  _MESH_CACHE[cache_key]=dict(size=offset,free=free,loadNodes=loadNodes,factor=factor,meshNodes=int(active.sum()),validationErrorMV=error)
+  _MESH_CACHE[cache_key]=dict(size=offset,free=free,loadNodes=loadNodes,factor=factor,meshNodes=int(active.sum()),validationErrorMV=error,platedHoleBarrels=len(plated_holes))
   reuse_info=dict(meshReuse=dict(cacheHit=False,coldVsReusedFactorizationErrorMV=error))
  if diagnostic_dir is not None:
   diagnostic_dir=Path(diagnostic_dir);diagnostic_dir.mkdir(parents=True,exist_ok=True)
   for layer,(index,shape,xs,ys,pitch) in maps.items():
    drop=np.full(index.shape,np.nan);selected=index>=0;drop[selected]=-voltage[index[selected]]*1000
    np.savez_compressed(diagnostic_dir/f'{rail}-{layer}-{step:g}.npz',x=xs,y=ys,drop_mv=drop)
- return dict(gridMm=step,meshNodes=int(active.sum()),dropMV=max(drops.values()),terminalsMV=drops,**reuse_info)
+ return dict(gridMm=step,meshNodes=int(active.sum()),dropMV=max(drops.values()),terminalsMV=drops,
+  platedHoleBarrels=len(plated_holes),**reuse_info)
 if __name__=='__main__':
  import argparse
  parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('--output',default=str(ROOT/'dist/slot-power-routing/dc-audit.json'));parser.add_argument('--diagnostic-dir',default=os.environ.get('SLOT_DC_DIAGNOSTIC_DIR'));args=parser.parse_args()
@@ -101,5 +109,5 @@ if __name__=='__main__':
   conductor=by[source]['withMeshAllowanceMV']+by[output]['withMeshAllowanceMV']
   channels.append(dict(rail=suffix,mosfet=part,rdsTestGateV=selected['rdsTestGateV'],currentA=amps,conductorUpperDropMV=conductor,mosfetDrop25CMaxRdsMV=amps*rds*1000,mosfetDissipation25CMaxRdsW=amps*amps*rds))
  stack_file=ROOT/'manufacturing/stackup/selected.json'
- report=dict(status='screen-completed; qualification-open',results=results,channels=channels,copperTemperatureC=80,viaPlatingAssumedMm=PLATING,sourceFile=str(file),sourceSha256=hashlib.sha256(raw).hexdigest(),stackupFile=str(stack_file),stackupCode=STACK['code'],stackupSha256=hashlib.sha256(stack_file.read_bytes()).hexdigest(),layerCopperMm={l['tscircuitLayer']:l['thicknessMm'] for l in STACK['copperLayers']},scope='Actual top/L3/L4/bottom copper and via barrels; equal current per physical switch-source pad and slot-power contact. Input and output solved separately; MOSFET 25 C maximum-Rds loss stated separately. Assumed 5.5 A / 3 A individual rail envelopes are not simultaneous permission to exceed the 75 W combined card budget.',limitations='No voltage pass/fail inferred from unknown ATX source/cable loss or unknown bridge VCCH consumption. Connector plated-hole barrels are omitted from vertical conduction; explicit via barrels provide the modeled layer connections. No ground-return, hot MOSFET, thermal, startup, fault, AC or SOA qualification; fixed source voltages and equal pad currents are model assumptions.')
+ report=dict(status='screen-completed; qualification-open',results=results,channels=channels,copperTemperatureC=80,viaPlatingAssumedMm=PLATING,sourceFile=str(file),sourceSha256=hashlib.sha256(raw).hexdigest(),stackupFile=str(stack_file),stackupCode=STACK['code'],stackupSha256=hashlib.sha256(stack_file.read_bytes()).hexdigest(),layerCopperMm={l['tscircuitLayer']:l['thicknessMm'] for l in STACK['copperLayers']},scope='Actual top/L3/L4/bottom copper and via barrels; equal current per physical switch-source pad and slot-power contact. Input and output solved separately; MOSFET 25 C maximum-Rds loss stated separately. Assumed 5.5 A / 3 A individual rail envelopes are not simultaneous permission to exceed the 75 W combined card budget.',limitations='No voltage pass/fail inferred from unknown ATX source/cable loss or unknown bridge VCCH consumption. Circular connector plated-hole barrels are included in vertical conduction. No ground-return, hot MOSFET, thermal, startup, fault, AC or SOA qualification; fixed source voltages and equal pad currents are model assumptions.')
  output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(report,indent=2))
